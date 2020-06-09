@@ -1,67 +1,59 @@
+# This file is a template, and might need editing before it works on your project.
+# Read more about this script on this blog post https://about.gitlab.com/2018/10/24/setting-up-gitlab-ci-for-android-projects/, by Jason Lenny
+# If you are interested in using Android with FastLane for publishing take a look at the Android-Fastlane template.
+
+image: openjdk:8-jdk
+
+variables:
+  ANDROID_COMPILE_SDK: "28"
+  ANDROID_BUILD_TOOLS: "28.0.2"
+  ANDROID_SDK_TOOLS: "4333796"
+
+before_script:
+  # - apt-get --quiet update --yes
+  # - apt-get --quiet install --yes wget tar unzip lib32stdc++6 lib32z1
+  - wget --quiet --output-document=android-sdk.zip https://dl.google.com/android/repository/sdk-tools-linux-${ANDROID_SDK_TOOLS}.zip
+  - unzip -d android-sdk-linux android-sdk.zip
+  - echo y | android-sdk-linux/tools/bin/sdkmanager "platforms;android-${ANDROID_COMPILE_SDK}" >/dev/null
+  - echo y | android-sdk-linux/tools/bin/sdkmanager "platform-tools" >/dev/null
+  - echo y | android-sdk-linux/tools/bin/sdkmanager "build-tools;${ANDROID_BUILD_TOOLS}" >/dev/null
+  - export ANDROID_HOME=$PWD/android-sdk-linux
+  - export PATH=$PATH:$PWD/android-sdk-linux/platform-tools/
+  - chmod +x ./gradlew
+  # temporarily disable checking for EPIPE error and use yes to accept all licenses
+  - set +o pipefail
+  - yes | android-sdk-linux/tools/bin/sdkmanager --licenses
+  - set -o pipefail
+
 stages:
-  - environment
   - build
   - test
 
-.updateContainerJob:
-  image: docker:stable
-  stage: environment
-  services:
-    - docker:dind
-  script:
-    - docker login -u 09bc805c -p $CI_JOB_TOKEN $CI_REGISTRY
-    - docker pull $CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG || true
-    - docker build --cache-from $CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG -t $CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG .
-    - docker push $CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG
-
-updateContainer:
-  extends: .updateContainerJob
-  only:
-    changes:
-      - Dockerfile
-
-ensureContainer:
-  extends: .updateContainerJob
-  allow_failure: true
-  before_script:
-    - "mkdir -p ~/.docker && echo '{\"experimental\": \"enabled\"}' > ~/.docker/config.json"
-    - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN $CI_REGISTRY
-    # Skip update container `script` if the container already exists
-    # via https://gitlab.com/gitlab-org/gitlab-ce/issues/26866#note_97609397 -> https://stackoverflow.com/a/52077071/796832
-    - docker manifest inspect $CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG > /dev/null && exit || true
-  except:
-    changes:
-      - Dockerfile
-
-
-.build_job:
-  image: $CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG
+lintDebug:
   stage: build
-  before_script:
-    - chmod +x gradlew
-    - "export VERSION_CODE=$(($CI_PIPELINE_IID)) && echo $VERSION_CODE"
-    - "export VERSION_SHA=`echo ${CI_COMMIT_SHA:0:8}` && echo $VERSION_SHA"
+  script:
+    - ./gradlew -Pci --console=plain :app:lintDebug -PbuildDir=lint
+  tags:
+    - dalfcs_gitlab_docker_ci
+
+assembleDebug:
+  stage: build
+  script:
+    - ./gradlew assembleDebug
   artifacts:
     paths:
-    - app/build/outputs
+      - app/build/outputs/
+  tags:
+    - dalfcs_gitlab_docker_ci
 
-buildDebug:
-  extends: .build_job
-  script:
-    - bundle exec fastlane buildDebug
-
-buildRelease:
-  extends: .build_job
-  script:
-    - bundle exec fastlane buildRelease
-  environment:
-    name: production
-
-testDebug:
-  image: $CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG
+unit_tests:
   stage: test
-  dependencies:
-    - buildDebug
   script:
-    - chmod +x gradlew  
-    - bundle exec fastlane test
+    - ./gradlew test
+  artifacts:
+    when: always
+    expire_in: 4 days
+    paths:
+      - app/build/reports/tests/
+  tags:
+    - dalfcs_gitlab_docker_ci
