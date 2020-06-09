@@ -1,4 +1,4 @@
-package com.CSCI3130.gardenApp;
+package com.CSCI3130.gardenapp;
 
 import androidx.test.espresso.action.ViewActions;
 import androidx.test.espresso.matcher.ViewMatchers;
@@ -19,8 +19,8 @@ import static org.hamcrest.core.AllOf.allOf;
 public class EspressoTests {
 
     @Rule
-    public ActivityTestRule<MainActivity> mainActivityTestRule
-            = new ActivityTestRule<>(MainActivity.class);
+    public ActivityTestRule<TaskViewList> taskViewListTestRule
+            = new ActivityTestRule<>(TaskViewList.class);
 
     public static RecyclerViewMatcher withRecyclerView(final int recyclerViewId) {
         return new RecyclerViewMatcher(recyclerViewId);

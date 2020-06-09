@@ -5,13 +5,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:showIn = "@layout/activity_main"
-    tools:context = ".MainActivity">
+    tools:context = ".TaskViewList">
 
     <include
         android:id="@+id/toolbar"
         layout="@layout/toolbar" />
 
-    <android.support.v7.widget.RecyclerView
+    <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycleview_tasks"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

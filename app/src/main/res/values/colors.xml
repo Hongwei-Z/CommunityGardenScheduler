@@ -4,6 +4,9 @@
     <color name="colorPrimaryDark">#5A9E42</color>
     <color name="colorAccent">#D81B60</color>
 
+    <color name="colorCardBackground">#C4C4C4</color>
+    <color name="colorUnselected">#5E5E5E</color>
+
     <color name="colorPriority">#000000</color>
     <color name="colorPriority1">#DC0000</color>
     <color name="colorPriority2">#F2994A</color>

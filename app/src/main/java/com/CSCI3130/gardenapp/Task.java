@@ -1,16 +1,13 @@
-package com.CSCI3130.gardenApp;
+package com.CSCI3130.gardenapp;
 
 public class Task {
     private String name;
     private String description;
-    private String priority;
+    private int priority;
     private String user;
     private String date;
 
-    public Task() {
-    }
-
-    public Task(String name, String description, String priority, String user, String date) {
+    Task(String name, String description, int priority, String user, String date) {
         this.name = name;
         this.description = description;
         this.priority = priority;
@@ -34,11 +31,11 @@ public class Task {
         this.description = description;
     }
 
-    public String getPriority() {
+    public int getPriority() {
         return priority;
     }
 
-    public void setPriority(String priority) {
+    public void setPriority(int priority) {
         this.priority = priority;
     }
 
