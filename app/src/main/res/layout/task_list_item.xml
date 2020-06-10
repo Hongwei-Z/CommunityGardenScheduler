@@ -76,14 +76,6 @@
             android:background="@color/colorPriority1"
             tools:ignore="HardcodedText" />
 
-        <Button
-            android:id="@+id/registerButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_centerInParent="true"
-            android:text="Register for Task" />
-
     </RelativeLayout>
 
 </androidx.cardview.widget.CardView>

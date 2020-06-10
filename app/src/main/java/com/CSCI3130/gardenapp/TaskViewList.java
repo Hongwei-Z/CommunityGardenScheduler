@@ -1,6 +1,8 @@
 package com.CSCI3130.gardenapp;
 
 import android.os.Bundle;
+import android.util.Log;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -11,7 +13,7 @@ public class TaskViewList<task> extends AppCompatActivity {
 
     private ArrayList<Task> allTasks = new ArrayList<>();
     private RecyclerView recyclerView;
-    private RecyclerView.Adapter taskAdapter;
+    private TaskAdapter taskAdapter;
     private RecyclerView.LayoutManager layoutManager;
 
     @Override
@@ -28,6 +30,14 @@ public class TaskViewList<task> extends AppCompatActivity {
         allTasks = populateTasks();
         taskAdapter = new TaskAdapter(allTasks);
         recyclerView.setAdapter(taskAdapter);
+
+        taskAdapter.setOnItemClickListener(new TaskAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(int position) {
+                changeTaskTitle(position, "Selected");
+
+            }
+        });
     }
 
     //hardcoded until firebase is set up
@@ -43,6 +53,11 @@ public class TaskViewList<task> extends AppCompatActivity {
         taskList.add(new Task("Water cucumber", "water them a lot", 3, "", "June 16th, 2020"));
         taskList.add(new Task("Add compost", "", 1, "Bill", "June 10th, 2020"));
         return taskList;
+    }
+
+    public void changeTaskTitle(int position, String name) {
+        allTasks.get(position).setName(name);
+        taskAdapter.notifyItemChanged(position);
     }
 }
 
