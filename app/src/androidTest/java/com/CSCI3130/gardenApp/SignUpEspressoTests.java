@@ -268,34 +268,4 @@ public class SignUpEspressoTests {
                 .check(matches(hasErrorText("Passwords do not match")));
     }
 
-    //test for fully valid case
-    @Test
-    public void valid_test(){
-        onView(withId(R.id.firstNameTxt_signup))
-                .perform(click())
-                .perform(typeText(n));
-        closeSoftKeyboard();
-        onView(withId(R.id.lastNameTxt_signup))
-                .perform(click())
-                .perform(typeText(n));
-        closeSoftKeyboard();
-        onView(withId(R.id.emailTxt_signup))
-                .perform(click())
-                .perform(typeText(v_e));
-        closeSoftKeyboard();
-        onView(withId(R.id.passwordTxt_signup))
-                .perform(click())
-                .perform(typeText(v_p));
-        closeSoftKeyboard();
-        onView(withId(R.id.passwordConfirmTxt_signup))
-                .perform(click())
-                .perform(typeText(v_p));
-        closeSoftKeyboard();
-        onView(withId(R.id.signUpBtn_signup))
-                .perform(click());
-        onView(withId(R.id.signOutBtn_welcome))
-                .check(matches(isDisplayed()));
-    }
-
-
 }
