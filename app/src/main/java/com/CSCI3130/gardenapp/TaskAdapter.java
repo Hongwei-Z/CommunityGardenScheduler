@@ -3,6 +3,7 @@ package com.CSCI3130.gardenapp;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.recyclerview.widget.RecyclerView;
@@ -17,6 +18,7 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskViewHolder
         private TextView date;
         private TextView priority;
         private ImageView userProfile;
+        private Button registerButton;
 
         private TaskViewHolder(View itemView) {
             super(itemView);
@@ -25,6 +27,7 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskViewHolder
             date = itemView.findViewById(R.id.task_date);
             priority = itemView.findViewById(R.id.task_priority);
             userProfile = itemView.findViewById(R.id.task_user_profile);
+            registerButton = itemView.findViewById(R.id.registerButton);
         }
 
         public void setName(String name){
@@ -42,8 +45,12 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskViewHolder
         }
 
         public void setUser(String user){
-            if (user.equals("")) {
+            if (!user.equals("")) {
                 this.userProfile.setImageResource(R.drawable.profile_icon);
+                this.registerButton.setVisibility(itemView.GONE);
+            }
+            else {
+                this.registerButton.setVisibility(itemView.VISIBLE);
             }
         }
     }

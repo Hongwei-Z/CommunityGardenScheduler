@@ -15,6 +15,15 @@ public class Task {
         this.date = date;
     }
 
+    public boolean isOpen() { //returns true if task is not assigned to anyone and is open
+        if (user.equals("")) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+
     public String getName() {
         return name;
     }
