@@ -7,7 +7,7 @@ public class Task {
     private String user;
     private String date;
 
-    Task(String name, String description, int priority, String user, String date) {
+    public Task(String name, String description, int priority, String user, String date) {
         this.name = name;
         this.description = description;
         this.priority = priority;
