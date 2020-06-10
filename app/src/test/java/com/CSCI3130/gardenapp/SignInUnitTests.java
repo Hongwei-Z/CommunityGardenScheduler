@@ -1,6 +1,4 @@
-package com.CSCI3130.gardenApp;
-
-import android.util.Patterns;
+package com.CSCI3130.gardenapp;
 
 import org.junit.Test;
 

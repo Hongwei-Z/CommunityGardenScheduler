@@ -1,11 +1,8 @@
-package com.CSCI3130.gardenApp;
+package com.CSCI3130.gardenapp;
 
 //import android.support.v7.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.renderscript.ScriptGroup;
-import android.util.Log;
-import android.util.Patterns;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;

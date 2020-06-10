@@ -1,4 +1,4 @@
-package com.CSCI3130.gardenApp;
+package com.CSCI3130.gardenapp;
 
 
 import org.junit.Test;

@@ -1,4 +1,4 @@
-package com.CSCI3130.gardenApp;
+package com.CSCI3130.gardenapp;
 
 import android.os.IBinder;
 import android.view.WindowManager;
@@ -27,9 +27,7 @@ public class ToastMatcher extends TypeSafeMatcher<Root> {
         if ((type == WindowManager.LayoutParams.TYPE_TOAST)) {
             IBinder windowToken = rt.getDecorView().getWindowToken();
             IBinder appToken = rt.getDecorView().getApplicationWindowToken();
-            if (windowToken == appToken) {
-                return true;
-            }
+            return windowToken == appToken;
         }
         return false;
     }

@@ -1,11 +1,8 @@
-package com.CSCI3130.gardenApp;
+package com.CSCI3130.gardenapp;
 
 
-import androidx.test.espresso.intent.Intents;
 import androidx.test.rule.ActivityTestRule;
 
-import org.junit.After;
-import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 
