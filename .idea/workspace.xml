@@ -9,21 +9,8 @@
     <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="Show only selected application" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4d31c15d-28d6-4363-b29d-d74e7b2f3cd5" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.gradle/4.10.1/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/4.10.1/fileHashes/fileHashes.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/4.10.1/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/4.10.1/fileHashes/fileHashes.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/4.10.1/javaCompile/classAnalysis.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/4.10.1/javaCompile/classAnalysis.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/4.10.1/javaCompile/javaCompile.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/4.10.1/javaCompile/javaCompile.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/4.10.1/taskHistory/taskHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/4.10.1/taskHistory/taskHistory.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/4.10.1/taskHistory/taskHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/4.10.1/taskHistory/taskHistory.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules/app/app.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/app/app.iml" afterDir="false" />
+    <list default="true" id="4d31c15d-28d6-4363-b29d-d74e7b2f3cd5" name="Default Changelist" comment="add complete dialog&#10;add back button">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/myfirstapp/TaskDetailInfo.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/myfirstapp/TaskDetailInfo.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_main.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_main.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_task_detail_info.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_task_detail_info.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/values/styles.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/values/styles.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -141,7 +128,19 @@
       <option name="presentableId" value="Default" />
       <updated>1591674838576</updated>
     </task>
+    <task id="LOCAL-00001" summary="add complete dialog&#10;add back button">
+      <created>1591803366809</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1591803366809</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="add complete dialog&#10;add back button" />
+    <option name="LAST_COMMIT_MESSAGE" value="add complete dialog&#10;add back button" />
   </component>
   <component name="WindowStateProjectService">
     <state x="444" y="222" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1591684428438">
@@ -159,11 +158,11 @@
     </state>
     <state x="575" y="321" key="AndroidCreateXmlResourceDialog/0.0.1440.900@0.0.1440.900" timestamp="1591676575503" />
     <state x="557" y="336" key="AndroidCreateXmlResourceDialog/0.23.1396.877@0.23.1396.877" timestamp="1591680837204" />
-    <state x="194" y="68" key="CommitChangelistDialog2" timestamp="1591803348028">
+    <state x="194" y="68" key="CommitChangelistDialog2" timestamp="1591803425473">
       <screen x="0" y="23" width="1396" height="877" />
     </state>
     <state x="194" y="68" key="CommitChangelistDialog2/0.23.1395.877@0.23.1395.877" timestamp="1591688137455" />
-    <state x="194" y="68" key="CommitChangelistDialog2/0.23.1396.877@0.23.1396.877" timestamp="1591803348028" />
+    <state x="194" y="68" key="CommitChangelistDialog2/0.23.1396.877@0.23.1396.877" timestamp="1591803425473" />
     <state width="660" height="-40" key="GridCell.Tab.0.bottom" timestamp="1591803348113">
       <screen x="0" y="23" width="1396" height="877" />
     </state>
@@ -184,6 +183,10 @@
       <screen x="0" y="23" width="1396" height="877" />
     </state>
     <state x="291" y="294" key="com.intellij.ide.util.TipDialog/0.23.1396.877@0.23.1396.877" timestamp="1591715071498" />
+    <state x="476" y="385" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1591803417174">
+      <screen x="0" y="23" width="1396" height="877" />
+    </state>
+    <state x="476" y="385" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.23.1396.877@0.23.1396.877" timestamp="1591803417174" />
     <state x="304" y="213" width="670" height="676" key="search.everywhere.popup" timestamp="1591687182942">
       <screen x="0" y="23" width="1396" height="877" />
     </state>
