@@ -4,27 +4,43 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.content.Intent;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 
-public class TaskDetailInfo extends AppCompatActivity {
+public class TaskDetailInfo extends MainActivity {
+
+    private Button completeButton;
+    private Button backlist;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_task_detail_info);
 
-        //go back to task list
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        completeButton = (Button)findViewById(R.id.buttonComplete);
+        completeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                openDialog();
+            }
+        });
+
+        backlist = (Button)findViewById(R.id.backtolistbutton);
+        backlist.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                backtotasklist();
+            }
+        });
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item){
-        int id = item.getItemId();
+    public void openDialog(){
+        CompleteDialog completeDialog = new CompleteDialog();
+        completeDialog.show(getSupportFragmentManager(), "complete dialog");
+    }
 
-        if (id == android.R.id.home){
-            this.finish();
-        }
-
-        return super.onOptionsItemSelected(item);
+    public void backtotasklist(){
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
     }
 }
