@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/TaskID"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_gravity="center"
+    android:background="@color/cardview_dark_background"
+    android:orientation="vertical">
+
+
+    <Button
+        android:id="@+id/EditUpdate"
+        android:layout_width="165dp"
+        android:layout_height="52dp"
+        android:layout_marginLeft="120dp"
+        android:layout_marginTop="595dp"
+        android:background="@color/cardview_light_background"
+        android:text="Update"
+        android:textColor="@android:color/background_dark"
+        android:textSize="24sp" />
+
+    <EditText
+        android:id="@+id/EditDescription"
+        android:layout_width="366dp"
+        android:layout_height="80dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="23dp"
+        android:layout_marginTop="170dp"
+        android:layout_marginRight="23dp"
+        android:background="#FFFFFF"
+        android:hint=" Description"
+        android:textColor="?android:attr/colorForeground"
+        android:textSize="36sp"
+        android:textStyle="italic" />
+
+    <EditText
+        android:id="@+id/EditDueDate"
+        android:layout_width="366dp"
+        android:layout_height="80dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="23dp"
+        android:layout_marginTop="270dp"
+        android:layout_marginRight="23dp"
+        android:background="#FFFFFF"
+        android:hint=" Due Date"
+        android:textColor="?android:attr/colorForeground"
+        android:textSize="36sp"
+        android:textStyle="italic" />
+
+    <EditText
+        android:id="@+id/EditAuth"
+        android:layout_width="366dp"
+        android:layout_height="80dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="23dp"
+        android:layout_marginTop="370dp"
+        android:layout_marginRight="23dp"
+        android:background="#FFFFFF"
+        android:hint=" Author"
+        android:textColor="?android:attr/colorForeground"
+        android:textSize="36sp"
+        android:textStyle="italic" />
+
+    <EditText
+        android:id="@+id/EditLocation"
+        android:layout_width="366dp"
+        android:layout_height="80dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="23dp"
+        android:layout_marginTop="470dp"
+        android:layout_marginRight="23dp"
+        android:background="#FFFFFF"
+        android:hint=" Location"
+        android:textColor="?android:attr/colorForeground"
+        android:textSize="36sp"
+        android:textStyle="italic" />
+
+    <TextView
+        android:id="@+id/textView15"
+        android:layout_width="match_parent"
+        android:layout_height="61dp"
+        android:background="#88EB65" />
+
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="128dp"
+        android:layout_marginTop="7dp"
+        android:text="My Tasks"
+        android:textColor="@android:color/background_dark"
+        android:textSize="36sp"
+        android:textStyle="bold" />
+
+    <Button
+        android:id="@+id/backtodetailbutton"
+        android:layout_width="50dp"
+        android:layout_height="40dp"
+        android:layout_marginLeft="21dp"
+        android:layout_marginTop="67dp"
+        android:text="BACK"
+        android:textSize="10sp" />
+
+    <TextView
+        android:id="@+id/TaskNum"
+        android:layout_width="112dp"
+        android:layout_height="50dp"
+        android:layout_marginLeft="150dp"
+        android:layout_marginTop="100dp"
+        android:text="Task 1"
+        android:textColor="#64CB3F"
+        android:textSize="38sp"
+        android:textStyle="bold" />
+
+
+</RelativeLayout>

@@ -11,6 +11,7 @@ public class TaskDetailInfo extends MainActivity {
 
     private Button completeButton;
     private Button backlist;
+    private Button buttonedit;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +33,14 @@ public class TaskDetailInfo extends MainActivity {
                 backtotasklist();
             }
         });
+
+        buttonedit = (Button)findViewById(R.id.buttonEdit);
+        buttonedit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                openEditTask();
+            }
+        });
     }
 
     public void openDialog(){
@@ -41,6 +50,11 @@ public class TaskDetailInfo extends MainActivity {
 
     public void backtotasklist(){
         Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
+    }
+
+    public void openEditTask(){
+        Intent intent = new Intent(this, edittaskdetails.class);
         startActivity(intent);
     }
 }
