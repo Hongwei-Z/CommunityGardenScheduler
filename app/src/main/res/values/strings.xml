@@ -1,6 +1,10 @@
 <resources>
+<<<<<<< app/src/main/res/values/strings.xml
     <string name="app_name">Garden App</string>
     <string name="user_extra">u</string>
     <string name="task_extra">t</string>
     <string name="position_extra">p</string>
+=======
+    <string name="app_name">Community Garden</string>
+>>>>>>> app/src/main/res/values/strings.xml
 </resources>

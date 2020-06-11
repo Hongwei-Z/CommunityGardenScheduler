@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "28969412071",
+    "firebase_url": "https://csci-3130-garden-app-group-8.firebaseio.com",
+    "project_id": "csci-3130-garden-app-group-8",
+    "storage_bucket": "csci-3130-garden-app-group-8.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:28969412071:android:5b3f4e7b4f50da69170942",
+        "android_client_info": {
+          "package_name": "com.CSCI3130.gardenApp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "28969412071-aefsgabmiog6jsiof5u0ql09e7b9hmhj.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCLSJSOtKs104uBelMskXCkxPAcocK9PoE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "28969412071-aefsgabmiog6jsiof5u0ql09e7b9hmhj.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
