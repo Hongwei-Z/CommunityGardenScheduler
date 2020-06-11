@@ -44,7 +44,15 @@ public class SignUp extends AppCompatActivity {
 
     //on click function for sign up button
     public void signUp_input_onclick(View v){
-        signUp();
+        //get strings from all text fields
+        String firstName = firstNameTxt.getText().toString();
+        String lastName = lastNameTxt.getText().toString();
+        String email = emailTxt.getText().toString();
+        String password = passwordTxt.getText().toString();
+        String passwordConf = passwordConfirmTxt.getText().toString();
+
+        //attempt to sign up
+        signUp(firstName, lastName, email, password, passwordConf);
     }
 
     //function checks if user inputs are valid
@@ -125,16 +133,7 @@ public class SignUp extends AppCompatActivity {
     }
 
     //function signs a user up based on given credentials
-    public void signUp(){
-
-        //get strings from all text fields
-        String firstName = firstNameTxt.getText().toString();
-        String lastName = lastNameTxt.getText().toString();
-        String email = emailTxt.getText().toString();
-        String password = passwordTxt.getText().toString();
-        String passwordConf = passwordConfirmTxt.getText().toString();
-
-        //check that all fields are filled properly
+    public void signUp(String firstName, String lastName, String email, String password, String passwordConf){
 
         //validate sign up information
         if (validSignUpInfo(firstName, lastName, email, password, passwordConf)){

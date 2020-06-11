@@ -29,17 +29,6 @@ public class SignIn extends AppCompatActivity {
     //state listener
     FirebaseAuth.AuthStateListener mAuthStateListener;
 
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-
-        //sets up authorization listener
-        mFirebaseAuth.addAuthStateListener(mAuthStateListener);
-    }
-
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,6 +45,9 @@ public class SignIn extends AppCompatActivity {
 
         //check if anyone is logged in
         checkLoginState();
+
+        //sets up authorization listener
+        mFirebaseAuth.addAuthStateListener(mAuthStateListener);
     }
 
 
@@ -80,7 +72,12 @@ public class SignIn extends AppCompatActivity {
 
     //onclick function for log in button (wrapper)
     public void LogIn_onclick (View v){
-        LogInFirebase();
+        //get text from email/password fields
+        String email = emailTxt.getText().toString();
+        String pass = passwordTxt.getText().toString();
+
+        //attempt to log in
+        LogInFirebase(email, pass);
     }
 
     //onclick function for sign up button
@@ -97,10 +94,8 @@ public class SignIn extends AppCompatActivity {
         if (email.isEmpty()){
             return false;
         }
-        if (!email.isEmpty()){
-            if (!PatternsCompat.EMAIL_ADDRESS.matcher(email).matches()){
-                return false;
-            }
+        if (!PatternsCompat.EMAIL_ADDRESS.matcher(email).matches()){
+            return false;
         }
 
         //check that password isn't empty
@@ -125,11 +120,9 @@ public class SignIn extends AppCompatActivity {
             emailTxt.setError("Please enter your email address");
             emailTxt.requestFocus();
         }
-        if (!email.isEmpty()) {
-            if (!PatternsCompat.EMAIL_ADDRESS.matcher(email).matches()) {
-                emailTxt.setError("Please enter a valid email address");
-                emailTxt.requestFocus();
-            }
+        if (!PatternsCompat.EMAIL_ADDRESS.matcher(email).matches()) {
+            emailTxt.setError("Please enter a valid email address");
+            emailTxt.requestFocus();
         }
 
         //check that password isn't empty and is at least 6 characters long
@@ -147,11 +140,7 @@ public class SignIn extends AppCompatActivity {
     }
 
     //function logs into firebase using given credentials
-    public void LogInFirebase(){
-
-        //get text from email/password fields
-        String email = emailTxt.getText().toString();
-        String pass = passwordTxt.getText().toString();
+    public void LogInFirebase(String email, String pass){
 
         //if inputs are valid, try to sign in
         if (validInputs(email, pass)){

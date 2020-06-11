@@ -24,36 +24,31 @@ public class SignUpEspressoTests {
             = new ActivityTestRule<>(SignUp.class);
 
     //example strings for testing
-    String b = ""; //blank
-    String n = "John"; //valid name
-    String i_e = "arjav@arjav@arjav"; //invalid email
-    String v_e = "arjav@gmail.com"; //valid email
-    String i_p = "fives"; //invalid password
-    String v_p = "password"; //valid password
-    String v_p2 = "passwrd"; //alternate valid password
+    String blank = ""; //blank
+    String valid_name = "John"; //valid name
+    String invalid_email = "arjav@arjav@arjav"; //invalid email
+    String valid_email = "arjav@gmail.com"; //valid email
+    String invalid_password = "fives"; //invalid password
+    String valid_password = "password"; //valid password
+    String valid_password2 = "passwrd"; //alternate valid password
 
     //test for empty first name error
     @Test
     public void empty_fname_test(){
         onView(withId(R.id.firstNameTxt_signup))
-                .perform(click())
-                .perform(typeText(b));
+                .perform(typeText(blank));
         closeSoftKeyboard();
         onView(withId(R.id.lastNameTxt_signup))
-                .perform(click())
-                .perform(typeText(n));
+                .perform(typeText(valid_name));
         closeSoftKeyboard();
         onView(withId(R.id.emailTxt_signup))
-                .perform(click())
-                .perform(typeText(v_e));
+                .perform(typeText(valid_email));
         closeSoftKeyboard();
         onView(withId(R.id.passwordTxt_signup))
-                .perform(click())
-                .perform(typeText(v_p));
+                .perform(typeText(valid_password));
         closeSoftKeyboard();
         onView(withId(R.id.passwordConfirmTxt_signup))
-                .perform(click())
-                .perform(typeText(v_p));
+                .perform(typeText(valid_password));
         closeSoftKeyboard();
         onView(withId(R.id.signUpBtn_signup))
                 .perform(click());
@@ -65,24 +60,19 @@ public class SignUpEspressoTests {
     @Test
     public void empty_lname_test(){
         onView(withId(R.id.firstNameTxt_signup))
-                .perform(click())
-                .perform(typeText(n));
+                .perform(typeText(valid_name));
         closeSoftKeyboard();
         onView(withId(R.id.lastNameTxt_signup))
-                .perform(click())
-                .perform(typeText(b));
+                .perform(typeText(blank));
         closeSoftKeyboard();
         onView(withId(R.id.emailTxt_signup))
-                .perform(click())
-                .perform(typeText(v_e));
+                .perform(typeText(valid_email));
         closeSoftKeyboard();
         onView(withId(R.id.passwordTxt_signup))
-                .perform(click())
-                .perform(typeText(v_p));
+                .perform(typeText(valid_password));
         closeSoftKeyboard();
         onView(withId(R.id.passwordConfirmTxt_signup))
-                .perform(click())
-                .perform(typeText(v_p));
+                .perform(typeText(valid_password));
         closeSoftKeyboard();
         onView(withId(R.id.signUpBtn_signup))
                 .perform(click());
@@ -94,24 +84,19 @@ public class SignUpEspressoTests {
     @Test
     public void empty_email_test(){
         onView(withId(R.id.firstNameTxt_signup))
-                .perform(click())
-                .perform(typeText(n));
+                .perform(typeText(valid_name));
         closeSoftKeyboard();
         onView(withId(R.id.lastNameTxt_signup))
-                .perform(click())
-                .perform(typeText(n));
+                .perform(typeText(valid_name));
         closeSoftKeyboard();
         onView(withId(R.id.emailTxt_signup))
-                .perform(click())
-                .perform(typeText(b));
+                .perform(typeText(blank));
         closeSoftKeyboard();
         onView(withId(R.id.passwordTxt_signup))
-                .perform(click())
-                .perform(typeText(v_p));
+                .perform(typeText(valid_password));
         closeSoftKeyboard();
         onView(withId(R.id.passwordConfirmTxt_signup))
-                .perform(click())
-                .perform(typeText(v_p));
+                .perform(typeText(valid_password));
         closeSoftKeyboard();
         onView(withId(R.id.signUpBtn_signup))
                 .perform(click());
@@ -123,24 +108,19 @@ public class SignUpEspressoTests {
     @Test
     public void invalid_email_test(){
         onView(withId(R.id.firstNameTxt_signup))
-                .perform(click())
-                .perform(typeText(n));
+                .perform(typeText(valid_name));
         closeSoftKeyboard();
         onView(withId(R.id.lastNameTxt_signup))
-                .perform(click())
-                .perform(typeText(n));
+                .perform(typeText(valid_name));
         closeSoftKeyboard();
         onView(withId(R.id.emailTxt_signup))
-                .perform(click())
-                .perform(typeText(i_e));
+                .perform(typeText(invalid_email));
         closeSoftKeyboard();
         onView(withId(R.id.passwordTxt_signup))
-                .perform(click())
-                .perform(typeText(v_p));
+                .perform(typeText(valid_password));
         closeSoftKeyboard();
         onView(withId(R.id.passwordConfirmTxt_signup))
-                .perform(click())
-                .perform(typeText(v_p));
+                .perform(typeText(valid_password));
         closeSoftKeyboard();
         onView(withId(R.id.signUpBtn_signup))
                 .perform(click());
@@ -152,24 +132,19 @@ public class SignUpEspressoTests {
     @Test
     public void empty_pass_test(){
         onView(withId(R.id.firstNameTxt_signup))
-                .perform(click())
-                .perform(typeText(n));
+                .perform(typeText(valid_name));
         closeSoftKeyboard();
         onView(withId(R.id.lastNameTxt_signup))
-                .perform(click())
-                .perform(typeText(n));
+                .perform(typeText(valid_name));
         closeSoftKeyboard();
         onView(withId(R.id.emailTxt_signup))
-                .perform(click())
-                .perform(typeText(v_e));
+                .perform(typeText(valid_email));
         closeSoftKeyboard();
         onView(withId(R.id.passwordTxt_signup))
-                .perform(click())
-                .perform(typeText(b));
+                .perform(typeText(blank));
         closeSoftKeyboard();
         onView(withId(R.id.passwordConfirmTxt_signup))
-                .perform(click())
-                .perform(typeText(v_p));
+                .perform(typeText(valid_password));
         closeSoftKeyboard();
         onView(withId(R.id.signUpBtn_signup))
                 .perform(click());
@@ -181,24 +156,19 @@ public class SignUpEspressoTests {
     @Test
     public void invalid_pass_test(){
         onView(withId(R.id.firstNameTxt_signup))
-                .perform(click())
-                .perform(typeText(n));
+                .perform(typeText(valid_name));
         closeSoftKeyboard();
         onView(withId(R.id.lastNameTxt_signup))
-                .perform(click())
-                .perform(typeText(n));
+                .perform(typeText(valid_name));
         closeSoftKeyboard();
         onView(withId(R.id.emailTxt_signup))
-                .perform(click())
-                .perform(typeText(v_e));
+                .perform(typeText(valid_email));
         closeSoftKeyboard();
         onView(withId(R.id.passwordTxt_signup))
-                .perform(click())
-                .perform(typeText(i_p));
+                .perform(typeText(invalid_password));
         closeSoftKeyboard();
         onView(withId(R.id.passwordConfirmTxt_signup))
-                .perform(click())
-                .perform(typeText(i_p));
+                .perform(typeText(invalid_password));
         closeSoftKeyboard();
         onView(withId(R.id.signUpBtn_signup))
                 .perform(click());
@@ -210,24 +180,19 @@ public class SignUpEspressoTests {
     @Test
     public void empty_pass_conf_test(){
         onView(withId(R.id.firstNameTxt_signup))
-                .perform(click())
-                .perform(typeText(n));
+                .perform(typeText(valid_name));
         closeSoftKeyboard();
         onView(withId(R.id.lastNameTxt_signup))
-                .perform(click())
-                .perform(typeText(n));
+                .perform(typeText(valid_name));
         closeSoftKeyboard();
         onView(withId(R.id.emailTxt_signup))
-                .perform(click())
-                .perform(typeText(v_e));
+                .perform(typeText(valid_email));
         closeSoftKeyboard();
         onView(withId(R.id.passwordTxt_signup))
-                .perform(click())
-                .perform(typeText(v_p));
+                .perform(typeText(valid_password));
         closeSoftKeyboard();
         onView(withId(R.id.passwordConfirmTxt_signup))
-                .perform(click())
-                .perform(typeText(b));
+                .perform(typeText(blank));
         closeSoftKeyboard();
         onView(withId(R.id.signUpBtn_signup))
                 .perform(click());
@@ -239,24 +204,19 @@ public class SignUpEspressoTests {
     @Test
     public void pass_mismatch_test(){
         onView(withId(R.id.firstNameTxt_signup))
-                .perform(click())
-                .perform(typeText(n));
+                .perform(typeText(valid_name));
         closeSoftKeyboard();
         onView(withId(R.id.lastNameTxt_signup))
-                .perform(click())
-                .perform(typeText(n));
+                .perform(typeText(valid_name));
         closeSoftKeyboard();
         onView(withId(R.id.emailTxt_signup))
-                .perform(click())
-                .perform(typeText(v_e));
+                .perform(typeText(valid_email));
         closeSoftKeyboard();
         onView(withId(R.id.passwordTxt_signup))
-                .perform(click())
-                .perform(typeText(v_p));
+                .perform(typeText(valid_password));
         closeSoftKeyboard();
         onView(withId(R.id.passwordConfirmTxt_signup))
-                .perform(click())
-                .perform(typeText(v_p2));
+                .perform(typeText(valid_password2));
         closeSoftKeyboard();
         onView(withId(R.id.signUpBtn_signup))
                 .perform(click());
