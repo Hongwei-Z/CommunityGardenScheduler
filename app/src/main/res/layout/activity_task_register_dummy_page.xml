@@ -8,9 +8,11 @@
 
     <Button
         android:id="@+id/registerButton"
-        android:layout_width="0dp"
+        android:layout_width="88dp"
         android:layout_height="wrap_content"
         android:text="Register"
-        tools:layout_editor_absoluteX="161dp"
-        tools:layout_editor_absoluteY="276dp" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>
