@@ -62,9 +62,9 @@ public class TaskViewList<task> extends AppCompatActivity {
         Task t = allTasks.get(position); //get task from recyclerview
         int LAUNCH_REGISTER_ACTIVITY = 1; //return code is used to differentiate returns from different activites in onActivityResult
         Intent registerTaskActivity = new Intent(TaskViewList.this, TaskRegisterDummyPage.class);
-        registerTaskActivity.putExtra("t", t);
-        registerTaskActivity.putExtra("u", user);
-        registerTaskActivity.putExtra("p", position); //we need to send the position over in order to preserve it and use it to update the task in recyclerview when the activity returns
+        registerTaskActivity.putExtra(getString(R.string.task_extra), t);
+        registerTaskActivity.putExtra(getString(R.string.user_extra), user);
+        registerTaskActivity.putExtra(getString(R.string.position_extra), position); //we need to send the position over in order to preserve it and use it to update the task in recyclerview when the activity returns
         startActivityForResult(registerTaskActivity, LAUNCH_REGISTER_ACTIVITY); //By starting a new activity using this function, the function onActivityResult will be called when the activity finishes
 
     }
@@ -75,8 +75,8 @@ public class TaskViewList<task> extends AppCompatActivity {
 
         if (requestCode == 1) { //if activity finished was TaskRegisterDummyPage
             if (resultCode == Activity.RESULT_OK) { //if data has been sent over properly
-                int pos = data.getIntExtra("p", 1); //get task position
-                Task t = (Task) data.getSerializableExtra("t"); //get task from activity
+                int pos = data.getIntExtra(getString(R.string.position_extra), 1); //get task position
+                Task t = (Task) data.getSerializableExtra(getString(R.string.task_extra)); //get task from activity
                 allTasks.set(pos, t); //replace old task with the updated task
                 taskAdapter.notifyItemChanged(pos); //update recyclerview display
             }
