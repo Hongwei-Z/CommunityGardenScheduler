@@ -17,6 +17,8 @@ before_script:
   - echo y | android-sdk-linux/tools/bin/sdkmanager "platforms;android-${ANDROID_COMPILE_SDK}" >/dev/null
   - echo y | android-sdk-linux/tools/bin/sdkmanager "platform-tools" >/dev/null
   - echo y | android-sdk-linux/tools/bin/sdkmanager "build-tools;${ANDROID_BUILD_TOOLS}" >/dev/null
+  - curl -sL https://firebase.tools | bash
+  - firebase emulators:start --only database --token ${FIREBASE_TOKEN}
   - export ANDROID_HOME=$PWD/android-sdk-linux
   - export PATH=$PATH:$PWD/android-sdk-linux/platform-tools/
   - chmod +x ./gradlew
