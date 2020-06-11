@@ -1,5 +1,7 @@
 package com.CSCI3130.gardenapp;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 
@@ -34,7 +36,8 @@ public class TaskViewList<task> extends AppCompatActivity {
         taskAdapter.setOnItemClickListener(new TaskAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(int position) {
-                changeTaskTitle(position, "Selected");
+                User u = new User("Logan", "sutherland@dal.ca"); //dummy user, replace with actual user
+                registerForTask(position, u);
 
             }
         });
@@ -55,9 +58,29 @@ public class TaskViewList<task> extends AppCompatActivity {
         return taskList;
     }
 
-    public void changeTaskTitle(int position, String name) {
-        allTasks.get(position).setName(name);
-        taskAdapter.notifyItemChanged(position);
+    public void registerForTask(int position, User user) {
+        Task t = allTasks.get(position);
+        int LAUNCH_REGISTER_ACTIVITY = 1;
+        Intent registerTaskActivity = new Intent(TaskViewList.this, TaskRegisterDummyPage.class);
+        registerTaskActivity.putExtra("t", t);
+        registerTaskActivity.putExtra("u", user);
+        registerTaskActivity.putExtra("p", position);
+        startActivityForResult(registerTaskActivity, LAUNCH_REGISTER_ACTIVITY);
+
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == 1) {
+            if (resultCode == Activity.RESULT_OK) {
+                int pos = data.getIntExtra("p", 1);
+                Task t = (Task) data.getSerializableExtra("t");
+                allTasks.set(pos, t);
+                taskAdapter.notifyItemChanged(pos);
+            }
+        }
     }
 }
 

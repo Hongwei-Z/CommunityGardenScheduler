@@ -1,6 +1,8 @@
 package com.CSCI3130.gardenapp;
 
-public class Task {
+import java.io.Serializable;
+
+public class Task implements Serializable {
     private String name;
     private String description;
     private int priority;

@@ -1,5 +1,6 @@
 package com.CSCI3130.gardenapp;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
@@ -7,7 +8,7 @@ import java.util.ArrayList;
  * <p> This object stores user data and keeps track of the user's assigned tasks </p>
  */
 
-public class User {
+public class User implements Serializable {
     private String username;
     private String email;
 
