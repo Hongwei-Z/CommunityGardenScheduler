@@ -45,7 +45,6 @@ proguard/
 captures/
 .navigation/
 *.ipr
-*~
 *.swp
 
 # Android Patch
