@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<project version="4">
-  <component name="ProjectModuleManager">
-    <modules>
-      <module fileurl="file://$PROJECT_DIR$/app.iml" filepath="$PROJECT_DIR$/app.iml" group="csci3110-group-8/app" />
-      <module fileurl="file://$PROJECT_DIR$/../csci3110-group-8.iml" filepath="$PROJECT_DIR$/../csci3110-group-8.iml" group="csci3110-group-8" />
-    </modules>
-  </component>
-</project>
