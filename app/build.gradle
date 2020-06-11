@@ -5,7 +5,7 @@ android {
     compileSdkVersion 29
     defaultConfig {
         applicationId "com.CSCI3130.gardenApp"
-        minSdkVersion 23
+        minSdkVersion 26
         targetSdkVersion 29
         versionCode 1
         versionName "1.0-${System.env.VERSION_SHA}"
