@@ -1,6 +1,5 @@
 package com.CSCI3130.gardenapp;
 
-//import android.support.v7.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;

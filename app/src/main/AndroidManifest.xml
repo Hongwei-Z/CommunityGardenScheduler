@@ -12,7 +12,7 @@
             android:theme="@style/AppTheme"
             android:appComponentFactory="androidx.core.app.CoreComponentFactory"
             tools:replace="android:appComponentFactory"
-            tools:targetApi="p">
+            tools:targetApi="p" >
         <activity android:name="com.CSCI3130.gardenapp.Welcome"/>
         <activity android:name="com.CSCI3130.gardenapp.SignUp" />
         <activity android:name="com.CSCI3130.gardenapp.SignIn">
@@ -21,7 +21,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity android:name=".CreateTask.AddTaskActivity">
         </activity>
     </application>
