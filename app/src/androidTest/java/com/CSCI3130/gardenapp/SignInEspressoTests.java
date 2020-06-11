@@ -86,11 +86,9 @@ public class SignInEspressoTests {
     @Test
     public void valid_test(){
         onView(withId(R.id.emailTxt_signin))
-                .perform(click())
                 .perform(typeText("arjav@arjav.com"));
         closeSoftKeyboard();
         onView(withId(R.id.passwordTxt_signin))
-                .perform(click())
                 .perform(typeText("password"));
         closeSoftKeyboard();
         onView(withId(R.id.signInBtn_signin))
