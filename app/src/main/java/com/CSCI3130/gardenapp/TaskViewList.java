@@ -21,7 +21,7 @@ public class TaskViewList<task> extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_task_view_list);
 
         recyclerView = findViewById(R.id.recycleview_tasks);
         recyclerView.setHasFixedSize(true);
