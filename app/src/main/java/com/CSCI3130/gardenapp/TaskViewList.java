@@ -36,8 +36,8 @@ public class TaskViewList<task> extends AppCompatActivity {
         taskAdapter.setOnItemClickListener(new TaskAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(int position) {
-                User u = new User("Logan", "sutherland@dal.ca"); //dummy user, replace with actual user
-                registerForTask(position, u);
+                User u = new User("Logan", "sutherland@dal.ca"); //dummy user, replace with actual user when firebase is setup
+                registerForTask(position, u); //position refers to index of task in recyclerview tasklist
 
             }
         });
@@ -59,26 +59,26 @@ public class TaskViewList<task> extends AppCompatActivity {
     }
 
     public void registerForTask(int position, User user) {
-        Task t = allTasks.get(position);
-        int LAUNCH_REGISTER_ACTIVITY = 1;
+        Task t = allTasks.get(position); //get task from recyclerview
+        int LAUNCH_REGISTER_ACTIVITY = 1; //return code is used to differentiate returns from different activites in onActivityResult
         Intent registerTaskActivity = new Intent(TaskViewList.this, TaskRegisterDummyPage.class);
         registerTaskActivity.putExtra("t", t);
         registerTaskActivity.putExtra("u", user);
-        registerTaskActivity.putExtra("p", position);
-        startActivityForResult(registerTaskActivity, LAUNCH_REGISTER_ACTIVITY);
+        registerTaskActivity.putExtra("p", position); //we need to send the position over in order to preserve it and use it to update the task in recyclerview when the activity returns
+        startActivityForResult(registerTaskActivity, LAUNCH_REGISTER_ACTIVITY); //By starting a new activity using this function, the function onActivityResult will be called when the activity finishes
 
     }
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {//called when an activity started with startActivityForResult finishes
         super.onActivityResult(requestCode, resultCode, data);
 
-        if (requestCode == 1) {
-            if (resultCode == Activity.RESULT_OK) {
-                int pos = data.getIntExtra("p", 1);
-                Task t = (Task) data.getSerializableExtra("t");
-                allTasks.set(pos, t);
-                taskAdapter.notifyItemChanged(pos);
+        if (requestCode == 1) { //if activity finished was TaskRegisterDummyPage
+            if (resultCode == Activity.RESULT_OK) { //if data has been sent over properly
+                int pos = data.getIntExtra("p", 1); //get task position
+                Task t = (Task) data.getSerializableExtra("t"); //get task from activity
+                allTasks.set(pos, t); //replace old task with the updated task
+                taskAdapter.notifyItemChanged(pos); //update recyclerview display
             }
         }
     }

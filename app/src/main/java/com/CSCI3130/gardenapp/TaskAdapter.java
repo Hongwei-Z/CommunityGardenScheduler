@@ -13,7 +13,8 @@ import java.util.ArrayList;
 public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskViewHolder> {
     private ArrayList<Task> taskList;
     private OnItemClickListener mListener;
-    public interface  OnItemClickListener {
+
+    public interface  OnItemClickListener { //interface so we can interact with TaskAdapter from TaskViewList
         void onItemClick(int position);
     }
 
@@ -26,7 +27,6 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskViewHolder
         private TextView date;
         private TextView priority;
         private ImageView userProfile;
-        private Button registerButton;
 
         private TaskViewHolder(View itemView, final OnItemClickListener listener) {
             super(itemView);
@@ -40,9 +40,9 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskViewHolder
                 @Override
                 public void onClick(View v) {
                     if (listener != null) {
-                        int position = getAdapterPosition();
-                        if (position != RecyclerView.NO_POSITION) {
-                            listener.onItemClick(position);
+                        int position = getAdapterPosition(); // gets task index for
+                        if (position != RecyclerView.NO_POSITION) { // checking to make sure user actually clicked a task
+                            listener.onItemClick(position); //pass position to TaskViewList
                         }
                     }
                 }
