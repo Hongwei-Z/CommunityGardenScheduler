@@ -33,5 +33,4 @@
             android:fontStyle="italic"
             android:fontWeight="700"
             android:font="@font/redhatdisplay_bolditalic" />
-
 </font-family>

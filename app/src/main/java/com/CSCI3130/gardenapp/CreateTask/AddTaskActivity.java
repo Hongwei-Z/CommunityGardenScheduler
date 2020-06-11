@@ -9,6 +9,7 @@ import android.widget.EditText;
 import com.CSCI3130.gardenapp.R;
 import com.CSCI3130.gardenapp.Task;
 import com.google.android.material.snackbar.Snackbar;
+
 import java.util.ArrayList;
 
 public class AddTaskActivity extends AppCompatActivity {
