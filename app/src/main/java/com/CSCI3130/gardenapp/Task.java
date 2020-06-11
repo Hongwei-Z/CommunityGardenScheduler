@@ -1,6 +1,8 @@
 package com.CSCI3130.gardenapp;
 
-public class Task {
+import java.io.Serializable;
+
+public class Task implements Serializable {
     private String name;
     private String description;
     private int priority;
@@ -13,6 +15,19 @@ public class Task {
         this.priority = priority;
         this.user = user;
         this.date = date;
+    }
+
+    /**
+     * Checks if any user is assigned to the Task
+     * @return true if no user is assigned, false if user is assigned
+     */
+    public boolean isOpen() {
+        if (user.equals("")) {
+            return true;
+        }
+        else {
+            return false;
+        }
     }
 
     public String getName() {

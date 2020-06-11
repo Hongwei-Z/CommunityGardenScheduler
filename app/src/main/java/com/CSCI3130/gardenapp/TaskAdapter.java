@@ -3,6 +3,7 @@ package com.CSCI3130.gardenapp;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.recyclerview.widget.RecyclerView;
@@ -10,6 +11,15 @@ import java.util.ArrayList;
 
 public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskViewHolder> {
     private ArrayList<Task> taskList;
+    private OnItemClickListener mListener;
+
+    public interface  OnItemClickListener { //interface so we can interact with TaskAdapter from TaskViewList
+        void onItemClick(int position);
+    }
+
+    public void setOnItemClickListener(OnItemClickListener listener) {
+        mListener = listener;
+    }
 
     public static class TaskViewHolder extends RecyclerView.ViewHolder {
         private TextView name;
@@ -17,13 +27,25 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskViewHolder
         private TextView priority;
         private ImageView userProfile;
 
-        private TaskViewHolder(View itemView) {
+        private TaskViewHolder(View itemView, final OnItemClickListener listener) {
             super(itemView);
 
             name = itemView.findViewById(R.id.task_name);
             date = itemView.findViewById(R.id.task_date);
             priority = itemView.findViewById(R.id.task_priority);
             userProfile = itemView.findViewById(R.id.task_user_profile);
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (listener != null) {
+                        int position = getAdapterPosition(); // gets task index for
+                        if (position != RecyclerView.NO_POSITION) { // checking to make sure user actually clicked a task
+                            listener.onItemClick(position); //pass position to TaskViewList
+                        }
+                    }
+                }
+            });
         }
 
         public void setName(String name){
@@ -41,7 +63,7 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskViewHolder
         }
 
         public void setUser(String user){
-            if (user.equals("")) {
+            if (!user.equals("")) {
                 this.userProfile.setImageResource(R.drawable.profile_icon);
             }
         }
@@ -54,7 +76,7 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskViewHolder
     @Override
     public TaskAdapter.TaskViewHolder onCreateViewHolder(ViewGroup parent, int viewType){
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.task_list_item, parent, false);
-        return new TaskViewHolder(view);
+        return new TaskViewHolder(view, mListener);
     }
 
     @Override

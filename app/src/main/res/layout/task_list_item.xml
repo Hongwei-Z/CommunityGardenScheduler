@@ -77,4 +77,5 @@
             tools:ignore="HardcodedText" />
 
     </RelativeLayout>
+
 </androidx.cardview.widget.CardView>
