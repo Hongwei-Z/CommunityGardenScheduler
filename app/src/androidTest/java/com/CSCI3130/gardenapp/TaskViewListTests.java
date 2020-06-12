@@ -16,7 +16,7 @@ import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
 import static org.hamcrest.core.AllOf.allOf;
 
-public class EspressoTests {
+public class TaskViewListTests {
 
     @Rule
     public ActivityTestRule<TaskViewList> taskViewListTestRule
