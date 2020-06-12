@@ -24,7 +24,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".TaskRegisterDummyPage" />
-        <activity android:name=".CreateTask.AddTaskActivity">
+        <activity android:name=".CreateTask.CreateTaskActivity">
         </activity>
     </application>
 

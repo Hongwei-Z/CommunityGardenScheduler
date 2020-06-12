@@ -3,7 +3,7 @@ package com.CSCI3130.gardenapp;
 import androidx.test.ext.junit.rules.ActivityScenarioRule;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.filters.LargeTest;
-import com.CSCI3130.gardenapp.CreateTask.AddTaskActivity;
+import com.CSCI3130.gardenapp.CreateTask.CreateTaskActivity;
 import junit.framework.TestCase;
 import org.junit.Rule;
 import org.junit.Test;
@@ -19,9 +19,9 @@ import static org.hamcrest.Matchers.not;
 
 @RunWith(AndroidJUnit4.class)
 @LargeTest
-public class AddTaskActivityUITest extends TestCase {
+public class CreateTaskActivityUITest extends TestCase {
     @Rule
-    public ActivityScenarioRule<AddTaskActivity> activityScenarioRule = new ActivityScenarioRule<AddTaskActivity>(AddTaskActivity.class);
+    public ActivityScenarioRule<CreateTaskActivity> activityScenarioRule = new ActivityScenarioRule<CreateTaskActivity>(CreateTaskActivity.class);
 
     @Test
     public void testCorrectInputs() {

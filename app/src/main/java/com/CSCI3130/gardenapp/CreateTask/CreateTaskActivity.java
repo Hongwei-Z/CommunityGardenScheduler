@@ -12,15 +12,27 @@ import com.google.android.material.snackbar.Snackbar;
 
 import java.util.ArrayList;
 
-public class AddTaskActivity extends AppCompatActivity {
+/**
+ * This is the Create task screen where the user can create a task and upload to the database
+ * @author Liam Hebert
+ */
+public class CreateTaskActivity extends AppCompatActivity {
     private int current_priority;
     @Override
+    /**
+     * Constructing the activity
+     * @param savedInstanceState The default Android activity config varible to load the activity
+     */
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_task);
         current_priority = -1;
     }
 
+    /**
+     * Saved the current selected parameter button when clicked, gray out the other buttons
+     * @param view contains the id of what pressed the button
+     */
     public void onPriorityCheck(View view) {
         int id = view.getId();
         switch (id) {
@@ -80,6 +92,10 @@ public class AddTaskActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * When the confirm button is pushed, this gathers all the field information and verifies it
+     * @param view Required for android
+     */
     public void onConfirm(View view) {
         clearPriorityError();
         EditText editTitle = (EditText) findViewById(R.id.editTitle);
@@ -115,11 +131,19 @@ public class AddTaskActivity extends AppCompatActivity {
                     break;
             }
         }
-
+        // Used in Intent to List
         Task task = new Task(title, description, current_priority,"", location);
     }
 
-    public ArrayList<CreateTaskError> verifyTask(String title, String description, int priority, String location) {
+    /**
+     * @param title Name of the task
+     * @param description Description of the task
+     * @param priority Int value of the priority
+     * @param location String of the location
+     * @return List of errors using Enums in CreateTaskError
+     * @see CreateTaskError
+     */
+    protected ArrayList<CreateTaskError> verifyTask(String title, String description, int priority, String location) {
         ArrayList<CreateTaskError> errors = new ArrayList<>();
         if (title.equals("")) {
             errors.add(CreateTaskError.MISSING_TITLE);
