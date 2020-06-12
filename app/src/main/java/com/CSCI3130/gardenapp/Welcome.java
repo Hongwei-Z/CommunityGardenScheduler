@@ -31,6 +31,12 @@ public class Welcome extends AppCompatActivity {
         mFirebaseAuth = FirebaseAuth.getInstance();
     }
 
+    //open all task list
+    public void taskListOpen_onclick(View v){
+        Intent i = new Intent(Welcome.this, TaskViewList.class);
+        startActivity(i);
+    }
+
     //sign out button onClick function (wrapper)
     public void signOut_onclick(View v){
         signOut();

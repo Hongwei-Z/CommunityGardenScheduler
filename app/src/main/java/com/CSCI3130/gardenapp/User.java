@@ -6,6 +6,7 @@ import java.util.ArrayList;
 /**
  * User Object
  * <p> This object stores user data and keeps track of the user's assigned tasks </p>
+ * @author Logan Sutherland
  */
 
 public class User implements Serializable {
@@ -46,7 +47,9 @@ public class User implements Serializable {
         }
     }
 
-    /** returns User's username */
+    /** returns User's username
+     * @return users username
+     */
     public String getUsername() {
         return username;
     }
@@ -59,7 +62,9 @@ public class User implements Serializable {
         this.username = username;
     }
 
-    /** returns User's email */
+    /** returns User's email
+     * @return users email
+     */
     public String getEmail() {
         return this.email;
     }
@@ -72,7 +77,9 @@ public class User implements Serializable {
         this.email = email;
     }
 
-    /** returns an arraylist of Task objects that the user is assigned to */
+    /** returns an arraylist of Task objects that the user is assigned to
+     * @return list of assigned tasks for the user
+     */
     public ArrayList<Task> getAssignedTasks() {
         return this.assignedTasks;
     }
