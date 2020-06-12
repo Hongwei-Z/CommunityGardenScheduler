@@ -34,7 +34,7 @@ public class SignInEspressoTests {
         onView(withId(R.id.signInBtn_signin))
                 .perform(click());
         onView(withId(R.id.emailTxt_signin))
-                .check(matches(hasErrorText("Please enter your email address")));
+                .check(matches(hasErrorText("Please enter a valid email address")));
     }
 
     //test sign in with invalid email

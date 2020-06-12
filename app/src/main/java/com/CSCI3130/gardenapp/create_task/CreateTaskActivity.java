@@ -1,4 +1,4 @@
-package com.CSCI3130.gardenapp.CreateTask;
+package com.CSCI3130.gardenapp.create_task;
 
 import android.widget.Button;
 import android.widget.TextView;
@@ -143,7 +143,7 @@ public class CreateTaskActivity extends AppCompatActivity {
      * @return List of errors using Enums in CreateTaskError
      * @see CreateTaskError
      */
-    protected ArrayList<CreateTaskError> verifyTask(String title, String description, int priority, String location) {
+    public ArrayList<CreateTaskError> verifyTask(String title, String description, int priority, String location) {
         ArrayList<CreateTaskError> errors = new ArrayList<>();
         if (title.equals("")) {
             errors.add(CreateTaskError.MISSING_TITLE);

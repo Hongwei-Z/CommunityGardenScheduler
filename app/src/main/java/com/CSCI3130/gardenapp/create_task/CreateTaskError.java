@@ -1,4 +1,4 @@
-package com.CSCI3130.gardenapp.CreateTask;
+package com.CSCI3130.gardenapp.create_task;
 
 /**
  * Errors when creating a task
