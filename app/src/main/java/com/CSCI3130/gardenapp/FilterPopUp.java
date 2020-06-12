@@ -5,7 +5,7 @@ import android.os.Bundle;
  * This class is the filter popup window.
  * @author Hongwei Zhang (B00780843)
  */
-class FilterPopUp extends Activity {
+public class FilterPopUp extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
