@@ -74,7 +74,7 @@ public class FilterActivity extends AppCompatActivity {
     }
 
     //ArrayList dateBetween used to save two dates which user selected.
-    ArrayList<Integer> dateBetween = new ArrayList<>();
+    ArrayList<Integer> dateBetween = new ArrayList<>(2);
 
     /***
      * selectCalendar method, open the date picker
