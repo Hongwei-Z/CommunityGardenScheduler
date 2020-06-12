@@ -40,9 +40,15 @@ public class Welcome extends AppCompatActivity {
     }
 
     /**
-     * onClick method for sign out button (wrapper)
-     * @param v - view object of view which executes this onClick method (button)
+     * Opens the taskList activity on button click
+     * @param v view object of the View executing the onclick
      */
+    public void taskListOpen_onclick(View v){
+        Intent i = new Intent(Welcome.this, TaskViewList.class);
+        startActivity(i);
+    }
+
+    //sign out button onClick function (wrapper)
     public void signOut_onclick(View v){
         signOut();
     }
