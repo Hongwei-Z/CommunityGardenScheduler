@@ -1,9 +1,10 @@
-package com.CSCI3130.gardenapp;
+package com.CSCI3130.gardenapp.create_task;
 
+import androidx.test.espresso.matcher.ViewMatchers;
 import androidx.test.ext.junit.rules.ActivityScenarioRule;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.filters.LargeTest;
-import com.CSCI3130.gardenapp.CreateTask.AddTaskActivity;
+import com.CSCI3130.gardenapp.R;
 import junit.framework.TestCase;
 import org.junit.Rule;
 import org.junit.Test;
@@ -19,14 +20,14 @@ import static org.hamcrest.Matchers.not;
 
 @RunWith(AndroidJUnit4.class)
 @LargeTest
-public class AddTaskActivityUITest extends TestCase {
+public class CreateTaskActivityUITest extends TestCase {
     @Rule
-    public ActivityScenarioRule<AddTaskActivity> activityScenarioRule = new ActivityScenarioRule<AddTaskActivity>(AddTaskActivity.class);
+    public ActivityScenarioRule<CreateTaskActivity> activityScenarioRule = new ActivityScenarioRule<CreateTaskActivity>(CreateTaskActivity.class);
 
     @Test
     public void testCorrectInputs() {
         //neat inputs
-        onView(withId(R.id.editTitle)).perform(typeText("Liam Really Rocks!"), closeSoftKeyboard());
+        onView(ViewMatchers.withId(R.id.editTitle)).perform(typeText("Liam Really Rocks!"), closeSoftKeyboard());
         onView(withId(R.id.editDescription)).perform(typeText("This is but a short description describing how amazing and awesome Liam is!"), closeSoftKeyboard());
         onView(withId(R.id.editLocation)).perform(typeText("Dalhousie University"), closeSoftKeyboard());
         onView(withId(R.id.buttonPriority1)).perform(click());

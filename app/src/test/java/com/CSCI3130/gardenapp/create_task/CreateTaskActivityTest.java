@@ -1,7 +1,5 @@
-package com.CSCI3130.gardenapp;
+package com.CSCI3130.gardenapp.create_task;
 
-import com.CSCI3130.gardenapp.CreateTask.AddTaskActivity;
-import com.CSCI3130.gardenapp.CreateTask.CreateTaskError;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -10,8 +8,8 @@ import org.junit.Test;
 
 import java.util.ArrayList;
 
-public class AddTaskActivityTest {
-    AddTaskActivity activity;
+public class CreateTaskActivityTest {
+    CreateTaskActivity activity;
     String title = "Test";
     String description = "This is a description!";
     String location = "Carrot Test";
@@ -20,7 +18,7 @@ public class AddTaskActivityTest {
 
     @Before
     public void setUp() throws Exception {
-        activity = new AddTaskActivity();
+        activity = new CreateTaskActivity();
         errors = new ArrayList<>();
     }
 
