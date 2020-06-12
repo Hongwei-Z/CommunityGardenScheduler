@@ -31,7 +31,10 @@ public class Welcome extends AppCompatActivity {
         mFirebaseAuth = FirebaseAuth.getInstance();
     }
 
-    //open all task list
+    /**
+     * Opens the taskList activity on button click
+     * @param v view object of the View executing the onclick
+     */
     public void taskListOpen_onclick(View v){
         Intent i = new Intent(Welcome.this, TaskViewList.class);
         startActivity(i);

@@ -16,7 +16,6 @@
         android:gravity="center"
         android:text="Welcome!"
         android:textSize="30sp"
-        app:layout_constraintBottom_toTopOf="@+id/button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.484"
         app:layout_constraintStart_toStartOf="parent"
