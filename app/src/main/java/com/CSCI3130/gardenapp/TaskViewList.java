@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
+import android.widget.ImageButton;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -103,6 +105,19 @@ public class TaskViewList<task> extends AppCompatActivity {
                 taskAdapter.notifyItemChanged(pos); //update recyclerview display
             }
         }
+    }
+
+
+    /***
+     * @author Hongwei Zhang
+     * temporaryTransfer method is a medium between the task list and the popup window,
+     * When you click the filter button on toolbar, it will jump to a empty page with another button,
+     * click that empty button, you will see the calendar selector.
+     * I can't solve this problem yet, I will modify it in time when I find a solution.
+     */
+    public void temporaryTransfer(View v){
+        Intent i = new Intent(TaskViewList.this, FilterActivity.class);
+        startActivity(i);
     }
 }
 
