@@ -54,8 +54,6 @@ public class FilterActivity extends AppCompatActivity {
         applyButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-
                 myDialog.dismiss();
             }
         });
