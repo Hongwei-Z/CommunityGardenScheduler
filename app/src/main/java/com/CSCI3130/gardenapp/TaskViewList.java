@@ -7,6 +7,9 @@ import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import com.CSCI3130.gardenapp.util.data.Task;
+import com.CSCI3130.gardenapp.util.data.User;
+
 import java.util.ArrayList;
 
 /**
@@ -54,18 +57,8 @@ public class TaskViewList<task> extends AppCompatActivity {
      * this is currently hardcoded until the database is set up
      * @return list of tasks
      */
-    public static ArrayList<Task> populateTasks(){
-        ArrayList<Task> taskList = new ArrayList<>();
-        taskList.add(new Task("Cover tomatoes", "cover if raining", 4, "", "June 4th, 2020"));
-        taskList.add(new Task("Water all of the carrots", "water them a lot", 2, "Bob", "June 2nd, 2020"));
-        taskList.add(new Task("Plant cucumber transplants", "", 1, "Bill", "June 10th, 2020"));
-        taskList.add(new Task("Dig some dirt", "pile it", 3,  "", "June 20th, 2020"));
-        taskList.add(new Task("Water more carrots", "water them a lot", 5, "", "June 30th, 2020"));
-        taskList.add(new Task("Plant tomato transplants", "", 1, "Bill", "June 10th, 2020"));
-        taskList.add(new Task("Dig some more dirt", "", 3, "Bill", "June 4th, 2020"));
-        taskList.add(new Task("Water cucumber", "water them a lot", 3, "", "June 16th, 2020"));
-        taskList.add(new Task("Add compost", "", 1, "Bill", "June 10th, 2020"));
-        return taskList;
+    public ArrayList<Task> populateTasks(){
+        return new ArrayList<Task>();
     }
 
     /**

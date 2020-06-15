@@ -9,12 +9,13 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.CSCI3130.gardenapp.create_task.CreateTaskActivity;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 /**
  * Activity class which welcomes the user after they have signed in/signed up for the app,
- * also allowowing them to log out of the app
+ * also allowing them to log out of the app
  * @author Arjav Gupta
  */
 public class Welcome extends AppCompatActivity {
@@ -48,6 +49,11 @@ public class Welcome extends AppCompatActivity {
         startActivity(i);
     }
 
+    public void createTaskOpen_onclick(View v){
+        Intent i = new Intent(Welcome.this, CreateTaskActivity.class);
+        startActivity(i);
+    }
+
     //sign out button onClick function (wrapper)
     public void signOut_onclick(View v){
         signOut();
@@ -71,22 +77,19 @@ public class Welcome extends AppCompatActivity {
      * and changes activities accordingly
      */
     public void checkLoginState(){
-        mAuthStateListener = new FirebaseAuth.AuthStateListener() {
-            @Override
-            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-                FirebaseUser mFirebaseUser = mFirebaseAuth.getCurrentUser();
+        mAuthStateListener = firebaseAuth -> {
+            FirebaseUser mFirebaseUser = mFirebaseAuth.getCurrentUser();
 
-                //if logged in still, display error
-                if( mFirebaseUser != null ){
-                    Toast.makeText(Welcome.this,"Sign Out Unsuccessful.",Toast.LENGTH_SHORT).show();
-                }
+            //if logged in still, display error
+            if( mFirebaseUser != null ){
+                Toast.makeText(Welcome.this,"Sign Out Unsuccessful.",Toast.LENGTH_SHORT).show();
+            }
 
-                //if not logged in, go back to login screen
-                else{
-                    Toast.makeText(Welcome.this,"Signed Out.",Toast.LENGTH_SHORT).show();
-                    Intent i = new Intent(Welcome.this, SignIn.class);
-                    startActivity(i);
-                }
+            //if not logged in, go back to login screen
+            else{
+                Toast.makeText(Welcome.this,"Signed Out.",Toast.LENGTH_SHORT).show();
+                Intent i = new Intent(Welcome.this, SignIn.class);
+                startActivity(i);
             }
         };
     }

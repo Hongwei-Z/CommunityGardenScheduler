@@ -7,6 +7,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import com.CSCI3130.gardenapp.util.data.Task;
+import com.CSCI3130.gardenapp.util.data.User;
 
 public class TaskRegisterDummyPage extends AppCompatActivity {
 
@@ -23,16 +25,13 @@ public class TaskRegisterDummyPage extends AppCompatActivity {
         pos = getIntent().getIntExtra("p", 1);
         registerButton = (Button) findViewById(R.id.registerButton);
 
-        registerButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                task.setUser(user.getUsername());
-                Intent returnIntent = new Intent();
-                returnIntent.putExtra("p", pos);
-                returnIntent.putExtra("t", task);
-                setResult(Activity.RESULT_OK, returnIntent);
-                finish();
-            }
+        registerButton.setOnClickListener(view -> {
+            task.setUser(user.getUsername());
+            Intent returnIntent = new Intent();
+            returnIntent.putExtra("p", pos);
+            returnIntent.putExtra("t", task);
+            setResult(Activity.RESULT_OK, returnIntent);
+            finish();
         });
 
 

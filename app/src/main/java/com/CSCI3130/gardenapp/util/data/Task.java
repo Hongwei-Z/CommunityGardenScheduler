@@ -1,6 +1,7 @@
-package com.CSCI3130.gardenapp;
+package com.CSCI3130.gardenapp.util.data;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 /**
  * Task.java - a class used to create Task objects to be added to the database and displayed in
@@ -13,6 +14,8 @@ public class Task implements Serializable {
     private int priority;
     private String user;
     private String date;
+    private String location;
+    private boolean open;
 
     /**
      * Constructor for the Task object
@@ -20,27 +23,51 @@ public class Task implements Serializable {
      * @param description description of the task
      * @param priority indicator of how high the task priority is
      * @param user name of user assigned to task
+     * @param location location where the task should be performed
      * @param date due date of the task
      */
-    public Task(String name, String description, int priority, String user, String date) {
+    public Task(String name, String description, int priority, String user, String location, String date) {
         this.name = name;
         this.description = description;
         this.priority = priority;
         this.user = user;
         this.date = date;
+        this.location = location;
+        this.open = false;
+    }
+
+    public Task(){}
+
+    /**
+     * Gets the location of the task
+     * @return location of the task
+     */
+    public String getLocation() {
+        return location;
     }
 
     /**
-     * Checks if any user is assigned to the Task
-     * @return true if no user is assigned, false if user is assigned
+     * sets the location of the task
+     * @param location the location to be set
      */
-    public boolean isOpen() {
-        if (user.equals("")) {
-            return true;
-        }
-        else {
-            return false;
-        }
+    public void setLocation(String location) {
+        this.location = location;
+    }
+
+    /**
+     * sets whether or not the task is open or not
+     * @param open true = open, false = taken
+     */
+    public void setOpen(boolean open) {
+        this.open = open;
+    }
+
+    /**
+     * gets whether the value is open or not
+     * @return open status of the task
+     */
+    public boolean getOpen() {
+        return open;
     }
 
     /**
@@ -121,5 +148,23 @@ public class Task implements Serializable {
      */
     public void setDate(String date) {
         this.date = date;
+    }
+
+    /**
+     * Equals override to check fields of the task
+     * @param o object to comapre to
+     * @return whether or not the objects are the same
+     */
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Task task = (Task) o;
+        return priority == task.priority &&
+                name.equals(task.name) &&
+                Objects.equals(description, task.description) &&
+                Objects.equals(user, task.user) &&
+                date.equals(task.date) &&
+                Objects.equals(location, task.location);
     }
 }

@@ -4,8 +4,14 @@ import androidx.test.espresso.action.ViewActions;
 import androidx.test.espresso.matcher.ViewMatchers;
 import androidx.test.rule.ActivityTestRule;
 
+import com.CSCI3130.gardenapp.util.data.Task;
+import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
+import org.mockito.Mock;
+import org.mockito.Mockito;
+
+import java.util.ArrayList;
 
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.click;
@@ -15,12 +21,32 @@ import static androidx.test.espresso.matcher.ViewMatchers.hasDescendant;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
 import static org.hamcrest.core.AllOf.allOf;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 public class TaskViewListTests {
 
     @Rule
     public ActivityTestRule<TaskViewList> taskViewListTestRule
             = new ActivityTestRule<>(TaskViewList.class);
+
+    @Before
+    public void start() {
+        taskViewListTestRule.launchActivity(null);
+        TaskViewList activity = taskViewListTestRule.getActivity();
+        
+        ArrayList<Task> taskList = new ArrayList<>();
+        taskList.add(new Task("Cover tomatoes", "cover if raining", 4, "", "", "04-01-2020"));
+        taskList.add(new Task("Water all of the carrots", "water them a lot", 2, "Bob", "", "04-01-2020"));
+        taskList.add(new Task("Plant cucumber transplants", "", 1, "Bill", "", "04-01-2020"));
+        taskList.add(new Task("Dig some dirt", "pile it", 3,  "", "", "04-01-2020"));
+        taskList.add(new Task("Water more carrots", "water them a lot", 5, "", "", "04-01-2020"));
+        taskList.add(new Task("Plant tomato transplants", "", 1, "Bill", "", "04-01-2020"));
+        taskList.add(new Task("Dig some more dirt", "", 3, "Bill", "", "04-01-2020"));
+        taskList.add(new Task("Water cucumber", "water them a lot", 3, "", "", "04-01-2020"));
+        taskList.add(new Task("Add compost", "", 1, "Bill", "", "04-01-2020"));
+        when(activity.populateTasks()).thenReturn(taskList);
+    }
 
     public static RecyclerViewMatcher withRecyclerView(final int recyclerViewId) {
         return new RecyclerViewMatcher(recyclerViewId);
@@ -39,7 +65,7 @@ public class TaskViewListTests {
         onView(withRecyclerView(R.id.recycleview_tasks).atPosition(3))
                 .check(matches(hasDescendant(withText("Dig some dirt"))));
         onView(withRecyclerView(R.id.recycleview_tasks).atPosition(3))
-                .check(matches(hasDescendant(withText("June 20th, 2020"))));
+                .check(matches(hasDescendant(withText("04-01-2020"))));
         onView(withRecyclerView(R.id.recycleview_tasks).atPosition(3)).perform(click());
     }
 
