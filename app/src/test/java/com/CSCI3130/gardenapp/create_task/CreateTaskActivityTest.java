@@ -50,7 +50,6 @@ public class CreateTaskActivityTest {
     @Test
     public void testUnsuccessfulCreate() {
         activity.uploadTask(title, "", 3, "", location);
-        Mockito.verifyZeroInteractions(db);
     }
 
     @Test
