@@ -58,7 +58,17 @@ public class TaskViewList<task> extends AppCompatActivity {
      * @return list of tasks
      */
     public ArrayList<Task> populateTasks(){
-        return new ArrayList<Task>();
+        ArrayList<Task> taskList = new ArrayList<>();
+        taskList.add(new Task("Cover tomatoes", "cover if raining", 4, "", "", "04-01-2020"));
+        taskList.add(new Task("Water all of the carrots", "water them a lot", 2, "Bob", "", "04-01-2020"));
+        taskList.add(new Task("Plant cucumber transplants", "", 1, "Bill", "", "04-01-2020"));
+        taskList.add(new Task("Dig some dirt", "pile it", 3,  "", "", "04-01-2020"));
+        taskList.add(new Task("Water more carrots", "water them a lot", 5, "", "", "04-01-2020"));
+        taskList.add(new Task("Plant tomato transplants", "", 1, "Bill", "", "04-01-2020"));
+        taskList.add(new Task("Dig some more dirt", "", 3, "Bill", "", "04-01-2020"));
+        taskList.add(new Task("Water cucumber", "water them a lot", 3, "", "", "04-01-2020"));
+        taskList.add(new Task("Add compost", "", 1, "Bill", "", "04-01-2020"));
+        return taskList;
     }
 
     /**

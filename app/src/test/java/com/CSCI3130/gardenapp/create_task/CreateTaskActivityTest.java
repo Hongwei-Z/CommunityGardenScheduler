@@ -32,7 +32,7 @@ public class CreateTaskActivityTest {
     public void setUp() {
         activity = new CreateTaskActivity();
         errors = new ArrayList<>();
-        db = mock(DatabaseTaskWriter.class);
+        db = mock(DatabaseTaskWriter.class); // prevents real data from uploading
         activity.db = db;
     }
 
