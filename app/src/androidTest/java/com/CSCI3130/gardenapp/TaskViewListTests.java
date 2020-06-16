@@ -28,11 +28,11 @@ public class TaskViewListTests {
 
     @Rule
     public ActivityTestRule<TaskViewList> taskViewListTestRule
-            = new ActivityTestRule<>(TaskViewList.class);
+            = new ActivityTestRule<TaskViewList>(TaskViewList.class);
 
     @Before
     public void start() {
-        taskViewListTestRule.launchActivity(null);
+
     }
 
     public static RecyclerViewMatcher withRecyclerView(final int recyclerViewId) {

@@ -16,7 +16,7 @@ import java.util.ArrayList;
  * Activity class to process the task data and populate the task list
  * @author Elizabeth Eddy and Logan Sutherland
  */
-public class TaskViewList<task> extends AppCompatActivity {
+public class TaskViewList extends AppCompatActivity {
 
     private ArrayList<Task> allTasks = new ArrayList<>();
     private RecyclerView recyclerView;
