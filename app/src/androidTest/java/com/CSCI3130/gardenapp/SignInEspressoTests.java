@@ -3,6 +3,9 @@ package com.CSCI3130.gardenapp;
 
 import androidx.test.rule.ActivityTestRule;
 
+import com.google.firebase.auth.FirebaseAuth;
+import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Rule;
 import org.junit.Test;
 
@@ -21,6 +24,16 @@ public class SignInEspressoTests {
     @Rule
     public ActivityTestRule<SignIn> activityScenarioRule
             = new ActivityTestRule<>(SignIn.class);
+
+    @BeforeClass
+    public static void before() {
+        FirebaseAuth.getInstance().signOut();
+    }
+
+    @Before
+    public void beforeTest(){
+        FirebaseAuth.getInstance().signOut();
+    }
 
     //test sign in with empty email
     @Test

@@ -1,4 +1,6 @@
-package com.CSCI3130.gardenapp;
+package com.CSCI3130.gardenapp.util.data;
+
+import com.CSCI3130.gardenapp.util.data.Task;
 
 import java.io.Serializable;
 import java.util.ArrayList;
