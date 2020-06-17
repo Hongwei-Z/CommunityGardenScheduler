@@ -34,7 +34,7 @@ lintDebug:
   script:
     - ./gradlew -Pci --console=plain :app:lintDebug -PbuildDir=lint
   tags:
-    - dalfcs_gitlab_docker_ci
+    - dalfcs_docker_autoscale
 
 assembleDebug:
   stage: build
@@ -44,7 +44,7 @@ assembleDebug:
     paths:
       - app/build/outputs/
   tags:
-    - dalfcs_gitlab_docker_ci
+    - dalfcs_docker_autoscale
 
 unit_tests:
   stage: test
@@ -56,4 +56,4 @@ unit_tests:
     paths:
       - app/build/reports/tests/
   tags:
-    - dalfcs_gitlab_docker_ci
+    - dalfcs_docker_autoscale

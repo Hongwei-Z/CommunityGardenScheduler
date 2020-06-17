@@ -3,6 +3,9 @@ package com.CSCI3130.gardenapp;
 
 import androidx.test.rule.ActivityTestRule;
 
+import com.google.firebase.auth.FirebaseAuth;
+import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Rule;
 import org.junit.Test;
 
@@ -22,6 +25,16 @@ public class SignInEspressoTests {
     public ActivityTestRule<SignIn> activityScenarioRule
             = new ActivityTestRule<>(SignIn.class);
 
+    @BeforeClass
+    public static void before() {
+        FirebaseAuth.getInstance().signOut();
+    }
+
+    @Before
+    public void beforeTest(){
+        FirebaseAuth.getInstance().signOut();
+    }
+
     //test sign in with empty email
     @Test
     public void empty_email_test() {
@@ -34,7 +47,7 @@ public class SignInEspressoTests {
         onView(withId(R.id.signInBtn_signin))
                 .perform(click());
         onView(withId(R.id.emailTxt_signin))
-                .check(matches(hasErrorText("Please enter your email address")));
+                .check(matches(hasErrorText("Please enter a valid email address")));
     }
 
     //test sign in with invalid email

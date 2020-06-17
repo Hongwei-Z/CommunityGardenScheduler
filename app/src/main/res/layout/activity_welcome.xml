@@ -9,8 +9,9 @@
     <TextView
         android:id="@+id/welcome_title"
         android:layout_width="378dp"
-        android:layout_height="185dp"
-        android:layout_marginTop="272dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="208dp"
+        android:layout_marginBottom="77dp"
         android:fontFamily="@font/redhatdisplay"
         android:gravity="center"
         android:text="Welcome!"
@@ -21,17 +22,48 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/signOutBtn_welcome"
+            android:id="@+id/createTasktBtn_welcome"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="#5E5E5E"
+            android:fontFamily="@font/redhatdisplay"
+            android:onClick="createTaskOpen_onclick"
+            android:text="Create Task"
+            android:textAllCaps="false"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.498"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/signOutBtn_welcome2"
+            android:layout_marginTop="24dp"/>
+
+    <Button
+            android:id="@+id/signOutBtn_welcome2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="#5E5E5E"
+            android:fontFamily="@font/redhatdisplay"
+            android:onClick="signOut_onclick"
+            android:text="Sign Out"
+            android:textAllCaps="false"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.498"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/allTaskListBtn"
+            android:layout_marginTop="24dp"/>
+
+    <Button
+        android:id="@+id/allTaskListBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="48dp"
+        android:layout_marginTop="84dp"
         android:background="#5E5E5E"
         android:fontFamily="@font/redhatdisplay"
-        android:onClick="signOut_onclick"
-        android:text="Sign Out"
+        android:onClick="taskListOpen_onclick"
+        android:text="All Tasks"
         android:textAllCaps="false"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/welcome_title" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
