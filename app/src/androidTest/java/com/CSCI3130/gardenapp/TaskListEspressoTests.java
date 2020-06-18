@@ -1,5 +1,6 @@
 package com.CSCI3130.gardenapp;
 
+import androidx.test.espresso.Espresso;
 import androidx.test.espresso.action.ViewActions;
 import androidx.test.espresso.matcher.ViewMatchers;
 import androidx.test.rule.ActivityTestRule;
@@ -67,6 +68,7 @@ public class TaskListEspressoTests {
             onView(withRecyclerView(R.id.recycleview_tasks).atPosition(0))
                     .check(matches(hasDescendant(withText("June 14th, 2020"))));
             onView(withRecyclerView(R.id.recycleview_tasks).atPosition(0)).perform(click());
+            Espresso.pressBack();
         } catch (InterruptedException e) {
             System.out.println("ERROR: INTERRUPTED EXCEPTION");
         }
@@ -80,11 +82,13 @@ public class TaskListEspressoTests {
             onView(withRecyclerView(R.id.recycleview_tasks).atPosition(0))
                     .check(matches(hasDescendant(withText("June 14th, 2020"))));
             onView(withRecyclerView(R.id.recycleview_tasks).atPosition(0)).perform(click());
+            Espresso.pressBack();
             onView(withRecyclerView(R.id.recycleview_tasks).atPosition(1))
                     .check(matches(hasDescendant(withText("Test Task 2"))));
             onView(withRecyclerView(R.id.recycleview_tasks).atPosition(1))
                     .check(matches(hasDescendant(withText("June 15th, 2020"))));
             onView(withRecyclerView(R.id.recycleview_tasks).atPosition(0)).perform(click());
+            Espresso.pressBack();
         } catch (InterruptedException e) {
             System.out.println("ERROR: INTERRUPTED EXCEPTION");
         }
@@ -112,9 +116,8 @@ public class TaskListEspressoTests {
             Thread.sleep(1000);
             onView(withRecyclerView(R.id.recycleview_tasks).atPosition(19))
                     .check(matches(hasDescendant(withText("Task 20"))));
-            onView(withRecyclerView(R.id.recycleview_tasks).atPosition(1)).perform(click());
-            System.out.println(withId(R.id.recycleview_tasks).matches(hasChildCount(20)));
-            onView(withId(R.id.recycleview_tasks)).check(matches(hasChildCount(1)));
+            onView(withRecyclerView(R.id.recycleview_tasks).atPosition(19)).perform(click());
+            Espresso.pressBack();
         } catch (InterruptedException e) {
             System.out.println("ERROR: INTERRUPTED EXCEPTION");
         }
