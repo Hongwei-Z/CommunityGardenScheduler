@@ -109,6 +109,7 @@ public class TaskListEspressoTests {
         try {
             Thread.sleep(1000);
             onView(ViewMatchers.withId(R.id.recycleview_tasks)).perform(ViewActions.swipeUp());
+            Thread.sleep(1000);
             onView(withRecyclerView(R.id.recycleview_tasks).atPosition(19))
                     .check(matches(hasDescendant(withText("Task 20"))));
             onView(withRecyclerView(R.id.recycleview_tasks).atPosition(1)).perform(click());
