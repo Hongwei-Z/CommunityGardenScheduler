@@ -16,6 +16,9 @@ public class TaskRegisterDummyPage extends AppCompatActivity {
     Task task;
     User user;
     int pos;
+
+    private Button taskdetail;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -24,6 +27,14 @@ public class TaskRegisterDummyPage extends AppCompatActivity {
         user = (User) getIntent().getSerializableExtra("u");
         pos = getIntent().getIntExtra("p", 1);
         registerButton = (Button) findViewById(R.id.registerButton);
+
+        taskdetail = (Button)findViewById(R.id.TaskDetail);
+        taskdetail.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                gototaskdetailpage();
+            }
+        });
 
         registerButton.setOnClickListener(view -> {
             task.setUser(user.getUsername());
@@ -34,6 +45,10 @@ public class TaskRegisterDummyPage extends AppCompatActivity {
             finish();
         });
 
+    }
 
+    public void gototaskdetailpage(){
+        Intent intent = new Intent(this, TaskDetailInfo.class);
+        startActivity(intent);
     }
 }
