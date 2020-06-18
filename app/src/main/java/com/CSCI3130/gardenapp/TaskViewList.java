@@ -1,6 +1,9 @@
 package com.CSCI3130.gardenapp;
 
+import android.app.Dialog;
 import android.os.Bundle;
+import android.view.View;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -12,11 +15,13 @@ public class TaskViewList<task> extends AppCompatActivity {
     private RecyclerView recyclerView;
     private RecyclerView.Adapter taskAdapter;
     private RecyclerView.LayoutManager layoutManager;
+    Dialog myDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_task_view_list);
+        myDialog = new Dialog(this);
 
         recyclerView = findViewById(R.id.recycleview_tasks);
         recyclerView.setHasFixedSize(true);
@@ -42,6 +47,11 @@ public class TaskViewList<task> extends AppCompatActivity {
         taskList.add(new Task("Water cucumber", "water them a lot", 3, "", "June 16th, 2020"));
         taskList.add(new Task("Add compost", "", 1, "Bill", "June 10th, 2020"));
         return taskList;
+    }
+
+    public void PopUp(View view) {
+        myDialog.setContentView(R.layout.filter);
+        myDialog.show();
     }
 }
 

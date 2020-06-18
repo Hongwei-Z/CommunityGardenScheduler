@@ -14,14 +14,15 @@
         tools:replace="android:appComponentFactory"
         tools:targetApi="p" >
         <activity android:name="com.CSCI3130.gardenapp.Welcome"/>
-        <activity android:name=".TaskViewList"/>
-        <activity android:name="com.CSCI3130.gardenapp.SignUp"
-            android:parentActivityName=".SignIn"/>
-        <activity android:name="com.CSCI3130.gardenapp.SignIn">
+        <activity android:name=".TaskViewList">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity android:name="com.CSCI3130.gardenapp.SignUp"
+            android:parentActivityName=".SignIn"/>
+        <activity android:name="com.CSCI3130.gardenapp.SignIn">
         </activity>
         <activity android:name=".CreateTask.AddTaskActivity">
         </activity>
