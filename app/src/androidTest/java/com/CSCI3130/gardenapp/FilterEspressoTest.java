@@ -11,7 +11,7 @@ import static androidx.test.espresso.matcher.ViewMatchers.withText;
 
 public class FilterEspressoTest {
     @Rule
-    public ActivityScenarioRule<FilterActivity> activityActivityScenarioRule = new ActivityScenarioRule<FilterActivity>(FilterActivity.class);
+    public ActivityScenarioRule<FilterPopUp> activityActivityScenarioRule = new ActivityScenarioRule<FilterPopUp>(FilterPopUp.class);
 
     /***
      * Didn't find an effective way to test the calendar yet

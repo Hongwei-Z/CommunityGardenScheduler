@@ -19,8 +19,4 @@
         android:textColor="#000000"
         android:textStyle="bold"/>
 
-    <include
-        android:id="@+id/activity_filter"
-        layout="@layout/activity_filter" />
-
 </androidx.appcompat.widget.Toolbar>
