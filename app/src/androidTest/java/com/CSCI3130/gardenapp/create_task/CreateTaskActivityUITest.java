@@ -59,7 +59,7 @@ public class CreateTaskActivityUITest {
         try {
             Thread.sleep(100);
         } catch (InterruptedException e) {
-            System.out.println("ERROR: INTERRUPTED EXCEPTION");
+            System.out.println(e.toString());
         }
     }
 
