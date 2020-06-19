@@ -93,13 +93,13 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskViewHolder
          * @param user user assigned to task
          */
         public void setUser(String user){
-            if (!user.equals("")) {
+            if (user != null && !user.equals("")) {
                 this.userProfile.setImageResource(R.drawable.profile_icon);
             }
         }
     }
 
-    TaskAdapter(ArrayList<Task> tasks){
+    public TaskAdapter(ArrayList<Task> tasks){
         taskList = tasks;
     }
 

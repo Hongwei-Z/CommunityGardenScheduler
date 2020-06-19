@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.Button;
 import com.CSCI3130.gardenapp.util.data.Task;
 import com.CSCI3130.gardenapp.util.data.User;
+import com.CSCI3130.gardenapp.util.db.DatabaseTaskWriter;
 
 public class TaskRegisterDummyPage extends AppCompatActivity {
 
@@ -16,9 +17,13 @@ public class TaskRegisterDummyPage extends AppCompatActivity {
     Task task;
     User user;
     int pos;
+    DatabaseTaskWriter db = new DatabaseTaskWriter();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        //Hardcoded for now
+        db.getDb().child("Task1").child("user").setValue("Beth");
         setContentView(R.layout.activity_task_register_dummy_page);
         task = (Task) getIntent().getSerializableExtra("t");
         user = (User) getIntent().getSerializableExtra("u");
@@ -26,11 +31,11 @@ public class TaskRegisterDummyPage extends AppCompatActivity {
         registerButton = (Button) findViewById(R.id.registerButton);
 
         registerButton.setOnClickListener(view -> {
+
             task.setUser(user.getUsername());
             Intent returnIntent = new Intent();
             returnIntent.putExtra("p", pos);
             returnIntent.putExtra("t", task);
-            setResult(Activity.RESULT_OK, returnIntent);
             finish();
         });
 
