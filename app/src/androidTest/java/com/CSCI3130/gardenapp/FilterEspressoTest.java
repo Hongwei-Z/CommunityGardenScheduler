@@ -18,7 +18,6 @@ public class FilterEspressoTest {
      */
     @Test
     public void testButtons(){
-        onView(withId(R.id.filterButton2)).perform(click());
         onView(withId(R.id.filterTextView)).check(matches(withText("Filters")));
         onView(withId(R.id.dueBetweenTextView)).check(matches(withText("Due Between")));
         onView(withId(R.id.priorityTextView)).check(matches(withText("Priority")));
