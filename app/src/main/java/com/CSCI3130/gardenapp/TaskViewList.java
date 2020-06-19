@@ -1,6 +1,7 @@
 package com.CSCI3130.gardenapp;
 
 import android.app.Dialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
@@ -50,8 +51,8 @@ public class TaskViewList<task> extends AppCompatActivity {
     }
 
     public void PopUp(View view) {
-        myDialog.setContentView(R.layout.filter);
-        myDialog.show();
+        Intent intent = new Intent(this, FilterPopUp.class);
+        startActivity(intent);
     }
 }
 

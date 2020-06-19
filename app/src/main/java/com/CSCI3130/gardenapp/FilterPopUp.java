@@ -24,7 +24,7 @@ public class FilterPopUp extends Activity {
         myDialog.setContentView(R.layout.filter);
         myDialog.show();
 
-        /***
+        /**
          * @Button selectStartDate is the "Start Date" button on filter window
          * @Button selectEndDate is the "End Date" button on filter window
          */
@@ -73,7 +73,7 @@ public class FilterPopUp extends Activity {
     //ArrayList dateBetween used to save two dates which user selected.
     ArrayList<Integer> dateBetween = new ArrayList<>(2);
 
-    /***
+    /**
      * selectCalendar method, open the date picker
      * @param b is a select date button
      */

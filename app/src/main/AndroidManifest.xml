@@ -26,8 +26,8 @@
         </activity>
         <activity android:name=".CreateTask.AddTaskActivity">
         </activity>
-        <activity android:name=".FilterPopUp"/>
-        <activity android:name=".FilterActivity"/>
+        <activity android:name=".FilterPopUp"
+                  android:theme="@android:style/Theme.Material.Dialog.NoActionBar"/>
     </application>
 
 </manifest>
