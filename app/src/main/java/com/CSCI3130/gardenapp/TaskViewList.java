@@ -2,10 +2,14 @@ package com.CSCI3130.gardenapp;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.app.Dialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
+
+import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -22,6 +26,7 @@ public class TaskViewList<task> extends AppCompatActivity {
     private RecyclerView recyclerView;
     private TaskAdapter taskAdapter;
     private RecyclerView.LayoutManager layoutManager;
+    Dialog myDialog;
 
     /**
      * Actions for when activity is created
@@ -31,6 +36,7 @@ public class TaskViewList<task> extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_task_view_list);
+        myDialog = new Dialog(this);
 
         recyclerView = findViewById(R.id.recycleview_tasks);
         recyclerView.setHasFixedSize(true);
@@ -71,6 +77,11 @@ public class TaskViewList<task> extends AppCompatActivity {
         return taskList;
     }
 
+    public void PopUp(View view) {
+        Intent intent = new Intent(this, FilterPopUp.class);
+        startActivity(intent);
+    }
+
     /**
      * Creates a new activity that allows a user to register for a task
      * @param position index of task
@@ -105,19 +116,6 @@ public class TaskViewList<task> extends AppCompatActivity {
                 taskAdapter.notifyItemChanged(pos); //update recyclerview display
             }
         }
-    }
-
-
-    /***
-     * @author Hongwei Zhang
-     * temporaryTransfer method is a medium between the task list and the popup window,
-     * When you click the filter button on toolbar, it will jump to a empty page with another button,
-     * click that empty button, you will see the calendar selector.
-     * I can't solve this problem yet, I will modify it in time when I find a solution.
-     */
-    public void temporaryTransfer(View v){
-        Intent i = new Intent(TaskViewList.this, FilterActivity.class);
-        startActivity(i);
     }
 }
 

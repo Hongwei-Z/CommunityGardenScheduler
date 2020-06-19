@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:showIn="@layout/activity_task_view_list"
     tools:context=".TaskViewList">
 
@@ -14,6 +15,7 @@
         android:id="@+id/recycleview_tasks"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="60dp" />
+        android:layout_below="@+id/toolbar"/>
+
 </RelativeLayout>
 

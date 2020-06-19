@@ -2,7 +2,6 @@
 <androidx.appcompat.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/colorPrimary"
     android:elevation="4dp"
     android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">;
@@ -20,11 +19,8 @@
         android:textColor="#000000"
         android:textStyle="bold"/>
 
-    <ImageButton
-        android:id="@+id/filterButton"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:onClick="temporaryTransfer"
-        android:layout_marginLeft="240dp"
-        app:srcCompat="@android:drawable/ic_menu_sort_by_size" />
+    <include
+        android:id="@+id/activity_filter"
+        layout="@layout/activity_filter" />
+
 </androidx.appcompat.widget.Toolbar>
