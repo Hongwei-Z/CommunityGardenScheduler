@@ -16,20 +16,24 @@ import java.util.Calendar;
  */
 public class FilterPopUp extends Activity {
     Dialog myDialog;
+    //ArrayList dateBetween used to save two dates which user selected.
+    ArrayList<Integer> dateBetween;
 
     protected void onCreate(Bundle savedInstanceState) {
+        dateBetween = new ArrayList<Integer>(2);
+        //to avoid null pointer exception
+        dateBetween.add(1);
+        dateBetween.add(2);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.filter);
-        myDialog = new Dialog(this);
-        myDialog.setContentView(R.layout.filter);
-        myDialog.show();
 
         /**
          * @Button selectStartDate is the "Start Date" button on filter window
          * @Button selectEndDate is the "End Date" button on filter window
          */
-        final Button selectStartDate = myDialog.findViewById(R.id.startDateButton);
-        final Button selectEndDate = myDialog.findViewById(R.id.endDateButton);
+        final Button selectStartDate = findViewById(R.id.startDateButton);
+        final Button selectEndDate = findViewById(R.id.endDateButton);
+        //TODO - Ditto from the below
         selectStartDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -46,7 +50,8 @@ public class FilterPopUp extends Activity {
         /***
          * @Button applyButton is the "Apply" button on filter window
          */
-        final Button applyButton = myDialog.findViewById(R.id.applyButton);
+        final Button applyButton = findViewById(R.id.applyButton);
+        //TODO - Check for null values. This should also be in an OnClick event function, not in the create function
         applyButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -57,7 +62,8 @@ public class FilterPopUp extends Activity {
         /***
          * @Button clearButton is the "Clear" button on filter window
          */
-        Button clearButton = myDialog.findViewById(R.id.clearButton);
+        Button clearButton = findViewById(R.id.clearButton);
+        //TODO - Ditto from the top
         clearButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -67,11 +73,7 @@ public class FilterPopUp extends Activity {
                 dateBetween.clear();
             }
         });
-        myDialog.show();
     }
-
-    //ArrayList dateBetween used to save two dates which user selected.
-    ArrayList<Integer> dateBetween = new ArrayList<>(2);
 
     /**
      * selectCalendar method, open the date picker
