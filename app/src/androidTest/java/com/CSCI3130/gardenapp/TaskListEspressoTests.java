@@ -70,7 +70,7 @@ public class TaskListEspressoTests {
             onView(withRecyclerView(R.id.recycleview_tasks).atPosition(0)).perform(click());
             Espresso.pressBack();
         } catch (InterruptedException e) {
-            System.out.println("ERROR: INTERRUPTED EXCEPTION");
+            System.out.println(e.toString());
         }
 
         task = new Task("Test Task 2", "This is a Test", 2, "Beth", "Location", "June 15th, 2020");
@@ -90,7 +90,7 @@ public class TaskListEspressoTests {
             onView(withRecyclerView(R.id.recycleview_tasks).atPosition(0)).perform(click());
             Espresso.pressBack();
         } catch (InterruptedException e) {
-            System.out.println("ERROR: INTERRUPTED EXCEPTION");
+            System.out.println(e.toString());
         }
     }
 
@@ -119,7 +119,7 @@ public class TaskListEspressoTests {
             onView(withRecyclerView(R.id.recycleview_tasks).atPosition(19)).perform(click());
             Espresso.pressBack();
         } catch (InterruptedException e) {
-            System.out.println("ERROR: INTERRUPTED EXCEPTION");
+            System.out.println(e.toString());
         }
     }
 }

@@ -85,17 +85,7 @@ public class DatabaseTaskWriter {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 allTasks.clear();
                 for (DataSnapshot dataSnapshotTask : dataSnapshot.getChildren()) {
-                    Task task = new Task();
-                    task.setName(dataSnapshotTask.child("name").getValue() != null
-                            ? dataSnapshotTask.child("name").getValue().toString() : "");
-                    task.setPriority(dataSnapshotTask.child("priority").getValue() != null
-                            ? ((Long) dataSnapshotTask.child("priority").getValue()).intValue() : 0);
-                    task.setDate(dataSnapshotTask.child("date").getValue() != null
-                            ? dataSnapshotTask.child("date").getValue().toString() : "");
-                    task.setUser(dataSnapshotTask.child("user").getValue() != null
-                            ? dataSnapshotTask.child("user").getValue().toString() : "");
-                    task.setDescription(dataSnapshotTask.child("description").getValue() != null
-                            ? dataSnapshotTask.child("description").getValue().toString() : "");
+                    Task task = dataSnapshotTask.getValue(Task.class);
                     allTasks.add(task);
                 }
                 TaskAdapter taskAdapter = new TaskAdapter(allTasks);
@@ -112,7 +102,7 @@ public class DatabaseTaskWriter {
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-                int i = 1;//error //do something
+                System.out.println(databaseError.toString());
             }
         };
     }

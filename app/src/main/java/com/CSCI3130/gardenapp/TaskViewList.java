@@ -7,8 +7,7 @@ import com.CSCI3130.gardenapp.util.db.DatabaseTaskWriter;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import com.CSCI3130.gardenapp.util.data.Task;
-import java.util.ArrayList;
+
 
 /**
  * Activity class to process the task data and populate the task list
@@ -17,10 +16,8 @@ import java.util.ArrayList;
 public class TaskViewList extends AppCompatActivity {
 
     DatabaseTaskWriter db;
-    private ArrayList<Task> allTasks = new ArrayList<>();
     protected RecyclerView recyclerView;
     private RecyclerView.LayoutManager layoutManager;
-    TaskAdapter taskAdapter = new TaskAdapter(allTasks);
     private static Context mContext;
 
     /**
