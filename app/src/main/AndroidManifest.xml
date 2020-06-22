@@ -15,17 +15,18 @@
         tools:targetApi="p">
         <activity android:name=".CompleteDialog"></activity>
         <activity android:name=".TaskDetailInfo" />
-        <activity android:name=".Welcome" />
-        <activity android:name=".TaskViewList" />
-        <activity
-            android:name=".SignUp"
-            android:parentActivityName=".SignIn" />
-        <activity android:name=".SignIn">
+        <activity android:name=".Welcome" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity android:name=".TaskViewList" />
+        <activity
+            android:name=".SignUp"
+            android:parentActivityName=".SignIn" />
+        <activity android:name=".SignIn">
         </activity>
         <activity android:name=".TaskRegisterDummyPage" />
         <activity
