@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="320dp"
     android:layout_height="350dp"
-    android:background="#C4C4C4"
+    android:background="@drawable/filter_shape"
     android:orientation="vertical"
     android:theme="@android:style/Theme.Black.NoTitleBar"
     android:layout_gravity="center">
@@ -28,9 +28,10 @@
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
         android:layout_marginTop="10dp"
-        android:layout_marginEnd="10dp"
+        android:layout_marginEnd="25dp"
         android:background="#00FFFFFF"
         android:text="Clear"
+        android:onClick="clearMethod"
         android:textAllCaps="false"
         android:textColor="#03A9F4"
         android:textSize="26sp"
@@ -66,11 +67,12 @@
         android:layout_marginStart="25dp"
         android:layout_marginEnd="170dp"
         android:layout_marginBottom="190dp"
-        android:background="#FFFFFF"
         android:paddingTop="10dp"
         android:paddingBottom="10dp"
+        android:onClick="selectCalendar"
         android:text="Start Date"
         android:textColor="#FF5722"
+        android:background="@drawable/date_select_button_shape"
         android:textSize="22sp"
         android:textStyle="bold" />
 
@@ -84,11 +86,12 @@
         android:layout_marginStart="170dp"
         android:layout_marginEnd="25dp"
         android:layout_marginBottom="190dp"
-        android:background="#FFFFFF"
         android:paddingTop="10dp"
         android:paddingBottom="10dp"
+        android:onClick="selectCalendar"
         android:text="End Date"
         android:textColor="#FF5722"
+        android:background="@drawable/date_select_button_shape"
         android:textSize="22sp"
         android:textStyle="bold" />
 
@@ -189,11 +192,13 @@
         android:layout_marginLeft="25dp"
         android:layout_marginRight="25dp"
         android:layout_marginBottom="20dp"
-        android:background="#5E5E5E"
+        android:background="@drawable/apply_button_shape"
         android:paddingTop="8dp"
         android:paddingBottom="8dp"
         android:text="APPLY"
+        android:onClick="applyMethod"
         android:textColor="#FAF9F9"
         android:textSize="24sp"
         android:textStyle="bold" />
+
 </RelativeLayout>
