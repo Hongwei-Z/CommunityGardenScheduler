@@ -25,7 +25,6 @@
         <activity android:name="com.CSCI3130.gardenapp.SignIn"/>
         <activity android:name=".create_task.CreateTaskActivity" />
         <activity android:name=".FilterPopUp"
-                  android:theme="@android:style/Theme.Material.Dialog.NoActionBar"/>
+            android:theme="@android:style/Theme.Material.Dialog.NoActionBar"/>
     </application>
-
 </manifest>
