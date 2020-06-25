@@ -14,17 +14,18 @@
         tools:replace="android:appComponentFactory"
         tools:targetApi="p" >
         <activity android:name="com.CSCI3130.gardenapp.Welcome"/>
-        <activity android:name=".TaskViewList">
+        <activity android:name=".TaskViewList"/>
+        <activity android:name="com.CSCI3130.gardenapp.SignUp"
+            android:parentActivityName=".SignIn"/>
+        <activity android:name="com.CSCI3130.gardenapp.SignIn">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.CSCI3130.gardenapp.SignUp"
-            android:parentActivityName=".SignIn"/>
-        <activity android:name="com.CSCI3130.gardenapp.SignIn"/>
-        <activity android:name=".create_task.CreateTaskActivity" />
-        <activity android:name=".FilterPopUp"
-            android:theme="@android:style/Theme.Material.Dialog.NoActionBar"/>
+        <activity android:name=".TaskRegisterDummyPage" />
+        <activity android:name=".create_task.CreateTaskActivity" android:parentActivityName=".Welcome"/>
+        <activity android:name=".FilterPopUp" android:theme="@android:style/Theme.Material.Dialog.NoActionBar"/>
     </application>
+
 </manifest>
