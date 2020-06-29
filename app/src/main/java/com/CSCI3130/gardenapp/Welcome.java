@@ -6,7 +6,6 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.CSCI3130.gardenapp.create_task.CreateTaskActivity;
@@ -44,8 +43,19 @@ public class Welcome extends AppCompatActivity {
      * Opens the taskList activity on button click
      * @param v view object of the View executing the onclick
      */
-    public void taskListOpen_onclick(View v){
+    public void allTaskListOpen_onclick(View v){
         Intent i = new Intent(Welcome.this, TaskViewList.class);
+        i.putExtra("setting", "allTasks");
+        startActivity(i);
+    }
+
+    /**
+     * Opens user taskList activity on button click
+     * @param v view object of the View executing the onclick
+     */
+    public void myTaskListOpen_onclick(View v){
+        Intent i = new Intent(Welcome.this, TaskViewList.class);
+        i.putExtra("setting", "myTasks");
         startActivity(i);
     }
 

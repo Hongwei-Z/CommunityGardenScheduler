@@ -28,12 +28,18 @@ public class DatabaseTaskWriter {
     protected DatabaseReference db;
 
     /**
+     * Query on the database reference
+     */
+    protected Query dbQuery;
+
+    /**
      * Constructor that injects a database starting point. Useful for testing
      *
      * @param db Reference node to write all tasks under
      */
     public DatabaseTaskWriter(DatabaseReference db) {
         this.db = db;
+        this.dbQuery = db;
     }
 
     /**
@@ -41,6 +47,7 @@ public class DatabaseTaskWriter {
      */
     public DatabaseTaskWriter() {
         this.db = FirebaseDatabase.getInstance().getReference().child("Tasks");
+        this.dbQuery = FirebaseDatabase.getInstance().getReference().child("Tasks");
     }
 
     /**
@@ -60,6 +67,24 @@ public class DatabaseTaskWriter {
      */
     public DatabaseReference getDb() {
         return db;
+    }
+
+    /**
+     * Fetches the current database query. Useful for filtering data
+     *
+     * @return Current database query
+     */
+    public Query getDbQuery() {
+        return dbQuery;
+    }
+
+    /**
+     * Sets the database reference used in an activity to query on specific fields
+     *
+     * @param dbQuery new database query
+     */
+    public void setDbQuery(Query dbQuery) {
+        this.dbQuery = dbQuery;
     }
 
     /**
