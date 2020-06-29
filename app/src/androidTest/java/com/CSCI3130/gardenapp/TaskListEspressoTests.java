@@ -1,5 +1,7 @@
 package com.CSCI3130.gardenapp;
 
+import android.content.Intent;
+
 import androidx.test.espresso.Espresso;
 import androidx.test.espresso.action.ViewActions;
 import androidx.test.espresso.matcher.ViewMatchers;
@@ -32,7 +34,9 @@ public class TaskListEspressoTests {
 
     @Before
     public void setUp(){
-        activityScenarioRule.launchActivity(null);
+        Intent intent = new Intent();
+        intent.putExtra("setting", "allTasks");
+        activityScenarioRule.launchActivity(intent);
         testDB = new DatabaseTaskTestWriter();
         activity = activityScenarioRule.getActivity();
         activity.db = testDB;
@@ -47,6 +51,11 @@ public class TaskListEspressoTests {
 
     public static RecyclerViewMatcher withRecyclerView(final int recyclerViewId) {
         return new RecyclerViewMatcher(recyclerViewId);
+    }
+
+    @Test
+    public void toolbarHasExpectedText() {
+        onView(withId(R.id.page_name)).check(matches(withText("All Tasks")));
     }
 
     @Test
