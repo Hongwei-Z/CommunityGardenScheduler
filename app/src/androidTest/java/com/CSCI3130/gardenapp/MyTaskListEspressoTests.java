@@ -16,10 +16,12 @@ import org.junit.Test;
 
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.click;
+import static androidx.test.espresso.assertion.ViewAssertions.doesNotExist;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
 import static androidx.test.espresso.matcher.ViewMatchers.hasDescendant;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
+import static org.hamcrest.Matchers.not;
 
 public class MyTaskListEspressoTests {
     @Rule
@@ -59,13 +61,14 @@ public class MyTaskListEspressoTests {
         testDB.uploadTask(task);
         try {
             Thread.sleep(1000);
-            onView(withRecyclerView(R.id.recycleview_tasks).atPosition(0))
-                    .check(matches(hasDescendant(withText("My Task"))));
+            onView(withRecyclerView(R.id.recycleview_tasks).atPosition(1)).check(doesNotExist());
+            onView(withRecyclerView(R.id.recycleview_tasks).atPosition(0)).check(matches(hasDescendant(withText("My Task"))));
             onView(withRecyclerView(R.id.recycleview_tasks).atPosition(0))
                     .check(matches(hasDescendant(withText("June 14th, 2020"))));
             onView(withRecyclerView(R.id.recycleview_tasks).atPosition(0))
                     .check(matches(hasDescendant(withId(R.id.task_user_profile))));
             onView(withRecyclerView(R.id.recycleview_tasks).atPosition(0)).perform(click());
+            onView(withRecyclerView(R.id.recycleview_tasks).atPosition(0)).check(doesNotExist());
             Espresso.pressBack();
         } catch (InterruptedException e) {
             System.out.println(e.toString());
