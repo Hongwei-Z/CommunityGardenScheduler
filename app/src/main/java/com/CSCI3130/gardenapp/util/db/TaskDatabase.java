@@ -12,6 +12,7 @@ import com.CSCI3130.gardenapp.TaskRegisterDummyPage;
 import com.CSCI3130.gardenapp.TaskViewList;
 import com.CSCI3130.gardenapp.util.data.Task;
 import com.CSCI3130.gardenapp.util.data.User;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.*;
 
 import java.util.ArrayList;
@@ -21,26 +22,33 @@ import java.util.ArrayList;
  * tests so that we can emulate database functions on JUnit tests.
  * @author Liam Hebert
  */
-public class DatabaseTaskWriter {
+public class TaskDatabase {
     /**
      * Database reference
      */
-    protected DatabaseReference db;
+    protected DatabaseReference dbWrite;
+
+    /**
+     * Query on the database reference
+     */
+    protected Query dbRead;
 
     /**
      * Constructor that injects a database starting point. Useful for testing
      *
-     * @param db Reference node to write all tasks under
+     * @param dbWrite Reference node to write all tasks under
      */
-    public DatabaseTaskWriter(DatabaseReference db) {
-        this.db = db;
+    public TaskDatabase(DatabaseReference dbWrite) {
+        this.dbWrite = dbWrite;
+        this.dbRead = dbWrite;
     }
 
     /**
      * Default constructor that writes tests under the root Tasks node
      */
-    public DatabaseTaskWriter() {
-        this.db = FirebaseDatabase.getInstance().getReference().child("Tasks");
+    public TaskDatabase() {
+        this.dbWrite = FirebaseDatabase.getInstance().getReference().child("Tasks");
+        this.dbRead = FirebaseDatabase.getInstance().getReference().child("Tasks");
     }
 
     /**
@@ -50,7 +58,7 @@ public class DatabaseTaskWriter {
      * @return Boolean if the upload was successful
      */
     public boolean uploadTask(Task task) {
-        return db.push().setValue(task).isComplete();
+        return dbWrite.push().setValue(task).isComplete();
     }
 
     /**
@@ -58,8 +66,29 @@ public class DatabaseTaskWriter {
      *
      * @return Current database reference
      */
-    public DatabaseReference getDb() {
-        return db;
+    public DatabaseReference getDbWrite() {
+        return dbWrite;
+    }
+
+    /**
+     * Fetches the current database query. Useful for filtering data
+     *
+     * @return Current database query
+     */
+    public Query getDbRead() {
+        return dbRead;
+    }
+
+    /**
+     * Sets the database reference used in an activity to query on specific fields
+     *
+     * @param setting query setting for tasklist
+     */
+    public void setDbRead(String setting) {
+        /** if allTasks do nothing, no need for query **/
+        if (setting.equals("myTasks")) {
+            this.dbRead = dbRead.orderByChild("user").equalTo(FirebaseAuth.getInstance().getUid());
+        }
     }
 
     /**
