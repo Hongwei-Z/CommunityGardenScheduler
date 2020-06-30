@@ -8,7 +8,7 @@ import android.view.View;
 import android.widget.EditText;
 import com.CSCI3130.gardenapp.R;
 import com.CSCI3130.gardenapp.util.data.Task;
-import com.CSCI3130.gardenapp.util.db.DatabaseTaskWriter;
+import com.CSCI3130.gardenapp.util.db.TaskDatabase;
 import com.google.android.material.snackbar.Snackbar;
 
 import java.time.LocalDate;
@@ -21,7 +21,7 @@ import java.util.ArrayList;
  */
 public class CreateTaskActivity extends AppCompatActivity {
     private int current_priority;
-    DatabaseTaskWriter db;
+    TaskDatabase db;
 
     /**
      * Constructing the activity
@@ -31,7 +31,7 @@ public class CreateTaskActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_task);
-        db = new DatabaseTaskWriter();
+        db = new TaskDatabase();
         current_priority = -1;
     }
 
