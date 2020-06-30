@@ -6,7 +6,7 @@ import androidx.test.espresso.Espresso;
 import androidx.test.rule.ActivityTestRule;
 
 import com.CSCI3130.gardenapp.util.data.Task;
-import com.CSCI3130.gardenapp.util.db.DatabaseTaskTestWriter;
+import com.CSCI3130.gardenapp.util.db.TaskTestDatabase;
 import com.google.firebase.auth.FirebaseAuth;
 
 import org.junit.After;
@@ -21,12 +21,11 @@ import static androidx.test.espresso.assertion.ViewAssertions.matches;
 import static androidx.test.espresso.matcher.ViewMatchers.hasDescendant;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
-import static org.hamcrest.Matchers.not;
 
 public class MyTaskListEspressoTests {
     @Rule
     public ActivityTestRule<TaskViewList> activityScenarioRule = new ActivityTestRule<TaskViewList>(TaskViewList.class, true, false);
-    public DatabaseTaskTestWriter testDB;
+    public TaskTestDatabase testDB;
     private TaskViewList activity;
 
     @Before
@@ -34,15 +33,16 @@ public class MyTaskListEspressoTests {
         Intent intent = new Intent();
         intent.putExtra("setting", "myTasks");
         activityScenarioRule.launchActivity(intent);
-        testDB = new DatabaseTaskTestWriter();
+        testDB = new TaskTestDatabase();
+        testDB.setDbRead("myTasks");
         activity = activityScenarioRule.getActivity();
         activity.db = testDB;
-        testDB.getDb().addValueEventListener(testDB.getTaskData(activity.recyclerView));
+        testDB.getDbRead().addValueEventListener(testDB.getTaskData(activity.recyclerView));
     }
 
     @After
     public void tearDown() {
-        DatabaseTaskTestWriter db = (DatabaseTaskTestWriter) activity.db;
+        TaskTestDatabase db = (TaskTestDatabase) activity.db;
         db.clearDatabase();
     }
 
@@ -57,7 +57,15 @@ public class MyTaskListEspressoTests {
 
     @Test
     public void recyclerViewItemContainsExpectedText() {
-        Task task = new Task("My Task", "This is a Test", 2, FirebaseAuth.getInstance().getUid(), "Location", "June 14th, 2020");
+        Task task = new Task("My Task", "This is a Test", 2, "not current UUID", "Location", "June 14th, 2020");
+        testDB.uploadTask(task);
+        try {
+            Thread.sleep(2000);
+            onView(withRecyclerView(R.id.recycleview_tasks).atPosition(0)).check(doesNotExist());
+        } catch (InterruptedException e) {
+            System.out.println(e.toString());
+        }
+        task = new Task("My Task", "This is a Test", 2, FirebaseAuth.getInstance().getUid(), "Location", "June 14th, 2020");
         testDB.uploadTask(task);
         try {
             Thread.sleep(1000);

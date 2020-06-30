@@ -70,6 +70,7 @@ public class RecyclerViewMatcher {
                     return view == targetView;
                 }
             }
+
         };
     }
 }

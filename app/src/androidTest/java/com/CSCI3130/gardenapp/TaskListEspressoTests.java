@@ -12,14 +12,14 @@ import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 
-import com.CSCI3130.gardenapp.util.db.DatabaseTaskTestWriter;
+import com.CSCI3130.gardenapp.util.db.TaskTestDatabase;
 import com.CSCI3130.gardenapp.util.data.Task;
 
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.click;
+import static androidx.test.espresso.assertion.ViewAssertions.doesNotExist;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
 import static androidx.test.espresso.matcher.ViewMatchers.hasBackground;
-import static androidx.test.espresso.matcher.ViewMatchers.hasChildCount;
 import static androidx.test.espresso.matcher.ViewMatchers.hasDescendant;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
@@ -29,7 +29,7 @@ public class TaskListEspressoTests {
 
     @Rule
     public ActivityTestRule<TaskViewList> activityScenarioRule = new ActivityTestRule<TaskViewList>(TaskViewList.class, true, false);
-    public DatabaseTaskTestWriter testDB;
+    public TaskTestDatabase testDB;
     private TaskViewList activity;
 
     @Before
@@ -37,15 +37,15 @@ public class TaskListEspressoTests {
         Intent intent = new Intent();
         intent.putExtra("setting", "allTasks");
         activityScenarioRule.launchActivity(intent);
-        testDB = new DatabaseTaskTestWriter();
+        testDB = new TaskTestDatabase();
         activity = activityScenarioRule.getActivity();
         activity.db = testDB;
-        testDB.getDb().addValueEventListener(testDB.getTaskData(activity.recyclerView));
+        testDB.getDbRead().addValueEventListener(testDB.getTaskData(activity.recyclerView));
     }
 
     @After
     public void tearDown() {
-        DatabaseTaskTestWriter db = (DatabaseTaskTestWriter) activity.db;
+        TaskTestDatabase db = (TaskTestDatabase) activity.db;
         db.clearDatabase();
     }
 
@@ -78,6 +78,7 @@ public class TaskListEspressoTests {
                     .check(matches(hasDescendant(withText("June 14th, 2020"))));
             onView(withRecyclerView(R.id.recycleview_tasks).atPosition(0)).perform(click());
             Espresso.pressBack();
+            onView(withRecyclerView(R.id.recycleview_tasks).atPosition(1)).check(doesNotExist());
         } catch (InterruptedException e) {
             System.out.println(e.toString());
         }

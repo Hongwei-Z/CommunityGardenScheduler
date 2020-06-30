@@ -4,8 +4,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.widget.TextView;
 
-import com.CSCI3130.gardenapp.util.db.DatabaseTaskWriter;
-import com.google.firebase.auth.FirebaseAuth;
+import com.CSCI3130.gardenapp.util.db.TaskDatabase;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -18,7 +17,7 @@ import androidx.recyclerview.widget.RecyclerView;
  */
 public class TaskViewList extends AppCompatActivity {
 
-    DatabaseTaskWriter db;
+    TaskDatabase db;
     protected RecyclerView recyclerView;
     private RecyclerView.LayoutManager layoutManager;
     private static Context mContext;
@@ -37,10 +36,8 @@ public class TaskViewList extends AppCompatActivity {
         TextView toolbarTitle = (TextView) findViewById(R.id.page_name);
         toolbarTitle.setText(setting.equals("allTasks") ? "All Tasks" : "My Tasks");
 
-        db = new DatabaseTaskWriter();
-        if (setting.equals("myTasks")){
-            db.setDbQuery(db.getDb().orderByChild("user").equalTo(FirebaseAuth.getInstance().getUid()));
-        }
+        db = new TaskDatabase();
+        db.setDbRead(setting);
 
         recyclerView = findViewById(R.id.recycleview_tasks);
         recyclerView.setHasFixedSize(true);
@@ -48,7 +45,7 @@ public class TaskViewList extends AppCompatActivity {
         layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
 
-        db.getDbQuery().addValueEventListener(db.getTaskData(recyclerView));
+        db.getDbRead().addValueEventListener(db.getTaskData(recyclerView));
     }
 
     /**
