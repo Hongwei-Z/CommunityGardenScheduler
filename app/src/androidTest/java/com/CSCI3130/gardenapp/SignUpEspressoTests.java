@@ -2,6 +2,8 @@ package com.CSCI3130.gardenapp;
 
 import androidx.test.rule.ActivityTestRule;
 
+import com.CSCI3130.gardenapp.util.db.DatabaseAuth;
+import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 
@@ -27,6 +29,11 @@ public class SignUpEspressoTests {
     String invalid_password = "fives"; //invalid password
     String valid_password = "password"; //valid password
     String valid_password2 = "passwrd"; //alternate valid password
+
+    @Before
+    public void before() {
+        DatabaseAuth.signOut();
+    }
 
     //test for empty first name error
     @Test
