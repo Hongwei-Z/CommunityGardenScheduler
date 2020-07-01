@@ -86,8 +86,20 @@ public class TaskDatabase {
      */
     public void setDbRead(String setting) {
         /** if allTasks do nothing, no need for query **/
-        if (setting.equals("myTasks")) {
-            this.dbRead = dbRead.orderByChild("user").equalTo(FirebaseAuth.getInstance().getUid());
+//        if (setting.equals("myTasks")) {
+//            this.dbRead = dbRead.orderByChild("user").equalTo(FirebaseAuth.getInstance().getUid());
+//        }
+//        else if (setting.equals("openTasks")) {
+//            this.dbRead = dbRead.orderByChild("user").equalTo("");
+//        }
+
+        switch(setting) {
+            case "myTasks":
+                this.dbRead = dbRead.orderByChild("user").equalTo(FirebaseAuth.getInstance().getUid());
+                break;
+            case "openTasks":
+                this.dbRead = dbRead.orderByChild("user").equalTo("");
+                break;
         }
     }
 
@@ -135,6 +147,7 @@ public class TaskDatabase {
             }
         };
     }
+
 
     /**
      * Creates a new activity that allows a user to register for a task
