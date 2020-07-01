@@ -1,8 +1,18 @@
 package com.CSCI3130.gardenapp.util.db;
 
+import androidx.annotation.NonNull;
+import com.CSCI3130.gardenapp.util.data.Task;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import org.junit.Assert;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Random;
+
+import static org.junit.Assert.fail;
 
 /**
  * Utility test wrapper for DatabaseTaskWriter to ensure tasks are written under a unique
@@ -30,5 +40,49 @@ public class TaskTestDatabase extends TaskDatabase {
      */
     public void clearDatabase(){
         dbWrite.getRoot().child(test).removeValue();
+    }
+
+    public void checkForTask(Task task) {
+        final boolean[] flag = {false};
+        db.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                Assert.assertEquals(1, dataSnapshot.getChildrenCount());
+                for (DataSnapshot child : dataSnapshot.getChildren()) {
+                    Task got = child.getValue(Task.class);
+                    Assert.assertEquals(task, got);
+                }
+                flag[0] = true;
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                fail();
+            }
+        });
+        try {
+            Thread.sleep(100);
+        } catch (InterruptedException e) {
+            System.out.println(e.toString());
+        }
+        Assert.assertTrue(flag[0]);
+    }
+
+    public void ensureNoDatabaseActivity() {
+        db.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists())
+                    fail();
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                fail();
+            }
+        });
+        try {
+            Thread.sleep(500);
+        } catch (InterruptedException e) {
+            System.out.println(e.toString());
+        }
     }
 }

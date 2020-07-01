@@ -1,4 +1,4 @@
-package com.CSCI3130.gardenapp;
+package com.CSCI3130.gardenapp.task_view_list;
 
 import android.content.Intent;
 import androidx.test.espresso.Espresso;
@@ -6,6 +6,8 @@ import androidx.test.espresso.action.ViewActions;
 import androidx.test.espresso.matcher.ViewMatchers;
 import androidx.test.rule.ActivityTestRule;
 
+import com.CSCI3130.gardenapp.R;
+import org.hamcrest.core.AllOf;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Rule;
@@ -63,7 +65,7 @@ public class TaskListEspressoTests {
 
     @Test
     public void recyclerViewCardsContainTasksInfo() {
-        onView(allOf(withId(R.id.task_card), hasDescendant(withId(R.id.task_name))));
+        onView(AllOf.allOf(ViewMatchers.withId(R.id.task_card), hasDescendant(withId(R.id.task_name))));
         onView(allOf(withId(R.id.task_card), hasDescendant(withId(R.id.task_date))));
         onView(allOf(withId(R.id.task_card), hasDescendant(withId(R.id.task_priority))));
         onView(allOf(withId(R.id.task_card), hasDescendant(withId(R.id.task_user_profile))));
