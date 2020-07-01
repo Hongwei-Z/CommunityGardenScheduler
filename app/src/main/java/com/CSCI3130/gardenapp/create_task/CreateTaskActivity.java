@@ -11,7 +11,6 @@ import com.CSCI3130.gardenapp.R;
 import com.CSCI3130.gardenapp.task_view_list.TaskViewList;
 import com.CSCI3130.gardenapp.util.data.Task;
 import com.CSCI3130.gardenapp.util.db.TaskDatabase;
-import com.google.android.material.snackbar.Snackbar;
 
 import java.util.ArrayList;
 import java.util.Objects;
@@ -39,6 +38,7 @@ public class CreateTaskActivity extends AppCompatActivity {
         if (edit) { // configures the UI to EDIT mode
             loadEditConfiguration((Task) Objects.requireNonNull(getIntent().getSerializableExtra("t")));
         }
+        db = new TaskDatabase();
     }
 
     private void loadEditConfiguration(Task t) {

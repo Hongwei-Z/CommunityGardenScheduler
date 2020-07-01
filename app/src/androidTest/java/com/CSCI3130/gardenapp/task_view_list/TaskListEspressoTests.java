@@ -5,7 +5,6 @@ import androidx.test.espresso.Espresso;
 import androidx.test.espresso.action.ViewActions;
 import androidx.test.espresso.intent.rule.IntentsTestRule;
 import androidx.test.espresso.matcher.ViewMatchers;
-import androidx.test.rule.ActivityTestRule;
 
 import com.CSCI3130.gardenapp.R;
 import org.hamcrest.core.AllOf;

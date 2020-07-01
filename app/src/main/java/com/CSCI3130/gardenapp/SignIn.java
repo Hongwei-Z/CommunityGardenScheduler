@@ -14,7 +14,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 /**
- * Acvitity class which allows a user to sign into the app
+ * Activity class which allows a user to sign into the app
  * @author Arjav Gupta
  */
 public class SignIn extends AppCompatActivity {
@@ -25,8 +25,6 @@ public class SignIn extends AppCompatActivity {
 
     //firebase authentication object
     FirebaseAuth mFirebaseAuth;
-    //state listener
-    FirebaseAuth.AuthStateListener mAuthStateListener;
 
     /**
      * onCreate method for initial activity setup

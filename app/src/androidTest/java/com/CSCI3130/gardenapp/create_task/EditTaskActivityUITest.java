@@ -14,7 +14,7 @@ import androidx.test.rule.ActivityTestRule;
 import com.CSCI3130.gardenapp.R;
 import com.CSCI3130.gardenapp.util.data.Task;
 import com.CSCI3130.gardenapp.util.data.TaskGenerator;
-import com.CSCI3130.gardenapp.util.db.DatabaseTaskTestWriter;
+import com.CSCI3130.gardenapp.util.db.TaskTestDatabase;
 import org.hamcrest.Description;
 import org.hamcrest.Matcher;
 import org.junit.After;
@@ -30,14 +30,14 @@ import static androidx.test.espresso.matcher.ViewMatchers.*;
 public class EditTaskActivityUITest {
     @Rule
     public ActivityTestRule<CreateTaskActivity> activityScenarioRule = new ActivityTestRule<CreateTaskActivity>(CreateTaskActivity.class, true, false);
-    public DatabaseTaskTestWriter testDB;
+    public TaskTestDatabase testDB;
     private CreateTaskActivity activity;
     private Task testTask;
 
     @Before
     public void setUp(){
         testTask = TaskGenerator.generateTask(true);
-        testDB = new DatabaseTaskTestWriter();
+        testDB = new TaskTestDatabase();
         testDB.uploadTask(testTask);
         Context targetContext = InstrumentationRegistry.getInstrumentation().getTargetContext();
         Intent i = new Intent(targetContext, CreateTaskActivity.class);
@@ -53,7 +53,7 @@ public class EditTaskActivityUITest {
     @After
     public void tearDown() {
         System.out.println(activity == null);
-        DatabaseTaskTestWriter db = (DatabaseTaskTestWriter) activity.db;
+        TaskTestDatabase db = (TaskTestDatabase) activity.db;
         db.clearDatabase();
     }
 

@@ -8,8 +8,6 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import org.junit.Assert;
 
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.Random;
 
 import static org.junit.Assert.fail;
@@ -44,7 +42,7 @@ public class TaskTestDatabase extends TaskDatabase {
 
     public void checkForTask(Task task) {
         final boolean[] flag = {false};
-        db.addListenerForSingleValueEvent(new ValueEventListener() {
+        dbRead.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 Assert.assertEquals(1, dataSnapshot.getChildrenCount());
@@ -68,7 +66,7 @@ public class TaskTestDatabase extends TaskDatabase {
     }
 
     public void ensureNoDatabaseActivity() {
-        db.addListenerForSingleValueEvent(new ValueEventListener() {
+        dbRead.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists())

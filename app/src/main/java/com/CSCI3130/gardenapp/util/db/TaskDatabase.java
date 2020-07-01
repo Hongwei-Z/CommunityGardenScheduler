@@ -12,6 +12,7 @@ import com.CSCI3130.gardenapp.task_view_list.TaskRegisterDummyPage;
 import com.CSCI3130.gardenapp.task_view_list.TaskViewList;
 import com.CSCI3130.gardenapp.TaskDetailInfo;
 import com.CSCI3130.gardenapp.util.data.Task;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.*;
 
 import java.util.ArrayList;

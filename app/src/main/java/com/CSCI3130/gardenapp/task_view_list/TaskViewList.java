@@ -27,7 +27,7 @@ public class TaskViewList extends AppCompatActivity {
     protected RecyclerView recyclerView;
     private RecyclerView.LayoutManager layoutManager;
     private static Context mContext;
-    public static String activeTaskListContext;
+    private String activeTaskListContext;
 
     /**
      * Actions for when activity is created
@@ -67,7 +67,7 @@ public class TaskViewList extends AppCompatActivity {
         recyclerView = findViewById(R.id.recycleview_tasks);
         recyclerView.setHasFixedSize(true);
 
-        layoutManager = new LinearLayoutManager(this);
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
 
         db.getDbRead().addValueEventListener(
