@@ -1,5 +1,6 @@
 package com.CSCI3130.gardenapp.create_task;
 
+import android.content.Intent;
 import android.widget.Button;
 import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
@@ -7,11 +8,13 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import com.CSCI3130.gardenapp.R;
+import com.CSCI3130.gardenapp.task_view_list.TaskViewList;
 import com.CSCI3130.gardenapp.util.data.Task;
 import com.CSCI3130.gardenapp.util.db.TaskDatabase;
 import com.google.android.material.snackbar.Snackbar;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 /**
  * This is the Create task screen where the user can create a task and upload to the database
@@ -19,18 +22,40 @@ import java.util.ArrayList;
  */
 public class CreateTaskActivity extends AppCompatActivity {
     private int current_priority;
+    private boolean edit;
     TaskDatabase db;
 
     /**
      * Constructing the activity
-     * @param savedInstanceState The default Android activity config varible to load the activity
+     * @param savedInstanceState The default Android activity config variable to load the activity
      */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_task);
+        edit = getIntent().getBooleanExtra("edit", false);
         db = new TaskDatabase();
         current_priority = -1;
+        if (edit) {
+            loadEdit((Task) Objects.requireNonNull(getIntent().getSerializableExtra("t")));
+        }
+    }
+
+    protected void loadEdit(Task t) {
+        TextView activityName = findViewById(R.id.textTitle);
+        activityName.setText(getText(R.string.textEditTitle));
+
+        EditText editTitle = findViewById(R.id.editTitle);
+        EditText editDescription = findViewById(R.id.editDescription);
+        EditText editLocation = findViewById(R.id.editLocation);
+        Button buttonConfirmAdd = findViewById(R.id.buttonConfirmAdd);
+        buttonConfirmAdd.setText(getText(R.string.confirm_edit_task));
+
+        greyUnselectedButtons(t.getPriority());
+        editTitle.setText(t.getName());
+        editDescription.setText(t.getDescription());
+        editLocation.setText(t.getLocation());
+        current_priority = t.getPriority();
     }
 
     /**
@@ -61,20 +86,20 @@ public class CreateTaskActivity extends AppCompatActivity {
     }
 
     private void clearPriorityError() {
-        TextView errorText = (TextView) findViewById(R.id.textErrorText);
+        TextView errorText = findViewById(R.id.textErrorText);
         errorText.setText("");
     }
 
     private void greyUnselectedButtons(int selected) {
-        Button priority1 = (Button) findViewById(R.id.buttonPriority1);
+        Button priority1 = findViewById(R.id.buttonPriority1);
         priority1.setBackgroundColor(getColor(R.color.colorUnselected));
-        Button priority2 = (Button) findViewById(R.id.buttonPriority2);
+        Button priority2 = findViewById(R.id.buttonPriority2);
         priority2.setBackgroundColor(getColor(R.color.colorUnselected));
-        Button priority3 = (Button) findViewById(R.id.buttonPriority3);
+        Button priority3 = findViewById(R.id.buttonPriority3);
         priority3.setBackgroundColor(getColor(R.color.colorUnselected));
-        Button priority4 = (Button) findViewById(R.id.buttonPriority4);
+        Button priority4 = findViewById(R.id.buttonPriority4);
         priority4.setBackgroundColor(getColor(R.color.colorUnselected));
-        Button priority5 = (Button) findViewById(R.id.buttonPriority5);
+        Button priority5 = findViewById(R.id.buttonPriority5);
         priority5.setBackgroundColor(getColor(R.color.colorUnselected));
         switch (selected){
             case 1:
@@ -103,9 +128,9 @@ public class CreateTaskActivity extends AppCompatActivity {
      */
     public void onConfirm(View view) {
         clearPriorityError();
-        EditText editTitle = (EditText) findViewById(R.id.editTitle);
-        EditText editDescription = (EditText) findViewById(R.id.editDescription);
-        EditText editLocation = (EditText) findViewById(R.id.editLocation);
+        EditText editTitle = findViewById(R.id.editTitle);
+        EditText editDescription = findViewById(R.id.editDescription);
+        EditText editLocation = findViewById(R.id.editLocation);
         String title = editTitle.getText().toString();
         String description = editDescription.getText().toString();
         String location = editLocation.getText().toString();
@@ -115,9 +140,12 @@ public class CreateTaskActivity extends AppCompatActivity {
                 current_priority,
                 location);
         if (errors.size() == 0) {
-            Snackbar.make(view, "Success!", Snackbar.LENGTH_SHORT).show();
+
             // package into a task object
             boolean result = uploadTask(title, description, current_priority, "", location);
+            Intent i = new Intent(this, TaskViewList.class);
+            i.putExtra("result", true);
+            startActivity(i);
             return;
         }
         for (CreateTaskError error: errors) {
@@ -132,7 +160,7 @@ public class CreateTaskActivity extends AppCompatActivity {
                     editLocation.setError("Missing Location");
                     break;
                 case MISSING_PRIORITY:
-                    TextView errorText = (TextView) findViewById(R.id.textErrorText);
+                    TextView errorText = findViewById(R.id.textErrorText);
                     errorText.setText("Missing Priority");
                     break;
             }
@@ -149,8 +177,18 @@ public class CreateTaskActivity extends AppCompatActivity {
      * @return boolean value denoting if the write was successful
      */
     protected boolean uploadTask(String title, String description, int priority, String user, String location){
-        Task task = new Task(title, description, priority, user, location, System.currentTimeMillis());
-        return db.uploadTask(task);
+        if (edit) {
+            Task task = (Task) getIntent().getSerializableExtra("t");
+            task.setName(title);
+            task.setDescription(description);
+            task.setLocation(location);
+            task.setPriority(priority);
+            return db.updateTask(task);
+        }
+        else {
+            Task task = new Task(title, description, priority, user, location, System.currentTimeMillis());
+            return db.uploadTask(task);
+        }
     }
 
     /**

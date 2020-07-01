@@ -17,7 +17,7 @@ public class Task implements Serializable {
     private long dateCompleted = -1;
     private String location;
     private boolean open;
-    private int taskId;
+    private String taskID;
 
     /**
      * Constructor for the Task object
@@ -170,6 +170,22 @@ public class Task implements Serializable {
     }
 
     /**
+     * Returns this task's Id
+     * @return task id
+     */
+    public String getTaskID() {
+        return taskID;
+    }
+
+    /**
+     * Sets this task's id to a new id
+     * @param taskID new ID
+     */
+    public void setTaskID(String taskID) {
+        this.taskID = taskID;
+    }
+
+    /**
      * Equals override to check fields of the task
      * @param o object to comapre to
      * @return whether or not the objects are the same
@@ -184,21 +200,5 @@ public class Task implements Serializable {
                 Objects.equals(description, task.description) &&
                 Objects.equals(user, task.user) &&
                 Objects.equals(location, task.location);
-    }
-
-    /**
-     * Returns this task's Id
-     * @return task id
-     */
-    public int getId() {
-        return this.taskId;
-    }
-
-    /**
-     * Sets this task's id to a new id
-     * @param newId
-     */
-    public void setId(int newId) {
-        this.taskId = newId;
     }
 }

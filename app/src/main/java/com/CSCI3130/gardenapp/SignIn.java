@@ -42,37 +42,30 @@ public class SignIn extends AppCompatActivity {
         setContentView(R.layout.activity_signin);
 
         //UI element assignments
-        emailTxt = (EditText) findViewById(R.id.emailTxt_signin);
-        passwordTxt = (EditText) findViewById(R.id.passwordTxt_signin);
-        logInBtn = (Button) findViewById(R.id.signInBtn_signin);
-        signUpBtn = (Button) findViewById(R.id.signUpBtn_signin);
+        emailTxt = findViewById(R.id.emailTxt_signin);
+        passwordTxt = findViewById(R.id.passwordTxt_signin);
+        logInBtn = findViewById(R.id.signInBtn_signin);
+        signUpBtn = findViewById(R.id.signUpBtn_signin);
 
         //get instance for firebase authentication
         mFirebaseAuth = FirebaseAuth.getInstance();
 
-        //check if anyone is logged in
-        checkLoginState();
-
         //sets up authorization listener
-        mFirebaseAuth.addAuthStateListener(mAuthStateListener);
+        mFirebaseAuth.addAuthStateListener(checkLoginState());
     }
 
     /**
      * Method checks if anyone is logged in through this method
      */
-    public void checkLoginState(){
-        mAuthStateListener = new FirebaseAuth.AuthStateListener() {
-            @Override
-            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-                FirebaseUser mFirebaseUser = mFirebaseAuth.getCurrentUser();
-
-                //if logged in, go to welcome screen
-                if( mFirebaseUser != null ){
-                    Toast.makeText(SignIn.this,"You are logged in",Toast.LENGTH_SHORT).show();
-                    Intent i = new Intent(SignIn.this, Welcome.class);
-                    startActivity(i);
-                }
-
+    public FirebaseAuth.AuthStateListener checkLoginState(){
+        return firebaseAuth -> {
+            FirebaseUser mFirebaseUser = mFirebaseAuth.getCurrentUser();
+            //if logged in, go to welcome screen
+            if( mFirebaseUser != null ){
+                Toast.makeText(SignIn.this,"You are logged in",Toast.LENGTH_SHORT).show();
+                Intent i = new Intent(SignIn.this, Welcome.class);
+                i.putExtra("SPOOK", "SPOOKY");
+                startActivity(i);
             }
         };
     }
@@ -120,12 +113,9 @@ public class SignIn extends AppCompatActivity {
             return false;
         }
         //check that password is at least 6 characters long
-        if (pass.length() < 6){
-            return false;
-        }
+        return pass.length() >= 6;
 
         //if both fields valid
-        return true;
     }
 
     /**
@@ -155,8 +145,6 @@ public class SignIn extends AppCompatActivity {
                 passwordTxt.requestFocus();
             }
         }
-
-
     }
 
     /**
@@ -164,34 +152,23 @@ public class SignIn extends AppCompatActivity {
      * @param email - email address from user
      * @param pass - password from user
      */
-    public void LogInFirebase(String email, String pass){
+    public void LogInFirebase(String email, String pass) {
 
         //if inputs are valid, try to sign in
         if (validInputs(email, pass)){
 
             //run signin method for firebase
-            mFirebaseAuth.signInWithEmailAndPassword(email, pass).addOnCompleteListener(SignIn.this, new OnCompleteListener<AuthResult>() {
-                @Override
-                public void onComplete(@NonNull Task<AuthResult> task) {
+            mFirebaseAuth.signInWithEmailAndPassword(email, pass).addOnCompleteListener(SignIn.this, task -> {
 
-                    //if login is not successful, return error
-                    if (!task.isSuccessful()) {
-                        Toast.makeText(SignIn.this, "Sign In Error. Please Try Again.", Toast.LENGTH_SHORT).show();
-                    }
-
-                    //if login is successful, go to login page
-                    else {
-                        Toast.makeText(SignIn.this, "Signed in. Welcome!", Toast.LENGTH_SHORT).show();
-                        Intent i = new Intent(SignIn.this, Welcome.class);
-                        startActivity(i);
-                    }
+                //if login is not successful, return error
+                if (!task.isSuccessful()) {
+                    Toast.makeText(SignIn.this, "Sign In Error. Please Try Again.", Toast.LENGTH_SHORT).show();
                 }
             });
 
         } else{
             errorDisplays(email, pass);
         }
-
     }
 
 
