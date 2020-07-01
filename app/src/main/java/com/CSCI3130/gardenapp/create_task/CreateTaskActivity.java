@@ -36,12 +36,12 @@ public class CreateTaskActivity extends AppCompatActivity {
         edit = getIntent().getBooleanExtra("edit", false);
         db = new TaskDatabase();
         current_priority = -1;
-        if (edit) {
-            loadEdit((Task) Objects.requireNonNull(getIntent().getSerializableExtra("t")));
+        if (edit) { // configures the UI to EDIT mode
+            loadEditConfiguration((Task) Objects.requireNonNull(getIntent().getSerializableExtra("t")));
         }
     }
 
-    protected void loadEdit(Task t) {
+    private void loadEditConfiguration(Task t) {
         TextView activityName = findViewById(R.id.textTitle);
         activityName.setText(getText(R.string.textEditTitle));
 
