@@ -46,7 +46,6 @@ public class SignInEspressoTests {
     @Before
     public void beforeTest() throws InterruptedException {
         FirebaseAuth.getInstance().signOut();
-        Thread.sleep(200);
     }
 
     @After

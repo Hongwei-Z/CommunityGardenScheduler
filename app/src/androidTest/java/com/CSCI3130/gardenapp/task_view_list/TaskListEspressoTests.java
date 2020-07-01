@@ -3,6 +3,7 @@ package com.CSCI3130.gardenapp.task_view_list;
 import android.content.Intent;
 import androidx.test.espresso.Espresso;
 import androidx.test.espresso.action.ViewActions;
+import androidx.test.espresso.intent.rule.IntentsTestRule;
 import androidx.test.espresso.matcher.ViewMatchers;
 import androidx.test.rule.ActivityTestRule;
 
@@ -21,6 +22,9 @@ import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.click;
 import static androidx.test.espresso.assertion.ViewAssertions.doesNotExist;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
+import static androidx.test.espresso.intent.Intents.intended;
+import static androidx.test.espresso.intent.matcher.ComponentNameMatchers.hasShortClassName;
+import static androidx.test.espresso.intent.matcher.IntentMatchers.hasComponent;
 import static androidx.test.espresso.matcher.ViewMatchers.hasBackground;
 import static androidx.test.espresso.matcher.ViewMatchers.hasDescendant;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
@@ -32,7 +36,7 @@ public class TaskListEspressoTests {
     private long currentDate = System.currentTimeMillis();
 
     @Rule
-    public ActivityTestRule<TaskViewList> activityScenarioRule = new ActivityTestRule<TaskViewList>(TaskViewList.class, true, false);
+    public IntentsTestRule<TaskViewList> activityScenarioRule = new IntentsTestRule<>(TaskViewList.class, true, false);
     public TaskTestDatabase testDB;
     private TaskViewList activity;
 
@@ -127,7 +131,7 @@ public class TaskListEspressoTests {
         }
         try {
             Thread.sleep(1000);
-            onView(ViewMatchers.withId(R.id.recycleview_tasks)).perform(ViewActions.swipeUp());
+            onView(withId(R.id.recycleview_tasks)).perform(ViewActions.swipeUp());
             Thread.sleep(1000);
             onView(withRecyclerView(R.id.recycleview_tasks).atPosition(19))
                     .check(matches(hasDescendant(withText("Task 20"))));
@@ -136,6 +140,12 @@ public class TaskListEspressoTests {
         } catch (InterruptedException e) {
             System.out.println(e.toString());
         }
+    }
+
+    @Test
+    public void testAddTaskButton() {
+        onView(withId(R.id.add_task_button)).perform(click());
+        intended(hasComponent(hasShortClassName(".create_task.CreateTaskActivity")));
     }
 }
 

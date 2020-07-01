@@ -170,16 +170,17 @@ public class Task implements Serializable {
     }
 
     /**
-     * Returns this task's Id
-     * @return task id
+     * Getter for the unique location in the database where this task is stored
+     * @return Unique taskID
      */
     public String getTaskID() {
         return taskID;
     }
 
     /**
-     * Sets this task's id to a new id
-     * @param taskID new ID
+     * Sets the unique task ID for this task to point to where it is stored in the database
+     * @param taskID of the Task to be stored
+     * @see com.CSCI3130.gardenapp.util.db.TaskDatabase
      */
     public void setTaskID(String taskID) {
         this.taskID = taskID;

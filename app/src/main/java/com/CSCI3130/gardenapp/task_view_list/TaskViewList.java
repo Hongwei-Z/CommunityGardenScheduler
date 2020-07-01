@@ -94,7 +94,10 @@ public class TaskViewList extends AppCompatActivity {
         TaskViewList.mContext = mContext;
     }
 
-
+    /**
+     * On Press method for the hovering + button to link to the CreateTask screen.
+     * @param v View belonging to the + button
+     */
     public void onButtonPress(View v) {
         Intent i = new Intent(this, CreateTaskActivity.class);
         i.putExtra("edit", false);
