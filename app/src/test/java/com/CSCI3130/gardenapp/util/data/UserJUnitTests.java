@@ -1,8 +1,6 @@
 package com.CSCI3130.gardenapp.util.data;
 
-import com.CSCI3130.gardenapp.util.data.User;
 import org.junit.Test;
-import com.CSCI3130.gardenapp.util.data.Task;
 
 import static org.junit.Assert.*;
 

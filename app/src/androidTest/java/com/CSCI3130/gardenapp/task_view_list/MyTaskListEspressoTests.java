@@ -1,10 +1,12 @@
-package com.CSCI3130.gardenapp;
+package com.CSCI3130.gardenapp.task_view_list;
 
 import android.content.Intent;
 
 import androidx.test.espresso.Espresso;
+import androidx.test.espresso.matcher.ViewMatchers;
 import androidx.test.rule.ActivityTestRule;
 
+import com.CSCI3130.gardenapp.R;
 import com.CSCI3130.gardenapp.util.DateFormatUtils;
 import com.CSCI3130.gardenapp.util.data.Task;
 import com.CSCI3130.gardenapp.util.db.TaskTestDatabase;
@@ -54,7 +56,7 @@ public class MyTaskListEspressoTests {
 
     @Test
     public void toolbarHasExpectedText() {
-        onView(withId(R.id.page_name)).check(matches(withText("My Tasks")));
+        onView(ViewMatchers.withId(R.id.page_name)).check(matches(withText("My Tasks")));
     }
 
     @Test

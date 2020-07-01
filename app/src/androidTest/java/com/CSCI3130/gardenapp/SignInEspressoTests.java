@@ -1,34 +1,22 @@
 package com.CSCI3130.gardenapp;
 
-
-import androidx.test.core.app.ActivityScenario;
-import androidx.test.espresso.intent.Intents;
 import androidx.test.espresso.intent.rule.IntentsTestRule;
-import androidx.test.espresso.matcher.ViewMatchers;
-import androidx.test.rule.ActivityTestRule;
 
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import org.checkerframework.framework.qual.AnnotatedFor;
+import com.CSCI3130.gardenapp.util.db.DatabaseAuth;
 import org.junit.*;
 
 import static androidx.test.espresso.intent.matcher.ComponentNameMatchers.hasShortClassName;
 
 
-import java.net.UnknownHostException;
 
 import static androidx.test.espresso.Espresso.closeSoftKeyboard;
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.click;
 import static androidx.test.espresso.action.ViewActions.typeText;
-import static androidx.test.espresso.intent.matcher.IntentMatchers.hasExtra;
-import static org.hamcrest.Matchers.allOf;
-import static androidx.test.espresso.assertion.ViewAssertions.doesNotExist;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
 import static androidx.test.espresso.matcher.ViewMatchers.hasErrorText;
 import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
-import static androidx.test.espresso.matcher.ViewMatchers.withText;
 import static androidx.test.espresso.intent.Intents.intended;
 import static androidx.test.espresso.intent.matcher.IntentMatchers.hasComponent;
 
@@ -40,12 +28,12 @@ public class SignInEspressoTests {
 
     @BeforeClass
     public static void before() throws InterruptedException {
-        FirebaseAuth.getInstance().signOut();
+        DatabaseAuth.signOut();
     }
 
     @Before
-    public void beforeTest() throws InterruptedException {
-        FirebaseAuth.getInstance().signOut();
+    public void beforeTest() {
+        DatabaseAuth.signOut();
     }
 
     @After

@@ -1,18 +1,11 @@
 package com.CSCI3130.gardenapp.create_task;
 
-import android.content.Intent;
-import androidx.annotation.NonNull;
-import androidx.test.espresso.matcher.ViewMatchers;
 import androidx.test.filters.LargeTest;
 import androidx.test.rule.ActivityTestRule;
 import com.CSCI3130.gardenapp.R;
-import com.CSCI3130.gardenapp.task_view_list.TaskViewList;
 import com.CSCI3130.gardenapp.util.data.Task;
 import com.CSCI3130.gardenapp.util.data.TaskGenerator;
-import com.CSCI3130.gardenapp.util.db.TaskTestWriter;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.ValueEventListener;
+import com.CSCI3130.gardenapp.util.db.TaskTestDatabase;
 import org.junit.*;
 
 import static androidx.test.espresso.Espresso.onView;
@@ -21,7 +14,6 @@ import static androidx.test.espresso.action.ViewActions.closeSoftKeyboard;
 import static androidx.test.espresso.action.ViewActions.typeText;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
 import static androidx.test.espresso.matcher.ViewMatchers.*;
-import static org.junit.Assert.fail;
 
 
 @LargeTest
@@ -51,7 +43,7 @@ public class CreateTaskActivityUITest {
     }
 
     @Test
-    public void testCorrectInputs() throws InterruptedException {
+    public void testCorrectInputs() {
         Task task = TaskGenerator.generateTask(true);
         //neat inputs
         onView(withId(R.id.editTitle)).perform(typeText(task.getName()), closeSoftKeyboard());

@@ -1,5 +1,6 @@
 package com.CSCI3130.gardenapp.task_view_list;
 
+import android.view.View;
 import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -20,7 +21,7 @@ public class TaskRegisterDummyPage extends AppCompatActivity {
     Task task;
     User user;
     int pos;
-    TaskDatabase db = new TaskDatabase();
+    TaskDatabase db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,6 +32,7 @@ public class TaskRegisterDummyPage extends AppCompatActivity {
         titleText.setText(task.getName());
         pos = getIntent().getIntExtra("p", 1);
         registerButton = findViewById(R.id.registerButton);
+        TaskDatabase writer = new TaskDatabase();
         registerButton.setOnClickListener(view -> {
             User user = DatabaseAuth.getCurrentUser();
             task.setUser(user.getUsername());
