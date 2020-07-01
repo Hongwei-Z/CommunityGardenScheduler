@@ -26,7 +26,8 @@
             android:layout_marginEnd="24dp"
             android:layout_marginStart="24dp"
             app:layout_constraintBottom_toTopOf="@+id/editTitle"
-            android:layout_marginBottom="32dp"/>
+            android:layout_marginBottom="32dp"
+            />
 
     <EditText
             android:layout_width="0dp"
@@ -44,7 +45,8 @@
             android:layout_marginStart="16dp"
             android:layout_marginEnd="16dp"
             app:layout_constraintBottom_toTopOf="@+id/editDescription"
-            android:layout_marginTop="16dp"/>
+            android:layout_marginTop="16dp"
+            app:layout_constraintHorizontal_bias="0.0"/>
 
     <EditText
             android:layout_width="0dp"
