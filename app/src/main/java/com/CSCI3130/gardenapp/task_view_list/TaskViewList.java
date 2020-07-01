@@ -1,12 +1,17 @@
-package com.CSCI3130.gardenapp;
+package com.CSCI3130.gardenapp.task_view_list;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.TextView;
 
+import android.view.View;
+import com.CSCI3130.gardenapp.R;
+import com.CSCI3130.gardenapp.create_task.CreateTaskActivity;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import com.google.android.material.snackbar.Snackbar;
 
 import com.CSCI3130.gardenapp.util.db.TaskDatabase;
 
@@ -34,6 +39,10 @@ public class TaskViewList extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_task_view_list);
         setContext(this);
+        if (getIntent().getBooleanExtra("result", false)) {
+            Snackbar.make(findViewById(R.id.task_view_list), "Success!", Snackbar.LENGTH_SHORT).show();
+        }
+
         activeTaskListContext = getIntent().getStringExtra("activeTaskListContext");
         TextView toolbarTitle = (TextView) findViewById(R.id.page_name);
 
@@ -84,6 +93,14 @@ public class TaskViewList extends AppCompatActivity {
     public void setContext(Context mContext) {
         TaskViewList.mContext = mContext;
     }
+
+
+    public void onButtonPress(View v) {
+        Intent i = new Intent(this, CreateTaskActivity.class);
+        i.putExtra("edit", false);
+        startActivity(i);
+    }
+
 }
 
 

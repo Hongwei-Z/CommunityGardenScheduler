@@ -42,12 +42,7 @@ public class User implements Serializable {
      * @return false if user is not assigned to t, true if user is assigned to t
      */
     public boolean isAssignedTo(Task t) {
-        if (this.assignedTasks.contains(t)) {
-            return true;
-        }
-        else {
-            return false;
-        }
+        return this.assignedTasks.contains(t);
     }
 
     /** returns User's username

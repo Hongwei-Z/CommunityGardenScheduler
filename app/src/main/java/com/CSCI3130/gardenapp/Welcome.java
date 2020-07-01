@@ -9,6 +9,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.CSCI3130.gardenapp.create_task.CreateTaskActivity;
+import com.CSCI3130.gardenapp.task_view_list.TaskViewList;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
@@ -95,11 +96,6 @@ public class Welcome extends AppCompatActivity {
     public void signOut(){
         //sign out
         FirebaseAuth.getInstance().signOut();
-        Toast.makeText(Welcome.this,"Signed Out.",Toast.LENGTH_SHORT).show();
-        Intent i = new Intent(Welcome.this, SignIn.class);
-        startActivity(i);
-        //check if anyone is signed in and act accordingly
-        checkLoginState();
     }
 
     /**

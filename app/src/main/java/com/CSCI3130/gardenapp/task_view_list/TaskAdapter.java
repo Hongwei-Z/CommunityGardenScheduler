@@ -1,4 +1,4 @@
-package com.CSCI3130.gardenapp;
+package com.CSCI3130.gardenapp.task_view_list;
 
 import android.content.Intent;
 import android.view.LayoutInflater;
@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.recyclerview.widget.RecyclerView;
+import com.CSCI3130.gardenapp.R;
 import com.CSCI3130.gardenapp.util.data.Task;
 
 import com.CSCI3130.gardenapp.util.DateFormatUtils;
@@ -16,13 +17,13 @@ import java.util.ArrayList;
  * TaskAdapter.java - a class used to manage the list of tasks displayed to the user and the
  * interactions associated with the list
  * the list of tasks
- * @author  Elizabeth Eddy & Logan Sutherland
+ * @author Elizabeth Eddy & Logan Sutherland
  */
 public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskViewHolder> {
-    private ArrayList<Task> taskList;
+    private final ArrayList<Task> taskList;
     private OnItemClickListener mListener;
 
-    public interface  OnItemClickListener { //interface so we can interact with TaskAdapter from TaskViewList
+    public interface OnItemClickListener { //interface so we can interact with TaskAdapter from TaskViewList
         void onItemClick(int position);
     }
 
@@ -38,10 +39,10 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskViewHolder
      * Holds the views associated with each card in the the task list
      */
     public static class TaskViewHolder extends RecyclerView.ViewHolder {
-        private TextView name;
-        private TextView date;
-        private TextView priority;
-        private ImageView userProfile;
+        private final TextView name;
+        private final TextView date;
+        private final TextView priority;
+        private final ImageView userProfile;
 
         private TaskViewHolder(View itemView, final OnItemClickListener listener) {
             super(itemView);
@@ -51,14 +52,11 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskViewHolder
             priority = itemView.findViewById(R.id.task_priority);
             userProfile = itemView.findViewById(R.id.task_user_profile);
 
-            itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if (listener != null) {
-                        int position = getAdapterPosition(); // gets task index for
-                        if (position != RecyclerView.NO_POSITION) { // checking to make sure user actually clicked a task
-                            listener.onItemClick(position); //pass position to TaskViewList
-                        }
+            itemView.setOnClickListener(v -> {
+                if (listener != null) {
+                    int position = getAdapterPosition(); // gets task index for
+                    if (position != RecyclerView.NO_POSITION) { // checking to make sure user actually clicked a task
+                        listener.onItemClick(position); //pass position to TaskViewList
                     }
                 }
             });

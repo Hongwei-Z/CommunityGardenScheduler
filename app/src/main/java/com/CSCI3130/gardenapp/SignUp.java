@@ -43,11 +43,11 @@ public class SignUp extends AppCompatActivity {
         mFirebaseAuth = FirebaseAuth.getInstance();
 
         //UI element assignments
-        firstNameTxt = (EditText) findViewById(R.id.firstNameTxt_signup);
-        lastNameTxt = (EditText) findViewById(R.id.lastNameTxt_signup);
-        emailTxt = (EditText) findViewById(R.id.emailTxt_signup);
-        passwordTxt = (EditText) findViewById(R.id.passwordTxt_signup);
-        passwordConfirmTxt = (EditText) findViewById(R.id.passwordConfirmTxt_signup);
+        firstNameTxt = findViewById(R.id.firstNameTxt_signup);
+        lastNameTxt = findViewById(R.id.lastNameTxt_signup);
+        emailTxt = findViewById(R.id.emailTxt_signup);
+        passwordTxt = findViewById(R.id.passwordTxt_signup);
+        passwordConfirmTxt = findViewById(R.id.passwordConfirmTxt_signup);
 
     }
 
@@ -107,10 +107,7 @@ public class SignUp extends AppCompatActivity {
         if (passwordConf.isEmpty()){
             return false;
         }
-        if (!(password.equals(passwordConf))){
-            return false;
-        }
-        return true;
+        return password.equals(passwordConf);
     }
 
     /**
