@@ -4,15 +4,39 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".TaskRegisterDummyPage">
+    tools:context=".task_view_list.TaskRegisterDummyPage">
 
     <Button
-        android:id="@+id/registerButton"
-        android:layout_width="88dp"
-        android:layout_height="wrap_content"
-        android:text="Register"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+            android:id="@+id/registerButton"
+            android:layout_width="88dp"
+            android:layout_height="wrap_content"
+            android:text="Register"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
+
+    <Button
+            android:text="Edit"
+            android:layout_width="88dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/editButton"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/registerButton"
+            android:layout_marginBottom="8dp"
+            android:onClick="onEdit"/>
+
+    <TextView
+            android:layout_width="329dp"
+            android:layout_height="0dp"
+            android:id="@+id/tempTaskTitle"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginTop="32dp"
+            tools:text="tempTaskTitle"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:textAppearance="@style/title"
+            app:layout_constraintBottom_toTopOf="@+id/editButton"
+            android:layout_marginBottom="24dp"/>
 </androidx.constraintlayout.widget.ConstraintLayout>
