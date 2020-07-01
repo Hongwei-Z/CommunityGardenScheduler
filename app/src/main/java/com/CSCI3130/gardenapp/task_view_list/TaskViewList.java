@@ -24,6 +24,7 @@ import com.CSCI3130.gardenapp.util.db.TaskDatabase;
 public class TaskViewList extends AppCompatActivity {
 
     TaskDatabase db;
+    private String lastContext = "allTasks"; //default to all tasks
     protected RecyclerView recyclerView;
     private RecyclerView.LayoutManager layoutManager;
     private static Context mContext;
@@ -43,8 +44,12 @@ public class TaskViewList extends AppCompatActivity {
             Snackbar.make(findViewById(R.id.task_view_list), "Success!", Snackbar.LENGTH_SHORT).show();
         }
 
-        activeTaskListContext = getIntent().getStringExtra("activeTaskListContext");
+       activeTaskListContext = getIntent().getStringExtra("setting");
+        if (activeTaskListContext == null) {
+            activeTaskListContext = lastContext;
+        }
         TextView toolbarTitle = (TextView) findViewById(R.id.page_name);
+        lastContext = activeTaskListContext;
 
         switch(activeTaskListContext) {
             case "myTasks":
