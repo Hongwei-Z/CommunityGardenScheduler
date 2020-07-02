@@ -38,7 +38,7 @@ public class TaskHistoryEspressoTests {
         testDB.setDbRead("taskHistory");
         activity = activityScenarioRule.getActivity();
         activity.db = testDB;
-//        testDB.getDbRead().addValueEventListener(testDB.getTaskData(activity.recyclerView));
+        testDB.getDbRead().addValueEventListener(testDB.getTaskData(activity.recyclerView));
     }
 
     @After
@@ -68,9 +68,11 @@ public class TaskHistoryEspressoTests {
         //completed prior to task1 (should show up lower in list)
         task.setName("Task2");
         task.setDateCompleted(timeFurtherPast);
+        testDB.uploadTask(task);
         //completed after current time (sanity check that is does not appear in list)
         task.setName("Task3");
         task.setDateCompleted(timeFuture);
+        testDB.uploadTask(task);
         try {
             Thread.sleep(1000);
             onView(withRecyclerView(R.id.recycleview_tasks).atPosition(2)).check(doesNotExist());
