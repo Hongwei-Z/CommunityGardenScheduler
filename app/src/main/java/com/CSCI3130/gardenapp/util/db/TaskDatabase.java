@@ -86,19 +86,13 @@ public class TaskDatabase {
      */
     public void setDbRead(String setting) {
         /** if allTasks do nothing, no need for query **/
-//        if (setting.equals("myTasks")) {
-//            this.dbRead = dbRead.orderByChild("user").equalTo(FirebaseAuth.getInstance().getUid());
-//        }
-//        else if (setting.equals("openTasks")) {
-//            this.dbRead = dbRead.orderByChild("user").equalTo("");
-//        }
 
         switch(setting) {
             case "myTasks":
-                this.dbRead = dbRead.orderByChild("user").equalTo(FirebaseAuth.getInstance().getUid());
+                this.dbRead = dbRead.orderByChild("user").equalTo(FirebaseAuth.getInstance().getUid()); // returns tasks assigned to current user
                 break;
             case "openTasks":
-                this.dbRead = dbRead.orderByChild("user").equalTo("");
+                this.dbRead = dbRead.orderByChild("user").equalTo(""); //returns tasks with no user assigned
                 break;
         }
     }

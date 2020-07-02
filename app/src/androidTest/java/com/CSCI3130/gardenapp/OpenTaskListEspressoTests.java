@@ -43,7 +43,7 @@ public class OpenTaskListEspressoTests {
     @After
     public void tearDown() {
         TaskTestDatabase db = (TaskTestDatabase) activity.db;
-        db.clearDatabase();
+        db.clearDatabase(); //clears test database
     }
 
     public static RecyclerViewMatcher withRecyclerView(final int recyclerViewId) {
@@ -53,9 +53,11 @@ public class OpenTaskListEspressoTests {
     @Test
     public void testOpenFilter() {
 
+        //upload non-open task to test database
         Task task = new Task("Not Open Task", "This is a Test", 2, "Some User ID", "Location", "June 14th, 2020");
         task.setOpen(false);
         testDB.uploadTask(task);
+        //check if task appears in filtered recyclerview, fail if it is there
         try {
             Thread.sleep(2000);
             onView(withRecyclerView(R.id.recycleview_tasks).atPosition(0)).check(doesNotExist());
@@ -63,9 +65,11 @@ public class OpenTaskListEspressoTests {
             System.out.println(e.toString());
         }
 
+        //upload open task to database
         task = new Task("Open Task", "This is a Test", 2, "", "Location", "June 14th, 2020");
         task.setOpen(true);
         testDB.uploadTask(task);
+        //check if task appears in filtered recyclerview, fail if it is NOT there
         try {
             Thread.sleep(1000);
             onView(withRecyclerView(R.id.recycleview_tasks).atPosition(1)).check(doesNotExist());
