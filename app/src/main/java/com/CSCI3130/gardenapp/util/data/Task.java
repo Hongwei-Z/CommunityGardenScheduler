@@ -1,6 +1,7 @@
 package com.CSCI3130.gardenapp.util.data;
 
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
 import java.util.Objects;
 
 /**
@@ -13,7 +14,8 @@ public class Task implements Serializable {
     private String description;
     private int priority;
     private String user;
-    private String date;
+    private long dateDue;
+    private long dateCompleted;
     private String location;
     private boolean open;
 
@@ -24,14 +26,14 @@ public class Task implements Serializable {
      * @param priority indicator of how high the task priority is
      * @param user name of user assigned to task
      * @param location location where the task should be performed
-     * @param date due date of the task
+     * @param dateDue due date of the task
      */
-    public Task(String name, String description, int priority, String user, String location, String date) {
+    public Task(String name, String description, int priority, String user, String location, long dateDue) {
         this.name = name;
         this.description = description;
         this.priority = priority;
         this.user = user;
-        this.date = date;
+        this.dateDue = dateDue;
         this.location = location;
         this.open = false;
     }
@@ -135,19 +137,51 @@ public class Task implements Serializable {
     }
 
     /**
-     * Gets the task date
-     * @return date of the task
+     * Gets the task dateDue formatted
+     * @return dateDue of the task in a user friendly form
      */
-    public String getDate() {
-        return date;
+    public String getDateDueFormatted() {
+        return  dateDue != 0 ? new SimpleDateFormat("dd-MM-yyyy").format(dateDue) : null;
     }
 
     /**
-     * Sets the task date
-     * @param date of the task
+     * Gets the task dateDue timestamp
+     * @return dateDue of the task in timestamp format
      */
-    public void setDate(String date) {
-        this.date = date;
+    public long getDateDue() {
+        return dateDue;
+    }
+
+    /**
+     * Sets the task dateDue
+     * @param dateDue of the task
+     */
+    public void setDateDue(long dateDue) {
+        this.dateDue = dateDue;
+    }
+
+    /**
+     * Gets the task dateCompleted formatted
+     * @return dateCompleted of the task in a user friendly form
+     */
+    public String getDateCompletedFormatted() {
+        return  dateCompleted != 0 ? new SimpleDateFormat("dd-MM-yyyy").format(dateCompleted) : null;
+    }
+
+    /**
+     * Gets the task dateCompleted timestamp
+     * @return dateCompleted of the task in timestamp format
+     */
+    public long getDateCompleted() {
+        return dateCompleted;
+    }
+
+    /**
+     * Sets the task dateCompleted
+     * @param dateCompleted of the task
+     */
+    public void setDateCompleted(long dateCompleted) {
+        this.dateCompleted = dateCompleted;
     }
 
     /**
@@ -164,7 +198,7 @@ public class Task implements Serializable {
                 name.equals(task.name) &&
                 Objects.equals(description, task.description) &&
                 Objects.equals(user, task.user) &&
-                date.equals(task.date) &&
+                dateDue == task.dateDue &&
                 Objects.equals(location, task.location);
     }
 }
