@@ -16,6 +16,8 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.*;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 /**
  * Database layer for writing tasks to the database. This can easily be mocked in
@@ -88,6 +90,8 @@ public class TaskDatabase {
         /** if allTasks do nothing, no need for query **/
         if (setting.equals("myTasks")) {
             this.dbRead = dbRead.orderByChild("user").equalTo(FirebaseAuth.getInstance().getUid());
+        } else if (setting.equals("taskHistory")) {
+            this.dbRead = dbRead.orderByChild("dateCompleted").startAt(0).endAt(System.currentTimeMillis());
         }
     }
 
@@ -105,9 +109,10 @@ public class TaskDatabase {
      * Returns the event listener for the database to retrieve tasks
      *
      * @param recyclerView
+     * @param setting to determine the ordering and sorting of the tasks
      * @return ValueEventListener
      */
-    public ValueEventListener getTaskData(RecyclerView recyclerView) {
+    public ValueEventListener getTaskData(RecyclerView recyclerView, String setting) {
         ArrayList<Task> allTasks = new ArrayList<>();
         return new ValueEventListener() {
             @Override
@@ -117,6 +122,18 @@ public class TaskDatabase {
                     Task task = dataSnapshotTask.getValue(Task.class);
                     allTasks.add(task);
                 }
+
+                if (setting.equals("taskHistory")) {
+                    Comparator<Task> comparator = (Task taskA, Task taskB) ->
+                            new Long(taskA.getDateCompleted()).compareTo(new Long(taskB.getDateCompleted()));
+                    Collections.sort(allTasks, comparator);
+                    Collections.reverse(allTasks);
+                } else  {
+                    Comparator<Task> comparator = (Task taskA, Task taskB) ->
+                            new Long(taskA.getDateDue()).compareTo(new Long(taskB.getDateDue()));
+                    Collections.sort(allTasks, comparator);
+                }
+
                 TaskAdapter taskAdapter = new TaskAdapter(allTasks);
                 recyclerView.setAdapter(taskAdapter);
                 taskAdapter.setOnItemClickListener(new TaskAdapter.OnItemClickListener() {

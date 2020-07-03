@@ -11,6 +11,7 @@ import com.CSCI3130.gardenapp.util.data.Task;
 import com.CSCI3130.gardenapp.util.db.TaskDatabase;
 import com.google.android.material.snackbar.Snackbar;
 
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -151,7 +152,7 @@ public class CreateTaskActivity extends AppCompatActivity {
      * @return boolean value denoting if the write was successful
      */
     protected boolean uploadTask(String title, String description, int priority, String user, String location){
-        Task task = new Task(title, description, priority, user, location, LocalDate.now().format(DateTimeFormatter.ofPattern("dd-MM-yyyy")));
+        Task task = new Task(title, description, priority, user, location, System.currentTimeMillis());
         return db.uploadTask(task);
     }
 

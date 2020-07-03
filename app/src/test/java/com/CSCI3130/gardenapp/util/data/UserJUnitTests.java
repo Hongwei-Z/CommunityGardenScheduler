@@ -9,7 +9,7 @@ import static org.junit.Assert.*;
 public class UserJUnitTests {
     @Test
     public void userTaskAssignment() {
-        Task task = new Task("Cover tomatoes", "cover if raining", 4, "", "", "04-01-2020");
+        Task task = new Task("Cover tomatoes", "cover if raining", 4, "", "", System.currentTimeMillis());
         User user = new User("Logan Sutherland", "sutherland@dal.ca");
         user.addTask(task);
         task.setUser(user.getUsername());

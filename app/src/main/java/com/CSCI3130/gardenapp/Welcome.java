@@ -59,6 +59,16 @@ public class Welcome extends AppCompatActivity {
         startActivity(i);
     }
 
+    /**
+     * Opens task history taskList activity on button click
+     * @param v view object of the View executing the onclick
+     */
+    public void taskHistoryListOpen_onclick(View v){
+        Intent i = new Intent(Welcome.this, TaskViewList.class);
+        i.putExtra("setting", "taskHistory");
+        startActivity(i);
+    }
+
     public void createTaskOpen_onclick(View v){
         Intent i = new Intent(Welcome.this, CreateTaskActivity.class);
         startActivity(i);

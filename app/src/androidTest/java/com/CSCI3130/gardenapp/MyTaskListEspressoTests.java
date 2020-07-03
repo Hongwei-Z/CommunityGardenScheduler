@@ -14,6 +14,8 @@ import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 
+import java.text.SimpleDateFormat;
+
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.click;
 import static androidx.test.espresso.assertion.ViewAssertions.doesNotExist;
@@ -31,13 +33,14 @@ public class MyTaskListEspressoTests {
     @Before
     public void setUp() {
         Intent intent = new Intent();
-        intent.putExtra("setting", "myTasks");
+        String setting = "myTasks";
+        intent.putExtra("setting", setting);
         activityScenarioRule.launchActivity(intent);
         testDB = new TaskTestDatabase();
-        testDB.setDbRead("myTasks");
+        testDB.setDbRead(setting);
         activity = activityScenarioRule.getActivity();
         activity.db = testDB;
-        testDB.getDbRead().addValueEventListener(testDB.getTaskData(activity.recyclerView));
+        testDB.getDbRead().addValueEventListener(testDB.getTaskData(activity.recyclerView, setting));
     }
 
     @After
@@ -57,22 +60,22 @@ public class MyTaskListEspressoTests {
 
     @Test
     public void recyclerViewItemContainsExpectedText() {
-        Task task = new Task("My Task", "This is a Test", 2, "not current UUID", "Location", "June 14th, 2020");
+        Task task = new Task("My Task", "This is a Test", 2, "not current UUID", "Location", System.currentTimeMillis());
         testDB.uploadTask(task);
         try {
-            Thread.sleep(2000);
+            Thread.sleep(3000);
             onView(withRecyclerView(R.id.recycleview_tasks).atPosition(0)).check(doesNotExist());
         } catch (InterruptedException e) {
             System.out.println(e.toString());
         }
-        task = new Task("My Task", "This is a Test", 2, FirebaseAuth.getInstance().getUid(), "Location", "June 14th, 2020");
+        task = new Task("My Task", "This is a Test", 2, FirebaseAuth.getInstance().getUid(), "Location", System.currentTimeMillis());
         testDB.uploadTask(task);
         try {
             Thread.sleep(1000);
             onView(withRecyclerView(R.id.recycleview_tasks).atPosition(1)).check(doesNotExist());
             onView(withRecyclerView(R.id.recycleview_tasks).atPosition(0)).check(matches(hasDescendant(withText("My Task"))));
             onView(withRecyclerView(R.id.recycleview_tasks).atPosition(0))
-                    .check(matches(hasDescendant(withText("June 14th, 2020"))));
+                    .check(matches(hasDescendant(withText("Due: "+ new SimpleDateFormat("dd-MM-yyyy").format(System.currentTimeMillis())))));
             onView(withRecyclerView(R.id.recycleview_tasks).atPosition(0))
                     .check(matches(hasDescendant(withId(R.id.task_user_profile))));
             onView(withRecyclerView(R.id.recycleview_tasks).atPosition(0)).perform(click());

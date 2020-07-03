@@ -32,13 +32,14 @@ public class TaskHistoryEspressoTests {
     @Before
     public void setUp() {
         Intent intent = new Intent();
-        intent.putExtra("setting", "taskHistory");
+        String setting = "taskHistory";
+        intent.putExtra("setting", setting);
         activityScenarioRule.launchActivity(intent);
         testDB = new TaskTestDatabase();
-        testDB.setDbRead("taskHistory");
+        testDB.setDbRead(setting);
         activity = activityScenarioRule.getActivity();
         activity.db = testDB;
-        testDB.getDbRead().addValueEventListener(testDB.getTaskData(activity.recyclerView));
+        testDB.getDbRead().addValueEventListener(testDB.getTaskData(activity.recyclerView, setting));
     }
 
     @After

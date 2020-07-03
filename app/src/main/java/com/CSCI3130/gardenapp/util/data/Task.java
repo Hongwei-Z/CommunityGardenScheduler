@@ -14,8 +14,8 @@ public class Task implements Serializable {
     private String description;
     private int priority;
     private String user;
-    private long dateDue;
-    private long dateCompleted;
+    private long dateDue = -1;
+    private long dateCompleted = -1;
     private String location;
     private boolean open;
 
@@ -136,13 +136,6 @@ public class Task implements Serializable {
         this.user = user;
     }
 
-    /**
-     * Gets the task dateDue formatted
-     * @return dateDue of the task in a user friendly form
-     */
-    public String getDateDueFormatted() {
-        return  dateDue != 0 ? new SimpleDateFormat("dd-MM-yyyy").format(dateDue) : null;
-    }
 
     /**
      * Gets the task dateDue timestamp
@@ -158,14 +151,6 @@ public class Task implements Serializable {
      */
     public void setDateDue(long dateDue) {
         this.dateDue = dateDue;
-    }
-
-    /**
-     * Gets the task dateCompleted formatted
-     * @return dateCompleted of the task in a user friendly form
-     */
-    public String getDateCompletedFormatted() {
-        return  dateCompleted != 0 ? new SimpleDateFormat("dd-MM-yyyy").format(dateCompleted) : null;
     }
 
     /**
@@ -198,7 +183,7 @@ public class Task implements Serializable {
                 name.equals(task.name) &&
                 Objects.equals(description, task.description) &&
                 Objects.equals(user, task.user) &&
-                dateDue == task.dateDue &&
+                dateDue/1000 == task.dateDue/1000 &&
                 Objects.equals(location, task.location);
     }
 }

@@ -9,6 +9,7 @@ import org.junit.Test;
 import org.mockito.Mockito;
 
 
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -44,7 +45,7 @@ public class CreateTaskActivityTest {
     @Test
     public void testSuccessfulCreate() {
         activity.uploadTask(title, description, 3, "", location);
-        Mockito.verify(db).uploadTask(new Task(title, description, 3, "", location, LocalDate.now().format(DateTimeFormatter.ofPattern("dd-MM-yyyy"))));
+        Mockito.verify(db).uploadTask(new Task(title, description, 3, "", location, System.currentTimeMillis()));
     }
 
     @Test
