@@ -37,7 +37,8 @@ public class TaskDetailInfo extends AppCompatActivity {
         completeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(getApplicationContext(), "Task Completed", Toast.LENGTH_LONG).show();
+                String toast = getString(R.string.CompleteMessage);
+                Toast.makeText(getApplicationContext(), toast, Toast.LENGTH_LONG).show();
             }
         });
 

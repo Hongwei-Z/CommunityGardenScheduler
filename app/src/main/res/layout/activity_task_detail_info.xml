@@ -8,7 +8,6 @@
     android:background="@color/cardview_dark_background"
     android:orientation="vertical">
 
-
     <Button
         android:id="@+id/buttonComplete"
         android:layout_width="165dp"
@@ -16,7 +15,7 @@
         android:layout_marginLeft="23dp"
         android:layout_marginTop="595dp"
         android:background="@color/cardview_light_background"
-        android:text="Complete"
+        android:text="@string/Complete"
         android:textColor="@android:color/background_dark"
         android:textSize="24sp" />
 
