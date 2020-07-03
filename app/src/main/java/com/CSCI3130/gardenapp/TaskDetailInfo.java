@@ -45,11 +45,6 @@ public class TaskDetailInfo extends AppCompatActivity {
         textName = findViewById(R.id.submitAuth);
         textDate = findViewById(R.id.submitDate);
         textPriority = findViewById(R.id.Taskid);
-
-
-
-
-
     }
 
     public void backtotasklist(){
