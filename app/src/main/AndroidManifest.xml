@@ -3,29 +3,39 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.CSCI3130.gardenapp">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
-            android:allowBackup="true"
-            android:icon="@mipmap/ic_launcher"
-            android:label="@string/app_name"
-            android:roundIcon="@mipmap/ic_launcher_round"
-            android:supportsRtl="true"
-            android:theme="@style/AppTheme"
-            android:appComponentFactory="androidx.core.app.CoreComponentFactory"
-            tools:replace="android:appComponentFactory"
-            tools:targetApi="p" >
-        <activity android:name="com.CSCI3130.gardenapp.Welcome"/>
-        <activity android:name=".TaskViewList"/>
-        <activity android:name="com.CSCI3130.gardenapp.SignUp"
-            android:parentActivityName=".SignIn"/>
-        <activity android:name="com.CSCI3130.gardenapp.SignIn">
+        android:allowBackup="true"
+        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme"
+        tools:replace="android:appComponentFactory"
+        tools:targetApi="p"
+        >
+        <activity android:name=".WeatherTestActivity">
+
+        </activity>
+        <activity android:name=".Welcome" />
+        <activity android:name=".TaskViewList" />
+        <activity
+            android:name=".SignUp"
+            android:parentActivityName=".SignIn" />
+        <activity android:name=".SignIn">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity android:name=".TaskRegisterDummyPage" />
-        <activity android:name=".create_task.CreateTaskActivity" android:parentActivityName=".Welcome">
+        <activity
+            android:name=".create_task.CreateTaskActivity"
+            android:parentActivityName=".Welcome">
         </activity>
     </application>
+
 
 </manifest>

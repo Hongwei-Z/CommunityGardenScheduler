@@ -1,5 +1,7 @@
 package com.CSCI3130.gardenapp.util.data;
 
+import com.CSCI3130.gardenapp.WeatherCondition;
+
 import java.io.Serializable;
 import java.util.Objects;
 
@@ -16,6 +18,7 @@ public class Task implements Serializable {
     private String date;
     private String location;
     private boolean open;
+    private WeatherCondition weatherTrigger;
 
     /**
      * Constructor for the Task object
@@ -34,6 +37,9 @@ public class Task implements Serializable {
         this.date = date;
         this.location = location;
         this.open = false;
+
+        //sets weather trigger to "none" by default - can be set explicitly using set method
+        this.weatherTrigger = WeatherCondition.NONE;
     }
 
     public Task(){}
@@ -151,6 +157,18 @@ public class Task implements Serializable {
     }
 
     /**
+     * Sets weather trigger of task
+     * @param weatherCondition weather condition to be set as weather trigger of task
+     */
+    public void setWeatherTrigger(WeatherCondition weatherCondition) { this.weatherTrigger = weatherCondition; }
+
+    /**
+     * Gets weather trigger of task
+     * @return weather condition trigger of task
+     */
+    public WeatherCondition getWeatherTrigger(){ return weatherTrigger; }
+
+    /**
      * Equals override to check fields of the task
      * @param o object to comapre to
      * @return whether or not the objects are the same
@@ -165,6 +183,7 @@ public class Task implements Serializable {
                 Objects.equals(description, task.description) &&
                 Objects.equals(user, task.user) &&
                 date.equals(task.date) &&
-                Objects.equals(location, task.location);
+                Objects.equals(location, task.location) &&
+                weatherTrigger == task.weatherTrigger;
     }
 }

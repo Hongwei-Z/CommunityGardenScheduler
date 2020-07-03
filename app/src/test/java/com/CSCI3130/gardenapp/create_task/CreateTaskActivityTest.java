@@ -1,5 +1,6 @@
 package com.CSCI3130.gardenapp.create_task;
 
+import com.CSCI3130.gardenapp.WeatherCondition;
 import com.CSCI3130.gardenapp.util.data.Task;
 import com.CSCI3130.gardenapp.util.db.TaskDatabase;
 import org.junit.After;
@@ -20,6 +21,7 @@ public class CreateTaskActivityTest {
     String title = "Test";
     String description = "This is a description!";
     String location = "Carrot Test";
+    WeatherCondition testWeatherCondition = WeatherCondition.NONE;
     int priority = 3;
     ArrayList<CreateTaskError> errors;
 
@@ -43,13 +45,13 @@ public class CreateTaskActivityTest {
 
     @Test
     public void testSuccessfulCreate() {
-        activity.uploadTask(title, description, 3, "", location);
+        activity.uploadTask(title, description, 3, "", location, testWeatherCondition);
         Mockito.verify(db).uploadTask(new Task(title, description, 3, "", location, LocalDate.now().format(DateTimeFormatter.ofPattern("dd-MM-yyyy"))));
     }
 
     @Test
     public void testUnsuccessfulCreate() {
-        activity.uploadTask(title, "", 3, "", location);
+        activity.uploadTask(title, "", 3, "", location, testWeatherCondition);
     }
 
     @Test
