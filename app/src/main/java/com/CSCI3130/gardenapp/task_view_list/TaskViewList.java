@@ -28,7 +28,6 @@ public class TaskViewList extends AppCompatActivity {
     protected RecyclerView recyclerView;
     private RecyclerView.LayoutManager layoutManager;
     private static Context mContext;
-    private String activeTaskListContext;
 
     /**
      * Actions for when activity is created
@@ -44,7 +43,7 @@ public class TaskViewList extends AppCompatActivity {
             Snackbar.make(findViewById(R.id.task_view_list), "Success!", Snackbar.LENGTH_SHORT).show();
         }
 
-       activeTaskListContext = getIntent().getStringExtra("setting");
+        String activeTaskListContext = getIntent().getStringExtra("activeTaskListContext");
         if (activeTaskListContext == null) {
             activeTaskListContext = lastContext;
         }
@@ -82,7 +81,7 @@ public class TaskViewList extends AppCompatActivity {
 
 
     /**
-     * Get the actvity context
+     * Get the activity context
      *
      * @return context
      */

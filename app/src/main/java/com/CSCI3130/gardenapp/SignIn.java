@@ -25,6 +25,7 @@ public class SignIn extends AppCompatActivity {
 
     //firebase authentication object
     FirebaseAuth mFirebaseAuth;
+    boolean successful;
 
     /**
      * onCreate method for initial activity setup
@@ -32,6 +33,7 @@ public class SignIn extends AppCompatActivity {
      */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        successful = false;
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signin);
 
@@ -55,10 +57,10 @@ public class SignIn extends AppCompatActivity {
         return firebaseAuth -> {
             FirebaseUser mFirebaseUser = mFirebaseAuth.getCurrentUser();
             //if logged in, go to welcome screen
-            if( mFirebaseUser != null ){
+            if( mFirebaseUser != null && !successful){
+                successful = true;
                 Toast.makeText(SignIn.this,"You are logged in",Toast.LENGTH_SHORT).show();
                 Intent i = new Intent(SignIn.this, Welcome.class);
-                i.putExtra("SPOOK", "SPOOKY");
                 startActivity(i);
             }
         };

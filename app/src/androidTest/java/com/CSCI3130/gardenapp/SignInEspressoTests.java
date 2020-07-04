@@ -112,7 +112,7 @@ public class SignInEspressoTests {
         closeSoftKeyboard();
         onView(withId(R.id.signInBtn_signin))
                 .perform(click());
-        Thread.sleep(500);
+        Thread.sleep(1000);
         intended(hasComponent(hasShortClassName(".Welcome")));
     }
 
