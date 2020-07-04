@@ -141,8 +141,7 @@ public class TaskDatabase {
             }
         };
     }
-
-
+    
     /**
      * Creates a new activity that allows a user to register for a task
      * 

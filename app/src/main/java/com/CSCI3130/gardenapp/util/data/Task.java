@@ -169,10 +169,18 @@ public class Task implements Serializable {
                 Objects.equals(location, task.location);
     }
 
+    /**
+     * Returns this task's Id
+     * @return task id
+     */
     public int getId() {
         return this.taskId;
     }
 
+    /**
+     * Sets this task's id to a new id
+     * @param newId
+     */
     public void setId(int newId) {
         this.taskId = newId;
     }
