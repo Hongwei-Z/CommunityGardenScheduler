@@ -95,10 +95,18 @@ public class User implements Serializable {
         this.assignedTasks = assignedTasks;
     }
 
+    /**
+     * returns the id of a user
+     * @return
+     */
     public int getId() {
         return this.userId;
     }
 
+    /**
+     * sets the id of a user
+     * @param newId user's new id
+     */
     public void setId(int newId) {
         this.userId = newId;
     }
