@@ -15,6 +15,7 @@ public class Task implements Serializable {
     private String user;
     private String date;
     private String location;
+    private String repeated;
     private boolean open;
 
     /**
@@ -26,13 +27,14 @@ public class Task implements Serializable {
      * @param location location where the task should be performed
      * @param date due date of the task
      */
-    public Task(String name, String description, int priority, String user, String location, String date) {
+    public Task(String name, String description, int priority, String user, String location, String date, String repeated) {
         this.name = name;
         this.description = description;
         this.priority = priority;
         this.user = user;
         this.date = date;
         this.location = location;
+        this.repeated = repeated;
         this.open = false;
     }
 
@@ -148,6 +150,18 @@ public class Task implements Serializable {
      */
     public void setDate(String date) {
         this.date = date;
+    }
+
+    /**
+     * Gets the repeat status of the task
+     * @return
+     */
+    public String getRepeated() {
+        return this.repeated;
+    }
+
+    public void setRepeated(String repeated) {
+        this.repeated = repeated;
     }
 
     /**

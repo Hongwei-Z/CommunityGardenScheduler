@@ -57,7 +57,7 @@ public class MyTaskListEspressoTests {
 
     @Test
     public void recyclerViewItemContainsExpectedText() {
-        Task task = new Task("My Task", "This is a Test", 2, "not current UUID", "Location", "June 14th, 2020");
+        Task task = new Task("My Task", "This is a Test", 2, "not current UUID", "Location", "June 14th, 2020", "repeat-none");
         testDB.uploadTask(task);
         try {
             Thread.sleep(2000);
@@ -65,7 +65,7 @@ public class MyTaskListEspressoTests {
         } catch (InterruptedException e) {
             System.out.println(e.toString());
         }
-        task = new Task("My Task", "This is a Test", 2, FirebaseAuth.getInstance().getUid(), "Location", "June 14th, 2020");
+        task = new Task("My Task", "This is a Test", 2, FirebaseAuth.getInstance().getUid(), "Location", "June 14th, 2020", "repeat-none");
         testDB.uploadTask(task);
         try {
             Thread.sleep(1000);

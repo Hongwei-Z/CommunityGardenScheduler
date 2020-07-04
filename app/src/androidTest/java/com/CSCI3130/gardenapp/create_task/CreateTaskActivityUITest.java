@@ -85,7 +85,7 @@ public class CreateTaskActivityUITest {
                             1,
                             "",
                             "Dalhousie University",
-                            LocalDate.now().format(DateTimeFormatter.ofPattern("dd-MM-yyyy"))), task);
+                            LocalDate.now().format(DateTimeFormatter.ofPattern("dd-MM-yyyy")), "repeat-none"), task);
                 }
                 flag[0] = true;
             }

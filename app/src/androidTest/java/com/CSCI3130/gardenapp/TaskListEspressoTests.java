@@ -68,7 +68,7 @@ public class TaskListEspressoTests {
 
     @Test
     public void recyclerViewItemContainsExpectedText() {
-        Task task = new Task("Test Task", "This is a Test", 2, "Beth", "Location", "June 14th, 2020");
+        Task task = new Task("Test Task", "This is a Test", 2, "Beth", "Location", "June 14th, 2020", "repeat-none");
         testDB.uploadTask(task);
         try {
             Thread.sleep(1000);
@@ -83,7 +83,7 @@ public class TaskListEspressoTests {
             System.out.println(e.toString());
         }
 
-        task = new Task("Test Task 2", "This is a Test", 2, "Beth", "Location", "June 15th, 2020");
+        task = new Task("Test Task 2", "This is a Test", 2, "Beth", "Location", "June 15th, 2020", "repeat-none");
         testDB.uploadTask(task);
         try {
             Thread.sleep(1000);
@@ -117,7 +117,7 @@ public class TaskListEspressoTests {
     public void scrollToItemBelowFold() {
         for (int i = 1; i <= 20; i++){
             String taskName = "Task " + i;
-            Task task = new Task(taskName, "This is a Test", 2, "Beth", "Location", "June 14th, 2020");
+            Task task = new Task(taskName, "This is a Test", 2, "Beth", "Location", "June 14th, 2020", "repeat-none");
             testDB.uploadTask(task);
         }
         try {

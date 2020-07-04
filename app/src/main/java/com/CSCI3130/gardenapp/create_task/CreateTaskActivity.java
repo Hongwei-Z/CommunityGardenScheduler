@@ -1,6 +1,8 @@
 package com.CSCI3130.gardenapp.create_task;
 
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.Spinner;
 import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
@@ -21,6 +23,7 @@ import java.util.ArrayList;
  */
 public class CreateTaskActivity extends AppCompatActivity {
     private int current_priority;
+    private Spinner repeatSpinner;
     TaskDatabase db;
 
     /**
@@ -31,6 +34,10 @@ public class CreateTaskActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_task);
+        repeatSpinner = (Spinner) findViewById(R.id.repeatSpinner);
+        ArrayAdapter<CharSequence> repeatAdapter = ArrayAdapter.createFromResource(this, R.array.repeat_choice_array, android.R.layout.simple_spinner_dropdown_item);
+        repeatAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        repeatSpinner.setAdapter(repeatAdapter);
         db = new TaskDatabase();
         current_priority = -1;
     }
@@ -111,6 +118,25 @@ public class CreateTaskActivity extends AppCompatActivity {
         String title = editTitle.getText().toString();
         String description = editDescription.getText().toString();
         String location = editLocation.getText().toString();
+        String repeated;
+
+        switch (repeatSpinner.getSelectedItemPosition()) {
+            case 0:
+                repeated = "repeat-none";
+                break;
+            case 1:
+                repeated = "repeat-2day";
+                break;
+            case 2:
+                repeated = "repeat-weekly";
+                break;
+            case 3:
+                repeated = "repeat-monthly";
+                break;
+            default:
+                repeated = "repeat-none";
+                break;
+        }
         ArrayList<CreateTaskError> errors = verifyTask(
                 title,
                 description,
@@ -119,7 +145,7 @@ public class CreateTaskActivity extends AppCompatActivity {
         if (errors.size() == 0) {
             Snackbar.make(view, "Success!", Snackbar.LENGTH_SHORT).show();
             // package into a task object
-            boolean result = uploadTask(title, description, current_priority, "", location);
+            boolean result = uploadTask(title, description, current_priority, "", location, repeated);
             return;
         }
         for (CreateTaskError error: errors) {
@@ -150,8 +176,8 @@ public class CreateTaskActivity extends AppCompatActivity {
      * @param location The location where the task should be performed
      * @return boolean value denoting if the write was successful
      */
-    protected boolean uploadTask(String title, String description, int priority, String user, String location){
-        Task task = new Task(title, description, priority, user, location, LocalDate.now().format(DateTimeFormatter.ofPattern("dd-MM-yyyy")));
+    protected boolean uploadTask(String title, String description, int priority, String user, String location, String repeated){
+        Task task = new Task(title, description, priority, user, location, LocalDate.now().format(DateTimeFormatter.ofPattern("dd-MM-yyyy")), repeated);
         return db.uploadTask(task);
     }
 
