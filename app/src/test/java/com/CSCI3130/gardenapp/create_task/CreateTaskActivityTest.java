@@ -1,6 +1,5 @@
 package com.CSCI3130.gardenapp.create_task;
 
-import com.CSCI3130.gardenapp.WeatherCondition;
 import com.CSCI3130.gardenapp.util.data.Task;
 import com.CSCI3130.gardenapp.util.db.TaskDatabase;
 import org.junit.After;
@@ -9,9 +8,6 @@ import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
 
-
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 import static org.mockito.Mockito.mock;
@@ -46,7 +42,9 @@ public class CreateTaskActivityTest {
     @Test
     public void testSuccessfulCreate() {
         activity.uploadTask(title, description, 3, "", location, testWeatherCondition);
-        Mockito.verify(db).uploadTask(new Task(title, description, 3, "", location, LocalDate.now().format(DateTimeFormatter.ofPattern("dd-MM-yyyy"))));
+        Task testTask = new Task(title, description, 3, "", location, System.currentTimeMillis());
+        testTask.setWeatherTrigger(testWeatherCondition);
+        Mockito.verify(db).uploadTask(testTask);
     }
 
     @Test

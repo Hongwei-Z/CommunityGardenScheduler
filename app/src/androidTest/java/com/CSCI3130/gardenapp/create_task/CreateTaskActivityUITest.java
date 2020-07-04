@@ -12,9 +12,6 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
 import org.junit.*;
 
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.click;
 import static androidx.test.espresso.action.ViewActions.closeSoftKeyboard;
@@ -85,7 +82,7 @@ public class CreateTaskActivityUITest {
                             1,
                             "",
                             "Dalhousie University",
-                            LocalDate.now().format(DateTimeFormatter.ofPattern("dd-MM-yyyy"))), task);
+                            System.currentTimeMillis()), task);
                 }
                 flag[0] = true;
             }

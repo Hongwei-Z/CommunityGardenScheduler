@@ -17,8 +17,6 @@ import com.CSCI3130.gardenapp.util.data.Task;
 import com.CSCI3130.gardenapp.util.db.TaskDatabase;
 import com.google.android.material.snackbar.Snackbar;
 
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 /**
@@ -166,14 +164,19 @@ public class CreateTaskActivity extends AppCompatActivity implements AdapterView
      * @param priority The priority value associated with the task
      * @param user The user of which the task is assigned to
      * @param location The location where the task should be performed
-     * @param trigger The weather trigger of the task
+     * @param weatherTrigger The weather trigger of the task
      * @return boolean value denoting if the write was successful
      */
-    protected boolean uploadTask(String title, String description, int priority, String user, String location, WeatherCondition trigger){
-        Task task = new Task(title, description, priority, user, location, LocalDate.now().format(DateTimeFormatter.ofPattern("dd-MM-yyyy")));
-        task.setWeatherTrigger(trigger);
+    protected boolean uploadTask(String title, String description, int priority, String user, String location) {
+        Task task = new Task(title, description, priority, user, location, System.currentTimeMillis());
+    }
+    protected boolean uploadTask(String title, String description, int priority, String user, String location, WeatherCondition weatherTrigger){
+        Task task = new Task(title, description, priority, user, location, System.currentTimeMillis());
+        task.setWeatherTrigger(weatherTrigger);
         return db.uploadTask(task);
     }
+
+
 
     /**
      * @param title Name of the task
