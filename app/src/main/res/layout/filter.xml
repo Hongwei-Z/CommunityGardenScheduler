@@ -109,23 +109,23 @@
         tools:ignore="RelativeOverlap" />
 
     <Button
-        android:id="@+id/priority1Button"
+        android:id="@+id/filterPriorityButton1"
         android:layout_width="40dp"
         android:layout_height="40dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="false"
         android:layout_alignParentBottom="true"
-        android:layout_marginBottom="90dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginBottom="89dp"
         android:background="@color/colorPriority1"
+        android:onClick="prioritySelect"
         android:text="@string/_1"
         android:textColor="#FFFFFF"
         android:textSize="24sp"
-        android:textStyle="bold"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentEnd="false"
-        android:layout_marginStart="25dp"
-        android:onClick="prioritySelect" />
+        android:textStyle="bold" />
 
     <Button
-        android:id="@+id/priority2Button"
+        android:id="@+id/filterPriorityButton2"
         android:layout_width="40dp"
         android:layout_height="40dp"
         android:layout_alignParentBottom="true"
@@ -139,7 +139,7 @@
         android:onClick="prioritySelect" />
 
     <Button
-        android:id="@+id/priority3Button"
+        android:id="@+id/filterPriorityButton3"
         android:layout_width="40dp"
         android:layout_height="40dp"
         android:layout_alignParentBottom="true"
@@ -153,7 +153,7 @@
         android:onClick="prioritySelect" />
 
     <Button
-        android:id="@+id/priority4Button"
+        android:id="@+id/filterPriorityButton4"
         android:layout_width="40dp"
         android:layout_height="40dp"
         android:layout_alignParentBottom="true"
@@ -168,7 +168,7 @@
         android:onClick="prioritySelect" />
 
     <Button
-        android:id="@+id/priority5Button"
+        android:id="@+id/filterPriorityButton5"
         android:layout_width="40dp"
         android:layout_height="40dp"
         android:layout_alignParentBottom="true"

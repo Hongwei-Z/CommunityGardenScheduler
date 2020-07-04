@@ -33,15 +33,16 @@ public class FilterPopUp extends Activity {
         Button startDate = findViewById(R.id.startDateButton);
         Button endDate = findViewById(R.id.endDateButton);
         Button apply = findViewById(R.id.applyButton);
-        Button p1 = findViewById(R.id.priority1Button);
-        Button p2 = findViewById(R.id.priority2Button);
-        Button p3 = findViewById(R.id.priority3Button);
-        Button p4 = findViewById(R.id.priority4Button);
-        Button p5 = findViewById(R.id.priority5Button);
+        Button p1 = findViewById(R.id.filterPriorityButton1);
+        Button p2 = findViewById(R.id.filterPriorityButton2);
+        Button p3 = findViewById(R.id.filterPriorityButton3);
+        Button p4 = findViewById(R.id.filterPriorityButton4);
+        Button p5 = findViewById(R.id.filterPriorityButton5);
         startDate.setText("Start Date");
         endDate.setText("End Date");
         apply.setText("APPLY");
-        dateBetween.clear();
+        dateBetween.set(0,1);
+        dateBetween.set(1,2);
         p1.setScaleX(1);
         p1.setScaleY(1);
         p2.setScaleX(1);
@@ -61,7 +62,7 @@ public class FilterPopUp extends Activity {
      */
     public void applyMethod(View view){
         Button apply = findViewById(R.id.applyButton);
-        apply.setText(dateBetween.get(0)+", "+dateBetween.get(1)+", "+priority);
+        apply.setText(dateBetween.get(0)+","+dateBetween.get(1)+","+priority);
     }
 
     //selectCalendar, used to call the DatePicker, select dates
@@ -95,19 +96,19 @@ public class FilterPopUp extends Activity {
     public void prioritySelect(View view) {
         int p = view.getId();
         switch (p) {
-            case R.id.priority1Button:
+            case R.id.filterPriorityButton1:
                 priority = 1;
                 break;
-            case R.id.priority2Button:
+            case R.id.filterPriorityButton2:
                 priority = 2;
                 break;
-            case R.id.priority3Button:
+            case R.id.filterPriorityButton3:
                 priority = 3;
                 break;
-            case R.id.priority4Button:
+            case R.id.filterPriorityButton4:
                 priority = 4;
                 break;
-            case R.id.priority5Button:
+            case R.id.filterPriorityButton5:
                 priority = 5;
                 break;
         }
@@ -119,11 +120,11 @@ public class FilterPopUp extends Activity {
      * @param priority is the priority number
      */
     public void highlightButton(int priority){
-        Button p1 = findViewById(R.id.priority1Button);
-        Button p2 = findViewById(R.id.priority2Button);
-        Button p3 = findViewById(R.id.priority3Button);
-        Button p4 = findViewById(R.id.priority4Button);
-        Button p5 = findViewById(R.id.priority5Button);
+        Button p1 = findViewById(R.id.filterPriorityButton1);
+        Button p2 = findViewById(R.id.filterPriorityButton2);
+        Button p3 = findViewById(R.id.filterPriorityButton3);
+        Button p4 = findViewById(R.id.filterPriorityButton4);
+        Button p5 = findViewById(R.id.filterPriorityButton5);
         switch (priority){
             case 1:
                 p1.setScaleX((float)1.2);
