@@ -8,7 +8,7 @@ import android.widget.TextView;
 import androidx.recyclerview.widget.RecyclerView;
 import com.CSCI3130.gardenapp.util.data.Task;
 
-import java.text.SimpleDateFormat;
+import com.CSCI3130.gardenapp.util.DateFormatUtils;
 import java.util.ArrayList;
 
 /**
@@ -125,14 +125,14 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskViewHolder
     public void onBindViewHolder(TaskViewHolder holder, int position){
         Task task = taskList.get(position);
         holder.setName(task.getName());
-        long date = TaskViewList.setting.equals("taskHistory")
+        long date = TaskViewList.activeTaskListContext.equals("taskHistory")
                 ? task.getDateCompleted()
                 : task.getDateDue();
         if (date != -1) {
-            holder.setDate( (TaskViewList.setting.equals("taskHistory")
+            holder.setDate( (TaskViewList.activeTaskListContext.equals("taskHistory")
                     ? "Completed: "
                     : "Due: ")
-                    + new SimpleDateFormat("dd-MM-yyyy").format(date));
+                    + DateFormatUtils.getDateFormatted(date));
         } else {
             holder.setDate("");
         }

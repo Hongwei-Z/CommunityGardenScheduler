@@ -5,6 +5,7 @@ import android.content.Intent;
 import androidx.test.espresso.Espresso;
 import androidx.test.rule.ActivityTestRule;
 
+import com.CSCI3130.gardenapp.util.DateFormatUtils;
 import com.CSCI3130.gardenapp.util.data.Task;
 import com.CSCI3130.gardenapp.util.db.TaskTestDatabase;
 import com.google.firebase.auth.FirebaseAuth;
@@ -13,8 +14,6 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
-
-import java.text.SimpleDateFormat;
 
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.click;
@@ -33,14 +32,14 @@ public class MyTaskListEspressoTests {
     @Before
     public void setUp() {
         Intent intent = new Intent();
-        String setting = "myTasks";
-        intent.putExtra("setting", setting);
+        String activeTaskListContext = "myTasks";
+        intent.putExtra("activeTaskListContext", activeTaskListContext);
         activityScenarioRule.launchActivity(intent);
         testDB = new TaskTestDatabase();
-        testDB.setDbRead(setting);
+        testDB.setDbRead(activeTaskListContext);
         activity = activityScenarioRule.getActivity();
         activity.db = testDB;
-        testDB.getDbRead().addValueEventListener(testDB.getTaskData(activity.recyclerView, setting));
+        testDB.getDbRead().addValueEventListener(testDB.getTaskData(activity.recyclerView, activeTaskListContext));
     }
 
     @After
@@ -60,7 +59,8 @@ public class MyTaskListEspressoTests {
 
     @Test
     public void recyclerViewItemContainsExpectedText() {
-        Task task = new Task("My Task", "This is a Test", 2, "not current UUID", "Location", System.currentTimeMillis());
+        long currentDate = System.currentTimeMillis();
+        Task task = new Task("My Task", "This is a Test", 2, "not current UUID", "Location", currentDate);
         testDB.uploadTask(task);
         try {
             Thread.sleep(3000);
@@ -68,14 +68,14 @@ public class MyTaskListEspressoTests {
         } catch (InterruptedException e) {
             System.out.println(e.toString());
         }
-        task = new Task("My Task", "This is a Test", 2, FirebaseAuth.getInstance().getUid(), "Location", System.currentTimeMillis());
+        task = new Task("My Task", "This is a Test", 2, FirebaseAuth.getInstance().getUid(), "Location", currentDate);
         testDB.uploadTask(task);
         try {
             Thread.sleep(1000);
             onView(withRecyclerView(R.id.recycleview_tasks).atPosition(1)).check(doesNotExist());
             onView(withRecyclerView(R.id.recycleview_tasks).atPosition(0)).check(matches(hasDescendant(withText("My Task"))));
             onView(withRecyclerView(R.id.recycleview_tasks).atPosition(0))
-                    .check(matches(hasDescendant(withText("Due: "+ new SimpleDateFormat("dd-MM-yyyy").format(System.currentTimeMillis())))));
+                    .check(matches(hasDescendant(withText("Due: "+ DateFormatUtils.getDateFormatted(currentDate)))));
             onView(withRecyclerView(R.id.recycleview_tasks).atPosition(0))
                     .check(matches(hasDescendant(withId(R.id.task_user_profile))));
             onView(withRecyclerView(R.id.recycleview_tasks).atPosition(0)).perform(click());

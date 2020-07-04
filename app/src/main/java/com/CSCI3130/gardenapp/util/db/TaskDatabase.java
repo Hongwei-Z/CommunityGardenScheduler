@@ -84,11 +84,11 @@ public class TaskDatabase {
     /**
      * Sets the database reference used in an activity to query on specific fields
      *
-     * @param setting query setting for tasklist
+     * @param activeTaskListContext query activeTaskListContext for tasklist
      */
-    public void setDbRead(String setting) {
+    public void setDbRead(String activeTaskListContext) {
         /** if allTasks do nothing, no need for query **/
-        switch(setting) {
+        switch(activeTaskListContext) {
             case "myTasks":
                 this.dbRead = dbRead.orderByChild("user").equalTo(FirebaseAuth.getInstance().getUid()); // returns tasks assigned to current user
                 break;
@@ -115,10 +115,10 @@ public class TaskDatabase {
      * Returns the event listener for the database to retrieve tasks
      *
      * @param recyclerView
-     * @param setting to determine the ordering and sorting of the tasks
+     * @param activeTaskListContext to determine the ordering and sorting of the tasks
      * @return ValueEventListener
      */
-    public ValueEventListener getTaskData(RecyclerView recyclerView, String setting) {
+    public ValueEventListener getTaskData(RecyclerView recyclerView, String activeTaskListContext) {
         ArrayList<Task> allTasks = new ArrayList<>();
         return new ValueEventListener() {
             @Override
@@ -129,7 +129,7 @@ public class TaskDatabase {
                     allTasks.add(task);
                 }
 
-                if (setting.equals("taskHistory")) {
+                if (activeTaskListContext.equals("taskHistory")) {
                     Comparator<Task> comparator = (Task taskA, Task taskB) ->
                             new Long(taskA.getDateCompleted()).compareTo(new Long(taskB.getDateCompleted()));
                     Collections.sort(allTasks, comparator);

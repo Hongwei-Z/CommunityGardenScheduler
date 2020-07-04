@@ -45,7 +45,7 @@ public class Welcome extends AppCompatActivity {
      */
     public void allTaskListOpen_onclick(View v){
         Intent i = new Intent(Welcome.this, TaskViewList.class);
-        i.putExtra("setting", "allTasks");
+        i.putExtra("activeTaskListContext", "allTasks");
         startActivity(i);
     }
 
@@ -55,7 +55,7 @@ public class Welcome extends AppCompatActivity {
      */
     public void openTaskListOpen_onclick(View v) {
         Intent i = new Intent(Welcome.this, TaskViewList.class);
-        i.putExtra("setting", "openTasks");
+        i.putExtra("activeTaskListContext", "openTasks");
         startActivity(i);
     }
 
@@ -65,7 +65,7 @@ public class Welcome extends AppCompatActivity {
      */
     public void myTaskListOpen_onclick(View v){
         Intent i = new Intent(Welcome.this, TaskViewList.class);
-        i.putExtra("setting", "myTasks");
+        i.putExtra("activeTaskListContext", "myTasks");
         startActivity(i);
     }
 
@@ -75,7 +75,7 @@ public class Welcome extends AppCompatActivity {
      */
     public void taskHistoryListOpen_onclick(View v){
         Intent i = new Intent(Welcome.this, TaskViewList.class);
-        i.putExtra("setting", "taskHistory");
+        i.putExtra("activeTaskListContext", "taskHistory");
         startActivity(i);
     }
 

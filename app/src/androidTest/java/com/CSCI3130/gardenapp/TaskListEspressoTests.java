@@ -1,7 +1,6 @@
 package com.CSCI3130.gardenapp;
 
 import android.content.Intent;
-
 import androidx.test.espresso.Espresso;
 import androidx.test.espresso.action.ViewActions;
 import androidx.test.espresso.matcher.ViewMatchers;
@@ -12,10 +11,9 @@ import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 
+import com.CSCI3130.gardenapp.util.DateFormatUtils;
 import com.CSCI3130.gardenapp.util.db.TaskTestDatabase;
 import com.CSCI3130.gardenapp.util.data.Task;
-
-import java.text.SimpleDateFormat;
 
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.click;
@@ -29,6 +27,8 @@ import static org.hamcrest.core.AllOf.allOf;
 
 public class TaskListEspressoTests {
 
+    private long currentDate = System.currentTimeMillis();
+
     @Rule
     public ActivityTestRule<TaskViewList> activityScenarioRule = new ActivityTestRule<TaskViewList>(TaskViewList.class, true, false);
     public TaskTestDatabase testDB;
@@ -37,13 +37,13 @@ public class TaskListEspressoTests {
     @Before
     public void setUp(){
         Intent intent = new Intent();
-        String setting = "allTasks";
-        intent.putExtra("setting", setting);
+        String activeTaskListContext = "allTasks";
+        intent.putExtra("activeTaskListContext", activeTaskListContext);
         activityScenarioRule.launchActivity(intent);
         testDB = new TaskTestDatabase();
         activity = activityScenarioRule.getActivity();
         activity.db = testDB;
-        testDB.getDbRead().addValueEventListener(testDB.getTaskData(activity.recyclerView, setting));
+        testDB.getDbRead().addValueEventListener(testDB.getTaskData(activity.recyclerView, activeTaskListContext));
     }
 
     @After
@@ -71,14 +71,14 @@ public class TaskListEspressoTests {
 
     @Test
     public void recyclerViewItemContainsExpectedText() {
-        Task task = new Task("Test Task", "This is a Test", 2, "Beth", "Location", System.currentTimeMillis());
+        Task task = new Task("Test Task", "This is a Test", 2, "Beth", "Location", currentDate);
         testDB.uploadTask(task);
         try {
             Thread.sleep(1000);
             onView(withRecyclerView(R.id.recycleview_tasks).atPosition(0))
                     .check(matches(hasDescendant(withText("Test Task"))));
             onView(withRecyclerView(R.id.recycleview_tasks).atPosition(0))
-                    .check(matches(hasDescendant(withText("Due: "+ new SimpleDateFormat("dd-MM-yyyy").format(System.currentTimeMillis())))));
+                    .check(matches(hasDescendant(withText("Due: "+ DateFormatUtils.getDateFormatted(currentDate)))));
             onView(withRecyclerView(R.id.recycleview_tasks).atPosition(0)).perform(click());
             Espresso.pressBack();
             onView(withRecyclerView(R.id.recycleview_tasks).atPosition(1)).check(doesNotExist());
@@ -86,20 +86,20 @@ public class TaskListEspressoTests {
             System.out.println(e.toString());
         }
 
-        task = new Task("Test Task 2", "This is a Test", 2, "Beth", "Location", System.currentTimeMillis());
+        task = new Task("Test Task 2", "This is a Test", 2, "Beth", "Location", currentDate);
         testDB.uploadTask(task);
         try {
             Thread.sleep(1000);
             onView(withRecyclerView(R.id.recycleview_tasks).atPosition(0))
                     .check(matches(hasDescendant(withText("Test Task"))));
             onView(withRecyclerView(R.id.recycleview_tasks).atPosition(0))
-                    .check(matches(hasDescendant(withText("Due: "+ new SimpleDateFormat("dd-MM-yyyy").format(System.currentTimeMillis())))));
+                    .check(matches(hasDescendant(withText("Due: "+ DateFormatUtils.getDateFormatted(currentDate)))));
             onView(withRecyclerView(R.id.recycleview_tasks).atPosition(0)).perform(click());
             Espresso.pressBack();
             onView(withRecyclerView(R.id.recycleview_tasks).atPosition(1))
                     .check(matches(hasDescendant(withText("Test Task 2"))));
             onView(withRecyclerView(R.id.recycleview_tasks).atPosition(1))
-                    .check(matches(hasDescendant(withText("Due: "+ new SimpleDateFormat("dd-MM-yyyy").format(System.currentTimeMillis())))));
+                    .check(matches(hasDescendant(withText("Due: "+ DateFormatUtils.getDateFormatted(currentDate)))));
             onView(withRecyclerView(R.id.recycleview_tasks).atPosition(1)).perform(click());
             Espresso.pressBack();
         } catch (InterruptedException e) {
@@ -120,7 +120,7 @@ public class TaskListEspressoTests {
     public void scrollToItemBelowFold() {
         for (int i = 1; i <= 20; i++){
             String taskName = "Task " + i;
-            Task task = new Task(taskName, "This is a Test", 2, "Beth", "Location", System.currentTimeMillis());
+            Task task = new Task(taskName, "This is a Test", 2, "Beth", "Location", currentDate);
             testDB.uploadTask(task);
         }
         try {

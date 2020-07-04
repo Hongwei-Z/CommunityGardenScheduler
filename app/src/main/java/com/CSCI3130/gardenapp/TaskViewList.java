@@ -22,7 +22,7 @@ public class TaskViewList extends AppCompatActivity {
     protected RecyclerView recyclerView;
     private RecyclerView.LayoutManager layoutManager;
     private static Context mContext;
-    public static String setting;
+    public static String activeTaskListContext;
 
     /**
      * Actions for when activity is created
@@ -34,10 +34,10 @@ public class TaskViewList extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_task_view_list);
         setContext(this);
-        setting = getIntent().getStringExtra("setting");
+        activeTaskListContext = getIntent().getStringExtra("activeTaskListContext");
         TextView toolbarTitle = (TextView) findViewById(R.id.page_name);
 
-        switch(setting) {
+        switch(activeTaskListContext) {
             case "myTasks":
                 toolbarTitle.setText("My Tasks");
                 break;
@@ -45,7 +45,7 @@ public class TaskViewList extends AppCompatActivity {
                 toolbarTitle.setText("Open Tasks");
                 break;
             case "taskHistory":
-                toolbarTitle.setText("Tasks History");
+                toolbarTitle.setText("Task History");
                 break;
             default:
                 toolbarTitle.setText("All Tasks");
@@ -53,7 +53,7 @@ public class TaskViewList extends AppCompatActivity {
         }
 
         db = new TaskDatabase();
-        db.setDbRead(setting);
+        db.setDbRead(activeTaskListContext);
 
         recyclerView = findViewById(R.id.recycleview_tasks);
         recyclerView.setHasFixedSize(true);
@@ -62,7 +62,7 @@ public class TaskViewList extends AppCompatActivity {
         recyclerView.setLayoutManager(layoutManager);
 
         db.getDbRead().addValueEventListener(
-                db.getTaskData(recyclerView, setting));
+                db.getTaskData(recyclerView, activeTaskListContext));
 
     }
 

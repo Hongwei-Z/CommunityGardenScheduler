@@ -5,6 +5,7 @@ import android.content.Intent;
 import androidx.test.espresso.Espresso;
 import androidx.test.rule.ActivityTestRule;
 
+import com.CSCI3130.gardenapp.util.DateFormatUtils;
 import com.CSCI3130.gardenapp.util.data.Task;
 import com.CSCI3130.gardenapp.util.db.TaskTestDatabase;
 
@@ -12,8 +13,6 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
-
-import java.text.SimpleDateFormat;
 
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.click;
@@ -32,14 +31,14 @@ public class TaskHistoryEspressoTests {
     @Before
     public void setUp() {
         Intent intent = new Intent();
-        String setting = "taskHistory";
-        intent.putExtra("setting", setting);
+        String activeTaskListContext = "taskHistory";
+        intent.putExtra("activeTaskListContext", activeTaskListContext);
         activityScenarioRule.launchActivity(intent);
         testDB = new TaskTestDatabase();
-        testDB.setDbRead(setting);
+        testDB.setDbRead(activeTaskListContext);
         activity = activityScenarioRule.getActivity();
         activity.db = testDB;
-        testDB.getDbRead().addValueEventListener(testDB.getTaskData(activity.recyclerView, setting));
+        testDB.getDbRead().addValueEventListener(testDB.getTaskData(activity.recyclerView, activeTaskListContext));
     }
 
     @After
@@ -79,13 +78,13 @@ public class TaskHistoryEspressoTests {
             onView(withRecyclerView(R.id.recycleview_tasks).atPosition(2)).check(doesNotExist());
             onView(withRecyclerView(R.id.recycleview_tasks).atPosition(0)).check(matches(hasDescendant(withText("Task1"))));
             onView(withRecyclerView(R.id.recycleview_tasks).atPosition(0))
-                    .check(matches(hasDescendant(withText("Completed: " + new SimpleDateFormat("dd-MM-yyyy").format(timePast)))));
+                    .check(matches(hasDescendant(withText("Completed: " + DateFormatUtils.getDateFormatted(timePast)))));
             onView(withRecyclerView(R.id.recycleview_tasks).atPosition(0)).perform(click());
             onView(withRecyclerView(R.id.recycleview_tasks).atPosition(0)).check(doesNotExist());
             Espresso.pressBack();
             onView(withRecyclerView(R.id.recycleview_tasks).atPosition(1)).check(matches(hasDescendant(withText("Task2"))));
             onView(withRecyclerView(R.id.recycleview_tasks).atPosition(1))
-                    .check(matches(hasDescendant(withText("Completed: " + new SimpleDateFormat("dd-MM-yyyy").format(timeFurtherPast)))));
+                    .check(matches(hasDescendant(withText("Completed: " + DateFormatUtils.getDateFormatted(timeFurtherPast)))));
             onView(withRecyclerView(R.id.recycleview_tasks).atPosition(1)).perform(click());
             onView(withRecyclerView(R.id.recycleview_tasks).atPosition(1)).check(doesNotExist());
             Espresso.pressBack();

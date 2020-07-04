@@ -1,7 +1,6 @@
 package com.CSCI3130.gardenapp.util.data;
 
 import java.io.Serializable;
-import java.text.SimpleDateFormat;
 import java.util.Objects;
 
 /**
