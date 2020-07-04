@@ -43,13 +43,13 @@ public class CreateTaskActivityTest {
 
     @Test
     public void testSuccessfulCreate() {
-        activity.uploadTask(title, description, 3, "", location);
-        Mockito.verify(db).uploadTask(new Task(title, description, 3, "", location, LocalDate.now().format(DateTimeFormatter.ofPattern("dd-MM-yyyy"))));
+        activity.uploadTask(title, description, 3, "", location, "repeat-none");
+        Mockito.verify(db).uploadTask(new Task(title, description, 3, "", location, LocalDate.now().format(DateTimeFormatter.ofPattern("dd-MM-yyyy")), "repeat-none"));
     }
 
     @Test
     public void testUnsuccessfulCreate() {
-        activity.uploadTask(title, "", 3, "", location);
+        activity.uploadTask(title, "", 3, "", location, "repeat-none");
     }
 
     @Test
