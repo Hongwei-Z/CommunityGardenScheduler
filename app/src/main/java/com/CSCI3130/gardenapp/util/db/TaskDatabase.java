@@ -88,7 +88,7 @@ public class TaskDatabase {
      * @param activeTaskListContext query activeTaskListContext for tasklist
      */
     public void setDbRead(String activeTaskListContext) {
-        /** if allTasks do nothing, no need for query **/
+        // if allTasks do nothing, no need for query
         switch(activeTaskListContext) {
             case "myTasks":
                 this.dbRead = dbRead.orderByChild("user").equalTo(FirebaseAuth.getInstance().getUid()); // returns tasks assigned to current user
@@ -131,17 +131,15 @@ public class TaskDatabase {
                 }
 
                 if (activeTaskListContext.equals("taskHistory")) {
-                    Comparator<Task> comparator = (Task taskA, Task taskB) ->
-                            new Long(taskA.getDateCompleted()).compareTo(new Long(taskB.getDateCompleted()));
-                    Collections.sort(allTasks, comparator);
+                    Comparator<Task> comparator = Comparator.comparingLong(Task::getDateCompleted);
+                    allTasks.sort(comparator);
                     Collections.reverse(allTasks);
                 } else  {
-                    Comparator<Task> comparator = (Task taskA, Task taskB) ->
-                            new Long(taskA.getDateDue()).compareTo(new Long(taskB.getDateDue()));
-                    Collections.sort(allTasks, comparator);
+                    Comparator<Task> comparator = Comparator.comparingLong(Task::getDateDue);
+                    allTasks.sort(comparator);
                 }
 
-                TaskAdapter taskAdapter = new TaskAdapter(allTasks);
+                TaskAdapter taskAdapter = new TaskAdapter(allTasks, activeTaskListContext);
                 recyclerView.setAdapter(taskAdapter);
                 taskAdapter.setOnItemClickListener(new TaskAdapter.OnItemClickListener() {
                     @Override

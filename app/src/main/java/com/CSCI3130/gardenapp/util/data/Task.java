@@ -171,7 +171,7 @@ public class Task implements Serializable {
 
     /**
      * Getter for the unique location in the database where this task is stored
-     * @return Unique taskID
+     * @return Unique taskID of this task
      */
     public String getTaskID() {
         return taskID;
@@ -188,7 +188,7 @@ public class Task implements Serializable {
 
     /**
      * Equals override to check fields of the task
-     * @param o object to comapre to
+     * @param o object to compare to
      * @return whether or not the objects are the same
      */
     @Override

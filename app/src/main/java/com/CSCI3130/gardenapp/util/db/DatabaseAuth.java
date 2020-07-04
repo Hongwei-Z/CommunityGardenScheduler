@@ -29,5 +29,10 @@ public class DatabaseAuth {
      */
     public static void signOut() {
         FirebaseAuth.getInstance().signOut();
+        try {
+            Thread.sleep(1000);
+        } catch (Exception e) {
+            System.out.println(e.toString());
+        }
     }
 }

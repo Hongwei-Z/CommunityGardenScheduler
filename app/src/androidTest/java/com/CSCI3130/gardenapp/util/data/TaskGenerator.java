@@ -20,6 +20,6 @@ public class TaskGenerator {
                 "This is a Description-" + count,
                 1 + (count%5), userID,
                 "Location-" + count,
-                LocalDate.now().format(DateTimeFormatter.ofPattern("dd-MM-yyyy")));
+                System.currentTimeMillis());
     }
 }

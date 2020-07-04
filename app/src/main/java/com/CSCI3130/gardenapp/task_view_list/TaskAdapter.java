@@ -3,8 +3,7 @@ package com.CSCI3130.gardenapp.task_view_list;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.TextView;
+import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import com.CSCI3130.gardenapp.R;
 import com.CSCI3130.gardenapp.util.data.Task;
@@ -18,9 +17,10 @@ import java.util.ArrayList;
  * the list of tasks
  * @author Elizabeth Eddy & Logan Sutherland
  */
-public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskViewHolder> {
+public class TaskAdapter extends RecyclerView.Adapter<TaskViewHolder> {
     private final ArrayList<Task> taskList;
     private OnItemClickListener mListener;
+    private final String activeTaskListContext;
 
     public interface OnItemClickListener { //interface so we can interact with TaskAdapter from TaskViewList
         void onItemClick(int position);
@@ -34,71 +34,8 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskViewHolder
         mListener = listener;
     }
 
-    /**
-     * Holds the views associated with each card in the the task list
-     */
-    public static class TaskViewHolder extends RecyclerView.ViewHolder {
-        private final TextView name;
-        private final TextView date;
-        private final TextView priority;
-        private final ImageView userProfile;
-
-        private TaskViewHolder(View itemView, final OnItemClickListener listener) {
-            super(itemView);
-
-            name = itemView.findViewById(R.id.task_name);
-            date = itemView.findViewById(R.id.task_date);
-            priority = itemView.findViewById(R.id.task_priority);
-            userProfile = itemView.findViewById(R.id.task_user_profile);
-
-            itemView.setOnClickListener(v -> {
-                if (listener != null) {
-                    int position = getAdapterPosition(); // gets task index for
-                    if (position != RecyclerView.NO_POSITION) { // checking to make sure user actually clicked a task
-                        listener.onItemClick(position); //pass position to TaskViewList
-                    }
-                }
-            });
-        }
-
-        /**
-         * Set task name text in the textView
-         * @param name name of the task
-         */
-        public void setName(String name){
-            this.name.setText(name);
-        }
-
-        /**
-         * Set task date text in the textView
-         * @param date date of the task
-         */
-        public void setDate(String date){
-            this.date.setText(date);
-        }
-
-        /**
-         * Set task priority text in the textView and update the colour to match
-         * @param priority priority of the task
-         */
-        public void setPriority(int priority){
-            this.priority.setText(Integer.toString(priority));
-            int color = R.color.colorPriority + priority;
-            this.priority.setBackgroundResource(color);
-        }
-
-        /**
-         * Set task profile to the assigned user if exists, otherwise leave blank
-         * @param user user assigned to task
-         */
-        public void setUser(String user){
-            if (user != null && !user.equals("")) {
-                this.userProfile.setImageResource(R.drawable.profile_icon);
-            }
-        }
-    }
-
-    public TaskAdapter(ArrayList<Task> tasks){
+    public TaskAdapter(ArrayList<Task> tasks, String activeTaskListContext){
+        this.activeTaskListContext = activeTaskListContext;
         taskList = tasks;
     }
 
@@ -108,8 +45,9 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskViewHolder
      * @param viewType the type of view
      * @return TaskViewHolder containing the tasks
      */
+    @NonNull
     @Override
-    public TaskAdapter.TaskViewHolder onCreateViewHolder(ViewGroup parent, int viewType){
+    public TaskViewHolder onCreateViewHolder(ViewGroup parent, int viewType){
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.task_list_item, parent, false);
         return new TaskViewHolder(view, mListener);
     }
@@ -123,11 +61,11 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskViewHolder
     public void onBindViewHolder(TaskViewHolder holder, int position){
         Task task = taskList.get(position);
         holder.setName(task.getName());
-        long date = TaskViewList.activeTaskListContext.equals("taskHistory")
+        long date = activeTaskListContext.equals("taskHistory")
                 ? task.getDateCompleted()
                 : task.getDateDue();
         if (date != -1) {
-            holder.setDate( (TaskViewList.activeTaskListContext.equals("taskHistory")
+            holder.setDate((activeTaskListContext.equals("taskHistory")
                     ? "Completed: "
                     : "Due: ")
                     + DateFormatUtils.getDateFormatted(date));
