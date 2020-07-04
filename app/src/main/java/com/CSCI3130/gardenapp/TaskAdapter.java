@@ -3,10 +3,12 @@ package com.CSCI3130.gardenapp;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.recyclerview.widget.RecyclerView;
+import com.CSCI3130.gardenapp.util.data.Task;
+
+import com.CSCI3130.gardenapp.util.DateFormatUtils;
 import java.util.ArrayList;
 
 /**
@@ -92,13 +94,13 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskViewHolder
          * @param user user assigned to task
          */
         public void setUser(String user){
-            if (!user.equals("")) {
+            if (user != null && !user.equals("")) {
                 this.userProfile.setImageResource(R.drawable.profile_icon);
             }
         }
     }
 
-    TaskAdapter(ArrayList<Task> tasks){
+    public TaskAdapter(ArrayList<Task> tasks){
         taskList = tasks;
     }
 
@@ -123,7 +125,17 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskViewHolder
     public void onBindViewHolder(TaskViewHolder holder, int position){
         Task task = taskList.get(position);
         holder.setName(task.getName());
-        holder.setDate(task.getDate());
+        long date = TaskViewList.activeTaskListContext.equals("taskHistory")
+                ? task.getDateCompleted()
+                : task.getDateDue();
+        if (date != -1) {
+            holder.setDate( (TaskViewList.activeTaskListContext.equals("taskHistory")
+                    ? "Completed: "
+                    : "Due: ")
+                    + DateFormatUtils.getDateFormatted(date));
+        } else {
+            holder.setDate("");
+        }
         holder.setPriority(task.getPriority());
         holder.setUser(task.getUser());
     }

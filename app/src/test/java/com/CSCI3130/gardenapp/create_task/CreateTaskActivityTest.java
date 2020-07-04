@@ -1,34 +1,56 @@
 package com.CSCI3130.gardenapp.create_task;
 
+import com.CSCI3130.gardenapp.util.data.Task;
+import com.CSCI3130.gardenapp.util.db.TaskDatabase;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-
+import org.mockito.Mockito;
 
 import java.util.ArrayList;
 
+import static org.mockito.Mockito.mock;
+
 public class CreateTaskActivityTest {
-    CreateTaskActivity activity;
+
     String title = "Test";
     String description = "This is a description!";
     String location = "Carrot Test";
     int priority = 3;
     ArrayList<CreateTaskError> errors;
 
+    TaskDatabase db;
+
+    CreateTaskActivity activity;
+
+
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
         activity = new CreateTaskActivity();
         errors = new ArrayList<>();
+        db = mock(TaskDatabase.class); // prevents real data from uploading
+        activity.db = db;
     }
 
     @After
-    public void tearDown() throws Exception {
+    public void tearDown() {
         errors.clear();
     }
 
     @Test
-    public void testSuccessfulCreation() {
+    public void testSuccessfulCreate() {
+        activity.uploadTask(title, description, 3, "", location);
+        Mockito.verify(db).uploadTask(new Task(title, description, 3, "", location, System.currentTimeMillis()));
+    }
+
+    @Test
+    public void testUnsuccessfulCreate() {
+        activity.uploadTask(title, "", 3, "", location);
+    }
+
+    @Test
+    public void testSuccessfulVerify() {
         Assert.assertEquals(errors, activity.verifyTask(
                 title,
                 description,

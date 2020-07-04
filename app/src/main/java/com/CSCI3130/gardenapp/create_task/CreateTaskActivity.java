@@ -7,7 +7,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import com.CSCI3130.gardenapp.R;
-import com.CSCI3130.gardenapp.Task;
+import com.CSCI3130.gardenapp.util.data.Task;
+import com.CSCI3130.gardenapp.util.db.TaskDatabase;
 import com.google.android.material.snackbar.Snackbar;
 
 import java.util.ArrayList;
@@ -18,14 +19,17 @@ import java.util.ArrayList;
  */
 public class CreateTaskActivity extends AppCompatActivity {
     private int current_priority;
-    @Override
+    TaskDatabase db;
+
     /**
      * Constructing the activity
      * @param savedInstanceState The default Android activity config varible to load the activity
      */
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_task);
+        db = new TaskDatabase();
         current_priority = -1;
     }
 
@@ -34,6 +38,7 @@ public class CreateTaskActivity extends AppCompatActivity {
      * @param view contains the id of what pressed the button
      */
     public void onPriorityCheck(View view) {
+        clearPriorityError();
         int id = view.getId();
         switch (id) {
             case R.id.buttonPriority1:
@@ -112,6 +117,7 @@ public class CreateTaskActivity extends AppCompatActivity {
         if (errors.size() == 0) {
             Snackbar.make(view, "Success!", Snackbar.LENGTH_SHORT).show();
             // package into a task object
+            boolean result = uploadTask(title, description, current_priority, "", location);
             return;
         }
         for (CreateTaskError error: errors) {
@@ -131,8 +137,20 @@ public class CreateTaskActivity extends AppCompatActivity {
                     break;
             }
         }
-        // Used in Intent to List
-        Task task = new Task(title, description, current_priority,"", location);
+    }
+
+    /**
+     * Takes all the information about a task and uploads it to the database.
+     * @param title The name of the task
+     * @param description The description of the task
+     * @param priority The priority value associated with the task
+     * @param user The user of which the task is assigned to
+     * @param location The location where the task should be performed
+     * @return boolean value denoting if the write was successful
+     */
+    protected boolean uploadTask(String title, String description, int priority, String user, String location){
+        Task task = new Task(title, description, priority, user, location, System.currentTimeMillis());
+        return db.uploadTask(task);
     }
 
     /**

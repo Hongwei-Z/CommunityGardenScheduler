@@ -6,15 +6,15 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.CSCI3130.gardenapp.create_task.CreateTaskActivity;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 /**
  * Activity class which welcomes the user after they have signed in/signed up for the app,
- * also allowowing them to log out of the app
+ * also allowing them to log out of the app
  * @author Arjav Gupta
  */
 public class Welcome extends AppCompatActivity {
@@ -43,8 +43,44 @@ public class Welcome extends AppCompatActivity {
      * Opens the taskList activity on button click
      * @param v view object of the View executing the onclick
      */
-    public void taskListOpen_onclick(View v){
+    public void allTaskListOpen_onclick(View v){
         Intent i = new Intent(Welcome.this, TaskViewList.class);
+        i.putExtra("activeTaskListContext", "allTasks");
+        startActivity(i);
+    }
+
+    /**
+     * Opens the open taskList activity on button click
+     * @param v view object of the View executing the onclick
+     */
+    public void openTaskListOpen_onclick(View v) {
+        Intent i = new Intent(Welcome.this, TaskViewList.class);
+        i.putExtra("activeTaskListContext", "openTasks");
+        startActivity(i);
+    }
+
+    /**
+     * Opens user taskList activity on button click
+     * @param v view object of the View executing the onclick
+     */
+    public void myTaskListOpen_onclick(View v){
+        Intent i = new Intent(Welcome.this, TaskViewList.class);
+        i.putExtra("activeTaskListContext", "myTasks");
+        startActivity(i);
+    }
+
+    /**
+     * Opens task history taskList activity on button click
+     * @param v view object of the View executing the onclick
+     */
+    public void taskHistoryListOpen_onclick(View v){
+        Intent i = new Intent(Welcome.this, TaskViewList.class);
+        i.putExtra("activeTaskListContext", "taskHistory");
+        startActivity(i);
+    }
+
+    public void createTaskOpen_onclick(View v){
+        Intent i = new Intent(Welcome.this, CreateTaskActivity.class);
         startActivity(i);
     }
 
@@ -71,22 +107,19 @@ public class Welcome extends AppCompatActivity {
      * and changes activities accordingly
      */
     public void checkLoginState(){
-        mAuthStateListener = new FirebaseAuth.AuthStateListener() {
-            @Override
-            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-                FirebaseUser mFirebaseUser = mFirebaseAuth.getCurrentUser();
+        mAuthStateListener = firebaseAuth -> {
+            FirebaseUser mFirebaseUser = mFirebaseAuth.getCurrentUser();
 
-                //if logged in still, display error
-                if( mFirebaseUser != null ){
-                    Toast.makeText(Welcome.this,"Sign Out Unsuccessful.",Toast.LENGTH_SHORT).show();
-                }
+            //if logged in still, display error
+            if( mFirebaseUser != null ){
+                Toast.makeText(Welcome.this,"Sign Out Unsuccessful.",Toast.LENGTH_SHORT).show();
+            }
 
-                //if not logged in, go back to login screen
-                else{
-                    Toast.makeText(Welcome.this,"Signed Out.",Toast.LENGTH_SHORT).show();
-                    Intent i = new Intent(Welcome.this, SignIn.class);
-                    startActivity(i);
-                }
+            //if not logged in, go back to login screen
+            else{
+                Toast.makeText(Welcome.this,"Signed Out.",Toast.LENGTH_SHORT).show();
+                Intent i = new Intent(Welcome.this, SignIn.class);
+                startActivity(i);
             }
         };
     }
