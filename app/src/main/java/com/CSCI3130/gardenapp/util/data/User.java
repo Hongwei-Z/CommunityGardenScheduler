@@ -14,6 +14,7 @@ import java.util.ArrayList;
 public class User implements Serializable {
     private String username;
     private String email;
+    private int userId;
 
     ArrayList<Task> assignedTasks = new ArrayList<>();
 
@@ -92,5 +93,21 @@ public class User implements Serializable {
      */
     public void setAssignedTasks(ArrayList<Task> assignedTasks) {
         this.assignedTasks = assignedTasks;
+    }
+
+    /**
+     * returns the id of a user
+     * @return
+     */
+    public int getId() {
+        return this.userId;
+    }
+
+    /**
+     * sets the id of a user
+     * @param newId user's new id
+     */
+    public void setId(int newId) {
+        this.userId = newId;
     }
 }

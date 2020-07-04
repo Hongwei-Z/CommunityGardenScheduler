@@ -18,6 +18,7 @@ public class Task implements Serializable {
     private String date;
     private String location;
     private boolean open;
+    private int taskId;
     private WeatherCondition weatherTrigger;
 
     /**
@@ -185,5 +186,21 @@ public class Task implements Serializable {
                 date.equals(task.date) &&
                 Objects.equals(location, task.location) &&
                 weatherTrigger == task.weatherTrigger;
+    }
+
+    /**
+     * Returns this task's Id
+     * @return task id
+     */
+    public int getId() {
+        return this.taskId;
+    }
+
+    /**
+     * Sets this task's id to a new id
+     * @param newId
+     */
+    public void setId(int newId) {
+        this.taskId = newId;
     }
 }

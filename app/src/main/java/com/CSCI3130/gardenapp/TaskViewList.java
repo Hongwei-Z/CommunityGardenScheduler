@@ -34,7 +34,18 @@ public class TaskViewList extends AppCompatActivity {
         setContext(this);
         setting = getIntent().getStringExtra("setting");
         TextView toolbarTitle = (TextView) findViewById(R.id.page_name);
-        toolbarTitle.setText(setting.equals("allTasks") ? "All Tasks" : "My Tasks");
+
+        switch(setting) {
+            case "myTasks":
+                toolbarTitle.setText("My Tasks");
+                break;
+            case "openTasks":
+                toolbarTitle.setText("Open Tasks");
+                break;
+            default:
+                toolbarTitle.setText("All Tasks");
+                break;
+        }
 
         db = new TaskDatabase();
         db.setDbRead(setting);
