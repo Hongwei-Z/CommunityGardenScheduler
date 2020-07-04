@@ -16,6 +16,8 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.*;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 /**
  * Database layer for writing tasks to the database. This can easily be mocked in
@@ -82,17 +84,19 @@ public class TaskDatabase {
     /**
      * Sets the database reference used in an activity to query on specific fields
      *
-     * @param setting query setting for tasklist
+     * @param activeTaskListContext query activeTaskListContext for tasklist
      */
-    public void setDbRead(String setting) {
+    public void setDbRead(String activeTaskListContext) {
         /** if allTasks do nothing, no need for query **/
-
-        switch(setting) {
+        switch(activeTaskListContext) {
             case "myTasks":
                 this.dbRead = dbRead.orderByChild("user").equalTo(FirebaseAuth.getInstance().getUid()); // returns tasks assigned to current user
                 break;
             case "openTasks":
                 this.dbRead = dbRead.orderByChild("user").equalTo(""); //returns tasks with no user assigned
+                break;
+            case "taskHistory":
+                this.dbRead = dbRead.orderByChild("dateCompleted").startAt(0).endAt(System.currentTimeMillis());
                 break;
         }
     }
@@ -111,9 +115,10 @@ public class TaskDatabase {
      * Returns the event listener for the database to retrieve tasks
      *
      * @param recyclerView
+     * @param activeTaskListContext to determine the ordering and sorting of the tasks
      * @return ValueEventListener
      */
-    public ValueEventListener getTaskData(RecyclerView recyclerView) {
+    public ValueEventListener getTaskData(RecyclerView recyclerView, String activeTaskListContext) {
         ArrayList<Task> allTasks = new ArrayList<>();
         return new ValueEventListener() {
             @Override
@@ -123,6 +128,18 @@ public class TaskDatabase {
                     Task task = dataSnapshotTask.getValue(Task.class);
                     allTasks.add(task);
                 }
+
+                if (activeTaskListContext.equals("taskHistory")) {
+                    Comparator<Task> comparator = (Task taskA, Task taskB) ->
+                            new Long(taskA.getDateCompleted()).compareTo(new Long(taskB.getDateCompleted()));
+                    Collections.sort(allTasks, comparator);
+                    Collections.reverse(allTasks);
+                } else  {
+                    Comparator<Task> comparator = (Task taskA, Task taskB) ->
+                            new Long(taskA.getDateDue()).compareTo(new Long(taskB.getDateDue()));
+                    Collections.sort(allTasks, comparator);
+                }
+
                 TaskAdapter taskAdapter = new TaskAdapter(allTasks);
                 recyclerView.setAdapter(taskAdapter);
                 taskAdapter.setOnItemClickListener(new TaskAdapter.OnItemClickListener() {
