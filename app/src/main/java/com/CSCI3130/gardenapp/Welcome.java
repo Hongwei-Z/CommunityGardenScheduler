@@ -50,6 +50,16 @@ public class Welcome extends AppCompatActivity {
     }
 
     /**
+     * Opens the open taskList activity on button click
+     * @param v view object of the View executing the onclick
+     */
+    public void openTaskListOpen_onclick(View v) {
+        Intent i = new Intent(Welcome.this, TaskViewList.class);
+        i.putExtra("setting", "openTasks");
+        startActivity(i);
+    }
+
+    /**
      * Opens user taskList activity on button click
      * @param v view object of the View executing the onclick
      */

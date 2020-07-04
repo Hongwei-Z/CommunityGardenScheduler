@@ -8,10 +8,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.CSCI3130.gardenapp.util.data.Task;
 import com.CSCI3130.gardenapp.util.db.TaskDatabase;
-
-import java.util.Comparator;
 
 
 /**
@@ -39,9 +36,21 @@ public class TaskViewList extends AppCompatActivity {
         setContext(this);
         setting = getIntent().getStringExtra("setting");
         TextView toolbarTitle = (TextView) findViewById(R.id.page_name);
-        toolbarTitle.setText(setting.equals("allTasks")
-                ? "All Tasks" : setting.equals("myTasks")
-                ? "My Tasks" : "Task History");
+
+        switch(setting) {
+            case "myTasks":
+                toolbarTitle.setText("My Tasks");
+                break;
+            case "openTasks":
+                toolbarTitle.setText("Open Tasks");
+                break;
+            case "taskHistory":
+                toolbarTitle.setText("Tasks History");
+                break;
+            default:
+                toolbarTitle.setText("All Tasks");
+                break;
+        }
 
         db = new TaskDatabase();
         db.setDbRead(setting);

@@ -18,6 +18,7 @@ public class Task implements Serializable {
     private long dateCompleted = -1;
     private String location;
     private boolean open;
+    private int taskId;
 
     /**
      * Constructor for the Task object
@@ -183,7 +184,22 @@ public class Task implements Serializable {
                 name.equals(task.name) &&
                 Objects.equals(description, task.description) &&
                 Objects.equals(user, task.user) &&
-                dateDue/1000 == task.dateDue/1000 &&
                 Objects.equals(location, task.location);
+    }
+
+    /**
+     * Returns this task's Id
+     * @return task id
+     */
+    public int getId() {
+        return this.taskId;
+    }
+
+    /**
+     * Sets this task's id to a new id
+     * @param newId
+     */
+    public void setId(int newId) {
+        this.taskId = newId;
     }
 }
