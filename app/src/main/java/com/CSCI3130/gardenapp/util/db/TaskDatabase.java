@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.CSCI3130.gardenapp.R;
 import com.CSCI3130.gardenapp.TaskAdapter;
+import com.CSCI3130.gardenapp.TaskDetailInfo;
 import com.CSCI3130.gardenapp.TaskRegisterDummyPage;
 import com.CSCI3130.gardenapp.TaskViewList;
 import com.CSCI3130.gardenapp.util.data.Task;
@@ -175,4 +176,14 @@ public class TaskDatabase {
         registerTaskActivity.putExtra(taskList.getString(R.string.position_extra), position); //we need to send the position over in order to preserve it and use it to update the task in recyclerview when the activity returns
         taskList.startActivity(registerTaskActivity);
     }
+
+    public void openTaskDetails(int position, ArrayList<Task> tasks) {
+        Task t = tasks.get(position);
+        Context taskList = TaskViewList.getContext();//allows us to start activities inside DatabaseTaskWriter
+        Intent taskDetailActivity = new Intent();
+        taskDetailActivity.setClass(taskList, TaskDetailInfo.class);
+        taskDetailActivity.putExtra(taskList.getString(R.string.task_extra), t);
+        taskList.startActivity(taskDetailActivity);
+    }
+
 }
