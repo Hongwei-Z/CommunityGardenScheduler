@@ -2,7 +2,6 @@ package com.CSCI3130.gardenapp;
 
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
-import android.content.Intent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -15,13 +14,12 @@ import com.CSCI3130.gardenapp.util.data.Task;
 public class TaskDetailInfo extends AppCompatActivity {
 
     private Button completeButton;
-    private TextView description,
-            dueDate,
-            taskTitle,
-            location,
-            repeatCon,
-            priority,
-            priorityColor;
+    private TextView description;
+    private TextView dueDate;
+    private TextView taskTitle;
+    private TextView repeatCon;
+    private TextView priority;
+    private TextView priorityColor;
 
     private Task task;
 
@@ -30,7 +28,7 @@ public class TaskDetailInfo extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_task_detail_info);
 
-        completeButton = (Button)findViewById(R.id.buttonComplete);
+        completeButton = (Button) findViewById(R.id.buttonComplete);
         completeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -46,8 +44,8 @@ public class TaskDetailInfo extends AppCompatActivity {
         priority = (TextView) findViewById(R.id.taskPriority);
         priorityColor = (TextView) findViewById(R.id.taskColor);
         description = (TextView) findViewById(R.id.taskDescription);
-        dueDate = (TextView) findViewById(R.id.Duedate);
-        location = (TextView) findViewById(R.id.location);
+        dueDate = (TextView) findViewById(R.id.taskDuedate);
+        TextView location = (TextView) findViewById(R.id.taskLocation);
         repeatCon = (TextView) findViewById(R.id.repeatCondition);
 
 

@@ -30,10 +30,8 @@
                 android:name=".create_task.CreateTaskActivity"
                 android:parentActivityName=".Welcome">
         </activity>
-        <activity android:name=".TaskRegisterDummyPage" />
-        <activity
-            android:name=".create_task.CreateTaskActivity"
-            android:parentActivityName=".Welcome" />
+        <activity android:name=".TaskDetailInfo"
+                  android:parentActivityName=".task_view_list.TaskViewList"/>
     </application>
 
 </manifest>

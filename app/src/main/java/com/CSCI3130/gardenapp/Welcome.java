@@ -39,7 +39,7 @@ public class Welcome extends AppCompatActivity {
 
         //retrieve current instance of firebase authentication object
         mFirebaseAuth = FirebaseAuth.getInstance();
-        mFirebaseAuth.addAuthStateListener(checkLoginState());
+
     }
 
     /**
@@ -97,6 +97,7 @@ public class Welcome extends AppCompatActivity {
      */
     public void signOut(){
         //sign out
+        mFirebaseAuth.addAuthStateListener(checkLoginState());
         DatabaseAuth.signOut();
     }
 
@@ -115,7 +116,7 @@ public class Welcome extends AppCompatActivity {
 
             //if not logged in, go back to login screen
             else{
-                Toast.makeText(Welcome.this,"Signed Out.",Toast.LENGTH_SHORT).show();
+                Toast.makeText(Welcome.this,"Signed Out123.",Toast.LENGTH_SHORT).show();
                 Intent i = new Intent(Welcome.this, SignIn.class);
                 startActivity(i);
             }
