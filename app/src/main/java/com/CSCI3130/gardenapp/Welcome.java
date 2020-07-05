@@ -39,7 +39,7 @@ public class Welcome extends AppCompatActivity {
 
         //retrieve current instance of firebase authentication object
         mFirebaseAuth = FirebaseAuth.getInstance();
-        checkLoginState();
+        mFirebaseAuth.addAuthStateListener(checkLoginState());
     }
 
     /**
@@ -104,8 +104,8 @@ public class Welcome extends AppCompatActivity {
      * Method checks if there is a user currently logged in on the app
      * and changes activities accordingly
      */
-    public void checkLoginState(){
-        mAuthStateListener = firebaseAuth -> {
+    public FirebaseAuth.AuthStateListener checkLoginState(){
+        return firebaseAuth -> {
             FirebaseUser mFirebaseUser = mFirebaseAuth.getCurrentUser();
 
             //if logged in still, display error
