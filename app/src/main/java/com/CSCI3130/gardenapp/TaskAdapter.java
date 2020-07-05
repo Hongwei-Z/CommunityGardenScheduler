@@ -1,9 +1,11 @@
 package com.CSCI3130.gardenapp;
 
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import androidx.recyclerview.widget.RecyclerView;
 import com.CSCI3130.gardenapp.util.data.Task;
@@ -41,6 +43,7 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskViewHolder
         private TextView date;
         private TextView priority;
         private ImageView userProfile;
+        private RelativeLayout clickList;
 
         private TaskViewHolder(View itemView, final OnItemClickListener listener) {
             super(itemView);
@@ -49,6 +52,7 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskViewHolder
             date = itemView.findViewById(R.id.task_date);
             priority = itemView.findViewById(R.id.task_priority);
             userProfile = itemView.findViewById(R.id.task_user_profile);
+            clickList = itemView.findViewById(R.id.clicklist);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -138,6 +142,16 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskViewHolder
         }
         holder.setPriority(task.getPriority());
         holder.setUser(task.getUser());
+
+        holder.clickList.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(view.getContext(), TaskDetailInfo.class);
+                i.putExtra("Iname",taskList.get(position));
+                view.getContext().startActivity(i);
+            }
+        });
+
     }
 
     /**

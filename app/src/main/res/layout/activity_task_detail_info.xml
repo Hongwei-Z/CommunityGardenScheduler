@@ -20,77 +20,72 @@
         android:textSize="24sp" />
 
 
-
     <TextView
         android:id="@+id/TaskDescription"
         android:layout_width="366dp"
         android:layout_height="236dp"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
-        android:layout_marginLeft="23dp"
+        android:layout_marginLeft="19dp"
         android:layout_marginTop="181dp"
         android:layout_marginRight="23dp"
         android:background="#FFFFFF"
         android:text=" Description"
-        android:textColor="?android:attr/colorForeground"
+        android:textColor="?android:attr/colorForegroundInverse"
         android:textSize="36sp"
-        android:textStyle="italic"/>
+        android:textStyle="italic" />
 
     <TextView
         android:id="@+id/Repeat_Condition"
-        android:layout_width="280dp"
+        android:layout_width="350dp"
         android:layout_height="50dp"
         android:layout_marginLeft="23dp"
         android:layout_marginTop="470dp"
-        android:layout_marginRight="150dp"
         android:text="Repeat Condition"
         android:textColor="#FFFFFF"
         android:textColorHighlight="@color/cardview_light_background"
         android:textSize="29sp"
-        android:textStyle="italic"/>
+        android:textStyle="italic" />
 
     <TextView
         android:id="@+id/location"
-        android:layout_width="280dp"
+        android:layout_width="350dp"
         android:layout_height="50dp"
         android:layout_marginLeft="23dp"
         android:layout_marginTop="430dp"
-        android:layout_marginRight="150dp"
         android:text="Location"
         android:textColor="#FFFFFF"
         android:textColorHighlight="@color/cardview_light_background"
         android:textSize="29sp"
-        android:textStyle="italic"/>
+        android:textStyle="italic" />
 
     <TextView
         android:id="@+id/submitAuth"
-        android:layout_width="280dp"
-        android:layout_height="50dp"
-        android:layout_marginLeft="100dp"
+        android:layout_width="400dp"
+        android:layout_height="46dp"
+        android:layout_marginLeft="23dp"
         android:layout_marginTop="515dp"
-        android:layout_marginRight="135dp"
         android:text="submitted by"
         android:textColor="#FFFFFF"
         android:textColorHighlight="@color/cardview_light_background"
         android:textSize="25sp"
-        android:textStyle="italic"/>
+        android:textStyle="italic" />
 
     <TextView
         android:id="@+id/submitDate"
-        android:layout_width="280dp"
+        android:layout_width="350dp"
         android:layout_height="50dp"
-        android:layout_marginLeft="100dp"
+        android:layout_marginLeft="23dp"
         android:layout_marginTop="550dp"
-        android:layout_marginRight="1350dp"
         android:text="Submitted May 27th"
         android:textColor="#FFFFFF"
         android:textColorHighlight="@color/cardview_light_background"
         android:textSize="18sp"
-        android:textStyle="italic"/>
+        android:textStyle="italic" />
 
     <TextView
         android:id="@+id/TaskNum"
-        android:layout_width="112dp"
+        android:layout_width="280dp"
         android:layout_height="50dp"
         android:layout_marginLeft="23dp"
         android:layout_marginTop="100dp"

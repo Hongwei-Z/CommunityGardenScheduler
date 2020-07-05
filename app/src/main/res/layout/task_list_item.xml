@@ -8,35 +8,27 @@
     android:id="@+id/task_card">
 
     <RelativeLayout
+        android:id="@+id/clicklist"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
         android:layout_marginTop="6dp"
         android:layout_marginRight="10dp"
-        android:layout_marginLeft="10dp"
         android:background="@color/colorCardBackground"
         android:padding="10dp"
         app:layout_constraintTop_toBottomOf="@+id/toolbar"
         tools:layout_editor_absoluteX="-4dp">
 
-        <TextView
-            android:id="@+id/task_name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentLeft="true"
+        <ImageView
+            android:id="@+id/task_user_profile"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
             android:layout_alignParentTop="true"
-            android:layout_toStartOf="@+id/task_user_profile"
-            android:layout_toLeftOf="@+id/task_user_profile"
+            android:layout_centerInParent="true"
             android:layout_marginEnd="16dp"
             android:layout_marginRight="16dp"
-            android:text="Task Name"
-            android:textSize="20sp"
-            android:textColor="#000000"
-            android:textStyle="bold"
-            tools:ignore="HardcodedText"
-            android:scrollHorizontally="true"
-            android:ellipsize="end"
-            android:maxLines="1"/>
+            android:layout_toStartOf="@+id/task_priority"
+            android:layout_toLeftOf="@+id/task_priority" />
 
         <TextView
             android:id="@+id/task_date"
@@ -49,31 +41,40 @@
             android:textColor="#000000"
             tools:ignore="HardcodedText" />
 
-        <ImageView
-            android:id="@+id/task_user_profile"
-            android:layout_width="45dp"
-            android:layout_height="45dp"
+        <TextView
+            android:id="@+id/task_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
             android:layout_marginEnd="16dp"
             android:layout_marginRight="16dp"
-            android:layout_centerInParent="true"
-            android:layout_toStartOf="@+id/task_priority"
-            android:layout_toLeftOf="@+id/task_priority"/>
+            android:layout_toStartOf="@+id/task_user_profile"
+            android:layout_toLeftOf="@+id/task_user_profile"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:scrollHorizontally="true"
+            android:text="Task Name"
+            android:textColor="#000000"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            tools:ignore="HardcodedText" />
 
         <TextView
             android:id="@+id/task_priority"
             android:layout_width="45dp"
             android:layout_height="45dp"
-            android:layout_marginEnd="10dp"
-            android:layout_marginRight="10dp"
-            android:layout_centerInParent="true"
-            android:gravity="center"
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
+            android:layout_centerInParent="true"
+            android:layout_marginEnd="10dp"
+            android:layout_marginRight="10dp"
+            android:background="@color/colorPriority1"
+            android:gravity="center"
             android:text="#"
             android:textSize="20sp"
             android:textStyle="bold"
-            android:background="@color/colorPriority1"
             tools:ignore="HardcodedText" />
 
     </RelativeLayout>
