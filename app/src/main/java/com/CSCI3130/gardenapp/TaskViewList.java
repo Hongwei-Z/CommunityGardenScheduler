@@ -2,8 +2,10 @@ package com.CSCI3130.gardenapp;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.widget.TextView;
 
-import com.CSCI3130.gardenapp.util.db.DatabaseTaskWriter;
+import com.CSCI3130.gardenapp.util.db.TaskDatabase;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -15,10 +17,11 @@ import androidx.recyclerview.widget.RecyclerView;
  */
 public class TaskViewList extends AppCompatActivity {
 
-    DatabaseTaskWriter db;
+    TaskDatabase db;
     protected RecyclerView recyclerView;
     private RecyclerView.LayoutManager layoutManager;
     private static Context mContext;
+    private String setting;
 
     /**
      * Actions for when activity is created
@@ -29,16 +32,21 @@ public class TaskViewList extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_task_view_list);
         setContext(this);
-        db = new DatabaseTaskWriter();
+        setting = getIntent().getStringExtra("setting");
+        TextView toolbarTitle = (TextView) findViewById(R.id.page_name);
+        toolbarTitle.setText(setting.equals("allTasks") ? "All Tasks" : "My Tasks");
+
+        db = new TaskDatabase();
+        db.setDbRead(setting);
+
         recyclerView = findViewById(R.id.recycleview_tasks);
         recyclerView.setHasFixedSize(true);
 
         layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
 
-        db.getDb().addValueEventListener(db.getTaskData(recyclerView));
+        db.getDbRead().addValueEventListener(db.getTaskData(recyclerView));
     }
-
 
     /**
      * Get the actvity context

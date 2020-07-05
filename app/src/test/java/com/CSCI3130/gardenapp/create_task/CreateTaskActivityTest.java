@@ -1,7 +1,7 @@
 package com.CSCI3130.gardenapp.create_task;
 
 import com.CSCI3130.gardenapp.util.data.Task;
-import com.CSCI3130.gardenapp.util.db.DatabaseTaskWriter;
+import com.CSCI3130.gardenapp.util.db.TaskDatabase;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -23,7 +23,7 @@ public class CreateTaskActivityTest {
     int priority = 3;
     ArrayList<CreateTaskError> errors;
 
-    DatabaseTaskWriter db;
+    TaskDatabase db;
 
     CreateTaskActivity activity;
 
@@ -32,7 +32,7 @@ public class CreateTaskActivityTest {
     public void setUp() {
         activity = new CreateTaskActivity();
         errors = new ArrayList<>();
-        db = mock(DatabaseTaskWriter.class); // prevents real data from uploading
+        db = mock(TaskDatabase.class); // prevents real data from uploading
         activity.db = db;
     }
 

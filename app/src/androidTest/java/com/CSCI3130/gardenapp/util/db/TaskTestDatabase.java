@@ -7,20 +7,21 @@ import java.util.Random;
 /**
  * Utility test wrapper for DatabaseTaskWriter to ensure tasks are written under a unique
  * test branch.
- * @see com.CSCI3130.gardenapp.util.db.DatabaseTaskWriter
+ * @see TaskDatabase
  * @author Liam Hebert
  */
-public class DatabaseTaskTestWriter extends DatabaseTaskWriter {
+public class TaskTestDatabase extends TaskDatabase {
     private final String test;
 
     /**
      * Constructor that injects a modified database into DatabaseTaskWriter
      */
-    public DatabaseTaskTestWriter() {
+    public TaskTestDatabase() {
         super(FirebaseDatabase.getInstance().getReference());
         Random rand = new Random();
         test = "test-" + rand.nextInt();
-        db = db.getRoot().child(test).child("Tasks");
+        dbWrite = dbWrite.getRoot().child(test).child("Tasks");
+        dbRead = dbWrite;
     }
 
     /**
@@ -28,6 +29,6 @@ public class DatabaseTaskTestWriter extends DatabaseTaskWriter {
      * Should be used in the @After section of a test
      */
     public void clearDatabase(){
-        db.getRoot().child(test).removeValue();
+        dbWrite.getRoot().child(test).removeValue();
     }
 }

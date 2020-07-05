@@ -6,7 +6,7 @@ import androidx.test.filters.LargeTest;
 import androidx.test.rule.ActivityTestRule;
 import com.CSCI3130.gardenapp.R;
 import com.CSCI3130.gardenapp.util.data.Task;
-import com.CSCI3130.gardenapp.util.db.DatabaseTaskTestWriter;
+import com.CSCI3130.gardenapp.util.db.TaskTestDatabase;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
@@ -28,24 +28,24 @@ import static org.junit.Assert.fail;
 public class CreateTaskActivityUITest {
     @Rule
     public ActivityTestRule<CreateTaskActivity> activityScenarioRule = new ActivityTestRule<CreateTaskActivity>(CreateTaskActivity.class, true, false);
-    public DatabaseTaskTestWriter testDB;
+    public TaskTestDatabase testDB;
     private CreateTaskActivity activity;
     @Before
     public void setUp(){
         activityScenarioRule.launchActivity(null);
-        testDB = new DatabaseTaskTestWriter();
+        testDB = new TaskTestDatabase();
         activity = activityScenarioRule.getActivity();
         activity.db = testDB;
     }
 
     @After
     public void tearDown() {
-        DatabaseTaskTestWriter db = (DatabaseTaskTestWriter) activity.db;
+        TaskTestDatabase db = (TaskTestDatabase) activity.db;
         db.clearDatabase();
     }
 
     private void ensureNoDatabaseActivity() {
-        testDB.getDb().addListenerForSingleValueEvent(new ValueEventListener() {
+        testDB.getDbWrite().addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists())
@@ -74,7 +74,7 @@ public class CreateTaskActivityUITest {
         onView(withId(com.google.android.material.R.id.snackbar_text)).check(matches(withText("Success!")));
 
         final boolean[] flag = {false};
-        testDB.getDb().addListenerForSingleValueEvent(new ValueEventListener() {
+        testDB.getDbWrite().addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 Assert.assertEquals(1, dataSnapshot.getChildrenCount());

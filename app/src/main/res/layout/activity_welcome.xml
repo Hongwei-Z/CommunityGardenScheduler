@@ -48,7 +48,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.498"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/allTaskListBtn"
+            app:layout_constraintTop_toBottomOf="@+id/myTasksBtn"
             android:layout_marginTop="24dp"/>
 
     <Button
@@ -58,12 +58,28 @@
         android:layout_marginTop="84dp"
         android:background="#5E5E5E"
         android:fontFamily="@font/redhatdisplay"
-        android:onClick="taskListOpen_onclick"
+        android:onClick="allTaskListOpen_onclick"
         android:text="All Tasks"
         android:textAllCaps="false"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/welcome_title" />
+
+    <Button
+        android:id="@+id/myTasksBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:background="#5E5E5E"
+        android:fontFamily="@font/redhatdisplay"
+        android:onClick="myTaskListOpen_onclick"
+        android:text="My Tasks"
+        android:textAllCaps="false"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/allTaskListBtn" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
