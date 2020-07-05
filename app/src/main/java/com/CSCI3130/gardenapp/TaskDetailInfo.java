@@ -46,10 +46,6 @@ public class TaskDetailInfo extends AppCompatActivity {
         textDate = findViewById(R.id.submitDate);
         textPriority = findViewById(R.id.Taskid);
 
-        Intent i = getIntent();
-        String intentname = i.getStringExtra("title");
-        textName.setText(intentname);
-
     }
 
     public void backtotasklist(){
