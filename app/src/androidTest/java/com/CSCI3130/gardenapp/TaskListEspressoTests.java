@@ -57,11 +57,11 @@ public class TaskListEspressoTests {
         CurrentWeather.city = "Halifax";
     }
 
-//    @After
-//    public void tearDown() {
-//        TaskTestDatabase db = (TaskTestDatabase) activity.db;
-//        db.clearDatabase();
-//    }
+    @After
+    public void tearDown() {
+        TaskTestDatabase db = (TaskTestDatabase) activity.db;
+        db.clearDatabase();
+    }
 
     public static RecyclerViewMatcher withRecyclerView(final int recyclerViewId) {
         return new RecyclerViewMatcher(recyclerViewId);
