@@ -32,11 +32,11 @@ public class CreateTaskActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_task);
-        edit = getIntent().getBooleanExtra("edit", false);
+        edit = getIntent().getBooleanExtra(getString(R.string.editSetting_extra), false);
         db = new TaskDatabase();
         current_priority = -1;
         if (edit) { // configures the UI to EDIT mode
-            loadEditConfiguration((Task) Objects.requireNonNull(getIntent().getSerializableExtra("t")));
+            loadEditConfiguration((Task) Objects.requireNonNull(getIntent().getSerializableExtra(getString(R.string.task_extra))));
         }
         db = new TaskDatabase();
     }

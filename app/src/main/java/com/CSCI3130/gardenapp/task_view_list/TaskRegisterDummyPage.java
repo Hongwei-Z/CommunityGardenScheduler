@@ -30,21 +30,22 @@ public class TaskRegisterDummyPage extends AppCompatActivity {
         titleText.setText(task.getName());
         pos = getIntent().getIntExtra("p", 1);
         registerButton = findViewById(R.id.registerButton);
+        db = new TaskDatabase();
         registerButton.setOnClickListener(view -> {
             User user = DatabaseAuth.getCurrentUser();
             task.setUser(user.getUsername());
             db.updateTask(task);
             Intent returnIntent = new Intent();
-            returnIntent.putExtra("p", pos);
-            returnIntent.putExtra("t", task);
+            returnIntent.putExtra(getString(R.string.position_extra), pos);
+            returnIntent.putExtra(getString(R.string.task_extra), task);
             finish();
         });
     }
 
     public void onEdit(View v) {
         Intent editTask = new Intent(this, CreateTaskActivity.class);
-        editTask.putExtra("edit", true);
-        editTask.putExtra("t", task);
+        editTask.putExtra(getString(R.string.editSetting_extra), true);
+        editTask.putExtra(getString(R.string.task_extra), task);
         startActivity(editTask);
     }
 

@@ -104,7 +104,7 @@ public class TaskViewList extends AppCompatActivity {
      */
     public void onButtonPress(View v) {
         Intent i = new Intent(this, CreateTaskActivity.class);
-        i.putExtra("edit", false);
+        i.putExtra(getString(R.string.editSetting_extra), false);
         startActivity(i);
     }
 

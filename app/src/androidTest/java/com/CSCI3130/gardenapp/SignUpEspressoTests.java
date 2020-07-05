@@ -3,9 +3,7 @@ package com.CSCI3130.gardenapp;
 import androidx.test.rule.ActivityTestRule;
 
 import com.CSCI3130.gardenapp.util.db.DatabaseAuth;
-import org.junit.Before;
-import org.junit.Rule;
-import org.junit.Test;
+import org.junit.*;
 
 import static androidx.test.espresso.Espresso.closeSoftKeyboard;
 import static androidx.test.espresso.Espresso.onView;

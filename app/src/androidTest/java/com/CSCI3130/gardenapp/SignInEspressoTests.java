@@ -27,7 +27,7 @@ public class SignInEspressoTests {
             = new IntentsTestRule<>(SignIn.class);
 
     @BeforeClass
-    public static void before() throws InterruptedException {
+    public static void before() {
         DatabaseAuth.signOut();
     }
 
