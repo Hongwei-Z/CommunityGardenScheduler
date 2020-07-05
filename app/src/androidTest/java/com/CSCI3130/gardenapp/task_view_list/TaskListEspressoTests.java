@@ -19,11 +19,11 @@ import com.CSCI3130.gardenapp.util.data.Task;
 
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.click;
-import static androidx.test.espresso.assertion.ViewAssertions.doesNotExist;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
 import static androidx.test.espresso.intent.Intents.intended;
 import static androidx.test.espresso.intent.matcher.ComponentNameMatchers.hasShortClassName;
 import static androidx.test.espresso.intent.matcher.IntentMatchers.hasComponent;
+import static androidx.test.espresso.intent.matcher.IntentMatchers.hasExtra;
 import static androidx.test.espresso.matcher.ViewMatchers.hasBackground;
 import static androidx.test.espresso.matcher.ViewMatchers.hasDescendant;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
@@ -84,9 +84,6 @@ public class TaskListEspressoTests {
                     .check(matches(hasDescendant(withText("Test Task"))));
             onView(withRecyclerView(R.id.recycleview_tasks).atPosition(0))
                     .check(matches(hasDescendant(withText("Due: "+ DateFormatUtils.getDateFormatted(currentDate)))));
-            onView(withRecyclerView(R.id.recycleview_tasks).atPosition(0)).perform(click());
-            Espresso.pressBack();
-            onView(withRecyclerView(R.id.recycleview_tasks).atPosition(1)).check(doesNotExist());
         } catch (InterruptedException e) {
             System.out.println(e.toString());
         }
@@ -94,18 +91,17 @@ public class TaskListEspressoTests {
         task = new Task("Test Task 2", "This is a Test", 2, "Beth", "Location", currentDate);
         testDB.uploadTask(task);
         try {
-            Thread.sleep(1000);
+            Thread.sleep(5000);
             onView(withRecyclerView(R.id.recycleview_tasks).atPosition(0))
                     .check(matches(hasDescendant(withText("Test Task"))));
             onView(withRecyclerView(R.id.recycleview_tasks).atPosition(0))
                     .check(matches(hasDescendant(withText("Due: "+ DateFormatUtils.getDateFormatted(currentDate)))));
-            onView(withRecyclerView(R.id.recycleview_tasks).atPosition(0)).perform(click());
-            Espresso.pressBack();
             onView(withRecyclerView(R.id.recycleview_tasks).atPosition(1))
                     .check(matches(hasDescendant(withText("Test Task 2"))));
             onView(withRecyclerView(R.id.recycleview_tasks).atPosition(1))
                     .check(matches(hasDescendant(withText("Due: "+ DateFormatUtils.getDateFormatted(currentDate)))));
             onView(withRecyclerView(R.id.recycleview_tasks).atPosition(1)).perform(click());
+            intended(allOf(hasComponent(hasShortClassName(".TaskDetailInfo")), hasExtra(activity.getString(R.string.task_extra), task)));
             Espresso.pressBack();
         } catch (InterruptedException e) {
             System.out.println(e.toString());
@@ -135,7 +131,7 @@ public class TaskListEspressoTests {
             onView(withRecyclerView(R.id.recycleview_tasks).atPosition(19))
                     .check(matches(hasDescendant(withText("Task 20"))));
             onView(withRecyclerView(R.id.recycleview_tasks).atPosition(19)).perform(click());
-            Espresso.pressBack();
+            intended(hasComponent(hasShortClassName(".TaskDetailInfo")));
         } catch (InterruptedException e) {
             System.out.println(e.toString());
         }

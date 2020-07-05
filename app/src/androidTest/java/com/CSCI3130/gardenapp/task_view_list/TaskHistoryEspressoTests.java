@@ -20,9 +20,14 @@ import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.click;
 import static androidx.test.espresso.assertion.ViewAssertions.doesNotExist;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
+import static androidx.test.espresso.intent.Intents.intended;
+import static androidx.test.espresso.intent.matcher.ComponentNameMatchers.hasShortClassName;
+import static androidx.test.espresso.intent.matcher.IntentMatchers.hasComponent;
+import static androidx.test.espresso.intent.matcher.IntentMatchers.hasExtra;
 import static androidx.test.espresso.matcher.ViewMatchers.hasDescendant;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
+import static org.hamcrest.core.AllOf.allOf;
 
 public class TaskHistoryEspressoTests {
     @Rule
@@ -61,6 +66,7 @@ public class TaskHistoryEspressoTests {
     @Test
     public void taskHistoryContainsExpectedTasks() {
         Task task = new Task("Task1", "This is a Test", 2, "", "Location", System.currentTimeMillis());
+        Task task2 = new Task("Task2", "This is a Test", 2, "", "Location", System.currentTimeMillis());
         long timePast = System.currentTimeMillis() - 1000;
         long timeFurtherPast = System.currentTimeMillis() - 100000;
         long timeFuture = System.currentTimeMillis() + 100000;
@@ -68,9 +74,9 @@ public class TaskHistoryEspressoTests {
         task.setDateCompleted(timePast);
         testDB.uploadTask(task);
         //completed prior to task1 (should show up lower in list)
-        task.setName("Task2");
-        task.setDateCompleted(timeFurtherPast);
-        testDB.uploadTask(task);
+        task2.setName("Task2");
+        task2.setDateCompleted(timeFurtherPast);
+        testDB.uploadTask(task2);
         //completed after current time (sanity check that is does not appear in list)
         task.setName("Task3");
         task.setDateCompleted(timeFuture);
@@ -81,9 +87,6 @@ public class TaskHistoryEspressoTests {
             onView(withRecyclerView(R.id.recycleview_tasks).atPosition(0)).check(matches(hasDescendant(withText("Task1"))));
             onView(withRecyclerView(R.id.recycleview_tasks).atPosition(0))
                     .check(matches(hasDescendant(withText("Completed: " + DateFormatUtils.getDateFormatted(timePast)))));
-            onView(withRecyclerView(R.id.recycleview_tasks).atPosition(0)).perform(click());
-            onView(withRecyclerView(R.id.recycleview_tasks).atPosition(0)).check(doesNotExist());
-            Espresso.pressBack();
             onView(withRecyclerView(R.id.recycleview_tasks).atPosition(1)).check(matches(hasDescendant(withText("Task2"))));
             onView(withRecyclerView(R.id.recycleview_tasks).atPosition(1))
                     .check(matches(hasDescendant(withText("Completed: " + DateFormatUtils.getDateFormatted(timeFurtherPast)))));

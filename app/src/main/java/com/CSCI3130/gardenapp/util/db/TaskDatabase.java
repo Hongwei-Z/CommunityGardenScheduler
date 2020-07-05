@@ -181,7 +181,7 @@ public class TaskDatabase {
      */
     public void openTaskDetails(int position, ArrayList<Task> tasks) {
         Task t = tasks.get(position);
-        Context taskList = TaskViewList.getContext();//allows us to start activities inside DatabaseTaskWriter
+        Context taskList = TaskViewList.getContext(); //allows us to start activities inside DatabaseTaskWriter
         Intent taskDetailActivity = new Intent();
         taskDetailActivity.setClass(taskList, TaskDetailInfo.class);
         taskDetailActivity.putExtra(taskList.getString(R.string.task_extra), t);
