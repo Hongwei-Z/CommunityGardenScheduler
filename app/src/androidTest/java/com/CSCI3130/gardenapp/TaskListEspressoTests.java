@@ -122,6 +122,8 @@ public class TaskListEspressoTests {
         }
     }
 
+    //this test changes the current weather conditions to "dry" and adds a task which is triggered by dry weather, along with two unrelated tasks
+    //The UI should respond by moving this task to the top of the list, regardless of what order the task was added in compared to other tasks
     @Test
     public void recyclerViewRespondsToCurrentWeather_move(){
 
@@ -155,6 +157,8 @@ public class TaskListEspressoTests {
         }
     }
 
+    //this test sets the current weather conditions to "rainy" and adds a task which is triggered by dry weather, along with two other unrelated tasks
+    //the UI should respond by keeping the dry-triggered task at the bottom of the list, as the current weather is not dry
     @Test
     public void recyclerViewRespondsToCurrentWeather_no_movement(){
 

@@ -35,11 +35,11 @@ public class Welcome extends AppCompatActivity {
     TextView weatherCityTxt, weatherDescTxt, weatherTempTxt, weatherHumidTxt, weatherWindTxt;
 
     //weather variables
-    private String temperature;
-    private String description;
-    private String city;
-    private String humidity;
-    private String windSpeed;
+    private String temperature,
+            description,
+            city,
+            humidity,
+            windSpeed;
 
     private RequestQueue mQueue;
 
