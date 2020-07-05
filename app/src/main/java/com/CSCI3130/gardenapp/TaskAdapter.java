@@ -134,7 +134,32 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskViewHolder
                     : "Due: ")
                     + DateFormatUtils.getDateFormatted(date));
         } else {
-            holder.setDate("");
+            if (task.getWeatherTrigger() != null) {
+                WeatherCondition trig = task.getWeatherTrigger();
+                switch (trig) {
+                    case DRY:
+                        holder.setDate("Dry Weather");
+                        break;
+                    case WINDY:
+                        holder.setDate("Windy Weather");
+                        break;
+                    case COLD:
+                        holder.setDate("Cold Weather");
+                        break;
+                    case HOT:
+                        holder.setDate("Hot Weather");
+                        break;
+                    case RAIN:
+                        holder.setDate("Rainy Weather");
+                        break;
+                    case NONE:
+                        holder.setDate("");
+                        break;
+                    default:
+                        holder.setDate("");
+                        break;
+                }
+            }
         }
         holder.setPriority(task.getPriority());
         holder.setUser(task.getUser());

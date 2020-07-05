@@ -44,6 +44,25 @@ public class Task implements Serializable {
         this.weatherTrigger = WeatherCondition.NONE;
     }
 
+    /**
+     * Constructor for the Task object
+     * @param name  name of the task
+     * @param description description of the task
+     * @param priority indicator of how high the task priority is
+     * @param user name of user assigned to task
+     * @param location location where the task should be performed
+     * @param weatherTrigger weather condition for task
+     */
+    public Task(String name, String description, int priority, String user, String location, WeatherCondition weatherTrigger) {
+        this.name = name;
+        this.description = description;
+        this.priority = priority;
+        this.user = user;
+        this.location = location;
+        this.open = false;
+        this.weatherTrigger = weatherTrigger;
+    }
+
     public Task(){}
 
     /**

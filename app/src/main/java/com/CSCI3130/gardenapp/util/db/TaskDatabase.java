@@ -6,10 +6,12 @@ import android.content.Intent;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.CSCI3130.gardenapp.CurrentWeather;
 import com.CSCI3130.gardenapp.R;
 import com.CSCI3130.gardenapp.TaskAdapter;
 import com.CSCI3130.gardenapp.TaskRegisterDummyPage;
 import com.CSCI3130.gardenapp.TaskViewList;
+import com.CSCI3130.gardenapp.WeatherCondition;
 import com.CSCI3130.gardenapp.util.data.Task;
 import com.CSCI3130.gardenapp.util.data.User;
 import com.google.firebase.auth.FirebaseAuth;
@@ -138,6 +140,27 @@ public class TaskDatabase {
                     Comparator<Task> comparator = (Task taskA, Task taskB) ->
                             new Long(taskA.getDateDue()).compareTo(new Long(taskB.getDateDue()));
                     Collections.sort(allTasks, comparator);
+
+                    //move weather tasks to the end of the queue based on whether they match with the current weather
+                    for (int i = 0; i < allTasks.size(); i++){
+                        Task curr = allTasks.get(i);
+                        //current task has a weather trigger
+                        WeatherCondition trigger = curr.getWeatherTrigger();
+                        if (trigger != WeatherCondition.NONE){
+                            //if this task's weather trigger does not match those of the current weather conditions, throw it down to the bottom of the queue
+                            ArrayList<WeatherCondition> currList = CurrentWeather.currentWeatherList;
+                            if (CurrentWeather.currentWeatherList.contains(trigger)){
+                                allTasks.remove(curr);
+                                curr.setPriority(1);
+                                allTasks.add(0, curr);
+                            } else {
+                                allTasks.remove(curr);
+                                curr.setPriority(5);
+                                allTasks.add(allTasks.size(), curr);
+                            }
+                        }
+                    }
+
                 }
 
                 TaskAdapter taskAdapter = new TaskAdapter(allTasks);

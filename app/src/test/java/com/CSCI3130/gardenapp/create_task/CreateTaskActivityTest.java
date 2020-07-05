@@ -1,5 +1,6 @@
 package com.CSCI3130.gardenapp.create_task;
 
+import com.CSCI3130.gardenapp.WeatherCondition;
 import com.CSCI3130.gardenapp.util.data.Task;
 import com.CSCI3130.gardenapp.util.db.TaskDatabase;
 import org.junit.After;
