@@ -43,13 +43,4 @@ public class TaskDetailEspressoTests {
                 .inRoot(withDecorView(not(Rule.getActivity().getWindow().getDecorView())))
                 .check(matches(isDisplayed()));
     }
-    //test button back
-    @Test
-    public void BackButton(){
-        onView(withId(R.id.backtolistbutton))
-                .perform(click());
-        onView(withId(R.id.TaskDetail))
-                .check(matches(isDisplayed()));
-    }
-
 }

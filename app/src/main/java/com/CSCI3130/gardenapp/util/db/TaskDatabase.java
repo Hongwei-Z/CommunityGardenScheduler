@@ -148,7 +148,7 @@ public class TaskDatabase {
                     public void onItemClick(int position) {
                         User u = new User("Logan", "sutherland@dal.ca"); //dummy user, replace with actual user when firebase is setup
                         //registerForTask(position, u, allTasks); //position refers to index of task in recyclerview tasklist
-                        openTaskDetails(position, allTasks);
+                        openTaskDetails(position, allTasks); //position refers to index of task in recyclerview tasklist
 
                     }
                 });
@@ -178,6 +178,11 @@ public class TaskDatabase {
         taskList.startActivity(registerTaskActivity);
     }
 
+    /**
+     * Opens the task details page and passes the selected task to the new Task Details activity
+     * @param position
+     * @param tasks
+     */
     public void openTaskDetails(int position, ArrayList<Task> tasks) {
         Task t = tasks.get(position);
         Context taskList = TaskViewList.getContext();//allows us to start activities inside DatabaseTaskWriter

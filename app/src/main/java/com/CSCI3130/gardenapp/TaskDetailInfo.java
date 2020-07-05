@@ -15,13 +15,14 @@ import com.CSCI3130.gardenapp.util.data.Task;
 public class TaskDetailInfo extends AppCompatActivity {
 
     private Button completeButton;
-    private TextView description;
-    private TextView dueDate;
-    private TextView taskTitle;
-    private TextView location;
-    private TextView repeatCon;
-    private TextView priority;
-    private TextView priorityColor;
+    private TextView description,
+            dueDate,
+            taskTitle,
+            location,
+            repeatCon,
+            priority,
+            priorityColor;
+
     private Task task;
 
     @Override
@@ -68,6 +69,6 @@ public class TaskDetailInfo extends AppCompatActivity {
      * @return
      */
     public String processRepeatCondition(String repeat) {
-        return "h";
+        return "This is a placeholder method for displaying repeat condition";
     }
 }
