@@ -39,6 +39,7 @@ public class Welcome extends AppCompatActivity {
 
         //retrieve current instance of firebase authentication object
         mFirebaseAuth = FirebaseAuth.getInstance();
+        mFirebaseAuth.addAuthStateListener(checkLoginState());
 
     }
 

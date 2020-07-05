@@ -10,6 +10,7 @@ import com.CSCI3130.gardenapp.R;
 import com.CSCI3130.gardenapp.task_view_list.TaskAdapter;
 import com.CSCI3130.gardenapp.task_view_list.TaskRegisterDummyPage;
 import com.CSCI3130.gardenapp.task_view_list.TaskViewList;
+
 import com.CSCI3130.gardenapp.TaskDetailInfo;
 import com.CSCI3130.gardenapp.util.data.Task;
 import com.google.firebase.auth.FirebaseAuth;

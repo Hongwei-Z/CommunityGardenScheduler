@@ -1,6 +1,5 @@
 package com.CSCI3130.gardenapp.task_view_list;
 
-import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;

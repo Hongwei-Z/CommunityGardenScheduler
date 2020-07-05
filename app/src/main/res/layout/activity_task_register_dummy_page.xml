@@ -6,17 +6,6 @@
     android:layout_height="match_parent"
     tools:context=".task_view_list.TaskRegisterDummyPage">
 
-    <Button
-        android:id="@+id/TaskDetail"
-        android:layout_width="88dp"
-        android:layout_height="wrap_content"
-        android:text="Task Detail"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.587" />
 
     <Button
             android:id="@+id/registerButton"
