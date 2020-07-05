@@ -31,7 +31,7 @@
         android:textSize="24sp" />
 
     <TextView
-        android:id="@+id/TaskDescription"
+        android:id="@+id/taskDescription"
         android:layout_width="366dp"
         android:layout_height="236dp"
         android:layout_alignParentLeft="true"
@@ -41,12 +41,12 @@
         android:layout_marginRight="23dp"
         android:background="#FFFFFF"
         android:text=" Description"
-        android:textColor="?android:attr/colorForeground"
+        android:textColor="#000000"
         android:textSize="36sp"
-        android:textStyle="italic"/>
+        android:textStyle="italic" />
 
     <TextView
-        android:id="@+id/Repeat_Condition"
+        android:id="@+id/repeatCondition"
         android:layout_width="280dp"
         android:layout_height="50dp"
         android:layout_marginLeft="23dp"
@@ -72,40 +72,14 @@
         android:textStyle="italic"/>
 
     <TextView
-        android:id="@+id/submitAuth"
-        android:layout_width="280dp"
-        android:layout_height="50dp"
-        android:layout_marginLeft="100dp"
-        android:layout_marginTop="515dp"
-        android:layout_marginRight="135dp"
-        android:text="submitted by"
-        android:textColor="#FFFFFF"
-        android:textColorHighlight="@color/cardview_light_background"
-        android:textSize="25sp"
-        android:textStyle="italic"/>
-
-    <TextView
-        android:id="@+id/submitDate"
-        android:layout_width="280dp"
-        android:layout_height="50dp"
-        android:layout_marginLeft="100dp"
-        android:layout_marginTop="550dp"
-        android:layout_marginRight="1350dp"
-        android:text="Submitted May 27th"
-        android:textColor="#FFFFFF"
-        android:textColorHighlight="@color/cardview_light_background"
-        android:textSize="18sp"
-        android:textStyle="italic"/>
-
-    <TextView
-        android:id="@+id/TaskNum"
-        android:layout_width="112dp"
+        android:id="@+id/taskTitle"
+        android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_marginLeft="23dp"
         android:layout_marginTop="100dp"
         android:text="Task 1"
         android:textColor="#64CB3F"
-        android:textSize="38sp"
+        android:textSize="24sp"
         android:textStyle="bold" />
 
     <TextView
