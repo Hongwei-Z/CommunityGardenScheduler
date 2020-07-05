@@ -25,10 +25,10 @@ public class TaskRegisterDummyPage extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_task_register_dummy_page);
-        task = (Task) getIntent().getSerializableExtra("t");
+        task = (Task) getIntent().getSerializableExtra(getString(R.string.task_extra));
         TextView titleText = findViewById(R.id.tempTaskTitle);
         titleText.setText(task.getName());
-        pos = getIntent().getIntExtra("p", 1);
+        pos = getIntent().getIntExtra(getString(R.string.position_extra), 1);
         registerButton = findViewById(R.id.registerButton);
         db = new TaskDatabase();
         registerButton.setOnClickListener(view -> {
