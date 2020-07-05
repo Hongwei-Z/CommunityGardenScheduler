@@ -8,7 +8,6 @@ import androidx.test.rule.ActivityTestRule;
 import com.CSCI3130.gardenapp.util.DateFormatUtils;
 import com.CSCI3130.gardenapp.util.data.Task;
 import com.CSCI3130.gardenapp.util.db.TaskTestDatabase;
-import com.google.firebase.auth.FirebaseAuth;
 
 import org.junit.After;
 import org.junit.Before;
@@ -23,7 +22,7 @@ import static androidx.test.espresso.matcher.ViewMatchers.hasDescendant;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
 
-public class MyTaskListEspressoTests {
+public class TaskHistoryEspressoTests {
     @Rule
     public ActivityTestRule<TaskViewList> activityScenarioRule = new ActivityTestRule<TaskViewList>(TaskViewList.class, true, false);
     public TaskTestDatabase testDB;
@@ -32,7 +31,7 @@ public class MyTaskListEspressoTests {
     @Before
     public void setUp() {
         Intent intent = new Intent();
-        String activeTaskListContext = "myTasks";
+        String activeTaskListContext = "taskHistory";
         intent.putExtra("activeTaskListContext", activeTaskListContext);
         activityScenarioRule.launchActivity(intent);
         testDB = new TaskTestDatabase();
@@ -54,33 +53,53 @@ public class MyTaskListEspressoTests {
 
     @Test
     public void toolbarHasExpectedText() {
-        onView(withId(R.id.page_name)).check(matches(withText("My Tasks")));
+        onView(withId(R.id.page_name)).check(matches(withText("Task History")));
     }
 
     @Test
-    public void recyclerViewItemContainsExpectedText() {
-        long currentDate = System.currentTimeMillis();
-        Task task = new Task("My Task", "This is a Test", 2, "not current UUID", "Location", currentDate);
+    public void taskHistoryContainsExpectedTasks() {
+        Task task = new Task("Task1", "This is a Test", 2, "", "Location", System.currentTimeMillis());
+        long timePast = System.currentTimeMillis() - 1000;
+        long timeFurtherPast = System.currentTimeMillis() - 100000;
+        long timeFuture = System.currentTimeMillis() + 100000;
+        //completed prior to current time
+        task.setDateCompleted(timePast);
         testDB.uploadTask(task);
-        try {
-            Thread.sleep(3000);
-            onView(withRecyclerView(R.id.recycleview_tasks).atPosition(0)).check(doesNotExist());
-        } catch (InterruptedException e) {
-            System.out.println(e.toString());
-        }
-        task = new Task("My Task", "This is a Test", 2, FirebaseAuth.getInstance().getUid(), "Location", currentDate);
+        //completed prior to task1 (should show up lower in list)
+        task.setName("Task2");
+        task.setDateCompleted(timeFurtherPast);
+        testDB.uploadTask(task);
+        //completed after current time (sanity check that is does not appear in list)
+        task.setName("Task3");
+        task.setDateCompleted(timeFuture);
         testDB.uploadTask(task);
         try {
             Thread.sleep(1000);
-            onView(withRecyclerView(R.id.recycleview_tasks).atPosition(1)).check(doesNotExist());
-            onView(withRecyclerView(R.id.recycleview_tasks).atPosition(0)).check(matches(hasDescendant(withText("My Task"))));
+            onView(withRecyclerView(R.id.recycleview_tasks).atPosition(2)).check(doesNotExist());
+            onView(withRecyclerView(R.id.recycleview_tasks).atPosition(0)).check(matches(hasDescendant(withText("Task1"))));
             onView(withRecyclerView(R.id.recycleview_tasks).atPosition(0))
-                    .check(matches(hasDescendant(withText("Due: "+ DateFormatUtils.getDateFormatted(currentDate)))));
-            onView(withRecyclerView(R.id.recycleview_tasks).atPosition(0))
-                    .check(matches(hasDescendant(withId(R.id.task_user_profile))));
+                    .check(matches(hasDescendant(withText("Completed: " + DateFormatUtils.getDateFormatted(timePast)))));
             onView(withRecyclerView(R.id.recycleview_tasks).atPosition(0)).perform(click());
             onView(withRecyclerView(R.id.recycleview_tasks).atPosition(0)).check(doesNotExist());
             Espresso.pressBack();
+            onView(withRecyclerView(R.id.recycleview_tasks).atPosition(1)).check(matches(hasDescendant(withText("Task2"))));
+            onView(withRecyclerView(R.id.recycleview_tasks).atPosition(1))
+                    .check(matches(hasDescendant(withText("Completed: " + DateFormatUtils.getDateFormatted(timeFurtherPast)))));
+            onView(withRecyclerView(R.id.recycleview_tasks).atPosition(1)).perform(click());
+            onView(withRecyclerView(R.id.recycleview_tasks).atPosition(1)).check(doesNotExist());
+            Espresso.pressBack();
+        } catch (InterruptedException e) {
+            System.out.println(e.toString());
+        }
+    }
+
+    @Test
+    public void incompleteTasksNotShownInHistory() {
+        Task task = new Task("Task1", "This is a Test", 2, "", "Location", System.currentTimeMillis());
+        testDB.uploadTask(task);
+        try {
+            Thread.sleep(1000);
+            onView(withRecyclerView(R.id.recycleview_tasks).atPosition(0)).check(doesNotExist());
         } catch (InterruptedException e) {
             System.out.println(e.toString());
         }

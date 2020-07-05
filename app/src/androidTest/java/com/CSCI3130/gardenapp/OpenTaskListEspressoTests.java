@@ -8,7 +8,6 @@ import androidx.test.rule.ActivityTestRule;
 import com.CSCI3130.gardenapp.util.DateFormatUtils;
 import com.CSCI3130.gardenapp.util.data.Task;
 import com.CSCI3130.gardenapp.util.db.TaskTestDatabase;
-import com.google.firebase.auth.FirebaseAuth;
 
 import org.junit.After;
 import org.junit.Before;
@@ -23,7 +22,7 @@ import static androidx.test.espresso.matcher.ViewMatchers.hasDescendant;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
 
-public class MyTaskListEspressoTests {
+public class OpenTaskListEspressoTests {
     @Rule
     public ActivityTestRule<TaskViewList> activityScenarioRule = new ActivityTestRule<TaskViewList>(TaskViewList.class, true, false);
     public TaskTestDatabase testDB;
@@ -32,7 +31,7 @@ public class MyTaskListEspressoTests {
     @Before
     public void setUp() {
         Intent intent = new Intent();
-        String activeTaskListContext = "myTasks";
+        String activeTaskListContext = "openTasks";
         intent.putExtra("activeTaskListContext", activeTaskListContext);
         activityScenarioRule.launchActivity(intent);
         testDB = new TaskTestDatabase();
@@ -45,7 +44,7 @@ public class MyTaskListEspressoTests {
     @After
     public void tearDown() {
         TaskTestDatabase db = (TaskTestDatabase) activity.db;
-        db.clearDatabase();
+        db.clearDatabase(); //clears test database
     }
 
     public static RecyclerViewMatcher withRecyclerView(final int recyclerViewId) {
@@ -53,27 +52,29 @@ public class MyTaskListEspressoTests {
     }
 
     @Test
-    public void toolbarHasExpectedText() {
-        onView(withId(R.id.page_name)).check(matches(withText("My Tasks")));
-    }
-
-    @Test
-    public void recyclerViewItemContainsExpectedText() {
+    public void testOpenFilter() {
         long currentDate = System.currentTimeMillis();
-        Task task = new Task("My Task", "This is a Test", 2, "not current UUID", "Location", currentDate);
+        //upload non-open task to test database
+        Task task = new Task("Not Open Task", "This is a Test", 2, "Some User ID", "Location", currentDate);
+        task.setOpen(false);
         testDB.uploadTask(task);
+        //check if task appears in filtered recyclerview, fail if it is there
         try {
-            Thread.sleep(3000);
+            Thread.sleep(2000);
             onView(withRecyclerView(R.id.recycleview_tasks).atPosition(0)).check(doesNotExist());
         } catch (InterruptedException e) {
             System.out.println(e.toString());
         }
-        task = new Task("My Task", "This is a Test", 2, FirebaseAuth.getInstance().getUid(), "Location", currentDate);
+
+        //upload open task to database
+        task = new Task("Open Task", "This is a Test", 2, "", "Location", currentDate);
+        task.setOpen(true);
         testDB.uploadTask(task);
+        //check if task appears in filtered recyclerview, fail if it is NOT there
         try {
             Thread.sleep(1000);
             onView(withRecyclerView(R.id.recycleview_tasks).atPosition(1)).check(doesNotExist());
-            onView(withRecyclerView(R.id.recycleview_tasks).atPosition(0)).check(matches(hasDescendant(withText("My Task"))));
+            onView(withRecyclerView(R.id.recycleview_tasks).atPosition(0)).check(matches(hasDescendant(withText("Open Task"))));
             onView(withRecyclerView(R.id.recycleview_tasks).atPosition(0))
                     .check(matches(hasDescendant(withText("Due: "+ DateFormatUtils.getDateFormatted(currentDate)))));
             onView(withRecyclerView(R.id.recycleview_tasks).atPosition(0))

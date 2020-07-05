@@ -4,15 +4,16 @@ import android.content.Context;
 import android.os.Bundle;
 import android.widget.TextView;
 
-import com.CSCI3130.gardenapp.util.db.TaskDatabase;
-
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.CSCI3130.gardenapp.util.db.TaskDatabase;
+
 
 /**
  * Activity class to process the task data and populate the task list
+ *
  * @author Elizabeth Eddy and Logan Sutherland
  */
 public class TaskViewList extends AppCompatActivity {
@@ -21,10 +22,11 @@ public class TaskViewList extends AppCompatActivity {
     protected RecyclerView recyclerView;
     private RecyclerView.LayoutManager layoutManager;
     private static Context mContext;
-    private String setting;
+    public static String activeTaskListContext;
 
     /**
      * Actions for when activity is created
+     *
      * @param savedInstanceState
      */
     @Override
@@ -32,12 +34,26 @@ public class TaskViewList extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_task_view_list);
         setContext(this);
-        setting = getIntent().getStringExtra("setting");
+        activeTaskListContext = getIntent().getStringExtra("activeTaskListContext");
         TextView toolbarTitle = (TextView) findViewById(R.id.page_name);
-        toolbarTitle.setText(setting.equals("allTasks") ? "All Tasks" : "My Tasks");
+
+        switch(activeTaskListContext) {
+            case "myTasks":
+                toolbarTitle.setText("My Tasks");
+                break;
+            case "openTasks":
+                toolbarTitle.setText("Open Tasks");
+                break;
+            case "taskHistory":
+                toolbarTitle.setText("Task History");
+                break;
+            default:
+                toolbarTitle.setText("All Tasks");
+                break;
+        }
 
         db = new TaskDatabase();
-        db.setDbRead(setting);
+        db.setDbRead(activeTaskListContext);
 
         recyclerView = findViewById(R.id.recycleview_tasks);
         recyclerView.setHasFixedSize(true);
@@ -45,11 +61,15 @@ public class TaskViewList extends AppCompatActivity {
         layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
 
-        db.getDbRead().addValueEventListener(db.getTaskData(recyclerView));
+        db.getDbRead().addValueEventListener(
+                db.getTaskData(recyclerView, activeTaskListContext));
+
     }
+
 
     /**
      * Get the actvity context
+     *
      * @return context
      */
     public static Context getContext() {
@@ -58,6 +78,7 @@ public class TaskViewList extends AppCompatActivity {
 
     /**
      * Set the activity context
+     *
      * @param mContext context
      */
     public void setContext(Context mContext) {

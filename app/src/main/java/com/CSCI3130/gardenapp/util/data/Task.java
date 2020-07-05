@@ -13,9 +13,11 @@ public class Task implements Serializable {
     private String description;
     private int priority;
     private String user;
-    private String date;
+    private long dateDue = -1;
+    private long dateCompleted = -1;
     private String location;
     private boolean open;
+    private int taskId;
 
     /**
      * Constructor for the Task object
@@ -24,14 +26,14 @@ public class Task implements Serializable {
      * @param priority indicator of how high the task priority is
      * @param user name of user assigned to task
      * @param location location where the task should be performed
-     * @param date due date of the task
+     * @param dateDue due date of the task
      */
-    public Task(String name, String description, int priority, String user, String location, String date) {
+    public Task(String name, String description, int priority, String user, String location, long dateDue) {
         this.name = name;
         this.description = description;
         this.priority = priority;
         this.user = user;
-        this.date = date;
+        this.dateDue = dateDue;
         this.location = location;
         this.open = false;
     }
@@ -134,20 +136,37 @@ public class Task implements Serializable {
         this.user = user;
     }
 
+
     /**
-     * Gets the task date
-     * @return date of the task
+     * Gets the task dateDue timestamp
+     * @return dateDue of the task in timestamp format
      */
-    public String getDate() {
-        return date;
+    public long getDateDue() {
+        return dateDue;
     }
 
     /**
-     * Sets the task date
-     * @param date of the task
+     * Sets the task dateDue
+     * @param dateDue of the task
      */
-    public void setDate(String date) {
-        this.date = date;
+    public void setDateDue(long dateDue) {
+        this.dateDue = dateDue;
+    }
+
+    /**
+     * Gets the task dateCompleted timestamp
+     * @return dateCompleted of the task in timestamp format
+     */
+    public long getDateCompleted() {
+        return dateCompleted;
+    }
+
+    /**
+     * Sets the task dateCompleted
+     * @param dateCompleted of the task
+     */
+    public void setDateCompleted(long dateCompleted) {
+        this.dateCompleted = dateCompleted;
     }
 
     /**
@@ -164,7 +183,22 @@ public class Task implements Serializable {
                 name.equals(task.name) &&
                 Objects.equals(description, task.description) &&
                 Objects.equals(user, task.user) &&
-                date.equals(task.date) &&
                 Objects.equals(location, task.location);
+    }
+
+    /**
+     * Returns this task's Id
+     * @return task id
+     */
+    public int getId() {
+        return this.taskId;
+    }
+
+    /**
+     * Sets this task's id to a new id
+     * @param newId
+     */
+    public void setId(int newId) {
+        this.taskId = newId;
     }
 }
