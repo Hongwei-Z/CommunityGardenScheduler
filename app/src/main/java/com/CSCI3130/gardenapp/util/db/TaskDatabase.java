@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.CSCI3130.gardenapp.R;
 import com.CSCI3130.gardenapp.TaskAdapter;
+import com.CSCI3130.gardenapp.TaskDetailInfo;
 import com.CSCI3130.gardenapp.TaskRegisterDummyPage;
 import com.CSCI3130.gardenapp.TaskViewList;
 import com.CSCI3130.gardenapp.util.data.Task;
@@ -146,7 +147,8 @@ public class TaskDatabase {
                     @Override
                     public void onItemClick(int position) {
                         User u = new User("Logan", "sutherland@dal.ca"); //dummy user, replace with actual user when firebase is setup
-                        registerForTask(position, u, allTasks); //position refers to index of task in recyclerview tasklist
+                        //registerForTask(position, u, allTasks); //position refers to index of task in recyclerview tasklist
+                        openTaskDetails(position, allTasks); //position refers to index of task in recyclerview tasklist
 
                     }
                 });
@@ -174,5 +176,19 @@ public class TaskDatabase {
         registerTaskActivity.putExtra(taskList.getString(R.string.user_extra), user);
         registerTaskActivity.putExtra(taskList.getString(R.string.position_extra), position); //we need to send the position over in order to preserve it and use it to update the task in recyclerview when the activity returns
         taskList.startActivity(registerTaskActivity);
+    }
+
+    /**
+     * Opens the task details page and passes the selected task to the new Task Details activity
+     * @param position
+     * @param tasks
+     */
+    public void openTaskDetails(int position, ArrayList<Task> tasks) {
+        Task t = tasks.get(position);
+        Context taskList = TaskViewList.getContext();//allows us to start activities inside DatabaseTaskWriter
+        Intent taskDetailActivity = new Intent();
+        taskDetailActivity.setClass(taskList, TaskDetailInfo.class);
+        taskDetailActivity.putExtra(taskList.getString(R.string.task_extra), t);
+        taskList.startActivity(taskDetailActivity);
     }
 }
