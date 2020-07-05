@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.Button;
 import androidx.core.content.res.ResourcesCompat;
 import androidx.test.espresso.matcher.BoundedMatcher;
+import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.platform.app.InstrumentationRegistry;
 import androidx.test.rule.ActivityTestRule;
 import com.CSCI3130.gardenapp.R;
@@ -21,12 +22,14 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.*;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
 import static androidx.test.espresso.matcher.ViewMatchers.*;
 
-
+@RunWith(AndroidJUnit4.class)
 public class EditTaskActivityUITest {
     @Rule
     public ActivityTestRule<CreateTaskActivity> activityScenarioRule = new ActivityTestRule<CreateTaskActivity>(CreateTaskActivity.class, true, false);
@@ -41,8 +44,8 @@ public class EditTaskActivityUITest {
         testDB.uploadTask(testTask);
         Context targetContext = InstrumentationRegistry.getInstrumentation().getTargetContext();
         Intent i = new Intent(targetContext, CreateTaskActivity.class);
-        i.putExtra("edit", true);
-        i.putExtra("t", testTask);
+        i.putExtra(targetContext.getString(R.string.editSetting_extra), true);
+        i.putExtra(targetContext.getString(R.string.task_extra), testTask);
 
 
         activityScenarioRule.launchActivity(i);

@@ -8,6 +8,8 @@ import com.CSCI3130.gardenapp.R;
 
 /**
  * Holds the views associated with each card in the the task list
+ * @author Elizabeth Eddy
+ * @see RecyclerView.ViewHolder
  */
 public class TaskViewHolder extends RecyclerView.ViewHolder {
     private final TextView name;
@@ -15,7 +17,13 @@ public class TaskViewHolder extends RecyclerView.ViewHolder {
     private final TextView priority;
     private final ImageView userProfile;
 
-    public TaskViewHolder(View itemView, final TaskAdapter.OnItemClickListener listener) {
+    /**
+     * Constructor for the TaskViewHolder which assigns the OnItemClickListener and View associated to a task
+     * @param itemView View associated to the task
+     * @param listener OnItemClickListener associated to the task
+     * @see TaskAdapter.OnItemClickListener
+     */
+    protected TaskViewHolder(View itemView, final TaskAdapter.OnItemClickListener listener) {
         super(itemView);
 
         name = itemView.findViewById(R.id.task_name);

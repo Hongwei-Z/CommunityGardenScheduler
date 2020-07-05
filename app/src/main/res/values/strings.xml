@@ -2,6 +2,7 @@
     <string name="user_extra">u</string>
     <string name="task_extra">t</string>
     <string name="position_extra">p</string>
+    <string name="editSetting_extra">edit</string>
     <string name="app_name">Community Garden</string>
     <string name="Complete">Complete</string>
     <string name="CompleteMessage">Task Completed</string>
