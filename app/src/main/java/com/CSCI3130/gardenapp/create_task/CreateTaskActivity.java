@@ -66,7 +66,7 @@ public class CreateTaskActivity extends AppCompatActivity {
         clearPriorityError();
         int id = view.getId();
         switch (id) {
-            case R.id.buttonPriority1:
+            case R.id.priorityButtons:
                 current_priority = 1;
                 break;
             case R.id.buttonPriority2:
@@ -91,7 +91,7 @@ public class CreateTaskActivity extends AppCompatActivity {
     }
 
     private void greyUnselectedButtons(int selected) {
-        Button priority1 = findViewById(R.id.buttonPriority1);
+        Button priority1 = findViewById(R.id.priorityButtons);
         priority1.setBackgroundColor(getColor(R.color.colorUnselected));
         Button priority2 = findViewById(R.id.buttonPriority2);
         priority2.setBackgroundColor(getColor(R.color.colorUnselected));

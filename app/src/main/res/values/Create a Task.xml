@@ -13,7 +13,7 @@
         Location…
     </string>
     <string name="confirm_add_task">
-        Add Task
+        ADD TASK
     </string>
     <string name="textPriorityTitle">
         Priority
@@ -22,6 +22,6 @@
         Edit Task
     </string>
     <string name="confirm_edit_task">
-        Update Task
+        UPDATE TASK
     </string>
 </resources>

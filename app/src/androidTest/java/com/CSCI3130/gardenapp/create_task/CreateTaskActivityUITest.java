@@ -38,7 +38,7 @@ public class CreateTaskActivityUITest {
     }
 
     private void clickCorrectPriority(int val) {
-        int[] ids = {R.id.buttonPriority1, R.id.buttonPriority2, R.id.buttonPriority3, R.id.buttonPriority4, R.id.buttonPriority5};
+        int[] ids = {R.id.priorityButtons, R.id.buttonPriority2, R.id.buttonPriority3, R.id.buttonPriority4, R.id.buttonPriority5};
         onView(withId(ids[val - 1])).perform(click());
     }
 

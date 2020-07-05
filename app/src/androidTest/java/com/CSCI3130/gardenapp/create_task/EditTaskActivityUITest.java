@@ -80,7 +80,7 @@ public class EditTaskActivityUITest {
     }
 
     private void checkPrioritySelected(int val) {
-        int[] ids = {R.id.buttonPriority1, R.id.buttonPriority2, R.id.buttonPriority3, R.id.buttonPriority4, R.id.buttonPriority5};
+        int[] ids = {R.id.priorityButtons, R.id.buttonPriority2, R.id.buttonPriority3, R.id.buttonPriority4, R.id.buttonPriority5};
         int[] colors = {R.color.colorPriority1, R.color.colorPriority2, R.color.colorPriority3, R.color.colorPriority4, R.color.colorPriority5};
         for (int i = 0; i < 5; i++) {
             if (val != i + 1) {
