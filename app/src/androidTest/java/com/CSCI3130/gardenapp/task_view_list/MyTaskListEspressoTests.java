@@ -62,7 +62,7 @@ public class MyTaskListEspressoTests {
     @Test
     public void recyclerViewItemContainsExpectedText() {
         long currentDate = System.currentTimeMillis();
-        Task task = new Task("My Task", "This is a Test", 2, "not current UUID", "Location", currentDate);
+        Task task = new Task("My Task", "This is a Test", 2, "not current UUID", "Location", currentDate, "repeat-none");
         testDB.uploadTask(task);
         try {
             Thread.sleep(3000);
@@ -70,7 +70,7 @@ public class MyTaskListEspressoTests {
         } catch (InterruptedException e) {
             System.out.println(e.toString());
         }
-        task = new Task("My Task", "This is a Test", 2, FirebaseAuth.getInstance().getUid(), "Location", currentDate);
+        task = new Task("My Task", "This is a Test", 2, FirebaseAuth.getInstance().getUid(), "Location", currentDate, "repeat-none");
         testDB.uploadTask(task);
         try {
             Thread.sleep(1000);

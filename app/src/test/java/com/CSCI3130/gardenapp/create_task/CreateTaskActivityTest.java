@@ -42,15 +42,15 @@ public class CreateTaskActivityTest {
 
     @Test
     public void testSuccessfulCreate() {
-        activity.uploadTask(title, description, 3, location, testWeatherCondition);
-        Task testTask = new Task(title, description, 3, "", location, System.currentTimeMillis());
+        activity.uploadTask(title, description, 3, location, testWeatherCondition, "repeat-none");
+        Task testTask = new Task(title, description, 3, "", location, System.currentTimeMillis(), "repeat-none");
         testTask.setWeatherTrigger(testWeatherCondition);
         Mockito.verify(db).uploadTask(testTask);
     }
 
     @Test
     public void testUnsuccessfulCreate() {
-        activity.uploadTask(title, "", 3, location, testWeatherCondition);
+        activity.uploadTask(title, "", 3, location, testWeatherCondition, "repeat-none");
     }
 
     @Test
