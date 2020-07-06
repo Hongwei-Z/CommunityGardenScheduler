@@ -1,21 +1,11 @@
-package com.CSCI3130.gardenapp;
-import android.content.Context;
-
-import com.android.volley.Request;
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonObjectRequest;
-import com.android.volley.toolbox.Volley;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
+package com.CSCI3130.gardenapp.util.data;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 /**
  * Current weather class - class full of static variables which hold the current weather conditions
+ *
  * @author Arjav Gupta
  */
 public class CurrentWeather {
@@ -26,5 +16,5 @@ public class CurrentWeather {
     public static double humidity;
     public static double windSpeed;
     public static ArrayList<WeatherCondition> currentWeatherList = new ArrayList<WeatherCondition>();
-
+    public static ArrayList<CharSequence> possibleWeatherConditions = new ArrayList<>(Arrays.asList("None", "Rain", "Dry", "Cold", "Hot", "Windy"));
 }

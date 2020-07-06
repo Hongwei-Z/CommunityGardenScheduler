@@ -1,14 +1,17 @@
-package com.CSCI3130.gardenapp;
+package com.CSCI3130.gardenapp.task_view_list;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.TextView;
-
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
+import com.CSCI3130.gardenapp.R;
+import com.CSCI3130.gardenapp.create_task.CreateTaskActivity;
 import com.CSCI3130.gardenapp.util.db.TaskDatabase;
+import com.google.android.material.snackbar.Snackbar;
 
 
 /**
@@ -18,11 +21,29 @@ import com.CSCI3130.gardenapp.util.db.TaskDatabase;
  */
 public class TaskViewList extends AppCompatActivity {
 
-    TaskDatabase db;
-    protected RecyclerView recyclerView;
-    private RecyclerView.LayoutManager layoutManager;
     private static Context mContext;
-    public static String activeTaskListContext;
+    protected RecyclerView recyclerView;
+    TaskDatabase db;
+    private String lastContext = "allTasks"; //default to all tasks
+    private RecyclerView.LayoutManager layoutManager;
+
+    /**
+     * Get the activity context
+     *
+     * @return context
+     */
+    public static Context getContext() {
+        return mContext;
+    }
+
+    /**
+     * Set the activity context
+     *
+     * @param mContext context
+     */
+    public void setContext(Context mContext) {
+        TaskViewList.mContext = mContext;
+    }
 
     /**
      * Actions for when activity is created
@@ -34,10 +55,18 @@ public class TaskViewList extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_task_view_list);
         setContext(this);
-        activeTaskListContext = getIntent().getStringExtra("activeTaskListContext");
-        TextView toolbarTitle = (TextView) findViewById(R.id.page_name);
+        if (getIntent().getBooleanExtra("result", false)) {
+            Snackbar.make(findViewById(R.id.task_view_list), "Success!", Snackbar.LENGTH_SHORT).show();
+        }
 
-        switch(activeTaskListContext) {
+        String activeTaskListContext = getIntent().getStringExtra("activeTaskListContext");
+        if (activeTaskListContext == null) {
+            activeTaskListContext = lastContext;
+        }
+        TextView toolbarTitle = findViewById(R.id.page_name);
+        lastContext = activeTaskListContext;
+
+        switch (activeTaskListContext) {
             case "myTasks":
                 toolbarTitle.setText("My Tasks");
                 break;
@@ -58,7 +87,7 @@ public class TaskViewList extends AppCompatActivity {
         recyclerView = findViewById(R.id.recycleview_tasks);
         recyclerView.setHasFixedSize(true);
 
-        layoutManager = new LinearLayoutManager(this);
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
 
         db.getDbRead().addValueEventListener(
@@ -66,24 +95,17 @@ public class TaskViewList extends AppCompatActivity {
 
     }
 
-
     /**
-     * Get the actvity context
+     * On Press method for the hovering + button to link to the CreateTask screen.
      *
-     * @return context
+     * @param v View belonging to the + button
      */
-    public static Context getContext() {
-        return mContext;
+    public void onButtonPress(View v) {
+        Intent i = new Intent(this, CreateTaskActivity.class);
+        i.putExtra(getString(R.string.editSetting_extra), false);
+        startActivity(i);
     }
 
-    /**
-     * Set the activity context
-     *
-     * @param mContext context
-     */
-    public void setContext(Context mContext) {
-        TaskViewList.mContext = mContext;
-    }
 }
 
 

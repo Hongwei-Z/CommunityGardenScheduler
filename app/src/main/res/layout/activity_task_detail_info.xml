@@ -1,148 +1,179 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/TaskID"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:layout_gravity="center"
-    android:background="@color/cardview_dark_background"
-    android:orientation="vertical">
-
-    <Button
-        android:id="@+id/buttonComplete"
-        android:layout_width="165dp"
-        android:layout_height="52dp"
-        android:layout_marginLeft="23dp"
-        android:layout_marginTop="595dp"
-        android:background="@color/cardview_light_background"
-        android:text="@string/Complete"
-        android:textColor="@android:color/background_dark"
-        android:textSize="24sp" />
-
-    <Button
-        android:id="@+id/buttonRegister"
-        android:layout_width="165dp"
-        android:layout_height="52dp"
-        android:layout_marginLeft="23dp"
-        android:layout_marginTop="660dp"
-        android:background="@color/cardview_light_background"
-        android:text="Register"
-        android:textColor="@android:color/background_dark"
-        android:textSize="24sp" />
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                                                   xmlns:app="http://schemas.android.com/apk/res-auto"
+                                                   xmlns:tools="http://schemas.android.com/tools"
+                                                   android:id="@+id/TaskID"
+                                                   android:layout_width="match_parent"
+                                                   android:layout_height="match_parent"
+                                                   android:layout_gravity="center"
+                                                   tools:context=".TaskDetailInfo"
+                                                   android:background="@color/cardview_dark_background"
+                                                   android:orientation="vertical">
 
 
     <Button
-        android:id="@+id/buttonEdit"
-        android:layout_width="165dp"
-        android:layout_height="52dp"
-        android:layout_marginLeft="223dp"
-        android:layout_marginTop="595dp"
-        android:background="@color/cardview_light_background"
-        android:text="Edit"
-        android:textColor="@android:color/background_dark"
-        android:textSize="24sp" />
+            android:id="@+id/buttonComplete"
+            android:layout_width="0dp"
+            android:layout_height="52dp"
+            android:background="@color/cardview_light_background"
+            android:text="@string/Complete"
+            android:textColor="@android:color/background_dark"
+            android:textSize="24sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/repeatCondition"
+            android:layout_marginTop="8dp"
+            android:layout_marginStart="24dp"
+            app:layout_constraintEnd_toStartOf="@+id/buttonEdit"
+            />
+
+    <Button
+            android:id="@+id/buttonRegister"
+            android:layout_width="0dp"
+            android:layout_height="52dp"
+            android:background="@color/cardview_light_background"
+            android:text="Register"
+            android:textColor="@android:color/background_dark"
+            android:textSize="24sp"
+            app:layout_constraintStart_toStartOf="@+id/buttonComplete"
+            app:layout_constraintTop_toBottomOf="@+id/buttonComplete"
+            app:layout_constraintEnd_toEndOf="@+id/buttonComplete"
+            app:layout_constraintHorizontal_bias="0.0"
+            android:layout_marginTop="8dp"/>
+
+    <Button
+            android:id="@+id/buttonEdit"
+            android:layout_width="0dp"
+            android:layout_height="52dp"
+            android:background="@color/cardview_light_background"
+            android:text="Edit"
+            android:textColor="@android:color/background_dark"
+            android:textSize="24sp"
+            app:layout_constraintTop_toTopOf="@+id/buttonComplete"
+            app:layout_constraintStart_toEndOf="@+id/buttonComplete"
+            android:layout_marginStart="24dp"
+            android:onClick="onEdit"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginEnd="24dp"/>
 
     <TextView
-        android:id="@+id/taskDescription"
-        android:layout_width="366dp"
-        android:layout_height="236dp"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginLeft="23dp"
-        android:layout_marginTop="181dp"
-        android:layout_marginRight="23dp"
-        android:background="#FFFFFF"
-        android:text=" Description"
-        android:textColor="#000000"
-        android:textSize="36sp"
-        android:textStyle="italic" />
+            android:id="@+id/taskDescription"
+            android:layout_width="366dp"
+            android:layout_height="236dp"
+            android:layout_marginLeft="23dp"
+            android:layout_marginTop="181dp"
+            android:background="#00FFFFFF"
+            android:text=" Description"
+            android:textColor="#FFFFFF"
+            android:textSize="36sp"
+            android:textStyle="italic"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            style="@style/InputHint"/>
 
     <TextView
-        android:id="@+id/repeatCondition"
-        android:layout_width="280dp"
-        android:layout_height="50dp"
-        android:layout_marginLeft="23dp"
-        android:layout_marginTop="470dp"
-        android:layout_marginRight="150dp"
-        android:text="Repeat Condition"
-        android:textColor="#FFFFFF"
-        android:textColorHighlight="@color/cardview_light_background"
-        android:textSize="29sp"
-        android:textStyle="italic"/>
+            android:id="@+id/repeatCondition"
+            android:layout_width="280dp"
+            android:layout_height="50dp"
+            android:layout_marginLeft="23dp"
+            android:layout_marginTop="470dp"
+            android:text="Repeat Condition"
+            android:textColor="#FFFFFF"
+            android:textColorHighlight="@color/cardview_light_background"
+            android:textSize="29sp"
+            android:textStyle="italic"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"/>
 
     <TextView
-        android:id="@+id/location"
-        android:layout_width="280dp"
-        android:layout_height="50dp"
-        android:layout_marginLeft="23dp"
-        android:layout_marginTop="430dp"
-        android:layout_marginRight="150dp"
-        android:text="Location"
-        android:textColor="#FFFFFF"
-        android:textColorHighlight="@color/cardview_light_background"
-        android:textSize="29sp"
-        android:textStyle="italic"/>
+            android:id="@+id/taskLocation"
+            android:layout_width="280dp"
+            android:layout_height="50dp"
+            android:layout_marginLeft="23dp"
+            android:layout_marginTop="430dp"
+            android:layout_marginRight="150dp"
+            android:text="Location"
+            android:textColor="#FFFFFF"
+            android:textColorHighlight="@color/cardview_light_background"
+            android:textSize="29sp"
+            android:textStyle="italic"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"/>
 
     <TextView
-        android:id="@+id/taskTitle"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_marginLeft="23dp"
-        android:layout_marginTop="100dp"
-        android:text="Task 1"
-        android:textColor="#64CB3F"
-        android:textSize="24sp"
-        android:textStyle="bold" />
+            android:id="@+id/taskTitle"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginLeft="23dp"
+            android:layout_marginTop="100dp"
+            android:text="Task 1"
+            android:textColor="#64CB3F"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"/>
 
     <TextView
-        android:id="@+id/Duedate"
-        android:layout_width="300dp"
-        android:layout_height="40dp"
-        android:layout_marginLeft="23dp"
-        android:layout_marginTop="145dp"
-        android:layout_marginRight="1350dp"
-        android:text="Due Tuesday, June 2nd"
-        android:textColor="@color/cardview_light_background"
-        android:textColorHighlight="@color/cardview_light_background"
-        android:textSize="18sp"
-        android:textStyle="italic"/>
+            android:id="@+id/taskDuedate"
+            android:layout_width="300dp"
+            android:layout_height="40dp"
+            android:layout_marginLeft="23dp"
+            android:layout_marginTop="145dp"
+            android:layout_marginRight="1350dp"
+            android:text="Due Tuesday, June 2nd"
+            android:textColor="@color/cardview_light_background"
+            android:textColorHighlight="@color/cardview_light_background"
+            android:textSize="18sp"
+            android:textStyle="italic"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"/>
 
     <TextView
-        android:id="@+id/taskColor"
-        android:layout_width="65dp"
-        android:layout_height="65dp"
-        android:layout_marginLeft="323dp"
-        android:layout_marginTop="100dp"
-        android:background="#DC0000"
-        android:textColor="@color/cardview_light_background" />
+            android:id="@+id/taskColor"
+            android:layout_width="65dp"
+            android:layout_height="65dp"
+            android:layout_marginLeft="323dp"
+            android:layout_marginTop="100dp"
+            android:background="#DC0000"
+            android:textColor="@color/cardview_light_background"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"/>
 
     <TextView
-        android:id="@+id/taskPriority"
-        android:layout_width="35dp"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="343dp"
-        android:layout_marginTop="105dp"
-        android:text="1"
-        android:textColor="@color/cardview_light_background"
-        android:textSize="40sp"
-        android:textStyle="bold" />
+            android:id="@+id/taskPriority"
+            android:layout_width="35dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="343dp"
+            android:layout_marginTop="105dp"
+            android:text="1"
+            android:textColor="@color/cardview_light_background"
+            android:textSize="40sp"
+            android:textStyle="bold"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"/>
 
     <TextView
-        android:id="@+id/textView15"
-        android:layout_width="match_parent"
-        android:layout_height="61dp"
-        android:background="#88EB65" />
+            android:id="@+id/textView15"
+            android:layout_width="match_parent"
+            android:layout_height="61dp"
+            android:background="#88EB65"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"/>
 
     <TextView
-        android:id="@+id/title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="128dp"
-        android:layout_marginTop="7dp"
-        android:text="Task Details"
-        android:textColor="@android:color/background_dark"
-        android:textSize="36sp"
-        android:textStyle="bold" />
+            android:id="@+id/title"
+            android:layout_width="225dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="128dp"
+            android:layout_marginTop="7dp"
+            android:text="Task Details"
+            android:textColor="@android:color/background_dark"
+            android:textSize="36sp"
+            android:textStyle="bold"
+            android:layout_marginEnd="100dp"
+            android:layout_marginStart="100dp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
 
 
-</RelativeLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

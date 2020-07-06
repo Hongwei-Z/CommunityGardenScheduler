@@ -2,19 +2,15 @@ package com.CSCI3130.gardenapp.util.db;
 
 import android.content.Context;
 import android.content.Intent;
-
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-
-import com.CSCI3130.gardenapp.CurrentWeather;
 import com.CSCI3130.gardenapp.R;
-import com.CSCI3130.gardenapp.TaskAdapter;
 import com.CSCI3130.gardenapp.TaskDetailInfo;
-import com.CSCI3130.gardenapp.TaskRegisterDummyPage;
-import com.CSCI3130.gardenapp.TaskViewList;
-import com.CSCI3130.gardenapp.WeatherCondition;
+import com.CSCI3130.gardenapp.task_view_list.TaskAdapter;
+import com.CSCI3130.gardenapp.task_view_list.TaskViewList;
+import com.CSCI3130.gardenapp.util.data.CurrentWeather;
 import com.CSCI3130.gardenapp.util.data.Task;
-import com.CSCI3130.gardenapp.util.data.User;
+import com.CSCI3130.gardenapp.util.data.WeatherCondition;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.*;
 
@@ -25,6 +21,7 @@ import java.util.Comparator;
 /**
  * Database layer for writing tasks to the database. This can easily be mocked in
  * tests so that we can emulate database functions on JUnit tests.
+ *
  * @author Liam Hebert
  */
 public class TaskDatabase {
@@ -63,7 +60,9 @@ public class TaskDatabase {
      * @return Boolean if the upload was successful
      */
     public boolean uploadTask(Task task) {
-        return dbWrite.push().setValue(task).isComplete();
+        DatabaseReference location = dbWrite.push();
+        task.setTaskID(location.getKey());
+        return location.setValue(task).isComplete();
     }
 
     /**
@@ -90,8 +89,8 @@ public class TaskDatabase {
      * @param activeTaskListContext query activeTaskListContext for tasklist
      */
     public void setDbRead(String activeTaskListContext) {
-        /** if allTasks do nothing, no need for query **/
-        switch(activeTaskListContext) {
+        // if allTasks do nothing, no need for query
+        switch (activeTaskListContext) {
             case "myTasks":
                 this.dbRead = dbRead.orderByChild("user").equalTo(FirebaseAuth.getInstance().getUid()); // returns tasks assigned to current user
                 break;
@@ -111,7 +110,7 @@ public class TaskDatabase {
      * @return Boolean value whether the task was successfully replaced
      */
     public boolean updateTask(Task task) {
-        return true;
+        return dbWrite.child(task.getTaskID()).setValue(task).isComplete();
     }
 
     /**
@@ -133,24 +132,22 @@ public class TaskDatabase {
                 }
 
                 if (activeTaskListContext.equals("taskHistory")) {
-                    Comparator<Task> comparator = (Task taskA, Task taskB) ->
-                            new Long(taskA.getDateCompleted()).compareTo(new Long(taskB.getDateCompleted()));
-                    Collections.sort(allTasks, comparator);
+                    Comparator<Task> comparator = Comparator.comparingLong(Task::getDateCompleted);
+                    allTasks.sort(comparator);
                     Collections.reverse(allTasks);
-                } else  {
-                    Comparator<Task> comparator = (Task taskA, Task taskB) ->
-                            new Long(taskA.getDateDue()).compareTo(new Long(taskB.getDateDue()));
-                    Collections.sort(allTasks, comparator);
+                } else {
+                    Comparator<Task> comparator = Comparator.comparingLong(Task::getDateDue);
+                    allTasks.sort(comparator);
 
                     //move weather tasks to the end of the queue based on whether they match with the current weather
-                    for (int i = 0; i < allTasks.size(); i++){
+                    for (int i = 0; i < allTasks.size(); i++) {
                         Task curr = allTasks.get(i);
                         //current task has a weather trigger
                         WeatherCondition trigger = curr.getWeatherTrigger();
-                        if (trigger != WeatherCondition.NONE){
+                        if (trigger != WeatherCondition.NONE) {
                             //if this task's weather trigger does not match those of the current weather conditions, throw it down to the bottom of the queue
                             ArrayList<WeatherCondition> currList = CurrentWeather.currentWeatherList;
-                            if (CurrentWeather.currentWeatherList.contains(trigger)){
+                            if (CurrentWeather.currentWeatherList.contains(trigger)) {
                                 allTasks.remove(curr);
                                 curr.setPriority(1);
                                 allTasks.add(0, curr);
@@ -164,16 +161,10 @@ public class TaskDatabase {
 
                 }
 
-                TaskAdapter taskAdapter = new TaskAdapter(allTasks);
+                TaskAdapter taskAdapter = new TaskAdapter(allTasks, activeTaskListContext);
                 recyclerView.setAdapter(taskAdapter);
-                taskAdapter.setOnItemClickListener(new TaskAdapter.OnItemClickListener() {
-                    @Override
-                    public void onItemClick(int position) {
-                        User u = new User("Logan", "sutherland@dal.ca"); //dummy user, replace with actual user when firebase is setup
-                        //registerForTask(position, u, allTasks); //position refers to index of task in recyclerview tasklist
-                        openTaskDetails(position, allTasks); //position refers to index of task in recyclerview tasklist
-
-                    }
+                taskAdapter.setOnItemClickListener(position -> {
+                    openTaskDetails(position, allTasks); //position refers to index of task in recyclerview tasklist
                 });
             }
 
@@ -183,32 +174,16 @@ public class TaskDatabase {
             }
         };
     }
-    
-    /**
-     * Creates a new activity that allows a user to register for a task
-     * 
-     * @param position index of task
-     * @param user     user of the app
-     */
-    public void registerForTask(int position, User user, ArrayList<Task> tasks) {
-        Task t = tasks.get(position); //get task from recyclerview
-        Context taskList = TaskViewList.getContext();
-        Intent registerTaskActivity = new Intent();
-        registerTaskActivity.setClass(taskList, TaskRegisterDummyPage.class);
-        registerTaskActivity.putExtra(taskList.getString(R.string.task_extra), t);
-        registerTaskActivity.putExtra(taskList.getString(R.string.user_extra), user);
-        registerTaskActivity.putExtra(taskList.getString(R.string.position_extra), position); //we need to send the position over in order to preserve it and use it to update the task in recyclerview when the activity returns
-        taskList.startActivity(registerTaskActivity);
-    }
 
     /**
      * Opens the task details page and passes the selected task to the new Task Details activity
+     *
      * @param position
      * @param tasks
      */
     public void openTaskDetails(int position, ArrayList<Task> tasks) {
         Task t = tasks.get(position);
-        Context taskList = TaskViewList.getContext();//allows us to start activities inside DatabaseTaskWriter
+        Context taskList = TaskViewList.getContext(); //allows us to start activities inside DatabaseTaskWriter
         Intent taskDetailActivity = new Intent();
         taskDetailActivity.setClass(taskList, TaskDetailInfo.class);
         taskDetailActivity.putExtra(taskList.getString(R.string.task_extra), t);
