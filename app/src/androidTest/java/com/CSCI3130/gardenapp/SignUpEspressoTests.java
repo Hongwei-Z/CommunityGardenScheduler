@@ -2,20 +2,16 @@ package com.CSCI3130.gardenapp;
 
 import androidx.test.rule.ActivityTestRule;
 
-import org.junit.Rule;
-import org.junit.Test;
+import com.CSCI3130.gardenapp.util.db.DatabaseAuth;
+import org.junit.*;
 
 import static androidx.test.espresso.Espresso.closeSoftKeyboard;
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.click;
-import static androidx.test.espresso.action.ViewActions.pressKey;
 import static androidx.test.espresso.action.ViewActions.typeText;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
 import static androidx.test.espresso.matcher.ViewMatchers.hasErrorText;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
-import static androidx.test.espresso.matcher.ViewMatchers.withText;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
 
 public class SignUpEspressoTests {
 
@@ -31,6 +27,11 @@ public class SignUpEspressoTests {
     String invalid_password = "fives"; //invalid password
     String valid_password = "password"; //valid password
     String valid_password2 = "passwrd"; //alternate valid password
+
+    @Before
+    public void before() {
+        DatabaseAuth.signOut();
+    }
 
     //test for empty first name error
     @Test

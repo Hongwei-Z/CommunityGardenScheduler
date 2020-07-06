@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/addTaskActivity"
-        tools:context=".create_task.CreateTaskActivity">
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/addTaskActivity"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".create_task.CreateTaskActivity">
 
     <TextView
             android:layout_width="228dp"
@@ -26,7 +25,8 @@
             android:layout_marginEnd="24dp"
             android:layout_marginStart="24dp"
             app:layout_constraintBottom_toTopOf="@+id/editTitle"
-            android:layout_marginBottom="32dp"/>
+            android:layout_marginBottom="32dp"
+            />
 
     <EditText
             android:layout_width="0dp"
@@ -44,180 +44,179 @@
             android:layout_marginStart="16dp"
             android:layout_marginEnd="16dp"
             app:layout_constraintBottom_toTopOf="@+id/editDescription"
-            android:layout_marginTop="16dp"/>
+            android:layout_marginTop="16dp"
+            app:layout_constraintHorizontal_bias="0.0"/>
 
     <EditText
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:inputType="textMultiLine"
-            android:gravity="start|top"
-            android:ems="10"
-            android:id="@+id/editDescription"
-            android:hint="@string/description_hint"
-            app:layout_constraintEnd_toEndOf="@+id/editTitle"
-            app:layout_constraintStart_toStartOf="@+id/editTitle"
-            app:layout_constraintTop_toBottomOf="@+id/editTitle"
-            android:textAppearance="@style/InputHint"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintBottom_toTopOf="@+id/textPriorityTitle"
-            android:textColor="#FFFFFF"
-            android:layout_marginTop="24dp"/>
-
-    <Button
-            android:text="1"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:id="@+id/buttonPriority1"
-            app:layout_constraintStart_toStartOf="@+id/editDescription"
-            app:layout_constraintTop_toBottomOf="@+id/textPriorityTitle"
-            android:background="@color/colorPriority1"
-            android:textColor="#FFFFFF"
-            style="@style/priority"
-            android:onClick="onPriorityCheck"
-            android:layout_marginBottom="8dp"
-            app:layout_constraintBottom_toTopOf="@+id/editLocation"
-            app:layout_constraintEnd_toStartOf="@+id/buttonPriority2"
-            android:layout_marginStart="4dp"
-            android:layout_marginEnd="4dp"/>
-
-    <Button
-            android:text="2"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:id="@+id/buttonPriority2"
-            app:layout_constraintStart_toEndOf="@+id/buttonPriority1"
-            android:background="@color/colorPriority2"
-            android:textColor="#FFFFFF"
-            style="@style/priority"
-            android:onClick="onPriorityCheck"
-            app:layout_constraintBottom_toBottomOf="@+id/buttonPriority1"
-            app:layout_constraintTop_toTopOf="@+id/buttonPriority1"
-            app:layout_constraintEnd_toStartOf="@+id/buttonPriority3"
-            android:layout_marginEnd="4dp"
-            android:layout_marginStart="4dp"/>
-
-    <Button
-            android:text="3"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:id="@+id/buttonPriority3"
-            app:layout_constraintStart_toEndOf="@+id/buttonPriority2"
-            android:background="@color/colorPriority3"
-            android:textColor="#FFFFFF"
-            style="@style/priority"
-            android:onClick="onPriorityCheck"
-            app:layout_constraintTop_toTopOf="@+id/buttonPriority1"
-            app:layout_constraintBottom_toBottomOf="@+id/buttonPriority1"
-            app:layout_constraintEnd_toStartOf="@+id/buttonPriority4"
-            android:layout_marginEnd="4dp"
-            android:layout_marginStart="4dp"/>
-
-    <Button
-            android:text="4"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:id="@+id/buttonPriority4"
-            app:layout_constraintStart_toEndOf="@+id/buttonPriority3"
-            android:layout_marginStart="4dp"
-            android:background="@color/colorPriority4"
-            android:textColor="#FFFFFF"
-            style="@style/priority"
-            android:onClick="onPriorityCheck"
-            app:layout_constraintTop_toTopOf="@+id/buttonPriority1"
-            app:layout_constraintBottom_toBottomOf="@+id/buttonPriority1"
-            app:layout_constraintEnd_toStartOf="@+id/buttonPriority5"
-            android:layout_marginEnd="4dp"/>
-
-    <Button
-            android:text="5"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:id="@+id/buttonPriority5"
-            app:layout_constraintStart_toEndOf="@+id/buttonPriority4"
-            app:layout_constraintEnd_toEndOf="@+id/editDescription"
-            android:background="@color/colorPriority5"
-            android:textColor="#FFFFFF"
-            style="@style/priority"
-            android:onClick="onPriorityCheck"
-            app:layout_constraintTop_toTopOf="@+id/buttonPriority1"
-            app:layout_constraintBottom_toBottomOf="@+id/buttonPriority1"
-            android:layout_marginEnd="4dp"
-            android:layout_marginStart="4dp"/>
+        android:id="@+id/editDescription"
+        android:layout_width="0dp"
+        android:layout_height="137dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:ems="10"
+        android:gravity="start|top"
+        android:hint="@string/description_hint"
+        android:inputType="textMultiLine"
+        android:textAppearance="@style/InputHint"
+        android:textColor="#FFFFFF"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editTitle" />
 
     <EditText
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:inputType="textPostalAddress"
-            android:ems="10"
-            android:id="@+id/editLocation"
-            app:layout_constraintEnd_toEndOf="@+id/editDescription"
-            app:layout_constraintStart_toStartOf="@+id/editDescription"
-            android:hint="@string/location_hint"
-            style="@style/InputHint"
-            app:layout_constraintBottom_toTopOf="@+id/repeatSpinner"
-            app:layout_constraintTop_toBottomOf="@+id/buttonPriority1"
-            android:layout_marginTop="24dp"
-            android:layout_marginBottom="24dp"
-            />
-    <Spinner
-        android:id="@+id/repeatSpinner"
+        android:id="@+id/editLocation"
+        style="@style/InputHint"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:layout_marginBottom="24dp"
-        app:layout_constraintBottom_toTopOf="@+id/buttonConfirmAdd"
-        app:layout_constraintTop_toBottomOf="@id/editLocation"
-        app:layout_constraintEnd_toEndOf="@+id/editDescription"
-        app:layout_constraintStart_toStartOf="@+id/editDescription"
-        />
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:ems="10"
+        android:hint="@string/location_hint"
+        android:inputType="textPostalAddress"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/buttonPriority3" />
+
+    <TextView
+        android:id="@+id/textPriorityTitle"
+        android:layout_width="174dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:text="@string/textPriorityTitle"
+        android:textAppearance="@style/InputHint"
+        android:textColor="@android:color/darker_gray"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editDescription" />
+
+    <TextView
+        android:id="@+id/textWeatherTitle"
+        android:layout_width="174dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:text="Weather Trigger"
+        android:textAppearance="@style/InputHint"
+        android:textColor="@android:color/darker_gray"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editLocation" />
+
+    <TextView
+        android:id="@+id/textErrorText"
+        android:layout_width="174dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:fontFamily="@font/redhatdisplay"
+        android:textAppearance="@style/InputHint"
+        android:textColor="#F44336"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editDescription"
+        tools:text="Error Text" />
 
     <Button
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:id="@+id/buttonConfirmAdd"
-            app:layout_constraintStart_toStartOf="@+id/editLocation"
-            app:layout_constraintEnd_toEndOf="@+id/editLocation"
-            android:text="@string/confirm_add_task"
-            android:textColor="#FFFFFF"
-            android:background="#4CAF50"
-            style="@style/title"
-            android:textAllCaps="false"
-            android:textSize="24sp"
-            app:layout_constraintHorizontal_bias="1.0"
-            android:layout_marginBottom="24dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            android:onClick="onConfirm"
-            app:layout_constraintTop_toBottomOf="@+id/editLocation"
-            android:layout_marginTop="24dp"/>
+        android:id="@+id/buttonPriority1"
+        style="@style/priority"
+        android:layout_width="66dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="8dp"
+        android:background="@color/colorPriority1"
+        android:onClick="onPriorityCheck"
+        android:text="1"
+        android:textColor="#FFFFFF"
+        app:layout_constraintEnd_toStartOf="@+id/buttonPriority2"
+        app:layout_constraintTop_toBottomOf="@+id/textPriorityTitle" />
 
-    <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:id="@+id/textPriorityTitle"
-            android:text="@string/textPriorityTitle"
-            android:textAppearance="@style/InputHint"
-            android:textColor="@android:color/darker_gray"
-            app:layout_constraintTop_toBottomOf="@+id/editDescription"
-            app:layout_constraintBottom_toTopOf="@+id/buttonPriority1"
-            android:layout_marginTop="24dp"
-            app:layout_constraintStart_toStartOf="@+id/buttonPriority1"
-            app:layout_constraintEnd_toStartOf="@+id/textErrorText"
-            android:layout_marginEnd="8dp"
-            android:layout_marginBottom="8dp"/>
+    <Button
+        android:id="@+id/buttonPriority2"
+        style="@style/priority"
+        android:layout_width="66dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="8dp"
+        android:background="@color/colorPriority2"
+        android:onClick="onPriorityCheck"
+        android:text="2"
+        android:textColor="#FFFFFF"
+        app:layout_constraintEnd_toStartOf="@+id/buttonPriority3"
+        app:layout_constraintTop_toBottomOf="@+id/textPriorityTitle" />
 
-    <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:id="@+id/textErrorText"
-            app:layout_constraintStart_toEndOf="@+id/textPriorityTitle"
-            app:layout_constraintEnd_toEndOf="@+id/buttonPriority5"
-            app:layout_constraintBottom_toBottomOf="@+id/textPriorityTitle"
-            app:layout_constraintTop_toTopOf="@+id/textPriorityTitle"
-            android:layout_marginStart="8dp"
-            tools:text="Error Text"
-            android:textSize="18sp"
-            android:fontFamily="@font/redhatdisplay"
-            android:textAppearance="@style/InputHint"
-            android:textColor="#F44336"/>
+    <Button
+        android:id="@+id/buttonPriority3"
+        style="@style/priority"
+        android:layout_width="66dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:background="@color/colorPriority3"
+        android:onClick="onPriorityCheck"
+        android:text="3"
+        android:textColor="#FFFFFF"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textPriorityTitle" />
+
+    <Button
+        android:id="@+id/buttonPriority4"
+        style="@style/priority"
+        android:layout_width="66dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        android:background="@color/colorPriority4"
+        android:onClick="onPriorityCheck"
+        android:text="4"
+        android:textColor="#FFFFFF"
+        app:layout_constraintStart_toEndOf="@+id/buttonPriority3"
+        app:layout_constraintTop_toBottomOf="@+id/textErrorText" />
+
+    <Button
+        android:id="@+id/buttonPriority5"
+        style="@style/priority"
+        android:layout_width="66dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        android:background="@color/colorPriority5"
+        android:onClick="onPriorityCheck"
+        android:text="5"
+        android:textColor="#FFFFFF"
+        app:layout_constraintStart_toEndOf="@+id/buttonPriority4"
+        app:layout_constraintTop_toBottomOf="@+id/textErrorText" />
+
+    <Button
+        android:id="@+id/buttonConfirmAdd"
+        style="@style/title"
+        android:layout_width="373dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="32dp"
+        android:background="#4CAF50"
+        android:onClick="onConfirm"
+        android:text="@string/confirm_add_task"
+        android:textAllCaps="false"
+        android:textColor="#FFFFFF"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Spinner
+        android:id="@+id/weatherSpinner"
+        android:layout_width="0dp"
+        android:layout_height="38dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
+        android:spinnerMode="dropdown"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textWeatherTitle" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

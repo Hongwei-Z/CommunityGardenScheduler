@@ -1,5 +1,6 @@
 package com.CSCI3130.gardenapp.create_task;
 
+import com.CSCI3130.gardenapp.util.data.WeatherCondition;
 import com.CSCI3130.gardenapp.util.data.Task;
 import com.CSCI3130.gardenapp.util.db.TaskDatabase;
 import org.junit.After;
@@ -8,9 +9,6 @@ import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
 
-
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 import static org.mockito.Mockito.mock;
@@ -20,6 +18,7 @@ public class CreateTaskActivityTest {
     String title = "Test";
     String description = "This is a description!";
     String location = "Carrot Test";
+    WeatherCondition testWeatherCondition = WeatherCondition.NONE;
     int priority = 3;
     ArrayList<CreateTaskError> errors;
 
@@ -43,13 +42,15 @@ public class CreateTaskActivityTest {
 
     @Test
     public void testSuccessfulCreate() {
-        activity.uploadTask(title, description, 3, "", location, "repeat-none");
-        Mockito.verify(db).uploadTask(new Task(title, description, 3, "", location, LocalDate.now().format(DateTimeFormatter.ofPattern("dd-MM-yyyy")), "repeat-none"));
+        activity.uploadTask(title, description, 3, location, testWeatherCondition);
+        Task testTask = new Task(title, description, 3, "", location, System.currentTimeMillis());
+        testTask.setWeatherTrigger(testWeatherCondition);
+        Mockito.verify(db).uploadTask(testTask);
     }
 
     @Test
     public void testUnsuccessfulCreate() {
-        activity.uploadTask(title, "", 3, "", location, "repeat-none");
+        activity.uploadTask(title, "", 3, location, testWeatherCondition);
     }
 
     @Test
