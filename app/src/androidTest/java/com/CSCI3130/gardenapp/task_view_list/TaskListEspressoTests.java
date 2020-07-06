@@ -1,12 +1,15 @@
-package com.CSCI3130.gardenapp;
+package com.CSCI3130.gardenapp.task_view_list;
 
 import android.content.Intent;
 import androidx.test.espresso.Espresso;
 import androidx.test.espresso.action.ViewActions;
+import androidx.test.espresso.intent.rule.IntentsTestRule;
 import androidx.test.espresso.matcher.ViewMatchers;
-import androidx.test.rule.ActivityTestRule;
 
-import org.checkerframework.checker.units.qual.Current;
+import com.CSCI3130.gardenapp.R;
+import com.CSCI3130.gardenapp.util.data.CurrentWeather;
+import com.CSCI3130.gardenapp.util.data.WeatherCondition;
+import org.hamcrest.core.AllOf;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Rule;
@@ -16,13 +19,15 @@ import com.CSCI3130.gardenapp.util.DateFormatUtils;
 import com.CSCI3130.gardenapp.util.db.TaskTestDatabase;
 import com.CSCI3130.gardenapp.util.data.Task;
 
-import java.sql.Array;
 import java.util.ArrayList;
 
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.click;
-import static androidx.test.espresso.assertion.ViewAssertions.doesNotExist;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
+import static androidx.test.espresso.intent.Intents.intended;
+import static androidx.test.espresso.intent.matcher.ComponentNameMatchers.hasShortClassName;
+import static androidx.test.espresso.intent.matcher.IntentMatchers.hasComponent;
+import static androidx.test.espresso.intent.matcher.IntentMatchers.hasExtra;
 import static androidx.test.espresso.matcher.ViewMatchers.hasBackground;
 import static androidx.test.espresso.matcher.ViewMatchers.hasDescendant;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
@@ -31,10 +36,10 @@ import static org.hamcrest.core.AllOf.allOf;
 
 public class TaskListEspressoTests {
 
-    private long currentDate = System.currentTimeMillis();
+    private final long currentDate = System.currentTimeMillis();
 
     @Rule
-    public ActivityTestRule<TaskViewList> activityScenarioRule = new ActivityTestRule<TaskViewList>(TaskViewList.class, true, false);
+    public IntentsTestRule<TaskViewList> activityScenarioRule = new IntentsTestRule<>(TaskViewList.class, true, false);
     public TaskTestDatabase testDB;
     private TaskViewList activity;
 
@@ -74,7 +79,7 @@ public class TaskListEspressoTests {
 
     @Test
     public void recyclerViewCardsContainTasksInfo() {
-        onView(allOf(withId(R.id.task_card), hasDescendant(withId(R.id.task_name))));
+        onView(AllOf.allOf(ViewMatchers.withId(R.id.task_card), hasDescendant(withId(R.id.task_name))));
         onView(allOf(withId(R.id.task_card), hasDescendant(withId(R.id.task_date))));
         onView(allOf(withId(R.id.task_card), hasDescendant(withId(R.id.task_priority))));
         onView(allOf(withId(R.id.task_card), hasDescendant(withId(R.id.task_user_profile))));
@@ -94,9 +99,6 @@ public class TaskListEspressoTests {
                     .check(matches(hasDescendant(withText("Test Task"))));
             onView(withRecyclerView(R.id.recycleview_tasks).atPosition(0))
                     .check(matches(hasDescendant(withText("Due: "+ DateFormatUtils.getDateFormatted(currentDate)))));
-            onView(withRecyclerView(R.id.recycleview_tasks).atPosition(0)).perform(click());
-            Espresso.pressBack();
-            onView(withRecyclerView(R.id.recycleview_tasks).atPosition(1)).check(doesNotExist());
         } catch (InterruptedException e) {
             System.out.println(e.toString());
         }
@@ -104,18 +106,17 @@ public class TaskListEspressoTests {
         task = new Task("Test Task 2", "This is a Test", 2, "Beth", "Location", currentDate);
         testDB.uploadTask(task);
         try {
-            Thread.sleep(1000);
+            Thread.sleep(5000);
             onView(withRecyclerView(R.id.recycleview_tasks).atPosition(0))
                     .check(matches(hasDescendant(withText("Test Task"))));
             onView(withRecyclerView(R.id.recycleview_tasks).atPosition(0))
                     .check(matches(hasDescendant(withText("Due: "+ DateFormatUtils.getDateFormatted(currentDate)))));
-            onView(withRecyclerView(R.id.recycleview_tasks).atPosition(0)).perform(click());
-            Espresso.pressBack();
             onView(withRecyclerView(R.id.recycleview_tasks).atPosition(1))
                     .check(matches(hasDescendant(withText("Test Task 2"))));
             onView(withRecyclerView(R.id.recycleview_tasks).atPosition(1))
                     .check(matches(hasDescendant(withText("Due: "+ DateFormatUtils.getDateFormatted(currentDate)))));
             onView(withRecyclerView(R.id.recycleview_tasks).atPosition(1)).perform(click());
+            intended(allOf(hasComponent(hasShortClassName(".TaskDetailInfo")), hasExtra(activity.getString(R.string.task_extra), task)));
             Espresso.pressBack();
         } catch (InterruptedException e) {
             System.out.println(e.toString());
@@ -133,12 +134,12 @@ public class TaskListEspressoTests {
         CurrentWeather.temperature = 25;
         CurrentWeather.description = "there's no water falling from the sky and it's sunny";
         CurrentWeather.city = "Halifax";
-        CurrentWeather.currentWeatherList = new ArrayList<WeatherCondition>();
+        CurrentWeather.currentWeatherList = new ArrayList<>();
         CurrentWeather.currentWeatherList.add(WeatherCondition.DRY);
 
         Task task = new Task("Test Task", "This is a Test", 2, "Beth", "Location", currentDate);
         Task task2 = new Task("Test Task 2", "This is a Test", 2, "Beth", "Location", currentDate);
-        Task taskDry = new Task("Water plants now", "It is dry outside", 5, "Arjav", "Location", WeatherCondition.DRY);
+        Task taskDry = new Task("Water plants now", "It is dry outside", 5, "Arjav", "Location", WeatherCondition.DRY, currentDate);
 
         testDB.uploadTask(task);
         testDB.uploadTask(task2);
@@ -173,7 +174,7 @@ public class TaskListEspressoTests {
 
         Task task = new Task("Test Task", "This is a Test", 2, "Beth", "Location", currentDate);
         Task task2 = new Task("Test Task 2", "This is a Test", 2, "Beth", "Location", currentDate);
-        Task taskDry = new Task("Water plants now", "It is dry outside", 5, "Arjav", "Location", WeatherCondition.DRY);
+        Task taskDry = new Task("Water plants now", "It is dry outside", 5, "Arjav", "Location", WeatherCondition.DRY, currentDate);
 
         testDB.uploadTask(task);
         testDB.uploadTask(task2);
@@ -210,15 +211,21 @@ public class TaskListEspressoTests {
         }
         try {
             Thread.sleep(1000);
-            onView(ViewMatchers.withId(R.id.recycleview_tasks)).perform(ViewActions.swipeUp());
+            onView(withId(R.id.recycleview_tasks)).perform(ViewActions.swipeUp());
             Thread.sleep(1000);
             onView(withRecyclerView(R.id.recycleview_tasks).atPosition(19))
                     .check(matches(hasDescendant(withText("Task 20"))));
             onView(withRecyclerView(R.id.recycleview_tasks).atPosition(19)).perform(click());
-            Espresso.pressBack();
+            intended(hasComponent(hasShortClassName(".TaskDetailInfo")));
         } catch (InterruptedException e) {
             System.out.println(e.toString());
         }
+    }
+
+    @Test
+    public void testAddTaskButton() {
+        onView(withId(R.id.add_task_button)).perform(click());
+        intended(hasComponent(hasShortClassName(".create_task.CreateTaskActivity")));
     }
 }
 

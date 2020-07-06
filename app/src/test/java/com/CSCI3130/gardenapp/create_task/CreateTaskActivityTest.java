@@ -1,6 +1,6 @@
 package com.CSCI3130.gardenapp.create_task;
 
-import com.CSCI3130.gardenapp.WeatherCondition;
+import com.CSCI3130.gardenapp.util.data.WeatherCondition;
 import com.CSCI3130.gardenapp.util.data.Task;
 import com.CSCI3130.gardenapp.util.db.TaskDatabase;
 import org.junit.After;
@@ -42,7 +42,7 @@ public class CreateTaskActivityTest {
 
     @Test
     public void testSuccessfulCreate() {
-        activity.uploadTask(title, description, 3, "", location, testWeatherCondition);
+        activity.uploadTask(title, description, 3, location, testWeatherCondition);
         Task testTask = new Task(title, description, 3, "", location, System.currentTimeMillis());
         testTask.setWeatherTrigger(testWeatherCondition);
         Mockito.verify(db).uploadTask(testTask);
@@ -50,7 +50,7 @@ public class CreateTaskActivityTest {
 
     @Test
     public void testUnsuccessfulCreate() {
-        activity.uploadTask(title, "", 3, "", location, testWeatherCondition);
+        activity.uploadTask(title, "", 3, location, testWeatherCondition);
     }
 
     @Test

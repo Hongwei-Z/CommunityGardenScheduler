@@ -1,8 +1,9 @@
 package com.CSCI3130.gardenapp;
 
+import com.CSCI3130.gardenapp.util.data.CurrentWeather;
+import com.CSCI3130.gardenapp.util.data.WeatherCondition;
 import org.junit.Test;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 import static org.junit.Assert.assertFalse;
