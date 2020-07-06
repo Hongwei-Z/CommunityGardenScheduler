@@ -6,6 +6,7 @@ import androidx.test.espresso.action.ViewActions;
 import androidx.test.espresso.matcher.ViewMatchers;
 import androidx.test.rule.ActivityTestRule;
 
+import org.checkerframework.checker.units.qual.Current;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Rule;
@@ -14,6 +15,9 @@ import org.junit.Test;
 import com.CSCI3130.gardenapp.util.DateFormatUtils;
 import com.CSCI3130.gardenapp.util.db.TaskTestDatabase;
 import com.CSCI3130.gardenapp.util.data.Task;
+
+import java.sql.Array;
+import java.util.ArrayList;
 
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.click;
@@ -44,6 +48,13 @@ public class TaskListEspressoTests {
         activity = activityScenarioRule.getActivity();
         activity.db = testDB;
         testDB.getDbRead().addValueEventListener(testDB.getTaskData(activity.recyclerView, activeTaskListContext));
+
+        //for the sake of testing, the current weather condition is "dry"
+        CurrentWeather.windSpeed = 0.5;
+        CurrentWeather.humidity = 40;
+        CurrentWeather.temperature = 25;
+        CurrentWeather.description = "there's no water falling from the sky and it's sunny";
+        CurrentWeather.city = "Halifax";
     }
 
     @After
@@ -69,6 +80,10 @@ public class TaskListEspressoTests {
         onView(allOf(withId(R.id.task_card), hasDescendant(withId(R.id.task_user_profile))));
     }
 
+    @Test
+    public void weatherCausesChangesInOrder(){
+
+    }
     @Test
     public void recyclerViewItemContainsExpectedText() {
         Task task = new Task("Test Task", "This is a Test", 2, "Beth", "Location", currentDate);
@@ -101,6 +116,76 @@ public class TaskListEspressoTests {
             onView(withRecyclerView(R.id.recycleview_tasks).atPosition(1))
                     .check(matches(hasDescendant(withText("Due: "+ DateFormatUtils.getDateFormatted(currentDate)))));
             onView(withRecyclerView(R.id.recycleview_tasks).atPosition(1)).perform(click());
+            Espresso.pressBack();
+        } catch (InterruptedException e) {
+            System.out.println(e.toString());
+        }
+    }
+
+    //this test changes the current weather conditions to "dry" and adds a task which is triggered by dry weather, along with two unrelated tasks
+    //The UI should respond by moving this task to the top of the list, regardless of what order the task was added in compared to other tasks
+    @Test
+    public void recyclerViewRespondsToCurrentWeather_move(){
+
+        //for the sake of testing, the current weather condition is "dry"
+        CurrentWeather.windSpeed = 0.5;
+        CurrentWeather.humidity = 40;
+        CurrentWeather.temperature = 25;
+        CurrentWeather.description = "there's no water falling from the sky and it's sunny";
+        CurrentWeather.city = "Halifax";
+        CurrentWeather.currentWeatherList = new ArrayList<WeatherCondition>();
+        CurrentWeather.currentWeatherList.add(WeatherCondition.DRY);
+
+        Task task = new Task("Test Task", "This is a Test", 2, "Beth", "Location", currentDate);
+        Task task2 = new Task("Test Task 2", "This is a Test", 2, "Beth", "Location", currentDate);
+        Task taskDry = new Task("Water plants now", "It is dry outside", 5, "Arjav", "Location", WeatherCondition.DRY);
+
+        testDB.uploadTask(task);
+        testDB.uploadTask(task2);
+        testDB.uploadTask(taskDry);
+
+        try {
+            Thread.sleep(1000);
+            onView(withRecyclerView(R.id.recycleview_tasks).atPosition(0))
+                    .check(matches(hasDescendant(withText("Water plants now"))));
+            onView(withRecyclerView(R.id.recycleview_tasks).atPosition(0))
+                    .check(matches(hasDescendant(withText("1"))));
+            onView(withRecyclerView(R.id.recycleview_tasks).atPosition(0)).perform(click());
+            Espresso.pressBack();
+        } catch (InterruptedException e) {
+            System.out.println(e.toString());
+        }
+    }
+
+    //this test sets the current weather conditions to "rainy" and adds a task which is triggered by dry weather, along with two other unrelated tasks
+    //the UI should respond by keeping the dry-triggered task at the bottom of the list, as the current weather is not dry
+    @Test
+    public void recyclerViewRespondsToCurrentWeather_no_movement(){
+
+        //for the sake of testing, the current weather condition is "dry"
+        CurrentWeather.windSpeed = 0.5;
+        CurrentWeather.humidity = 60;
+        CurrentWeather.temperature = 25;
+        CurrentWeather.description = "light rain";
+        CurrentWeather.city = "Halifax";
+        CurrentWeather.currentWeatherList = new ArrayList<WeatherCondition>();
+        CurrentWeather.currentWeatherList.add(WeatherCondition.RAIN);
+
+        Task task = new Task("Test Task", "This is a Test", 2, "Beth", "Location", currentDate);
+        Task task2 = new Task("Test Task 2", "This is a Test", 2, "Beth", "Location", currentDate);
+        Task taskDry = new Task("Water plants now", "It is dry outside", 5, "Arjav", "Location", WeatherCondition.DRY);
+
+        testDB.uploadTask(task);
+        testDB.uploadTask(task2);
+        testDB.uploadTask(taskDry);
+
+        try {
+            Thread.sleep(1000);
+            onView(withRecyclerView(R.id.recycleview_tasks).atPosition(2))
+                    .check(matches(hasDescendant(withText("Water plants now"))));
+            onView(withRecyclerView(R.id.recycleview_tasks).atPosition(2))
+                    .check(matches(hasDescendant(withText("5"))));
+            onView(withRecyclerView(R.id.recycleview_tasks).atPosition(2)).perform(click());
             Espresso.pressBack();
         } catch (InterruptedException e) {
             System.out.println(e.toString());

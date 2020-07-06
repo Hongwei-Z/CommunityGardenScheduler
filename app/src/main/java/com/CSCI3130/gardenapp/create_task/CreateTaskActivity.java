@@ -1,12 +1,18 @@
 package com.CSCI3130.gardenapp.create_task;
 
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.Spinner;
 import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.Toast;
+
 import com.CSCI3130.gardenapp.R;
+import com.CSCI3130.gardenapp.WeatherCondition;
 import com.CSCI3130.gardenapp.util.data.Task;
 import com.CSCI3130.gardenapp.util.db.TaskDatabase;
 import com.google.android.material.snackbar.Snackbar;
@@ -17,9 +23,13 @@ import java.util.ArrayList;
  * This is the Create task screen where the user can create a task and upload to the database
  * @author Liam Hebert
  */
-public class CreateTaskActivity extends AppCompatActivity {
+public class CreateTaskActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
     private int current_priority;
     TaskDatabase db;
+
+    Spinner weatherSpinner;
+    String[] weatherConditions = { "None", "Rain", "Dry", "Cold", "Hot", "Windy" };
+    WeatherCondition currWeatherCondition;
 
     /**
      * Constructing the activity
@@ -31,6 +41,14 @@ public class CreateTaskActivity extends AppCompatActivity {
         setContentView(R.layout.activity_add_task);
         db = new TaskDatabase();
         current_priority = -1;
+
+        //set up weather spinner
+        weatherSpinner = (Spinner) findViewById(R.id.weatherSpinner);
+        ArrayAdapter<CharSequence> adapter = new ArrayAdapter(this, android.R.layout.simple_spinner_item, weatherConditions);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        weatherSpinner.setAdapter(adapter);
+        weatherSpinner.setOnItemSelectedListener(this);
+
     }
 
     /**
@@ -117,7 +135,7 @@ public class CreateTaskActivity extends AppCompatActivity {
         if (errors.size() == 0) {
             Snackbar.make(view, "Success!", Snackbar.LENGTH_SHORT).show();
             // package into a task object
-            boolean result = uploadTask(title, description, current_priority, "", location);
+            boolean result = uploadTask(title, description, current_priority, "", location, currWeatherCondition);
             return;
         }
         for (CreateTaskError error: errors) {
@@ -148,10 +166,28 @@ public class CreateTaskActivity extends AppCompatActivity {
      * @param location The location where the task should be performed
      * @return boolean value denoting if the write was successful
      */
-    protected boolean uploadTask(String title, String description, int priority, String user, String location){
+    protected boolean uploadTask(String title, String description, int priority, String user, String location) {
         Task task = new Task(title, description, priority, user, location, System.currentTimeMillis());
         return db.uploadTask(task);
     }
+
+    /**
+     * Takes all the information about a task and uploads it to the database.
+     * @param title The name of the task
+     * @param description The description of the task
+     * @param priority The priority value associated with the task
+     * @param user The user of which the task is assigned to
+     * @param location The location where the task should be performed
+     * @param weatherTrigger The weather trigger of the task
+     * @return boolean value denoting if the write was successful
+     */
+    protected boolean uploadTask(String title, String description, int priority, String user, String location, WeatherCondition weatherTrigger){
+        Task task = new Task(title, description, priority, user, location, System.currentTimeMillis());
+        task.setWeatherTrigger(weatherTrigger);
+        return db.uploadTask(task);
+    }
+
+
 
     /**
      * @param title Name of the task
@@ -176,5 +212,44 @@ public class CreateTaskActivity extends AppCompatActivity {
             errors.add(CreateTaskError.MISSING_LOCATION);
         }
         return errors;
+    }
+
+    /**
+     * Method handles selection of items from weather condition spinner
+     * @param parent
+     * @param view
+     * @param position
+     * @param id
+     */
+    @Override
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+        String condition = weatherConditions[position];
+        switch(condition){
+            case "None":
+                currWeatherCondition = WeatherCondition.NONE;
+                break;
+            case "Rain":
+                currWeatherCondition = WeatherCondition.RAIN;
+                break;
+            case "Dry":
+                currWeatherCondition = WeatherCondition.DRY;
+                break;
+            case "Cold":
+                currWeatherCondition = WeatherCondition.COLD;
+                break;
+            case "Hot":
+                currWeatherCondition = WeatherCondition.HOT;
+                break;
+            case "Windy":
+                currWeatherCondition = WeatherCondition.WINDY;
+                break;
+            default:
+                break;
+        }
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> parent) {
+
     }
 }

@@ -3,6 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.CSCI3130.gardenapp">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:allowBackup="true"
         android:appComponentFactory="androidx.core.app.CoreComponentFactory"
@@ -32,6 +34,8 @@
         <activity
             android:name=".create_task.CreateTaskActivity"
             android:parentActivityName=".Welcome" />
+        <activity android:name=".WeatherTestActivity">
+        </activity>
     </application>
 
 </manifest>
