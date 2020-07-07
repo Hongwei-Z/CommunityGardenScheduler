@@ -6,21 +6,22 @@ import com.google.firebase.auth.FirebaseUser;
 
 /**
  * Global utility class for common authentication methods
+ *
  * @author Liam Hebert
  */
 public class DatabaseAuth {
     /**
      * Retrieves the currently signed in Firebase User, mapped to our User object
+     *
      * @return Currently signed in User
      * @see User
      */
     public static User getCurrentUser() {
         FirebaseUser auth = FirebaseAuth.getInstance().getCurrentUser();
         if (auth != null) {
-            return new User(auth.getDisplayName(), auth.getEmail());
-        }
-        else{
-            return new User("", "");
+            return new User(auth.getDisplayName(), auth.getEmail(), auth.getUid());
+        } else {
+            return new User("", "", "");
         }
     }
 

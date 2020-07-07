@@ -7,12 +7,11 @@ import org.junit.*;
 
 import static androidx.test.espresso.intent.matcher.ComponentNameMatchers.hasShortClassName;
 
-
-
 import static androidx.test.espresso.Espresso.closeSoftKeyboard;
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.click;
 import static androidx.test.espresso.action.ViewActions.typeText;
+
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
 import static androidx.test.espresso.matcher.ViewMatchers.hasErrorText;
 import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
@@ -123,6 +122,4 @@ public class SignInEspressoTests {
         onView(withId(R.id.title_signup))
                 .check(matches(isDisplayed()));
     }
-
-
 }

@@ -7,8 +7,8 @@ import static org.junit.Assert.*;
 public class UserJUnitTests {
     @Test
     public void userTaskAssignment() {
-        Task task = new Task("Cover tomatoes", "cover if raining", 4, "", "", System.currentTimeMillis());
-        User user = new User("Logan Sutherland", "sutherland@dal.ca");
+        Task task = new Task("Cover tomatoes", "cover if raining", 4, "", "", System.currentTimeMillis(), "repeat-none");
+        User user = new User("Logan Sutherland", "sutherland@dal.ca", "L0GAN");
         user.addTask(task);
         task.setUser(user.getUsername());
 

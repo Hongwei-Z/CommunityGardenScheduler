@@ -6,59 +6,60 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import com.CSCI3130.gardenapp.R;
-import com.CSCI3130.gardenapp.util.data.Task;
-
 import com.CSCI3130.gardenapp.util.DateFormatUtils;
+import com.CSCI3130.gardenapp.util.data.Task;
+import com.CSCI3130.gardenapp.util.data.WeatherCondition;
+
 import java.util.ArrayList;
 
 /**
  * TaskAdapter.java - a class used to manage the list of tasks displayed to the user and the
  * interactions associated with the list
  * the list of tasks
+ *
  * @author Elizabeth Eddy & Logan Sutherland
  */
 public class TaskAdapter extends RecyclerView.Adapter<TaskViewHolder> {
     private final ArrayList<Task> taskList;
-    private OnItemClickListener mListener;
     private final String activeTaskListContext;
+    private OnItemClickListener mListener;
 
-    public interface OnItemClickListener { //interface so we can interact with TaskAdapter from TaskViewList
-        void onItemClick(int position);
+    public TaskAdapter(ArrayList<Task> tasks, String activeTaskListContext) {
+        this.activeTaskListContext = activeTaskListContext;
+        taskList = tasks;
     }
 
     /**
      * Sets the click listener for a task in the list
+     *
      * @param listener listen for click
      */
     public void setOnItemClickListener(OnItemClickListener listener) {
         mListener = listener;
     }
 
-    public TaskAdapter(ArrayList<Task> tasks, String activeTaskListContext){
-        this.activeTaskListContext = activeTaskListContext;
-        taskList = tasks;
-    }
-
     /**
      * Overrides onCreateViewHolder to add tasks the recyclerView
-     * @param parent the viewGroup
+     *
+     * @param parent   the viewGroup
      * @param viewType the type of view
      * @return TaskViewHolder containing the tasks
      */
     @NonNull
     @Override
-    public TaskViewHolder onCreateViewHolder(ViewGroup parent, int viewType){
+    public TaskViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.task_list_item, parent, false);
         return new TaskViewHolder(view, mListener);
     }
 
     /**
      * Sets the task details in the tasks CardView
-     * @param holder holds views associated with task
+     *
+     * @param holder   holds views associated with task
      * @param position index of the task in list
      */
     @Override
-    public void onBindViewHolder(TaskViewHolder holder, int position){
+    public void onBindViewHolder(TaskViewHolder holder, int position) {
         Task task = taskList.get(position);
         holder.setName(task.getName());
         long date = activeTaskListContext.equals("taskHistory")
@@ -70,7 +71,29 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskViewHolder> {
                     : "Due: ")
                     + DateFormatUtils.getDateFormatted(date));
         } else {
-            holder.setDate("");
+            if (task.getWeatherTrigger() != null) {
+                WeatherCondition trig = task.getWeatherTrigger();
+                switch (trig) {
+                    case DRY:
+                        holder.setDate("Dry Weather");
+                        break;
+                    case WINDY:
+                        holder.setDate("Windy Weather");
+                        break;
+                    case COLD:
+                        holder.setDate("Cold Weather");
+                        break;
+                    case HOT:
+                        holder.setDate("Hot Weather");
+                        break;
+                    case RAIN:
+                        holder.setDate("Rainy Weather");
+                        break;
+                    default:
+                        holder.setDate("");
+                        break;
+                }
+            }
         }
         holder.setPriority(task.getPriority());
         holder.setUser(task.getUser());
@@ -78,11 +101,16 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskViewHolder> {
 
     /**
      * Gets the number of tasks in the task list
+     *
      * @return size of task list
      */
     @Override
     public int getItemCount() {
         return taskList.size();
+    }
+
+    public interface OnItemClickListener { //interface so we can interact with TaskAdapter from TaskViewList
+        void onItemClick(int position);
     }
 }
 

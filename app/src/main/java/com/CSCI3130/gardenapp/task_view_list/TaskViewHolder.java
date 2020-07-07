@@ -8,6 +8,7 @@ import com.CSCI3130.gardenapp.R;
 
 /**
  * Holds the views associated with each card in the the task list
+ *
  * @author Elizabeth Eddy
  * @see RecyclerView.ViewHolder
  */
@@ -19,6 +20,7 @@ public class TaskViewHolder extends RecyclerView.ViewHolder {
 
     /**
      * Constructor for the TaskViewHolder which assigns the OnItemClickListener and View associated to a task
+     *
      * @param itemView View associated to the task
      * @param listener OnItemClickListener associated to the task
      * @see TaskAdapter.OnItemClickListener
@@ -43,25 +45,28 @@ public class TaskViewHolder extends RecyclerView.ViewHolder {
 
     /**
      * Set task name text in the textView
+     *
      * @param name name of the task
      */
-    public void setName(String name){
+    public void setName(String name) {
         this.name.setText(name);
     }
 
     /**
      * Set task date text in the textView
+     *
      * @param date date of the task
      */
-    public void setDate(String date){
+    public void setDate(String date) {
         this.date.setText(date);
     }
 
     /**
      * Set task priority text in the textView and update the colour to match
+     *
      * @param priority priority of the task
      */
-    public void setPriority(int priority){
+    public void setPriority(int priority) {
         this.priority.setText(Integer.toString(priority));
         int color = R.color.colorPriority + priority;
         this.priority.setBackgroundResource(color);
@@ -69,9 +74,10 @@ public class TaskViewHolder extends RecyclerView.ViewHolder {
 
     /**
      * Set task profile to the assigned user if exists, otherwise leave blank
+     *
      * @param user user assigned to task
      */
-    public void setUser(String user){
+    public void setUser(String user) {
         if (user != null && !user.equals("")) {
             this.userProfile.setImageResource(R.drawable.profile_icon);
         }

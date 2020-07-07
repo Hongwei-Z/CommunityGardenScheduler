@@ -48,7 +48,7 @@ public class TaskTestDatabase extends TaskDatabase {
                 Assert.assertEquals(1, dataSnapshot.getChildrenCount());
                 for (DataSnapshot child : dataSnapshot.getChildren()) {
                     Task got = child.getValue(Task.class);
-                    Assert.assertEquals(task, got);
+                    Assert.assertEquals("\nExpected: " + task.toString() + "\nGot: " + got.toString(), task, got);
                 }
                 flag[0] = true;
             }

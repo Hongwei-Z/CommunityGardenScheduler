@@ -1,13 +1,19 @@
 package com.CSCI3130.gardenapp.create_task;
 
+import androidx.test.espresso.Espresso;
 import androidx.test.filters.LargeTest;
 import androidx.test.rule.ActivityTestRule;
 import com.CSCI3130.gardenapp.R;
 import com.CSCI3130.gardenapp.util.data.Task;
 import com.CSCI3130.gardenapp.util.data.TaskGenerator;
+import com.CSCI3130.gardenapp.util.data.WeatherCondition;
+import com.CSCI3130.gardenapp.util.data.TaskGenerator;
 import com.CSCI3130.gardenapp.util.db.TaskTestDatabase;
 import org.junit.*;
-
+import static org.hamcrest.core.Is.is;
+import static org.hamcrest.core.AllOf.allOf;
+import static org.hamcrest.core.IsInstanceOf.instanceOf;
+import static androidx.test.espresso.Espresso.onData;
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.click;
 import static androidx.test.espresso.action.ViewActions.closeSoftKeyboard;
@@ -38,7 +44,7 @@ public class CreateTaskActivityUITest {
     }
 
     private void clickCorrectPriority(int val) {
-        int[] ids = {R.id.priorityButtons, R.id.buttonPriority2, R.id.buttonPriority3, R.id.buttonPriority4, R.id.buttonPriority5};
+        int[] ids = {R.id.buttonPriority1, R.id.buttonPriority2, R.id.buttonPriority3, R.id.buttonPriority4, R.id.buttonPriority5};
         onView(withId(ids[val - 1])).perform(click());
     }
 
@@ -113,5 +119,19 @@ public class CreateTaskActivityUITest {
         onView(withId(R.id.editDescription)).check(matches(hasErrorText("Missing Description")));
         onView(withId(R.id.editTitle)).check(matches(hasErrorText("Missing Title")));
         testDB.ensureNoDatabaseActivity();
+    }
+
+    @Test
+    public void testWeatherSelected() {
+        Task task = TaskGenerator.generateTask(false, WeatherCondition.HOT);
+        onView(withId(R.id.editTitle)).perform(typeText(task.getName()), closeSoftKeyboard());
+        onView(withId(R.id.editDescription)).perform(typeText(task.getDescription()), closeSoftKeyboard());
+        onView(withId(R.id.editLocation)).perform(typeText(task.getLocation()), closeSoftKeyboard());
+        clickCorrectPriority(task.getPriority());
+        onView(withId(R.id.weatherSpinner)).perform(click());
+        onData(allOf(is(instanceOf(String.class)), is("Hot"))).perform(click());
+        onView(withId(R.id.buttonConfirmAdd)).perform(click());
+        onView(withId(com.google.android.material.R.id.snackbar_text)).check(matches(withText("Success!")));
+        testDB.checkForTask(task);
     }
 }

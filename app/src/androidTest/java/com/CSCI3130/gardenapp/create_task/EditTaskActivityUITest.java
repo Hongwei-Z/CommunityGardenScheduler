@@ -15,6 +15,7 @@ import androidx.test.rule.ActivityTestRule;
 import com.CSCI3130.gardenapp.R;
 import com.CSCI3130.gardenapp.util.data.Task;
 import com.CSCI3130.gardenapp.util.data.TaskGenerator;
+import com.CSCI3130.gardenapp.util.data.WeatherCondition;
 import com.CSCI3130.gardenapp.util.db.TaskTestDatabase;
 import org.hamcrest.Description;
 import org.hamcrest.Matcher;
@@ -39,7 +40,7 @@ public class EditTaskActivityUITest {
 
     @Before
     public void setUp(){
-        testTask = TaskGenerator.generateTask(true);
+        testTask = TaskGenerator.generateTask(true, WeatherCondition.HOT);
         testDB = new TaskTestDatabase();
         testDB.uploadTask(testTask);
         Context targetContext = InstrumentationRegistry.getInstrumentation().getTargetContext();
@@ -55,7 +56,6 @@ public class EditTaskActivityUITest {
 
     @After
     public void tearDown() {
-        System.out.println(activity == null);
         TaskTestDatabase db = (TaskTestDatabase) activity.db;
         db.clearDatabase();
     }
@@ -67,6 +67,7 @@ public class EditTaskActivityUITest {
         onView(withId(R.id.editDescription)).check(matches(withText(testTask.getDescription())));
         onView(withId(R.id.editLocation)).check(matches(withText(testTask.getLocation())));
         onView(withId(R.id.buttonConfirmAdd)).check(matches(withText(R.string.confirm_edit_task)));
+        onView(withId(R.id.weatherSpinner)).check(matches(withSpinnerText("Hot")));
         checkPrioritySelected(testTask.getPriority());
     }
 
@@ -80,7 +81,7 @@ public class EditTaskActivityUITest {
     }
 
     private void checkPrioritySelected(int val) {
-        int[] ids = {R.id.priorityButtons, R.id.buttonPriority2, R.id.buttonPriority3, R.id.buttonPriority4, R.id.buttonPriority5};
+        int[] ids = {R.id.buttonPriority1, R.id.buttonPriority2, R.id.buttonPriority3, R.id.buttonPriority4, R.id.buttonPriority5};
         int[] colors = {R.color.colorPriority1, R.color.colorPriority2, R.color.colorPriority3, R.color.colorPriority4, R.color.colorPriority5};
         for (int i = 0; i < 5; i++) {
             if (val != i + 1) {
