@@ -31,6 +31,11 @@
                 android:name=".create_task.CreateTaskActivity"
                 android:parentActivityName=".Welcome">
         </activity>
+        <activity
+                android:name=".FilterPopUp"
+                android:theme="@android:style/Theme.Material.Dialog.NoActionBar"
+                android:parentActivityName=".task_view_list.TaskViewList" >
+        </activity>
         <activity android:name=".TaskDetailInfo"
                   android:parentActivityName=".task_view_list.TaskViewList"/>
     </application>
