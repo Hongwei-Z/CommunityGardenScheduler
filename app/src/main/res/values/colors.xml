@@ -13,4 +13,7 @@
     <color name="colorPriority3">#27AE60</color>
     <color name="colorPriority4">#277DAE</color>
     <color name="colorPriority5">#6227AE</color>
+
+    <color name="positiveButton">#6ECE4B</color>
+    <color name="negativeButton">#5E5E5E</color>
 </resources>

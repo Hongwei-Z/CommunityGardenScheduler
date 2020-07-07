@@ -2,9 +2,13 @@ package com.CSCI3130.gardenapp.util.db;
 
 import android.content.Context;
 import android.content.Intent;
+
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
 import com.CSCI3130.gardenapp.R;
+import com.CSCI3130.gardenapp.SortCategory;
+import com.CSCI3130.gardenapp.SortOrder;
 import com.CSCI3130.gardenapp.TaskDetailInfo;
 import com.CSCI3130.gardenapp.task_view_list.TaskAdapter;
 import com.CSCI3130.gardenapp.task_view_list.TaskViewList;
@@ -12,7 +16,12 @@ import com.CSCI3130.gardenapp.util.data.CurrentWeather;
 import com.CSCI3130.gardenapp.util.data.Task;
 import com.CSCI3130.gardenapp.util.data.WeatherCondition;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.*;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -160,6 +169,71 @@ public class TaskDatabase {
                     }
 
                 }
+
+                TaskAdapter taskAdapter = new TaskAdapter(allTasks, activeTaskListContext);
+                recyclerView.setAdapter(taskAdapter);
+                taskAdapter.setOnItemClickListener(position -> {
+                    openTaskDetails(position, allTasks); //position refers to index of task in recyclerview tasklist
+                });
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                System.out.println(databaseError.toString());
+            }
+        };
+    }
+
+
+    /**
+     * Returns the event listener for the database to retrieve tasks
+     * Specific method overload for sorting by category with order
+     * @param recyclerView
+     * @param sortCategory - sort category
+     * @param sortOrder - sort order
+     * @return ValueEventListener
+     */
+    public ValueEventListener getTaskData(RecyclerView recyclerView, String activeTaskListContext, SortCategory sortCategory, SortOrder sortOrder) {
+        ArrayList<Task> allTasks = new ArrayList<>();
+        return new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                allTasks.clear();
+                for (DataSnapshot dataSnapshotTask : dataSnapshot.getChildren()) {
+                    Task task = dataSnapshotTask.getValue(Task.class);
+                    allTasks.add(task);
+                }
+
+                switch (sortCategory){
+                    case DUEDATE:
+                        Comparator<Task> comparator = Comparator.comparingLong(Task::getDateDue);
+                        allTasks.sort(comparator);
+                        //sort in descending order if applicable
+                        if (sortOrder == SortOrder.DESCENDING){
+                            Collections.reverse(allTasks);
+                        }
+                        break;
+                    case PRIORITY:
+                        Comparator<Task> comparator1 = Comparator.comparingLong(Task::getPriority);
+                        allTasks.sort(comparator1);
+                        //sort in descending order if applicable
+                        if (sortOrder == SortOrder.DESCENDING){
+                            Collections.reverse(allTasks);
+                        }
+                        break;
+                    case AZ:
+                        Comparator<Task> comparator2 = Comparator.comparing(Task::getName);
+                        allTasks.sort(comparator2);
+                        //sort in descending order if applicable
+                        if (sortOrder == SortOrder.DESCENDING){
+                            Collections.reverse(allTasks);
+                        }
+                        break;
+                    default:
+                        break;
+                }
+
+
 
                 TaskAdapter taskAdapter = new TaskAdapter(allTasks, activeTaskListContext);
                 recyclerView.setAdapter(taskAdapter);

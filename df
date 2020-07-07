@@ -1,0 +1,994 @@
+[33mcommit 231f6ae9f80552e4732728f86d96815cb4b5eb17[m[33m ([m[1;36mHEAD -> [m[1;32mAC5.4_Sorting[m[33m, [m[1;31morigin/AC5.4_Sorting[m[33m)[m
+Merge: 7e0288e 263a0c5
+Author: Arjav Gupta <arjav.tumba@gmail.com>
+Date:   Mon Jul 6 13:07:48 2020 -0300
+
+    Merge branch 'master' into AC5.4_Sorting
+    
+    # Conflicts:
+    #       app/src/main/java/com/CSCI3130/gardenapp/task_view_list/TaskViewList.java
+    #       app/src/main/res/layout/activity_task_view_list.xml
+    #       app/src/main/res/values/strings.xml
+
+[33mcommit 7e0288e14c68a1d9a23a549dfb2048be8c494a10[m
+Author: Arjav Gupta <arjav.tumba@gmail.com>
+Date:   Mon Jul 6 13:05:17 2020 -0300
+
+    Merge branch 'AC5.4_Sorting' of X:\Documents\CSCI 3130\csci3110-group-8 with conflicts.
+
+[33mcommit 263a0c557b9cc1a3e60365e88885ffbf1ac71387[m[33m ([m[1;31morigin/master[m[33m, [m[1;31morigin/HEAD[m[33m, [m[1;32mmaster[m[33m)[m
+Merge: ec25893 4a2421e
+Author: Liam Hebert <lm609619@dal.ca>
+Date:   Mon Jul 6 12:38:24 2020 -0300
+
+    Merge branch 'AC2.1/EditTask' into 'master'
+    
+    Ac2.1/Edit Existing Tasks + Refactoring throughout the code
+    
+    See merge request hebert/csci3110-group-8!20
+
+[33mcommit 4a2421e3722b69a7da4e9ef1989508c6070e71fe[m
+Author: Liam Hebert <lm609619@dal.ca>
+Date:   Mon Jul 6 12:38:24 2020 -0300
+
+    TESTS: Adding tests for this task first. REFACTORED: Changed parts of sign up to be more efficient by tracking proper shifts. Added many utility methods and testing for editing a task
+
+[33mcommit ec258935c74c9c703b99350edcf3ef54b8505049[m
+Merge: f5e6127 ac531fc
+Author: Arjav Gupta <ar237808@dal.ca>
+Date:   Sun Jul 5 21:03:41 2020 -0300
+
+    Merge branch 'AC7.1' into 'master'
+    
+    Ac7.1
+    
+    See merge request hebert/csci3110-group-8!25
+
+[33mcommit ac531fcb62ccb2cdd2f117f8c5da4fc51eb3b0fe[m[33m ([m[1;31morigin/AC7.1[m[33m, [m[1;32mAC7.1[m[33m)[m
+Merge: 4108263 f5e6127
+Author: Arjav Gupta <arjav.tumba@gmail.com>
+Date:   Sun Jul 5 15:18:22 2020 -0300
+
+    Merge branch 'master' into AC7.1
+    
+    # Conflicts:
+    #       app/app.iml
+    #       app/src/main/AndroidManifest.xml
+
+[33mcommit 41082632cf39ba4c86009406eab607e1adb7bc21[m
+Author: Arjav Gupta <arjav.tumba@gmail.com>
+Date:   Sun Jul 5 15:02:18 2020 -0300
+
+    Made changes based on Logan's PR comments
+
+[33mcommit f5e61274928eb5677623759600c1cbe5457ed0b3[m[33m ([m[1;31morigin/Small-Task-Detail-Page-Fix[m[33m)[m
+Merge: 8f66978 51aa3f9
+Author: Arjav Gupta <ar237808@dal.ca>
+Date:   Sun Jul 5 13:47:11 2020 -0300
+
+    Merge branch 'AC345_new' into 'master'
+    
+    Task Details Page Merge Request
+    
+    See merge request hebert/csci3110-group-8!24
+
+[33mcommit 51aa3f9ae80a4a4dfb5a59136db1e2747da20b83[m
+Author: Logan Sutherland <sutherland@dal.ca>
+Date:   Sun Jul 5 13:34:56 2020 -0300
+
+    Changes for PR review
+
+[33mcommit 9413f0bb3624887a3de0acf30211543b07fc7be8[m
+Author: Arjav Gupta <arjav.tumba@gmail.com>
+Date:   Sun Jul 5 13:08:22 2020 -0300
+
+    Implemented AC7.1, tests pertaining to weather pass
+
+[33mcommit 989d0525ccaa79112f91bef61cb8a45bc5bfc2f1[m
+Author: Arjav Gupta <arjav.tumba@gmail.com>
+Date:   Sun Jul 5 13:04:05 2020 -0300
+
+    Added after teardown back into code
+
+[33mcommit b963de474686e4fc143efda9f68ebfc75f89dafe[m
+Author: Logan Sutherland <sutherland@dal.ca>
+Date:   Sun Jul 5 12:59:28 2020 -0300
+
+    Added further functionality and register button
+
+[33mcommit dfc2462d91a25e3016d7effaea1f7018d1c25f16[m
+Author: Arjav Gupta <arjav.tumba@gmail.com>
+Date:   Sun Jul 5 12:18:02 2020 -0300
+
+    Wrote tests for weather features
+
+[33mcommit 776b4edbe33092ae5e6bcde95d3e006c5a3d5f20[m
+Author: Logan Sutherland <sutherland@dal.ca>
+Date:   Sun Jul 5 12:10:18 2020 -0300
+
+    Improving functionality
+
+[33mcommit 006132fb7da55a07d9e8325d39654ff1ca36799b[m[33m ([m[1;31morigin/AC5.4[m[33m, [m[1;32mAC5.4[m[33m)[m
+Merge: c4b3847 8f66978
+Author: Elizabeth Eddy <el278962@dal.ca>
+Date:   Sat Jul 4 23:17:10 2020 -0300
+
+    After fixing merging master into current, popup window can open
+
+[33mcommit 7dba8ae4bf4501b0a0326c5612925656765f0673[m
+Merge: 9524a63 8f66978
+Author: Logan Sutherland <sutherland@dal.ca>
+Date:   Sat Jul 4 21:19:39 2020 -0300
+
+    Merge branch 'master' into AC345_new
+
+[33mcommit 9524a636cbbaf4a5cce88d304cc8372792ac7698[m
+Merge: 97ce832 6df4906
+Author: Logan Sutherland <sutherland@dal.ca>
+Date:   Sat Jul 4 21:16:42 2020 -0300
+
+    Merge branch 'master' into AC345_new
+
+[33mcommit c4b3847afcdd7d93a2d33af52cf43caa9cfb1b26[m
+Author: hongwei <hn507820@dal.ca>
+Date:   Sat Jul 4 19:20:35 2020 -0300
+
+    Add espresso test.
+
+[33mcommit e03aab22b75598a9efd96c81445abf02c1641afe[m
+Merge: fc544d8 8f66978
+Author: Arjav Gupta <arjav.tumba@gmail.com>
+Date:   Sat Jul 4 17:04:43 2020 -0300
+
+    Merge branch 'master' into AC7.1
+    
+    # Conflicts:
+    #       app/src/main/java/com/CSCI3130/gardenapp/create_task/CreateTaskActivity.java
+    #       app/src/main/java/com/CSCI3130/gardenapp/util/data/Task.java
+    #       app/src/test/java/com/CSCI3130/gardenapp/create_task/CreateTaskActivityTest.java
+
+[33mcommit 8f66978880fafdda2bb94616e642d189c8f17c2a[m
+Merge: 776487a 4a9efa8
+Author: Arjav Gupta <ar237808@dal.ca>
+Date:   Sat Jul 4 16:50:37 2020 -0300
+
+    Merge branch 'AC-3.1-display-past-task-list' into 'master'
+    
+    Ac 3.1 display past task list
+    
+    See merge request hebert/csci3110-group-8!22
+
+[33mcommit fc544d80c9742797a886de08a45f6f1e6f1707bc[m
+Merge: 65c3407 776487a
+Author: Arjav Gupta <arjav.tumba@gmail.com>
+Date:   Sat Jul 4 16:48:59 2020 -0300
+
+    Merge branch 'master' into AC7.1
+    
+    # Conflicts:
+    #       app/src/main/java/com/CSCI3130/gardenapp/util/data/Task.java
+
+[33mcommit 4a9efa848b4911679d60a342c327564ed532ed6c[m
+Author: Elizabeth Eddy <el278962@dal.ca>
+Date:   Sat Jul 4 16:34:43 2020 -0300
+
+    Create Junit test for date formatter utils
+
+[33mcommit a1aa31042e6b7c5fa9f90baa764bc1f318212397[m
+Author: Elizabeth Eddy <el278962@dal.ca>
+Date:   Sat Jul 4 16:25:49 2020 -0300
+
+    Refractor date formatters and setting variable name for cleaner and clearer code
+
+[33mcommit aa2ae6548fcdef0bac6a70df9987bbc87f37b030[m
+Merge: ad81721 776487a
+Author: Elizabeth Eddy <el278962@dal.ca>
+Date:   Sat Jul 4 15:24:12 2020 -0300
+
+    Solve merge conflicts between task history and open tasks code
+
+[33mcommit 776487af25ecfc96d6f51b48736b834f8cf2104d[m
+Merge: 6df4906 4668572
+Author: Elizabeth Eddy <el278962@dal.ca>
+Date:   Sat Jul 4 14:35:02 2020 -0300
+
+    Merge branch 'AC-4.4/4.1/Open-Task-Filter' into 'master'
+    
+    Merge AC 4.4/4.1/open task filter into master
+    
+    See merge request hebert/csci3110-group-8!21
+
+[33mcommit 46685724a1ea3fc62b41a951a6fc29df0238b118[m
+Author: Logan Sutherland <sutherland@dal.ca>
+Date:   Sat Jul 4 14:15:24 2020 -0300
+
+    Additional fixes for the PR
+
+[33mcommit cdfef94aa98ebe8427de0d2ffd5913c1d2018730[m
+Author: Logan Sutherland <sutherland@dal.ca>
+Date:   Sat Jul 4 12:43:58 2020 -0300
+
+    Fixes for PR comments
+
+[33mcommit 65c3407bccfd79c493a89c5bcdd8fe9c95464ba0[m
+Author: Arjav Gupta <arjav.tumba@gmail.com>
+Date:   Fri Jul 3 20:41:21 2020 -0300
+
+    Made test weather activity, updated task class and create task page. Tests pass.
+
+[33mcommit 97ce832e0698554f2162c0962e5e9e410a89ef82[m
+Author: Liam Hebert <lm609619@dal.ca>
+Date:   Fri Jul 3 14:49:13 2020 -0300
+
+    Update TaskDetailInfo.java
+
+[33mcommit ad81721feedcaa1c5254e2d650661fdec499c0a9[m
+Author: Elizabeth Eddy <el278962@dal.ca>
+Date:   Fri Jul 3 14:35:47 2020 -0300
+
+    Create a task history page and sort the task lists by the due/complete dates
+
+[33mcommit 0b4e407cf478b36380121ff8013f5f0e74a032f0[m
+Author: jbai <jn528470@dal.ca>
+Date:   Thu Jul 2 22:36:30 2020 -0300
+
+    TaskDetailEspressoTests
+
+[33mcommit c5828b1f18726cf57168862b581a7270b6b28edc[m
+Author: elizabeth eddy <elizabeth.eddy@dal.ca>
+Date:   Thu Jul 2 15:57:10 2020 -0300
+
+    Update to task history tests for TDD
+
+[33mcommit 5cc767c654c016db0bc5a74fb3e066229a5bcf26[m
+Author: elizabeth eddy <elizabeth.eddy@dal.ca>
+Date:   Thu Jul 2 15:02:24 2020 -0300
+
+    Espresso Tests to check display of task history page and update Task class to allow dateCompleted to be set
+
+[33mcommit 2dc74055b3038dd43fa2519416c21c6727aa6187[m
+Author: Logan Sutherland <sutherland@dal.ca>
+Date:   Thu Jul 2 14:57:22 2020 -0300
+
+    Added some comments
+
+[33mcommit d6c5a65067c90acde4eddf12502fff4c45ee7714[m
+Author: Logan Sutherland <sutherland@dal.ca>
+Date:   Wed Jul 1 18:48:38 2020 -0300
+
+    Added Open task filtered task page
+
+[33mcommit ca7bbe4c17e19cc4faeffc8774426308346144ef[m
+Author: Logan Sutherland <sutherland@dal.ca>
+Date:   Wed Jul 1 18:15:26 2020 -0300
+
+    Added tests for open task filter
+
+[33mcommit 576aaf6874c3976f755f9f5d18c36fddefac3830[m
+Merge: 89f217e 6df4906
+Author: Logan Sutherland <sutherland@dal.ca>
+Date:   Tue Jun 30 11:26:36 2020 -0300
+
+    Merge branch 'master' into AC-4.4/4.1/Open-Task-Filter
+
+[33mcommit 6df49062ef10934c4d7e9d35977c7c9107a7c3de[m
+Merge: bc50443 06e2b70
+Author: Elizabeth Eddy <el278962@dal.ca>
+Date:   Tue Jun 30 11:12:56 2020 -0300
+
+    Merge branch 'AC-5.1-user-task-list' into 'master'
+    
+    Ac 5.1 user task list
+    
+    See merge request hebert/csci3110-group-8!19
+
+[33mcommit 06e2b70208692d5acd09d17abcf8a72dfb04bac8[m
+Author: elizabeth eddy <elizabeth.eddy@dal.ca>
+Date:   Mon Jun 29 22:51:05 2020 -0300
+
+    Refractor tests and task database logic
+
+[33mcommit 1eb132d40540cdb2d91c5c598719d1d965df4037[m
+Author: liamhebert <liamhebert@gmail.com>
+Date:   Mon Jun 29 17:08:26 2020 -0300
+
+    Fixing RecyclerViewMatcher
+
+[33mcommit 1f462eb18510eb4ab8b2340d4d2e260b26bac7f9[m
+Author: elizabeth eddy <elizabeth.eddy@dal.ca>
+Date:   Mon Jun 29 14:56:15 2020 -0300
+
+    Add ability to view current users list of tasks
+
+[33mcommit dc4dde99a9569d3a4335d3752bb5d5e948d3b235[m
+Author: elizabeth eddy <elizabeth.eddy@dal.ca>
+Date:   Mon Jun 29 13:21:18 2020 -0300
+
+    Create Espresso tests for viewing 'my tasks' and chekcing toolbar title
+
+[33mcommit 16e27f6b68d83384e39c1c8622c54c78f6d1fa74[m
+Author: hongwei <hn507820@dal.ca>
+Date:   Fri Jun 26 13:04:59 2020 -0300
+
+    Bring espresso test back.
+
+[33mcommit eafcc64e39dd9c21f42fa8271e782e8e44c1aecb[m
+Author: hongwei <hn507820@dal.ca>
+Date:   Thu Jun 25 12:09:47 2020 -0300
+
+    UI fix
+
+[33mcommit 8672a646e5bd667dfed81499e644f8232c8022a2[m
+Author: hongwei <hn507820@dal.ca>
+Date:   Tue Jun 23 15:25:32 2020 -0300
+
+    Create an independent method for each button, all the methods in onCreate have been removed as suggested by Liam. All buttons work normally.
+
+[33mcommit c49fb27c1efa51703727270ce211754aeb86a643[m
+Author: hongwei <hn507820@dal.ca>
+Date:   Mon Jun 22 22:00:42 2020 -0300
+
+    Add functions for priority buttons
+
+[33mcommit 89f217ef6b2b16f8e15ea72377c62ab4692b766a[m
+Author: Logan Sutherland <sutherland@dal.ca>
+Date:   Mon Jun 22 18:54:47 2020 -0300
+
+    Updated branch from master and added ids to User and Task objects
+
+[33mcommit 3db2bf6bdd29785e2a13f6b292a17aa75f20a033[m
+Author: Logan Sutherland <sutherland@dal.ca>
+Date:   Mon Jun 22 17:07:08 2020 -0300
+
+    Connected the task details page to task list. Task details page appears when clicking on a task
+
+[33mcommit 9660620039e1d5ba97445893aaa4bd7181dffd1d[m
+Author: liamhebert <liamhebert@gmail.com>
+Date:   Fri Jun 19 14:43:36 2020 -0300
+
+    Fixing problems in the android manifest and UI
+
+[33mcommit 1a4177b78ecc5dee00726d93292bbaaa85b8689a[m
+Author: liamhebert <liamhebert@gmail.com>
+Date:   Fri Jun 19 12:29:37 2020 -0300
+
+    Refactoring espresso filter test
+
+[33mcommit b397abfbe86e1ebe3825913ef86bc70edf9ad792[m
+Author: liamhebert <liamhebert@gmail.com>
+Date:   Fri Jun 19 12:27:31 2020 -0300
+
+    Merging in fixes from WIP branch, pop ups work now!
+
+[33mcommit 54dcd4771b1a8b88f93e7e164163a68eb68326ed[m
+Merge: 2db9490 d0510d1
+Author: liamhebert <liamhebert@gmail.com>
+Date:   Fri Jun 19 11:36:57 2020 -0300
+
+    Merge branch 'WIP-fix-filter-button' into AC5.4
+    
+    # Conflicts:
+    #       app/app.iml
+    #       app/src/main/AndroidManifest.xml
+    #       app/src/main/java/com/CSCI3130/gardenapp/FilterPopUp.java
+    #       app/src/main/java/com/CSCI3130/gardenapp/TaskViewList.java
+    #       app/src/main/res/layout/activity_filter.xml
+    #       app/src/main/res/layout/activity_task_view_list.xml
+    #       app/src/main/res/layout/filter.xml
+    #       app/src/main/res/layout/toolbar.xml
+
+[33mcommit d0510d1cc939dddbba96c7e8f19b4ad3cdab18d1[m[33m ([m[1;31morigin/WIP-fix-filter-button[m[33m)[m
+Author: liamhebert <liamhebert@gmail.com>
+Date:   Fri Jun 19 11:31:22 2020 -0300
+
+    Adding dialog pop up capabilities, fixing problems in Hongwei's branch, AC5.4
+
+[33mcommit 2f9e0604fbe8fe5d80245d3cd59f540e79b03644[m
+Merge: 74280a4 bc50443
+Author: Logan Sutherland <sutherland@dal.ca>
+Date:   Fri Jun 19 11:13:39 2020 -0300
+
+    Merge branch 'master' into AC345_new
+    
+    # Conflicts:
+    #       app/build.gradle
+    #       app/src/main/java/com/CSCI3130/gardenapp/TaskRegisterDummyPage.java
+
+[33mcommit bc504432c8650a8cc44f80ad4fbb56196232c4f8[m
+Merge: a9686fd e52fe89
+Author: Elizabeth Eddy <el278962@dal.ca>
+Date:   Fri Jun 19 11:10:15 2020 -0300
+
+    Merge branch 'AC-3/4/5.1-firebase-database-link-to-task-list' into 'master'
+    
+    Ac 3/4/5.1 firebase database link to task list
+    
+    See merge request hebert/csci3110-group-8!15
+
+[33mcommit e52fe890ee2bc3e09daa41651aeae7463d0327e9[m
+Author: elizabeth eddy <elizabeth.eddy@dal.ca>
+Date:   Fri Jun 19 10:59:16 2020 -0300
+
+    Refractor value event listener to simplify logic and clarify error messages in testing
+
+[33mcommit 6f76c5a3809d8785c8836a024395a23878136615[m
+Author: elizabeth eddy <elizabeth.eddy@dal.ca>
+Date:   Thu Jun 18 13:12:24 2020 -0300
+
+    WIP: Fix the filter button
+
+[33mcommit 74280a4c9df633883c7216dffeba8608ab96822f[m
+Author: jbai <jn528470@dal.ca>
+Date:   Thu Jun 18 12:04:26 2020 -0300
+
+    Task Details
+
+[33mcommit c5530ca751dfc36a905f6ce58b1a4b2edd6c057d[m
+Author: elizabeth eddy <elizabeth.eddy@dal.ca>
+Date:   Thu Jun 18 10:59:42 2020 -0300
+
+    Update espresso tests to work with refractor
+
+[33mcommit 0c4560b62fa26ce76c533e1b70d3c064ce66ba97[m
+Author: elizabeth eddy <elizabeth.eddy@dal.ca>
+Date:   Thu Jun 18 10:53:39 2020 -0300
+
+    Add ability to fetch and display tasks from database and refractor register methods
+
+[33mcommit 0ab8fe6d5b0fae579b8874eef48c4990ede6e50f[m
+Author: elizabeth eddy <elizabeth.eddy@dal.ca>
+Date:   Thu Jun 18 00:08:19 2020 -0300
+
+    Add Espresso tests for fetching the task list from the database
+
+[33mcommit 5e23b5e90542acde2d0fa7a1eed017d58aaba516[m
+Merge: 7132564 a9686fd
+Author: elizabeth eddy <elizabeth.eddy@dal.ca>
+Date:   Wed Jun 17 13:16:53 2020 -0300
+
+    Merge branch 'master' into AC-3/4/5.1-firebase-database-link-to-task-list
+
+[33mcommit a9686fd38fa72cd8c231e335712f01f005f684bd[m
+Merge: 9198666 1a6004d
+Author: Liam Hebert <lm609619@dal.ca>
+Date:   Wed Jun 17 11:59:11 2020 -0300
+
+    Merge branch 'AC2.2&2.1/store+tasks+in+db' into 'master'
+    
+    Ac2.2&2.1/store+tasks+in+db
+    
+    See merge request hebert/csci3110-group-8!14
+
+[33mcommit 2db94900f8cf70e65d0f15e6ec27a0c364b84bde[m
+Author: hongwei <hn507820@dal.ca>
+Date:   Tue Jun 16 12:16:38 2020 -0300
+
+    Add a hardcoding method(afterFilter) to display task-list after the filter, but for an unknown reason, it can't display.
+
+[33mcommit 1a6004db9f540564da9cb3ea7270a7561d0115ac[m
+Author: liamhebert <liamhebert@gmail.com>
+Date:   Mon Jun 15 21:17:54 2020 -0300
+
+    Beth's tests are saved!
+
+[33mcommit 9524282812e3a35fd71f0048e0fa31d386cf58ec[m
+Author: liamhebert <liamhebert@gmail.com>
+Date:   Mon Jun 15 21:06:29 2020 -0300
+
+    fixing espresso
+
+[33mcommit ac4cd26cae5dfc07541666d354d184e600325f35[m
+Author: liamhebert <liamhebert@gmail.com>
+Date:   Mon Jun 15 21:03:24 2020 -0300
+
+    fixing espresso
+
+[33mcommit 586a974bda1a57e27b47dd5ed2fda69c9586fd99[m
+Author: liamhebert <liamhebert@gmail.com>
+Date:   Mon Jun 15 20:46:19 2020 -0300
+
+    fixing failed unit test
+
+[33mcommit 673805eec2824a4580344837c98b1640b28b0bc5[m
+Author: liamhebert <liamhebert@gmail.com>
+Date:   Mon Jun 15 20:43:23 2020 -0300
+
+    fixing failed unit test
+
+[33mcommit d01cd86a5282cef32dc186ee4384bcfd8665f476[m
+Author: liamhebert <liamhebert@gmail.com>
+Date:   Mon Jun 15 20:22:03 2020 -0300
+
+    Lots of refactoring, setting up the database testing, including mockito junit, setting up database connection
+
+[33mcommit d97bc5aa0bcb3666343f29ac4be296a846eed7f5[m
+Author: hongwei <hn507820@dal.ca>
+Date:   Sun Jun 14 15:18:49 2020 -0300
+
+    Add EspressoTest
+
+[33mcommit ede65be23db943d6670310f10fa43ddedc68d56b[m
+Author: hongwei <hn507820@dal.ca>
+Date:   Sun Jun 14 15:17:36 2020 -0300
+
+    Add EspressoTest
+
+[33mcommit 3d16dd282a0c770106b3ddf9da803af5f5bca32e[m
+Author: hongwei <hn507820@dal.ca>
+Date:   Sat Jun 13 15:10:08 2020 -0300
+
+    Still trying to fix the filter button connection problem
+
+[33mcommit df1000d39478ac733a9d1a855975c7e6d1744bb4[m
+Author: hongwei <hn507820@dal.ca>
+Date:   Sat Jun 13 13:31:51 2020 -0300
+
+    Still can't connect the filter button to the task list page
+
+[33mcommit a6aa399b89fe0ac68650198ad761175273850e6d[m
+Author: hongwei <hn507820@dal.ca>
+Date:   Fri Jun 12 16:34:13 2020 -0300
+
+    Create the selectCalendar method, combine the previous repeated date picker code into one method.
+
+[33mcommit 33b277b932cd7f6810284d69e7f447bfb709098c[m
+Author: hongwei <hn507820@dal.ca>
+Date:   Fri Jun 12 13:32:02 2020 -0300
+
+    Create the selectCalendar method, combine the previous repeated date picker code into one method.
+
+[33mcommit 9198666f2322909e54d849c610b12af5d0a9f73b[m
+Merge: 8aacd9a 608444a
+Author: Liam Hebert <lm609619@dal.ca>
+Date:   Fri Jun 12 00:04:51 2020 -0300
+
+    Merge branch 'AC-2.2/Javadoc' into 'master'
+    
+    Ac 2.2/javadoc
+    
+    See merge request hebert/csci3110-group-8!12
+
+[33mcommit 608444ae3053f1a18e94fae0025e59bc7c566714[m
+Author: liamhebert <liamhebert@gmail.com>
+Date:   Thu Jun 11 23:48:04 2020 -0300
+
+    Refactoring class name
+
+[33mcommit a485030c5d46007a98aef7de280cc3db47969cc7[m
+Author: liamhebert <liamhebert@gmail.com>
+Date:   Thu Jun 11 23:23:10 2020 -0300
+
+    fixing tests
+
+[33mcommit 8aacd9aff408e359142546fd7942493b03a4059d[m
+Merge: bd66c4a cfe8b68
+Author: Liam Hebert <lm609619@dal.ca>
+Date:   Thu Jun 11 23:18:40 2020 -0300
+
+    Merge branch 'FirebaseSignInJavadocUpdate' into 'master'
+    
+    Wrote javadoc comments for sign in, sign up and welcome classes
+    
+    See merge request hebert/csci3110-group-8!11
+
+[33mcommit 0ba10314db36eede0dae78f6fa7d5486980992c7[m
+Author: liamhebert <liamhebert@gmail.com>
+Date:   Thu Jun 11 22:49:35 2020 -0300
+
+    Refactoring class name
+
+[33mcommit 989abcca97feff73f017e9d45fd7528e99d55d8c[m
+Author: liamhebert <liamhebert@gmail.com>
+Date:   Thu Jun 11 22:47:51 2020 -0300
+
+    Adding javadoc and cleaning code. Updating CI
+
+[33mcommit cfe8b687b6000333dfe6a8e5591568e9390da098[m
+Merge: 415a449 bd66c4a
+Author: Arjav Gupta <ar237808@dal.ca>
+Date:   Thu Jun 11 22:27:56 2020 -0300
+
+    Merge branch 'master' into 'FirebaseSignInJavadocUpdate'
+    
+    # Conflicts:
+    #   app/src/main/java/com/CSCI3130/gardenapp/Welcome.java
+
+[33mcommit bd66c4a22102a460cb42391b6af8f311d672bc5a[m
+Merge: ab4d374 f40d55b
+Author: Elizabeth Eddy <el278962@dal.ca>
+Date:   Thu Jun 11 22:24:35 2020 -0300
+
+    Merge branch 'javadoc-update-and-all-task-button' into 'master'
+    
+    Update javadoc and add button in welcome page to open all task display
+    
+    See merge request hebert/csci3110-group-8!10
+
+[33mcommit 415a449b9fae1f61c7497da162685bc061959b9f[m[33m ([m[1;32mFloatingPlusButton[m[33m, [m[1;32mFirebaseSignInJavadocUpdate[m[33m)[m
+Author: Arjav Gupta <arjav.tumba@gmail.com>
+Date:   Thu Jun 11 22:13:10 2020 -0300
+
+    Wrote javadoc comments for sign in, sign up and welcome classes
+
+[33mcommit f40d55b9718d9870f985967ad444c99319a8b3a1[m
+Author: elizabeth eddy <elizabeth.eddy@dal.ca>
+Date:   Thu Jun 11 22:09:13 2020 -0300
+
+    Add missing comment and fix error in button xml
+
+[33mcommit 9e85e4489e72c41587ecc8b8c0061a0925a097ca[m
+Author: elizabeth eddy <elizabeth.eddy@dal.ca>
+Date:   Thu Jun 11 21:53:22 2020 -0300
+
+    Update javadoc and add button in welcome page to open all task display
+
+[33mcommit a3bb733ef09067484b20bdc0b5c17f986a4d78ba[m
+Author: hongwei <hn507820@dal.ca>
+Date:   Thu Jun 11 21:34:43 2020 -0300
+
+    Add Filter files
+
+[33mcommit 713256480c6a1aad98e6f15aa88913b704510aa6[m
+Author: liamhebert <liamhebert@gmail.com>
+Date:   Thu Jun 11 19:30:18 2020 -0300
+
+    Fixing database config
+
+[33mcommit 8f70454c9d84739c7df2b5817078e66bce8a52f9[m
+Author: elizabeth eddy <elizabeth.eddy@dal.ca>
+Date:   Thu Jun 11 19:02:39 2020 -0300
+
+    Initially setting up firebase database for task list
+
+[33mcommit ab4d374ef45c8fc78510eb316262a3c002c4e9a6[m
+Merge: 0bd24cd 382b268
+Author: Logan Sutherland <lg513964@dal.ca>
+Date:   Thu Jun 11 14:29:12 2020 -0300
+
+    Merge branch 'AC-4.3/Create-register-task-button' into 'master'
+    
+    Merge Ac 4.3/create register task button into master
+    
+    See merge request hebert/csci3110-group-8!7
+
+[33mcommit 5db42e956550398133bc18f7ffb7b2395cbf54b1[m
+Author: hongwei <hn507820@dal.ca>
+Date:   Thu Jun 11 14:17:06 2020 -0300
+
+    Add Filter files
+
+[33mcommit 382b268b3e4e78fbe71632ab900b3e55e6248297[m[33m ([m[1;31morigin/AC-4.3/Create-register-task-button[m[33m)[m
+Author: Logan Sutherland <sutherland@dal.ca>
+Date:   Thu Jun 11 14:16:52 2020 -0300
+
+    Added dummy page back to manifest
+
+[33mcommit d98165a98fe7094d06825c69e4488958fd282118[m
+Author: liamhebert <liamhebert@gmail.com>
+Date:   Thu Jun 11 13:47:07 2020 -0300
+
+    fix strings.xml
+
+[33mcommit 0bd24cdd1340e4fd3ff2fbc5ca5be1b2111d0716[m
+Merge: f52e0b7 f332a6f
+Author: Elizabeth Eddy <el278962@dal.ca>
+Date:   Thu Jun 11 13:17:17 2020 -0300
+
+    Merge branch 'revert-f52e0b7f' into 'master'
+    
+    Revert "Add Filter files"
+    
+    See merge request hebert/csci3110-group-8!8
+
+[33mcommit f332a6f2cf7dc12f24ceb60eb2e270d81c3904a7[m
+Author: Elizabeth Eddy <el278962@dal.ca>
+Date:   Thu Jun 11 13:08:52 2020 -0300
+
+    Revert "Add Filter files"
+    
+    This reverts commit f52e0b7fe86bbee757b3469741b8e6cd4b92ae59
+
+[33mcommit f52e0b7fe86bbee757b3469741b8e6cd4b92ae59[m
+Author: hongwei <hn507820@dal.ca>
+Date:   Thu Jun 11 13:00:35 2020 -0300
+
+    Add Filter files
+
+[33mcommit 97f8f7f06b80e59f95184a6084085155448b097e[m
+Merge: e6c299b 809eb73
+Author: Logan Sutherland <lg513964@dal.ca>
+Date:   Thu Jun 11 11:51:38 2020 -0300
+
+    Merge branch 'master' into 'AC-4.3/Create-register-task-button'
+    
+    # Conflicts:
+    #   app/app.iml
+    #   app/src/main/AndroidManifest.xml
+    #   app/src/main/res/values/strings.xml
+
+[33mcommit e6c299b5ce454f90e97b4d645851e4c45602fe2c[m
+Author: Logan Sutherland <sutherland@dal.ca>
+Date:   Thu Jun 11 11:47:47 2020 -0300
+
+    Made extra ids strings in strings.xml
+
+[33mcommit 809eb73271cc6419a34bac72f515b68deb692c07[m
+Merge: b0e943b 914ec49
+Author: Arjav Gupta <ar237808@dal.ca>
+Date:   Thu Jun 11 11:37:35 2020 -0300
+
+    Merge branch 'FirebaseSignIn' into 'master'
+    
+    Firebase sign in
+    
+    See merge request hebert/csci3110-group-8!5
+
+[33mcommit 914ec4978b7b7382bea9d987fbc9050948e1c90d[m
+Author: Liam Hebert <lm609619@dal.ca>
+Date:   Thu Jun 11 11:20:00 2020 -0300
+
+    Update Welcome.java
+
+[33mcommit d15d8b88b9a2de3406a4843b8e82127eb4d26b57[m
+Author: Logan Sutherland <lg513964@dal.ca>
+Date:   Thu Jun 11 11:19:49 2020 -0300
+
+    Update AndroidManifest.xml
+
+[33mcommit 31337b747d8096bfb22cf5e849d4aa0b8ee89f82[m
+Author: Liam Hebert <lm609619@dal.ca>
+Date:   Thu Jun 11 11:18:32 2020 -0300
+
+    Update SignInEspressoTests.java
+
+[33mcommit 2d5933a261b70357e82822b47059913eeda1988b[m[33m ([m[1;32mFirebaseSignIn[m[33m)[m
+Merge: afd1584 ab72449
+Author: Arjav Gupta <arjav.tumba@gmail.com>
+Date:   Thu Jun 11 11:16:29 2020 -0300
+
+    Merge branch 'FirebaseSignIn' of git.cs.dal.ca:hebert/csci3110-group-8 into FirebaseSignIn
+
+[33mcommit afd1584b3ccadd23c37061b365c09f125fc0d549[m
+Author: Arjav Gupta <arjav.tumba@gmail.com>
+Date:   Thu Jun 11 11:16:14 2020 -0300
+
+    Made refactoring changes based on comments from Liam
+
+[33mcommit 1cf505e8d66e527962345db74abc5f0a940726d0[m
+Author: Logan Sutherland <lg513964@dal.ca>
+Date:   Thu Jun 11 11:01:00 2020 -0300
+
+    Update AndroidManifest.xml
+
+[33mcommit 4fce7c7fc77bb878a3a291e3957fcd71d8dd745e[m
+Author: Logan Sutherland <sutherland@dal.ca>
+Date:   Thu Jun 11 10:21:03 2020 -0300
+
+    update to allow for merge
+
+[33mcommit 553a1fb32c01f912769adc6c3ea34be6ffa3cbe3[m
+Merge: 3f6454a b0e943b
+Author: Logan Sutherland <sutherland@dal.ca>
+Date:   Thu Jun 11 10:10:08 2020 -0300
+
+    Merge branch 'master' into AC-4.3/Create-register-task-button
+    
+    # Conflicts:
+    #       app/app.iml
+    #       app/src/main/AndroidManifest.xml
+
+[33mcommit ab724499da5b06b88b4f9419e4fb3819fe30643b[m
+Author: liamhebert <liamhebert@gmail.com>
+Date:   Thu Jun 11 09:48:59 2020 -0300
+
+    deleted unnessessary files
+
+[33mcommit b365f38e269801bae4b68a2013319977b649cf4d[m
+Merge: 7b33641 5533e6d
+Author: liamhebert <liamhebert@gmail.com>
+Date:   Thu Jun 11 09:46:13 2020 -0300
+
+    Merge branch 'FirebaseSignIn' of git.cs.dal.ca:hebert/csci3110-group-8 into FirebaseSignIn
+
+[33mcommit 7b3364179fb49e59303351eedb5ea6a71a7af758[m
+Author: liamhebert <liamhebert@gmail.com>
+Date:   Thu Jun 11 09:45:46 2020 -0300
+
+    trying to get this to work
+
+[33mcommit 3f6454a1aa3d3fed2630e7158bbd448ec2d4fbd5[m
+Author: Logan Sutherland <sutherland@dal.ca>
+Date:   Thu Jun 11 09:41:08 2020 -0300
+
+    Added constraints to task register dummy page to fix lintDebug error
+
+[33mcommit 5533e6daf135de659c6b972bff49f5cad6199f6c[m
+Author: Arjav Gupta <arjav.tumba@gmail.com>
+Date:   Thu Jun 11 09:39:44 2020 -0300
+
+    Changed button text sizes on sign up and sign in pages, as suggested by Beth
+
+[33mcommit e854d717d50bcf111efc2176c9aa60bd1cca40b9[m
+Merge: 3bef55a 8760f51
+Author: Arjav Gupta <arjav.tumba@gmail.com>
+Date:   Thu Jun 11 09:20:37 2020 -0300
+
+    Merge branch 'FirebaseSignIn' of git.cs.dal.ca:hebert/csci3110-group-8 into FirebaseSignIn
+
+[33mcommit 4073e18f636e2d8cd3a79e19e98b6c9faba7c860[m
+Author: Logan Sutherland <sutherland@dal.ca>
+Date:   Thu Jun 11 09:19:01 2020 -0300
+
+    Added comments to code
+
+[33mcommit 3bef55a8ce5bde1c3b63b7be76042b7c151eb0cb[m
+Author: Arjav Gupta <arjav.tumba@gmail.com>
+Date:   Thu Jun 11 09:18:26 2020 -0300
+
+    Made changes to UI and imports as suggested by Beth
+
+[33mcommit 8760f519283a5df26194d8e24c4f56d86334f332[m
+Author: liamhebert <liamhebert@gmail.com>
+Date:   Thu Jun 11 01:53:10 2020 -0300
+
+    git ignore update
+
+[33mcommit 1ac96099638c36d5ac6385f2200bd0c136d8a50c[m
+Author: Logan Sutherland <sutherland@dal.ca>
+Date:   Wed Jun 10 21:40:19 2020 -0300
+
+    Added user task registration functionality
+
+[33mcommit 8cdf48842f047cc08b77fe2b4d94ac9d95164bac[m
+Author: liamhebert <liamhebert@gmail.com>
+Date:   Wed Jun 10 21:23:40 2020 -0300
+
+    Updating sdk version
+
+[33mcommit aceb9d74931d820e7ac72361318ba49bd2938331[m
+Author: liamhebert <liamhebert@gmail.com>
+Date:   Wed Jun 10 20:54:42 2020 -0300
+
+    Updating Manifest
+
+[33mcommit 10b2acc88616017ee8e1c28ab199a5c3d83f1bbe[m
+Merge: 36b1bd3 b0e943b
+Author: liamhebert <liamhebert@gmail.com>
+Date:   Wed Jun 10 20:29:58 2020 -0300
+
+    merge complete!
+
+[33mcommit 36b1bd37435aa538490bc05c65966d9ca2ec6468[m
+Author: liamhebert <liamhebert@gmail.com>
+Date:   Wed Jun 10 20:17:57 2020 -0300
+
+    adding gitignore
+
+[33mcommit 78a830cb1fa18fee4d4d5c44d4232f67b6acd2a4[m
+Author: liamhebert <liamhebert@gmail.com>
+Date:   Wed Jun 10 20:16:01 2020 -0300
+
+    Hi, this is Liam, and I'm here to fix Arjav's code. Very cool!
+
+[33mcommit b0e943bbd36574bc4a10a08517c69c52e3e293b9[m
+Merge: 92b0d60 a4e6797
+Author: Liam Hebert <lm609619@dal.ca>
+Date:   Wed Jun 10 18:56:32 2020 -0300
+
+    Merge branch 'AC-2.2/intial+unit-tests' into 'master'
+    
+    Initial Create Task form with Unit tests
+    
+    See merge request hebert/csci3110-group-8!2
+
+[33mcommit a4e6797fc43f2f32d45ff3f39443cdfa90f4df7e[m
+Author: Liam Hebert <lm609619@dal.ca>
+Date:   Wed Jun 10 18:56:32 2020 -0300
+
+    Initial Create Task form with Unit tests
+
+[33mcommit 7e9f739533f90eecaad657ac2e2b13c6f26cabd6[m
+Author: Logan Sutherland <sutherland@dal.ca>
+Date:   Wed Jun 10 13:19:41 2020 -0300
+
+    Made recyclerview items selectable, currently selection changes task name to "selected"
+
+[33mcommit 40c5ebc3a26125fdd6be349f544a0d477ccb7e40[m
+Author: Logan Sutherland <sutherland@dal.ca>
+Date:   Wed Jun 10 09:50:28 2020 -0300
+
+    Added Unit tests for User class and added JavaDoc comments to all added methods
+
+[33mcommit 992f05c310b82f7fc422f39a02f25d4b8c045dd1[m
+Author: Logan Sutherland <sutherland@dal.ca>
+Date:   Wed Jun 10 08:59:09 2020 -0300
+
+    Added register for task button appears only on open tasks
+
+[33mcommit cb175824398e85c8802f6dfe11735c8151b201c6[m
+Author: Arjav Gupta <arjav.tumba@gmail.com>
+Date:   Tue Jun 9 21:52:03 2020 -0300
+
+    User Story 1 - All test should pass now
+
+[33mcommit ed84476318d0658e7e2648d1c1f61431b8bfeecf[m
+Merge: f1d6612 92b0d60
+Author: Logan Sutherland <lg513964@dal.ca>
+Date:   Tue Jun 9 21:34:11 2020 -0300
+
+    Merge branch 'master' into 'AC-4.3/Create-register-task-button'
+    
+    Merging master into branch to build off code
+    
+    See merge request hebert/csci3110-group-8!4
+
+[33mcommit 92b0d6020d18bb8a65c8bf4338eaaa57e9f1ad13[m
+Merge: f1d6612 ce85250
+Author: Liam Hebert <lm609619@dal.ca>
+Date:   Tue Jun 9 19:08:16 2020 -0300
+
+    Merge branch 'AC-3/4/5.1-initial-task-list' into 'master'
+    
+    Initial display of hardcoded task list and tests
+    
+    See merge request hebert/csci3110-group-8!1
+
+[33mcommit ce85250b67c9771bf4284c396b4a3c61d48d1770[m[33m ([m[1;31morigin/AC-3/4/5.1-initial-task-list[m[33m)[m
+Merge: ada2305 f1d6612
+Author: elizabeth eddy <elizabeth.eddy@dal.ca>
+Date:   Tue Jun 9 18:50:10 2020 -0300
+
+    Merge branch 'master' into AC-3/4/5.1-initial-task-list
+
+[33mcommit ada23058549f6105eeb44b541f498bf1da068662[m
+Author: elizabeth eddy <elizabeth.eddy@dal.ca>
+Date:   Tue Jun 9 18:40:18 2020 -0300
+
+    Refractor names and redundances in task list
+
+[33mcommit f1d66127f6bc75cc7a06747dade395cf245f4ec6[m[33m ([m[1;31morigin/AC-3/4/5-Task-Details[m[33m)[m
+Merge: 8cdd80a e16444d
+Author: Liam Hebert <lm609619@dal.ca>
+Date:   Mon Jun 8 22:45:03 2020 -0300
+
+    Merge branch 'trying_ci' into 'master'
+    
+    Implement CI
+    
+    See merge request hebert/csci3110-group-8!3
+
+[33mcommit e16444d8f78165b489fb64db19d7c299bcff2e26[m
+Author: liamhebert <liamhebert@gmail.com>
+Date:   Mon Jun 8 22:15:01 2020 -0300
+
+    Playing with CI
+
+[33mcommit f7b366093964e62eaaad47ff78efe99a53b6763f[m
+Author: liamhebert <liamhebert@gmail.com>
+Date:   Mon Jun 8 22:09:51 2020 -0300
+
+    Playing with CI
+
+[33mcommit 845334fe8397320a3f59a2d3766cb203350181b9[m
+Author: liamhebert <liamhebert@gmail.com>
+Date:   Mon Jun 8 22:04:05 2020 -0300
+
+    Playing with CI
+
+[33mcommit 76946561b828115591b1674ccf96ed6f6f135612[m
+Author: Arjav Gupta <arjav.tumba@gmail.com>
+Date:   Mon Jun 8 10:07:17 2020 -0300
+
+    Firebase/SignUp/SignIn Working - one test fails on sign up
+
+[33mcommit 5738c22859197e03d2cc76d8da1b0b7bb56a3a26[m
+Author: elizabeth eddy <elizabeth.eddy@dal.ca>
+Date:   Sat Jun 6 14:56:47 2020 -0300
+
+    Initial display of hardcoded task list and tests
+
+[33mcommit 8cdd80a61ff7f6ab0822394d864534c6536179b1[m
+Author: GitLab <root@localhost>
+Date:   Thu Mar 21 13:00:40 2019 +0100
+
+    Initial template creation
