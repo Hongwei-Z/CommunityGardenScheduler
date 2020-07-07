@@ -1,11 +1,8 @@
 package com.CSCI3130.gardenapp.util.db;
-
 import android.content.Context;
 import android.content.Intent;
-
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.CSCI3130.gardenapp.R;
 import com.CSCI3130.gardenapp.TaskAdapter;
 import com.CSCI3130.gardenapp.TaskRegisterDummyPage;
@@ -14,7 +11,6 @@ import com.CSCI3130.gardenapp.util.data.Task;
 import com.CSCI3130.gardenapp.util.data.User;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.*;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -34,6 +30,11 @@ public class TaskDatabase {
      * Query on the database reference
      */
     protected Query dbRead;
+
+    /***
+     * ArrayList, save all tasks
+     */
+    private ArrayList<Task> allTasks = new ArrayList<>();
 
     /**
      * Constructor that injects a database starting point. Useful for testing
@@ -119,7 +120,6 @@ public class TaskDatabase {
      * @return ValueEventListener
      */
     public ValueEventListener getTaskData(RecyclerView recyclerView, String activeTaskListContext) {
-        ArrayList<Task> allTasks = new ArrayList<>();
         return new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -134,7 +134,7 @@ public class TaskDatabase {
                             new Long(taskA.getDateCompleted()).compareTo(new Long(taskB.getDateCompleted()));
                     Collections.sort(allTasks, comparator);
                     Collections.reverse(allTasks);
-                } else  {
+                } else {
                     Comparator<Task> comparator = (Task taskA, Task taskB) ->
                             new Long(taskA.getDateDue()).compareTo(new Long(taskB.getDateDue()));
                     Collections.sort(allTasks, comparator);
@@ -158,10 +158,14 @@ public class TaskDatabase {
             }
         };
     }
-    
+
+    public ArrayList<Task> getAllTasks() {
+        return allTasks;
+    }
+
     /**
      * Creates a new activity that allows a user to register for a task
-     * 
+     *
      * @param position index of task
      * @param user     user of the app
      */

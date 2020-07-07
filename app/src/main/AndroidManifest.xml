@@ -26,6 +26,6 @@
         <activity android:name=".TaskRegisterDummyPage" />
         <activity android:name=".create_task.CreateTaskActivity" android:parentActivityName=".Welcome">
         </activity>
+        <activity android:name=".FilterPopUp"/>
     </application>
-
 </manifest>

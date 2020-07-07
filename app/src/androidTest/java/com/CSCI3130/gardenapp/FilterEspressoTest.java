@@ -29,25 +29,4 @@ public class FilterEspressoTest {
         onView(withId(R.id.filterPriorityButton4)).check(matches(withText("4")));
         onView(withId(R.id.filterPriorityButton5)).check(matches(withText("5")));
     }
-
-    @Test
-    public void testPriorityButton(){
-        onView(withId(R.id.filterPriorityButton1)).perform(click());
-        onView(withId(R.id.applyButton)).perform(click());
-        onView(withId(R.id.applyButton)).check(matches(withText("1,2,1")));
-        onView(withId(R.id.filterPriorityButton2)).perform(click());
-        onView(withId(R.id.applyButton)).perform(click());
-        onView(withId(R.id.applyButton)).check(matches(withText("1,2,2")));
-        onView(withId(R.id.filterPriorityButton3)).perform(click());
-        onView(withId(R.id.applyButton)).perform(click());
-        onView(withId(R.id.applyButton)).check(matches(withText("1,2,3")));
-        onView(withId(R.id.filterPriorityButton4)).perform(click());
-        onView(withId(R.id.applyButton)).perform(click());
-        onView(withId(R.id.applyButton)).check(matches(withText("1,2,4")));
-        onView(withId(R.id.filterPriorityButton5)).perform(click());
-        onView(withId(R.id.applyButton)).perform(click());
-        onView(withId(R.id.applyButton)).check(matches(withText("1,2,5")));
-        onView(withId(R.id.clearButton)).perform(click());
-        onView(withId(R.id.applyButton)).check(matches(withText("APPLY")));
-    }
 }
