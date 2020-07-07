@@ -23,12 +23,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
-            android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
             android:layout_toStartOf="@+id/task_user_profile"
-            android:layout_toLeftOf="@+id/task_user_profile"
             android:layout_marginEnd="16dp"
-            android:layout_marginRight="16dp"
             android:text="Task Name"
             android:textSize="20sp"
             android:textColor="#000000"
@@ -44,7 +41,6 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/task_name"
             android:layout_marginEnd="16dp"
-            android:layout_marginRight="16dp"
             android:text="Task Data"
             android:textColor="#000000"
             tools:ignore="HardcodedText" />
@@ -55,21 +51,18 @@
             android:layout_height="45dp"
             android:layout_alignParentTop="true"
             android:layout_marginEnd="16dp"
-            android:layout_marginRight="16dp"
             android:layout_centerInParent="true"
             android:layout_toStartOf="@+id/task_priority"
-            android:layout_toLeftOf="@+id/task_priority"/>
+                />
 
         <TextView
             android:id="@+id/task_priority"
             android:layout_width="45dp"
             android:layout_height="45dp"
             android:layout_marginEnd="10dp"
-            android:layout_marginRight="10dp"
             android:layout_centerInParent="true"
             android:gravity="center"
             android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
             android:text="#"
             android:textSize="20sp"
             android:textStyle="bold"

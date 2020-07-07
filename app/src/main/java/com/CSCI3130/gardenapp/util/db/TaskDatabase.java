@@ -1,16 +1,28 @@
 package com.CSCI3130.gardenapp.util.db;
+
 import android.content.Context;
 import android.content.Intent;
+
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
 import com.CSCI3130.gardenapp.R;
-import com.CSCI3130.gardenapp.TaskAdapter;
-import com.CSCI3130.gardenapp.TaskRegisterDummyPage;
-import com.CSCI3130.gardenapp.TaskViewList;
+import com.CSCI3130.gardenapp.SortCategory;
+import com.CSCI3130.gardenapp.SortOrder;
+import com.CSCI3130.gardenapp.TaskDetailInfo;
+import com.CSCI3130.gardenapp.task_view_list.TaskAdapter;
+import com.CSCI3130.gardenapp.task_view_list.TaskViewList;
+import com.CSCI3130.gardenapp.util.data.CurrentWeather;
 import com.CSCI3130.gardenapp.util.data.Task;
-import com.CSCI3130.gardenapp.util.data.User;
+import com.CSCI3130.gardenapp.util.data.WeatherCondition;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.*;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -18,6 +30,7 @@ import java.util.Comparator;
 /**
  * Database layer for writing tasks to the database. This can easily be mocked in
  * tests so that we can emulate database functions on JUnit tests.
+ *
  * @author Liam Hebert
  */
 public class TaskDatabase {
@@ -30,11 +43,6 @@ public class TaskDatabase {
      * Query on the database reference
      */
     protected Query dbRead;
-
-    /***
-     * ArrayList, save all tasks
-     */
-    private ArrayList<Task> allTasks = new ArrayList<>();
 
     /**
      * Constructor that injects a database starting point. Useful for testing
@@ -61,7 +69,9 @@ public class TaskDatabase {
      * @return Boolean if the upload was successful
      */
     public boolean uploadTask(Task task) {
-        return dbWrite.push().setValue(task).isComplete();
+        DatabaseReference location = dbWrite.push();
+        task.setTaskID(location.getKey());
+        return location.setValue(task).isComplete();
     }
 
     /**
@@ -88,8 +98,8 @@ public class TaskDatabase {
      * @param activeTaskListContext query activeTaskListContext for tasklist
      */
     public void setDbRead(String activeTaskListContext) {
-        /** if allTasks do nothing, no need for query **/
-        switch(activeTaskListContext) {
+        // if allTasks do nothing, no need for query
+        switch (activeTaskListContext) {
             case "myTasks":
                 this.dbRead = dbRead.orderByChild("user").equalTo(FirebaseAuth.getInstance().getUid()); // returns tasks assigned to current user
                 break;
@@ -109,7 +119,7 @@ public class TaskDatabase {
      * @return Boolean value whether the task was successfully replaced
      */
     public boolean updateTask(Task task) {
-        return true;
+        return dbWrite.child(task.getTaskID()).setValue(task).isComplete();
     }
 
     /**
@@ -120,6 +130,7 @@ public class TaskDatabase {
      * @return ValueEventListener
      */
     public ValueEventListener getTaskData(RecyclerView recyclerView, String activeTaskListContext) {
+        ArrayList<Task> allTasks = new ArrayList<>();
         return new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -130,25 +141,39 @@ public class TaskDatabase {
                 }
 
                 if (activeTaskListContext.equals("taskHistory")) {
-                    Comparator<Task> comparator = (Task taskA, Task taskB) ->
-                            new Long(taskA.getDateCompleted()).compareTo(new Long(taskB.getDateCompleted()));
-                    Collections.sort(allTasks, comparator);
+                    Comparator<Task> comparator = Comparator.comparingLong(Task::getDateCompleted);
+                    allTasks.sort(comparator);
                     Collections.reverse(allTasks);
                 } else {
-                    Comparator<Task> comparator = (Task taskA, Task taskB) ->
-                            new Long(taskA.getDateDue()).compareTo(new Long(taskB.getDateDue()));
-                    Collections.sort(allTasks, comparator);
+                    Comparator<Task> comparator = Comparator.comparingLong(Task::getDateDue);
+                    allTasks.sort(comparator);
+
+                    //move weather tasks to the end of the queue based on whether they match with the current weather
+                    for (int i = 0; i < allTasks.size(); i++) {
+                        Task curr = allTasks.get(i);
+                        //current task has a weather trigger
+                        WeatherCondition trigger = curr.getWeatherTrigger();
+                        if (trigger != WeatherCondition.NONE) {
+                            //if this task's weather trigger does not match those of the current weather conditions, throw it down to the bottom of the queue
+                            ArrayList<WeatherCondition> currList = CurrentWeather.currentWeatherList;
+                            if (CurrentWeather.currentWeatherList.contains(trigger)) {
+                                allTasks.remove(curr);
+                                curr.setPriority(1);
+                                allTasks.add(0, curr);
+                            } else {
+                                allTasks.remove(curr);
+                                curr.setPriority(5);
+                                allTasks.add(allTasks.size(), curr);
+                            }
+                        }
+                    }
+
                 }
 
-                TaskAdapter taskAdapter = new TaskAdapter(allTasks);
+                TaskAdapter taskAdapter = new TaskAdapter(allTasks, activeTaskListContext);
                 recyclerView.setAdapter(taskAdapter);
-                taskAdapter.setOnItemClickListener(new TaskAdapter.OnItemClickListener() {
-                    @Override
-                    public void onItemClick(int position) {
-                        User u = new User("Logan", "sutherland@dal.ca"); //dummy user, replace with actual user when firebase is setup
-                        registerForTask(position, u, allTasks); //position refers to index of task in recyclerview tasklist
-
-                    }
+                taskAdapter.setOnItemClickListener(position -> {
+                    openTaskDetails(position, allTasks); //position refers to index of task in recyclerview tasklist
                 });
             }
 
@@ -159,24 +184,83 @@ public class TaskDatabase {
         };
     }
 
-    public ArrayList<Task> getAllTasks() {
-        return allTasks;
+
+    /**
+     * Returns the event listener for the database to retrieve tasks
+     * Specific method overload for sorting by category with order
+     * @param recyclerView
+     * @param sortCategory - sort category
+     * @param sortOrder - sort order
+     * @return ValueEventListener
+     */
+    public ValueEventListener getTaskData(RecyclerView recyclerView, String activeTaskListContext, SortCategory sortCategory, SortOrder sortOrder) {
+        ArrayList<Task> allTasks = new ArrayList<>();
+        return new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                allTasks.clear();
+                for (DataSnapshot dataSnapshotTask : dataSnapshot.getChildren()) {
+                    Task task = dataSnapshotTask.getValue(Task.class);
+                    allTasks.add(task);
+                }
+
+                switch (sortCategory){
+                    case DUEDATE:
+                        Comparator<Task> comparator = Comparator.comparingLong(Task::getDateDue);
+                        allTasks.sort(comparator);
+                        //sort in descending order if applicable
+                        if (sortOrder == SortOrder.DESCENDING){
+                            Collections.reverse(allTasks);
+                        }
+                        break;
+                    case PRIORITY:
+                        Comparator<Task> comparator1 = Comparator.comparingLong(Task::getPriority);
+                        allTasks.sort(comparator1);
+                        //sort in descending order if applicable
+                        if (sortOrder == SortOrder.DESCENDING){
+                            Collections.reverse(allTasks);
+                        }
+                        break;
+                    case AZ:
+                        Comparator<Task> comparator2 = Comparator.comparing(Task::getName);
+                        allTasks.sort(comparator2);
+                        //sort in descending order if applicable
+                        if (sortOrder == SortOrder.DESCENDING){
+                            Collections.reverse(allTasks);
+                        }
+                        break;
+                    default:
+                        break;
+                }
+
+
+
+                TaskAdapter taskAdapter = new TaskAdapter(allTasks, activeTaskListContext);
+                recyclerView.setAdapter(taskAdapter);
+                taskAdapter.setOnItemClickListener(position -> {
+                    openTaskDetails(position, allTasks); //position refers to index of task in recyclerview tasklist
+                });
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                System.out.println(databaseError.toString());
+            }
+        };
     }
 
     /**
-     * Creates a new activity that allows a user to register for a task
+     * Opens the task details page and passes the selected task to the new Task Details activity
      *
-     * @param position index of task
-     * @param user     user of the app
+     * @param position
+     * @param tasks
      */
-    public void registerForTask(int position, User user, ArrayList<Task> tasks) {
-        Task t = tasks.get(position); //get task from recyclerview
-        Context taskList = TaskViewList.getContext();
-        Intent registerTaskActivity = new Intent();
-        registerTaskActivity.setClass(taskList, TaskRegisterDummyPage.class);
-        registerTaskActivity.putExtra(taskList.getString(R.string.task_extra), t);
-        registerTaskActivity.putExtra(taskList.getString(R.string.user_extra), user);
-        registerTaskActivity.putExtra(taskList.getString(R.string.position_extra), position); //we need to send the position over in order to preserve it and use it to update the task in recyclerview when the activity returns
-        taskList.startActivity(registerTaskActivity);
+    public void openTaskDetails(int position, ArrayList<Task> tasks) {
+        Task t = tasks.get(position);
+        Context taskList = TaskViewList.getContext(); //allows us to start activities inside DatabaseTaskWriter
+        Intent taskDetailActivity = new Intent();
+        taskDetailActivity.setClass(taskList, TaskDetailInfo.class);
+        taskDetailActivity.putExtra(taskList.getString(R.string.task_extra), t);
+        taskList.startActivity(taskDetailActivity);
     }
 }

@@ -1,13 +1,18 @@
 package com.CSCI3130.gardenapp;
+
 import android.app.Activity;
 import android.app.DatePickerDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.Toast;
+
+import com.CSCI3130.gardenapp.task_view_list.TaskViewList;
+
 import java.util.ArrayList;
 import java.util.Calendar;
-import android.content.Intent;
 
 /**
  * This class is the filter popup window.
@@ -17,6 +22,10 @@ public class FilterPopUp extends Activity {
     //ArrayList dateBetween used to save two dates which user selected
     ArrayList<Long> dateBetween;
     int priority = -1;
+
+    //current sorting options
+    SortCategory sortCat = SortCategory.NONE;
+    SortOrder sortOrder = SortOrder.NONE;
 
     protected void onCreate(Bundle savedInstanceState) {
         dateBetween = new ArrayList<>(2);
@@ -30,7 +39,7 @@ public class FilterPopUp extends Activity {
     }
 
     //clearMethod, click the Clear button, perform the clear function
-    public void clearMethod(View view) {
+    public void clearMethod(View view){
         Button startDate = findViewById(R.id.startDateButton);
         Button endDate = findViewById(R.id.endDateButton);
         Button apply = findViewById(R.id.applyButton);
@@ -44,6 +53,7 @@ public class FilterPopUp extends Activity {
         apply.setText("APPLY");
         dateBetween.set(0, Long.MIN_VALUE);
         dateBetween.set(1, Long.MAX_VALUE);
+
         p1.setScaleX(1);
         p1.setScaleY(1);
         p2.setScaleX(1);
@@ -54,25 +64,43 @@ public class FilterPopUp extends Activity {
         p4.setScaleY(1);
         p5.setScaleX(1);
         p5.setScaleY(1);
+
+        //reset sorting
+        sortOrder = SortOrder.NONE;
+        sortCat = SortCategory.NONE;
+        setButtonConditionFromId(true, R.id.sortAscendingBtn);
+        setButtonConditionFromId(true, R.id.sortDescendingBtn);
+        setButtonConditionFromId(true, R.id.sortDueDateBtn);
+        setButtonConditionFromId(true, R.id.sortPriorityBtn);
+        setButtonConditionFromId(true, R.id.sortAZBtn);
     }
 
     /***
      * applyMethod, click the APPLY button, save selected date and priority
+     * Haven't connected to the database,
+     * the button is temporarily displayed strings to indicate that the button is functional
      */
-    public void applyMethod(View view) {
-        Button apply = findViewById(R.id.applyButton);
-
-        Intent intent = new Intent();
-        intent.putExtra("start", dateBetween.get(0));
-        intent.putExtra("end", dateBetween.get(1));
-        intent.putExtra("priority", priority);
-
-        setResult(RESULT_OK, intent);
-        finish();
+    public void applyMethod(View view){
+        if (sortCat != SortCategory.NONE && sortOrder == SortOrder.NONE){
+            Toast.makeText(this, "Please select a sorting order or clear.", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        if (sortOrder != SortOrder.NONE && sortCat == SortCategory.NONE){
+            Toast.makeText(this, "Please select a sorting category or clear.", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        //pass sort options on to task list activity
+        Intent i = new Intent(FilterPopUp.this, TaskViewList.class);
+        i.putExtra("sort_category", sortCat);
+        i.putExtra("sort_order", sortOrder);
+        i.putExtra("start", dateBetween.get(0));
+        i.putExtra("end", dateBetween.get(1));
+        i.putExtra("priority", priority);
+        startActivity(i);
     }
 
     //selectCalendar, used to call the DatePicker, select dates
-    public void selectCalendar(final View view) {
+    public void selectCalendar(final View view){
         final Button startDate = findViewById(R.id.startDateButton);
         final Button endDate = findViewById(R.id.endDateButton);
         Calendar date = Calendar.getInstance();
@@ -125,11 +153,78 @@ public class FilterPopUp extends Activity {
         highlightButton(priority);
     }
 
+    /**
+     * Method sets whether a button is enabled/disabled based on its resource ID
+     * @param condition - true = enabled, false = disabled
+     * @param id - resource id of button
+     */
+    public void setButtonConditionFromId(boolean condition, int id){
+        Button btn = (Button) findViewById(id);
+        if (condition)
+            btn.setBackgroundResource(R.color.positiveButton);
+        else
+            btn.setBackgroundResource(R.color.negativeButton);
+        btn.setEnabled(condition);
+    }
+
+
+    /**
+     * Method sets current sort category and changes UI button conditions accordingly
+     * @param view - view param of button which has been clicked
+     */
+    public void sortCategorySelect(View view){
+        int id = view.getId();
+        switch (id){
+            case R.id.sortPriorityBtn:
+                sortCat = SortCategory.PRIORITY;
+                setButtonConditionFromId(true, R.id.sortDueDateBtn);
+                setButtonConditionFromId(false, R.id.sortPriorityBtn);
+                setButtonConditionFromId(true, R.id.sortAZBtn);
+                break;
+            case R.id.sortDueDateBtn:
+                sortCat = SortCategory.DUEDATE;
+                setButtonConditionFromId(false, R.id.sortDueDateBtn);
+                setButtonConditionFromId(true, R.id.sortPriorityBtn);
+                setButtonConditionFromId(true, R.id.sortAZBtn);
+                break;
+            case R.id.sortAZBtn:
+                sortCat = SortCategory.AZ;
+                setButtonConditionFromId(true, R.id.sortDueDateBtn);
+                setButtonConditionFromId(true, R.id.sortPriorityBtn);
+                setButtonConditionFromId(false, R.id.sortAZBtn);
+                break;
+            default:
+                break;
+        }
+    }
+
+    /**
+     * Method sets current sort order and changes UI button conditions accordingly
+     * @param view - view param of button which has been clicked
+     */
+    public void sortOrderSelect(View view){
+        int id = view.getId();
+        switch (id){
+            case R.id.sortAscendingBtn:
+                sortOrder = SortOrder.ASCENDING;
+                setButtonConditionFromId(false, R.id.sortAscendingBtn);
+                setButtonConditionFromId(true, R.id.sortDescendingBtn);
+                break;
+            case R.id.sortDescendingBtn:
+                sortOrder = SortOrder.DESCENDING;
+                setButtonConditionFromId(true, R.id.sortAscendingBtn);
+                setButtonConditionFromId(false, R.id.sortDescendingBtn);
+                break;
+            default:
+                break;
+        }
+    }
+
     /***
      * Make the selected button 1.2 times larger
      * @param priority is the priority number
      */
-    public void highlightButton(int priority) {
+    public void highlightButton(int priority){
         Button p1 = findViewById(R.id.filterPriorityButton1);
         Button p2 = findViewById(R.id.filterPriorityButton2);
         Button p3 = findViewById(R.id.filterPriorityButton3);

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/addTaskActivity"
     android:layout_width="match_parent"
@@ -7,159 +8,226 @@
     tools:context=".create_task.CreateTaskActivity">
 
     <TextView
-        android:id="@+id/textTitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="50dp"
-        android:fontFamily="@font/redhatdisplay"
-        android:text="@string/create_task"
-        android:textColor=" #64CB3F"
-        android:textSize="36sp"
-        android:textStyle="bold" />
+            android:layout_width="228dp"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal|center_vertical"
+            app:fontFamily="@font/redhatdisplay_bold"
+            android:id="@+id/textTitle"
+            android:textSize="36sp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginTop="32dp"
+            android:text="@string/title"
+            android:textColor="#4CAF50"
+            android:fontFamily="@font/redhatdisplay_black"
+            android:textAppearance="@style/title"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginEnd="24dp"
+            android:layout_marginStart="24dp"
+            app:layout_constraintBottom_toTopOf="@+id/editTitle"
+            android:layout_marginBottom="32dp"
+            />
 
     <EditText
-        android:id="@+id/editTitle"
-        android:layout_width="320dp"
-        android:layout_height="55dp"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="150dp"
-        android:background="@drawable/textview_shape"
-        android:ems="10"
-        android:fontFamily="@font/redhatdisplay"
-        android:hint="@string/title_hint"
-        android:inputType="textPersonName"
-        android:paddingStart="10dp"
-        android:textColor="#FFFFFF"/>
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:inputType="textPersonName"
+            android:ems="10"
+            android:id="@+id/editTitle"
+            app:layout_constraintStart_toStartOf="parent"
+            android:hint="@string/title_hint"
+            android:textColor="#FFFFFF"
+            android:typeface="normal"
+            android:textAppearance="@style/InputHint"
+            app:layout_constraintTop_toBottomOf="@+id/textTitle"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            app:layout_constraintBottom_toTopOf="@+id/editDescription"
+            android:layout_marginTop="16dp"
+            app:layout_constraintHorizontal_bias="0.0"/>
 
     <EditText
         android:id="@+id/editDescription"
-        android:layout_width="320dp"
-        android:layout_height="125dp"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="220dp"
-        android:background="@drawable/textview_shape"
+        android:layout_width="0dp"
+        android:layout_height="137dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
         android:ems="10"
-        android:fontFamily="@font/redhatdisplay"
+        android:gravity="start|top"
         android:hint="@string/description_hint"
-        android:paddingStart="10dp"
         android:inputType="textMultiLine"
-        android:textColor="#FFFFFF" />
-
-    <Button
-        android:id="@+id/buttonPriority1"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_alignParentTop="true"
-        android:layout_marginStart="45dp"
-        android:layout_marginTop="450dp"
-        android:background="@color/colorPriority1"
-        android:onClick="onPriorityCheck"
-        android:text="@string/_1"
+        android:textAppearance="@style/InputHint"
         android:textColor="#FFFFFF"
-        android:textSize="30sp"
-        android:textStyle="bold" />
-
-    <Button
-        android:id="@+id/buttonPriority2"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_alignParentTop="true"
-        android:layout_marginStart="112.5dp"
-        android:layout_marginTop="450dp"
-        android:background="@color/colorPriority2"
-        android:onClick="onPriorityCheck"
-        android:text="@string/_2"
-        android:textColor="#FFFFFF"
-        android:textSize="30sp"
-        android:textStyle="bold" />
-
-    <Button
-        android:id="@+id/buttonPriority3"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_alignParentTop="true"
-        android:layout_centerInParent="true"
-        android:layout_marginTop="450dp"
-        android:background="@color/colorPriority3"
-        android:onClick="onPriorityCheck"
-        android:text="@string/_3"
-        android:textColor="#FFFFFF"
-        android:textSize="30sp"
-        android:textStyle="bold"/>
-
-    <Button
-        android:id="@+id/buttonPriority4"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginTop="450dp"
-        android:layout_marginEnd="112.5dp"
-        android:background="@color/colorPriority4"
-        android:onClick="onPriorityCheck"
-        android:text="@string/_4"
-        android:textColor="#FFFFFF"
-        android:textSize="30sp"
-        android:textStyle="bold" />
-
-    <Button
-        android:id="@+id/buttonPriority5"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginTop="450dp"
-        android:layout_marginEnd="45dp"
-        android:background="@color/colorPriority5"
-        android:onClick="onPriorityCheck"
-        android:text="@string/_5"
-        android:textColor="#FFFFFF"
-        android:textSize="30sp"
-        android:textStyle="bold" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editTitle" />
 
     <EditText
         android:id="@+id/editLocation"
-        android:layout_width="320dp"
-        android:layout_height="55dp"
-        android:layout_alignParentTop="true"
-        android:layout_centerInParent="true"
-        android:layout_marginTop="360dp"
-        android:background="@drawable/textview_shape"
+        style="@style/InputHint"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
         android:ems="10"
-        android:fontFamily="@font/redhatdisplay"
         android:hint="@string/location_hint"
-        android:paddingStart="10dp"
-        android:inputType="textPostalAddress" />
+        android:inputType="textPostalAddress"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/buttonPriority3" />
 
-    <Button
-        android:id="@+id/buttonConfirmAdd"
-        android:layout_width="320dp"
-        android:layout_height="55dp"
-        android:layout_alignParentBottom="true"
-        android:layout_centerInParent="true"
-        android:layout_marginBottom="80dp"
-        android:background="@drawable/positive_button_shape"
-        android:fontFamily="@font/redhatdisplay_bold"
-        android:onClick="onConfirm"
-        android:text="@string/confirm_add_task"
-        android:textColor="#000000"
-        android:textSize="30sp" />
+    <TextView
+        android:id="@+id/textPriorityTitle"
+        android:layout_width="174dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:text="@string/textPriorityTitle"
+        android:textAppearance="@style/InputHint"
+        android:textColor="@android:color/darker_gray"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editDescription" />
+
+    <TextView
+        android:id="@+id/textWeatherTitle"
+        android:layout_width="174dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:text="Weather Trigger"
+        android:textAppearance="@style/InputHint"
+        android:textColor="@android:color/darker_gray"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editLocation" />
 
     <TextView
         android:id="@+id/textErrorText"
-        android:layout_width="wrap_content"
-        android:layout_height="20dp"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="420dp"
-        android:text="@string/error_text"
+        android:layout_width="174dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
         android:fontFamily="@font/redhatdisplay"
         android:textAppearance="@style/InputHint"
         android:textColor="#F44336"
-        android:textSize="18sp" />
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editDescription"
+        tools:text="Error Text" />
 
-</RelativeLayout>
+    <Button
+        android:id="@+id/buttonPriority1"
+        style="@style/priority"
+        android:layout_width="66dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="8dp"
+        android:background="@color/colorPriority1"
+        android:onClick="onPriorityCheck"
+        android:text="1"
+        android:textColor="#FFFFFF"
+        app:layout_constraintEnd_toStartOf="@+id/buttonPriority2"
+        app:layout_constraintTop_toBottomOf="@+id/textPriorityTitle" />
+
+    <Button
+        android:id="@+id/buttonPriority2"
+        style="@style/priority"
+        android:layout_width="66dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="8dp"
+        android:background="@color/colorPriority2"
+        android:onClick="onPriorityCheck"
+        android:text="2"
+        android:textColor="#FFFFFF"
+        app:layout_constraintEnd_toStartOf="@+id/buttonPriority3"
+        app:layout_constraintTop_toBottomOf="@+id/textPriorityTitle" />
+
+    <Button
+        android:id="@+id/buttonPriority3"
+        style="@style/priority"
+        android:layout_width="66dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:background="@color/colorPriority3"
+        android:onClick="onPriorityCheck"
+        android:text="3"
+        android:textColor="#FFFFFF"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textPriorityTitle" />
+
+    <Button
+        android:id="@+id/buttonPriority4"
+        style="@style/priority"
+        android:layout_width="66dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        android:background="@color/colorPriority4"
+        android:onClick="onPriorityCheck"
+        android:text="4"
+        android:textColor="#FFFFFF"
+        app:layout_constraintStart_toEndOf="@+id/buttonPriority3"
+        app:layout_constraintTop_toBottomOf="@+id/textErrorText" />
+
+    <Button
+        android:id="@+id/buttonPriority5"
+        style="@style/priority"
+        android:layout_width="66dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        android:background="@color/colorPriority5"
+        android:onClick="onPriorityCheck"
+        android:text="5"
+        android:textColor="#FFFFFF"
+        app:layout_constraintStart_toEndOf="@+id/buttonPriority4"
+        app:layout_constraintTop_toBottomOf="@+id/textErrorText" />
+
+    <Button
+        android:id="@+id/buttonConfirmAdd"
+        style="@style/title"
+        android:layout_width="373dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="32dp"
+        android:background="#4CAF50"
+        android:onClick="onConfirm"
+        android:text="@string/confirm_add_task"
+        android:textAllCaps="false"
+        android:textColor="#FFFFFF"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+    <Spinner
+        android:id="@+id/repeatSpinner"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:layout_marginBottom="24dp"
+        app:layout_constraintBottom_toTopOf="@+id/buttonConfirmAdd"
+        app:layout_constraintTop_toBottomOf="@id/weatherSpinner"
+        app:layout_constraintEnd_toEndOf="@+id/editDescription"
+        app:layout_constraintStart_toStartOf="@+id/editDescription"
+        />
+
+    <Spinner
+        android:id="@+id/weatherSpinner"
+        android:layout_width="0dp"
+        android:layout_height="38dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
+        android:spinnerMode="dropdown"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textWeatherTitle" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
