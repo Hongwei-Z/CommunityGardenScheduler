@@ -62,6 +62,7 @@
     <com.google.android.material.button.MaterialButtonToggleGroup
             android:id="@+id/priorityButtons"
             android:layout_width="match_parent"
+            android:onClick="onPriorityCheck"
             app:layout_constraintStart_toStartOf="@+id/editDescription"
             app:layout_constraintTop_toBottomOf="@+id/textPriorityTitle"
             app:layout_constraintEnd_toEndOf="@+id/editDescription"
@@ -69,48 +70,60 @@
             android:layout_marginTop="16dp"
             android:layout_marginRight="20dp"
             android:layout_marginLeft="20dp"
-            android:theme="@style/Platform.MaterialComponents"
+            android:clickable="true"
             app:singleSelection="true"
+            android:backgroundTint="@color/colorPriority1"
             >
 
-        <Button
+        <com.google.android.material.button.MaterialButton
+                android:id="@+id/priorityButton1"
             android:text="1"
+                android:onClick="onPriorityCheck"
+            app:strokeColor="@color/colorPriority1"
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="wrap_content"
-            android:background="@color/colorPriority1"
             android:textColor="#FFFFFF"
+            app:rippleColor="@android:color/white"
             style="@style/priorityButton"
             />
 
-        <Button
+        <com.google.android.material.button.MaterialButton
             android:text="2"
             android:layout_width="0dp"
+            android:onClick="onPriorityCheck"
             android:layout_weight="1"
             android:layout_height="wrap_content"
             android:id="@+id/buttonPriority2"
-            android:background="@color/colorPriority2"
+            style="@style/priorityButton"
+            app:strokeColor="@color/colorPriority2"
+            app:rippleColor="@android:color/white"
             android:textColor="#FFFFFF"
-            style="@style/priorityButton"/>
+            />
 
-        <Button
+        <com.google.android.material.button.MaterialButton
             android:text="3"
             android:layout_width="0dp"
+            android:onClick="onPriorityCheck"
             android:layout_weight="1"
             android:layout_height="wrap_content"
             android:id="@+id/buttonPriority3"
-            android:="@color/colorPriority3"
+            app:strokeColor="@color/colorPriority3"
             android:textColor="#FFFFFF"
+            app:rippleColor="@android:color/white"
             style="@style/priorityButton"
             />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/buttonPriority4"
+            app:strokeColor="@color/colorPriority4"
             style="@style/priorityButton"
+            android:onClick="onPriorityCheck"
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="wrap_content"
             android:background="@color/colorPriority4"
+            app:rippleColor="@android:color/white"
             android:text="4"
             android:textColor="#FFFFFF" />
 
@@ -120,8 +133,11 @@
             android:layout_weight="1"
             android:layout_height="wrap_content"
             android:id="@+id/buttonPriority5"
+            app:strokeColor="@color/colorPriority5"
             android:background="@color/colorPriority5"
             android:textColor="#FFFFFF"
+            android:onClick="onPriorityCheck"
+            app:rippleColor="@android:color/white"
             style="@style/priorityButton"
             />
     </com.google.android.material.button.MaterialButtonToggleGroup>

@@ -36,7 +36,8 @@
         </item>
     </style>
 
-    <style name="priorityButton" parent="Widget.MaterialComponents.Button">
+    <style name="priorityButton" parent="Widget.MaterialComponents.Button.OutlinedButton">
+        <item name="colorPrimary">@color/colorPriority5</item>
         <item name = "android:textSize">
             24sp
         </item>
@@ -46,6 +47,7 @@
         <item name="android:fontFamily">
             @font/redhatdisplay_black
         </item>
+
     </style>
 
 </resources>
