@@ -74,7 +74,7 @@ public class TaskDetailInfo extends AppCompatActivity {
         dueDate.setText("Due on: " + DateFormatUtils.getDateFormatted(task.getDateDue()));
         if (task.getRepeated() == null) {//if no repeat set (Legacy tasks)
             repeatCon.setText("");
-            repeatCon.setVisibility(View.GONE);
+            repeatCon.setVisibility(View.INVISIBLE);
         }
         else {
             repeatCon.setText(processRepeatCondition(task.getRepeated()));
