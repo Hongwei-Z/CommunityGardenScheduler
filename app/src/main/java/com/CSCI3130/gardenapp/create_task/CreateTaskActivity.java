@@ -11,6 +11,8 @@ import com.CSCI3130.gardenapp.R;
 import com.CSCI3130.gardenapp.task_view_list.TaskViewList;
 import com.CSCI3130.gardenapp.util.data.Task;
 import com.CSCI3130.gardenapp.util.db.TaskDatabase;
+import com.google.android.material.button.MaterialButton;
+import com.google.android.material.button.MaterialButtonToggleGroup;
 
 import java.util.ArrayList;
 import java.util.Objects;
@@ -51,7 +53,7 @@ public class CreateTaskActivity extends AppCompatActivity {
         Button buttonConfirmAdd = findViewById(R.id.buttonConfirmAdd);
         buttonConfirmAdd.setText(getText(R.string.confirm_edit_task));
 
-        greyUnselectedButtons(t.getPriority());
+       // greyUnselectedButtons(t.getPriority());
         editTitle.setText(t.getName());
         editDescription.setText(t.getDescription());
         editLocation.setText(t.getLocation());
@@ -82,7 +84,7 @@ public class CreateTaskActivity extends AppCompatActivity {
                 current_priority = 5;
                 break;
         }
-        greyUnselectedButtons(current_priority);
+      //  greyUnselectedButtons(current_priority);
     }
 
     private void clearPriorityError() {
@@ -90,37 +92,37 @@ public class CreateTaskActivity extends AppCompatActivity {
         errorText.setText("");
     }
 
-    private void greyUnselectedButtons(int selected) {
-        Button priority1 = findViewById(R.id.priorityButtons);
-        priority1.setBackgroundColor(getColor(R.color.colorUnselected));
-        Button priority2 = findViewById(R.id.buttonPriority2);
-        priority2.setBackgroundColor(getColor(R.color.colorUnselected));
-        Button priority3 = findViewById(R.id.buttonPriority3);
-        priority3.setBackgroundColor(getColor(R.color.colorUnselected));
-        Button priority4 = findViewById(R.id.buttonPriority4);
-        priority4.setBackgroundColor(getColor(R.color.colorUnselected));
-        Button priority5 = findViewById(R.id.buttonPriority5);
-        priority5.setBackgroundColor(getColor(R.color.colorUnselected));
-        switch (selected){
-            case 1:
-                priority1.setBackgroundColor(getColor(R.color.colorPriority1));
-                break;
-            case 2:
-                priority2.setBackgroundColor(getColor(R.color.colorPriority2));
-                break;
-            case 3:
-                priority3.setBackgroundColor(getColor(R.color.colorPriority3));
-                break;
-            case 4:
-                priority4.setBackgroundColor(getColor(R.color.colorPriority4));
-                break;
-            case 5:
-                priority5.setBackgroundColor(getColor(R.color.colorPriority5));
-                break;
-        }
-
-
-    }
+//    private void greyUnselectedButtons(int selected) {
+//        Button priority1 = findViewById(R.id.priorityButtons);
+//        priority1.setBackgroundColor(getColor(R.color.colorUnselected));
+//        Button priority2 = findViewById(R.id.buttonPriority2);
+//        priority2.setBackgroundColor(getColor(R.color.colorUnselected));
+//        Button priority3 = findViewById(R.id.buttonPriority3);
+//        priority3.setBackgroundColor(getColor(R.color.colorUnselected));
+//        Button priority4 = findViewById(R.id.buttonPriority4);
+//        priority4.setBackgroundColor(getColor(R.color.colorUnselected));
+//        Button priority5 = findViewById(R.id.buttonPriority5);
+//        priority5.setBackgroundColor(getColor(R.color.colorUnselected));
+//        switch (selected){
+//            case 1:
+//                priority1.setBackgroundColor(getColor(R.color.colorPriority1));
+//                break;
+//            case 2:
+//                priority2.setBackgroundColor(getColor(R.color.colorPriority2));
+//                break;
+//            case 3:
+//                priority3.setBackgroundColor(getColor(R.color.colorPriority3));
+//                break;
+//            case 4:
+//                priority4.setBackgroundColor(getColor(R.color.colorPriority4));
+//                break;
+//            case 5:
+//                priority5.setBackgroundColor(getColor(R.color.colorPriority5));
+//                break;
+//        }
+//
+//
+//    }
 
     /**
      * When the confirm button is pushed, this gathers all the field information and verifies it
@@ -134,6 +136,8 @@ public class CreateTaskActivity extends AppCompatActivity {
         String title = editTitle.getText().toString();
         String description = editDescription.getText().toString();
         String location = editLocation.getText().toString();
+
+        current_priority = 1;
         ArrayList<CreateTaskError> errors = verifyTask(
                 title,
                 description,

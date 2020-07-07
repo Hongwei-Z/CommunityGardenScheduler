@@ -61,66 +61,69 @@
 
     <com.google.android.material.button.MaterialButtonToggleGroup
             android:id="@+id/priorityButtons"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             app:layout_constraintStart_toStartOf="@+id/editDescription"
             app:layout_constraintTop_toBottomOf="@+id/textPriorityTitle"
             app:layout_constraintEnd_toEndOf="@+id/editDescription"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginLeft="20dp"
+            android:theme="@style/Platform.MaterialComponents"
+            app:singleSelection="true"
             >
 
         <Button
-                android:text="1"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:background="@color/colorPriority1"
-                android:textColor="#FFFFFF"
-                android:layout_margin="4dp"
-                style="@style/priorityButton"
-                />
+            android:text="1"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:background="@color/colorPriority1"
+            android:textColor="#FFFFFF"
+            style="@style/priorityButton"
+            />
 
         <Button
-                android:text="2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/buttonPriority2"
-                android:background="@color/colorPriority2"
-                android:textColor="#FFFFFF"
-                android:layout_margin="4dp"
-                android:onClick="onPriorityCheck"
-                style="@style/priorityButton"/>
+            android:text="2"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:id="@+id/buttonPriority2"
+            android:background="@color/colorPriority2"
+            android:textColor="#FFFFFF"
+            style="@style/priorityButton"/>
 
         <Button
-                android:text="3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/buttonPriority3"
-                android:background="@color/colorPriority3"
-                android:textColor="#FFFFFF"
-                style="@style/priorityButton"
-                android:onClick="onPriorityCheck"
-                />
+            android:text="3"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:id="@+id/buttonPriority3"
+            android:="@color/colorPriority3"
+            android:textColor="#FFFFFF"
+            style="@style/priorityButton"
+            />
 
-        <Button
-                android:text="4"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/buttonPriority4"
-                android:background="@color/colorPriority4"
-                android:textColor="#FFFFFF"
-                style="@style/priorityButton"
-                android:onClick="onPriorityCheck"/>
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/buttonPriority4"
+            style="@style/priorityButton"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:background="@color/colorPriority4"
+            android:text="4"
+            android:textColor="#FFFFFF" />
 
-        <Button
-                android:text="5"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/buttonPriority5"
-                android:background="@color/colorPriority5"
-                android:textColor="#FFFFFF"
-                style="@style/priorityButton"
-                android:onClick="onPriorityCheck"
-                />
+        <com.google.android.material.button.MaterialButton
+            android:text="5"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:id="@+id/buttonPriority5"
+            android:background="@color/colorPriority5"
+            android:textColor="#FFFFFF"
+            style="@style/priorityButton"
+            />
     </com.google.android.material.button.MaterialButtonToggleGroup>
 
 
@@ -189,14 +192,14 @@
             android:layout_width="0dp"
             app:singleSelection="true"
             app:layout_constraintTop_toBottomOf="@id/editLocation"
-
             android:id="@+id/taskTypesToggleGroup"
             app:layout_constraintEnd_toEndOf="@+id/priorityButtons"
             android:layout_marginTop="16dp"
             app:layout_constraintStart_toStartOf="@+id/priorityButtons"
             android:layout_marginEnd="8dp">
 
-        <Button
+        <com.google.android.material.button.MaterialButton
+             android:layout_weight="1"
                 android:id="@+id/dateTypeButton"
                 style="?attr/materialButtonOutlinedStyle"
                 android:layout_width="wrap_content"
@@ -204,7 +207,8 @@
                 android:text="Date"
                 />
 
-        <Button
+        <com.google.android.material.button.MaterialButton
+            android:layout_weight="1"
                 android:id="@+id/weatherTypeButton"
                 style="?attr/materialButtonOutlinedStyle"
                 android:layout_width="wrap_content"
@@ -212,7 +216,8 @@
                 android:text="Weather"
                 />
 
-        <Button
+        <com.google.android.material.button.MaterialButton
+            android:layout_weight="1"
                 android:id="@+id/repeatTypeButton"
                 style="?attr/materialButtonOutlinedStyle"
                 android:layout_width="wrap_content"
