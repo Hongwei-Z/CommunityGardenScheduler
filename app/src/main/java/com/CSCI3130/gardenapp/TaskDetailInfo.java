@@ -73,7 +73,8 @@ public class TaskDetailInfo extends AppCompatActivity {
         location.setText(task.getLocation());
         dueDate.setText("Due on: " + DateFormatUtils.getDateFormatted(task.getDateDue()));
         if (task.getRepeated() == null) {//if no repeat set (Legacy tasks)
-            repeatCon.setText("Do not repeat");
+            repeatCon.setText("");
+            repeatCon.setVisibility(View.GONE);
         }
         else {
             repeatCon.setText(processRepeatCondition(task.getRepeated()));
@@ -135,9 +136,6 @@ public class TaskDetailInfo extends AppCompatActivity {
         if (!task.getRepeated().equals("repeat-none")) {//if task is repeated
             Task repeatedTask;
             switch (task.getRepeated()) {//get type of repeat and set new task
-                case "repeat-2day":
-                    repeatedTask = new Task(task.getName(), task.getDescription(), task.getPriority(), "", task.getLocation(), System.currentTimeMillis()+TimeUnit.DAYS.toMillis(2), task.getRepeated());
-                    break;
                 case "repeat-weekly":
                     repeatedTask = new Task(task.getName(), task.getDescription(), task.getPriority(), "", task.getLocation(), System.currentTimeMillis()+TimeUnit.DAYS.toMillis(7), task.getRepeated());
                     break;
