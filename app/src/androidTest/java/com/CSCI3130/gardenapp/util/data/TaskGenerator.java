@@ -18,7 +18,8 @@ public class TaskGenerator {
                 1 + (count%5), userID,
                 "Location-" + count,
                 trigger,
-                System.currentTimeMillis());
+                System.currentTimeMillis(),
+                "repeat-none");
     }
 
     public static Task generateTask(boolean currentUser) {

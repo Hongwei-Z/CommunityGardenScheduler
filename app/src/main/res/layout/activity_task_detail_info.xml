@@ -1,44 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                                                   xmlns:app="http://schemas.android.com/apk/res-auto"
-                                                   xmlns:tools="http://schemas.android.com/tools"
-                                                   android:id="@+id/TaskID"
-                                                   android:layout_width="match_parent"
-                                                   android:layout_height="match_parent"
-                                                   android:layout_gravity="center"
-                                                   tools:context=".TaskDetailInfo"
-                                                   android:background="@color/cardview_dark_background"
-                                                   android:orientation="vertical">
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/TaskID"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_gravity="center"
+    tools:context=".TaskDetailInfo"
+    android:background="@color/cardview_dark_background"
+    android:orientation="vertical">
 
 
     <Button
-            android:id="@+id/buttonComplete"
-            android:layout_width="0dp"
-            android:layout_height="52dp"
-            android:background="@color/cardview_light_background"
-            android:text="@string/Complete"
-            android:textColor="@android:color/background_dark"
-            android:textSize="24sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/repeatCondition"
-            android:layout_marginTop="8dp"
-            android:layout_marginStart="24dp"
-            app:layout_constraintEnd_toStartOf="@+id/buttonEdit"
-            />
+        android:id="@+id/buttonComplete"
+        android:layout_width="0dp"
+        android:layout_height="52dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="8dp"
+        android:background="@color/cardview_light_background"
+        android:onClick="onComplete"
+        android:text="@string/Complete"
+        android:textColor="@android:color/background_dark"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toStartOf="@+id/buttonEdit"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/repeatCondition" />
 
     <Button
-            android:id="@+id/buttonRegister"
-            android:layout_width="0dp"
-            android:layout_height="52dp"
-            android:background="@color/cardview_light_background"
-            android:text="Register"
-            android:textColor="@android:color/background_dark"
-            android:textSize="24sp"
-            app:layout_constraintStart_toStartOf="@+id/buttonComplete"
-            app:layout_constraintTop_toBottomOf="@+id/buttonComplete"
-            app:layout_constraintEnd_toEndOf="@+id/buttonComplete"
-            app:layout_constraintHorizontal_bias="0.0"
-            android:layout_marginTop="8dp"/>
+        android:id="@+id/buttonRegister"
+        android:layout_width="0dp"
+        android:layout_height="52dp"
+        android:layout_marginTop="8dp"
+        android:background="@color/cardview_light_background"
+        android:text="Register"
+        android:textColor="@android:color/background_dark"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="@+id/buttonComplete"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/buttonComplete"
+        app:layout_constraintTop_toBottomOf="@+id/buttonComplete" />
 
     <Button
             android:id="@+id/buttonEdit"

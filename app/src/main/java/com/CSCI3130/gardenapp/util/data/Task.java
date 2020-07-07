@@ -17,6 +17,7 @@ public class Task implements Serializable {
     private long dateDue = -1;
     private long dateCompleted = -1;
     private String location;
+    private String repeated;
     private boolean open;
     private String taskID;
     private WeatherCondition weatherTrigger;
@@ -30,14 +31,16 @@ public class Task implements Serializable {
      * @param user        name of user assigned to task
      * @param location    location where the task should be performed
      * @param dateDue     due date of the task
+     * @param repeated    repeat condition of task
      */
-    public Task(String name, String description, int priority, String user, String location, long dateDue) {
+    public Task(String name, String description, int priority, String user, String location, long dateDue, String repeated) {
         this.name = name;
         this.description = description;
         this.priority = priority;
         this.user = user;
         this.dateDue = dateDue;
         this.location = location;
+        this.repeated = repeated;
         this.open = false;
 
         //sets weather trigger to "none" by default - can be set explicitly using set method
@@ -54,8 +57,9 @@ public class Task implements Serializable {
      * @param location       location where the task should be performed
      * @param weatherTrigger weather condition for task
      * @param dateDue        due date of the task
+     * @param repeated    repeat condition of task
      */
-    public Task(String name, String description, int priority, String user, String location, WeatherCondition weatherTrigger, long dateDue) {
+    public Task(String name, String description, int priority, String user, String location, WeatherCondition weatherTrigger, long dateDue, String repeated) {
         this.name = name;
         this.description = description;
         this.priority = priority;
@@ -64,6 +68,7 @@ public class Task implements Serializable {
         this.open = false;
         this.dateDue = dateDue;
         this.weatherTrigger = weatherTrigger;
+        this.repeated = repeated;
     }
 
     public Task() {
@@ -249,6 +254,22 @@ public class Task implements Serializable {
      */
     public void setTaskID(String taskID) {
         this.taskID = taskID;
+    }
+
+    /**
+     * Gets the repeat condition of the task
+     * @return
+     */
+    public String getRepeated() {
+        return this.repeated;
+    }
+
+    /**
+     * Sets repeat condition of task
+     * @param repeated
+     */
+    public void setRepeated(String repeated) {
+        this.repeated = repeated;
     }
 
     /**

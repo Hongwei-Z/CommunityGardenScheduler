@@ -1,6 +1,12 @@
 package com.CSCI3130.gardenapp.create_task;
 
 import android.content.Intent;
+import android.util.Log;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.Spinner;
+import android.widget.TextView;
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.*;
@@ -28,6 +34,7 @@ public class CreateTaskActivity extends AppCompatActivity {
     ArrayAdapter<CharSequence> adapter;
     private int current_priority;
     private boolean edit;
+    private Spinner repeatSpinner;
 
     /**
      * Constructing the activity
@@ -39,6 +46,10 @@ public class CreateTaskActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_task);
         edit = getIntent().getBooleanExtra(getString(R.string.editSetting_extra), false);
+        repeatSpinner = (Spinner) findViewById(R.id.repeatSpinner);
+        ArrayAdapter<CharSequence> repeatAdapter = ArrayAdapter.createFromResource(this, R.array.repeat_choice_array, android.R.layout.simple_spinner_dropdown_item);
+        repeatAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        repeatSpinner.setAdapter(repeatAdapter);
         db = new TaskDatabase();
         current_priority = -1;
 
@@ -150,6 +161,26 @@ public class CreateTaskActivity extends AppCompatActivity {
         String description = editDescription.getText().toString();
         String location = editLocation.getText().toString();
         WeatherCondition weatherCondition = WeatherCondition.values()[weatherSpinner.getSelectedItemPosition()];
+        String repeated;
+
+        //get repeat condition of task
+        switch (repeatSpinner.getSelectedItemPosition()) {
+            case 0:
+                repeated = "repeat-none";
+                break;
+            case 1:
+                repeated = "repeat-2day";
+                break;
+            case 2:
+                repeated = "repeat-weekly";
+                break;
+            case 3:
+                repeated = "repeat-monthly";
+                break;
+            default:
+                repeated = "repeat-none";
+                break;
+        }
         ArrayList<CreateTaskError> errors = verifyTask(
                 title,
                 description,
@@ -158,7 +189,7 @@ public class CreateTaskActivity extends AppCompatActivity {
         if (errors.size() == 0) {
 
             // package into a task object
-            uploadTask(title, description, current_priority, location, weatherCondition);
+            uploadTask(title, description, current_priority, location, weatherCondition, repeated);
             Intent i = new Intent(this, TaskViewList.class);
             i.putExtra("result", true);
             startActivity(i);
@@ -191,8 +222,9 @@ public class CreateTaskActivity extends AppCompatActivity {
      * @param priority       The priority value associated with the task
      * @param location       The location where the task should be performed
      * @param weatherTrigger The weather trigger of the task
+     * @param repeated       The repeat condition of the task
      */
-    protected void uploadTask(String title, String description, int priority, String location, WeatherCondition weatherTrigger) {
+    protected void uploadTask(String title, String description, int priority, String location, WeatherCondition weatherTrigger, String repeated) {
         if (edit) {
             Task task = (Task) getIntent().getSerializableExtra("t");
             task.setName(title);
@@ -200,9 +232,10 @@ public class CreateTaskActivity extends AppCompatActivity {
             task.setLocation(location);
             task.setWeatherTrigger(weatherTrigger);
             task.setPriority(priority);
+            task.setRepeated(repeated);
             db.updateTask(task);
         } else {
-            Task task = new Task(title, description, priority, "", location, weatherTrigger, System.currentTimeMillis());
+            Task task = new Task(title, description, priority, "", location, weatherTrigger, System.currentTimeMillis(), repeated);
             db.uploadTask(task);
         }
     }
