@@ -13,7 +13,6 @@ import com.CSCI3130.gardenapp.util.data.User;
 import com.CSCI3130.gardenapp.util.db.TaskDatabase;
 import java.util.ArrayList;
 
-
 /**
  * Activity class to process the task data and populate the task list
  *
@@ -96,10 +95,10 @@ public class TaskViewList extends AppCompatActivity {
     }
 
     /***
-     * This method used to filter the result what user expected.
-     * @param requestCode
-     * @param resultCode
-     * @param data
+     * onActivityResult method used to filter the result what user expected.
+     * @param requestCode Indicate the source of the request
+     * @param resultCode Indicate which activity the returned data comes from
+     * @param data Data pass
      */
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {

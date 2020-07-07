@@ -31,9 +31,6 @@ public class TaskDatabase {
      */
     protected Query dbRead;
 
-    /***
-     * ArrayList, save all tasks
-     */
     private ArrayList<Task> allTasks = new ArrayList<>();
 
     /**

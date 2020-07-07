@@ -29,7 +29,9 @@ public class FilterPopUp extends Activity {
         setContentView(R.layout.filter);
     }
 
-    //clearMethod, click the Clear button, perform the clear function
+    /***
+     * clearMethod, click the Clear button, perform the clear function
+     */
     public void clearMethod(View view) {
         Button startDate = findViewById(R.id.startDateButton);
         Button endDate = findViewById(R.id.endDateButton);
@@ -71,7 +73,10 @@ public class FilterPopUp extends Activity {
         finish();
     }
 
-    //selectCalendar, used to call the DatePicker, select dates
+    /***
+     * selectCalendar, used to call the DatePicker, select dates
+     * @param view define which date select button to use
+     */
     public void selectCalendar(final View view) {
         final Button startDate = findViewById(R.id.startDateButton);
         final Button endDate = findViewById(R.id.endDateButton);
