@@ -63,73 +63,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editTitle" />
 
-    <EditText
-        android:id="@+id/editLocation"
-        style="@style/InputHint"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        android:ems="10"
-        android:hint="@string/location_hint"
-        android:inputType="textPostalAddress"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/buttonPriority3" />
-
-    <TextView
-        android:id="@+id/textPriorityTitle"
-        android:layout_width="174dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:text="@string/textPriorityTitle"
-        android:textAppearance="@style/InputHint"
-        android:textColor="@android:color/darker_gray"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editDescription" />
-
-    <TextView
-        android:id="@+id/textWeatherTitle"
-        android:layout_width="174dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:text="Weather Trigger"
-        android:textAppearance="@style/InputHint"
-        android:textColor="@android:color/darker_gray"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editLocation" />
-
-    <TextView
-        android:id="@+id/textErrorText"
-        android:layout_width="174dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        android:fontFamily="@font/redhatdisplay"
-        android:textAppearance="@style/InputHint"
-        android:textColor="#F44336"
-        android:textSize="18sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editDescription"
-        tools:text="Error Text" />
-
-    <Button
-        android:id="@+id/buttonPriority1"
-        style="@style/priority"
-        android:layout_width="66dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="8dp"
-        android:background="@color/colorPriority1"
-        android:onClick="onPriorityCheck"
-        android:text="1"
-        android:textColor="#FFFFFF"
-        app:layout_constraintEnd_toStartOf="@+id/buttonPriority2"
-        app:layout_constraintTop_toBottomOf="@+id/textPriorityTitle" />
-    <com.google.android.material.button.MaterialButtonToggleGroup
+        <com.google.android.material.button.MaterialButtonToggleGroup
             android:id="@+id/priorityButtons"
             android:layout_width="match_parent"
             android:onClick="onPriorityCheck"
@@ -269,7 +203,7 @@
         android:spinnerMode="dropdown"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textWeatherTitle" />
+        app:layout_constraintTop_toBottomOf="@+id/taskTypesToggleGroup" />
     <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
