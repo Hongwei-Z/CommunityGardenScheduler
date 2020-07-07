@@ -53,15 +53,8 @@ public class RepeatDropdownUITest {
 
     @Test
     public void testDropdown() {
+        onView(withId(R.id.repeatTypeButton)).perform(click());
         //click first item
-        onView(withId(R.id.repeatSpinner)).perform(click());
-        onData(allOf(is(instanceOf(String.class)), is("Do not repeat"))).perform(click());
-
-        //check if item was successfully selected
-        onView(withId(R.id.repeatSpinner))
-                .check(matches(withSpinnerText(containsString("Do not repeat"))));
-
-        //click second item
         onView(withId(R.id.repeatSpinner)).perform(click());
         onData(allOf(is(instanceOf(String.class)), is("Repeat every 2 days"))).perform(click());
 
@@ -70,7 +63,7 @@ public class RepeatDropdownUITest {
                 .check(matches(withSpinnerText(containsString("Repeat every 2 days"))));
 
 
-        //click third item
+        //click second item
         onView(withId(R.id.repeatSpinner)).perform(click());
         onData(allOf(is(instanceOf(String.class)), is("Repeat every week"))).perform(click());
 
@@ -78,16 +71,12 @@ public class RepeatDropdownUITest {
         onView(withId(R.id.repeatSpinner))
                 .check(matches(withSpinnerText(containsString("Repeat every week"))));
 
-        //click fourth item
+        //click third  item
         onView(withId(R.id.repeatSpinner)).perform(click());
         onData(allOf(is(instanceOf(String.class)), is("Repeat every month"))).perform(click());
 
         //check if item was successfully selected
         onView(withId(R.id.repeatSpinner))
                 .check(matches(withSpinnerText(containsString("Repeat every month"))));
-
-
-
-
     }
 }

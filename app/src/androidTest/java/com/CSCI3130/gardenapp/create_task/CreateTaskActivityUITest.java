@@ -57,7 +57,7 @@ public class CreateTaskActivityUITest {
 
     @Test
     public void testCorrectInputs() {
-        Task task = TaskGenerator.generateTask(true);
+        Task task = TaskGenerator.generateTask(false, System.currentTimeMillis()+10000);
         //neat inputs
         onView(withId(R.id.editTitle)).perform(typeText(task.getName()), closeSoftKeyboard());
         onView(withId(R.id.editDescription)).perform(typeText(task.getDescription()), closeSoftKeyboard());
@@ -132,14 +132,14 @@ public class CreateTaskActivityUITest {
 
     @Test
     public void testRepeatedSelected() {
-        Task task = TaskGenerator.generateTask(false,"repeat-weekly" );
+        Task task = TaskGenerator.generateTask(false, "repeat-weekly");
         onView(withId(R.id.repeatTypeButton)).perform(click());
         onView(withId(R.id.editTitle)).perform(typeText(task.getName()), closeSoftKeyboard());
         onView(withId(R.id.editDescription)).perform(typeText(task.getDescription()), closeSoftKeyboard());
         onView(withId(R.id.editLocation)).perform(typeText(task.getLocation()), closeSoftKeyboard());
         clickCorrectPriority(task.getPriority());
-        onView(withId(R.id.weatherSpinner)).perform(click());
-        onData(allOf(is(instanceOf(String.class)), is("Hot"))).perform(click());
+        onView(withId(R.id.repeatSpinner)).perform(click());
+        onData(allOf(is(instanceOf(String.class)), is("Repeat every week"))).perform(click());
         onView(withId(R.id.buttonConfirmAdd)).perform(click());
         onView(withId(com.google.android.material.R.id.snackbar_text)).check(matches(withText("Success!")));
         testDB.checkForTask(task);

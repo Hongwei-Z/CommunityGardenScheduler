@@ -150,7 +150,7 @@ public class TaskListEspressoTests {
             onView(withRecyclerView(R.id.recycleview_tasks).atPosition(0))
                     .check(matches(hasDescendant(withText("Water plants now"))));
             onView(withRecyclerView(R.id.recycleview_tasks).atPosition(0))
-                    .check(matches(hasDescendant(withText("1"))));
+                    .check(matches(hasDescendant(withText("5"))));
             onView(withRecyclerView(R.id.recycleview_tasks).atPosition(0)).perform(click());
             Espresso.pressBack();
         } catch (InterruptedException e) {

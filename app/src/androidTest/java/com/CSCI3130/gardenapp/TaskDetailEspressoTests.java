@@ -10,6 +10,9 @@ import com.CSCI3130.gardenapp.create_task.CreateTaskActivity;
 import com.CSCI3130.gardenapp.util.DateFormatUtils;
 import com.CSCI3130.gardenapp.util.data.Task;
 import com.CSCI3130.gardenapp.util.data.TaskGenerator;
+import com.CSCI3130.gardenapp.util.db.TaskTestDatabase;
+
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -40,6 +43,7 @@ public class TaskDetailEspressoTests {
         i.putExtra(targetContext.getString(R.string.task_extra), task);
         rule.launchActivity(i);
     }
+
     // check if there is a complete button
     @Test
     public void clickButton() {

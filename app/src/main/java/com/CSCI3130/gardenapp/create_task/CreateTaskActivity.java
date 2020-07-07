@@ -1,9 +1,7 @@
 package com.CSCI3130.gardenapp.create_task;
 
 import android.content.Intent;
-import android.util.Log;
 import android.widget.ArrayAdapter;
-import android.content.Intent;
 import android.graphics.Color;
 import android.widget.Button;
 import android.widget.Spinner;
@@ -12,28 +10,21 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.*;
-import androidx.appcompat.app.AppCompatActivity;
 import com.CSCI3130.gardenapp.R;
 import com.CSCI3130.gardenapp.task_view_list.TaskViewList;
 import com.CSCI3130.gardenapp.util.data.CurrentWeather;
-import com.CSCI3130.gardenapp.task_view_list.TaskViewList;
 import com.CSCI3130.gardenapp.util.DateFormatUtils;
 import com.CSCI3130.gardenapp.util.data.Task;
 import com.CSCI3130.gardenapp.util.data.WeatherCondition;
 import com.CSCI3130.gardenapp.util.db.TaskDatabase;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.button.MaterialButtonToggleGroup;
-
 import android.app.DatePickerDialog;
 import android.widget.DatePicker;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
-
-
 import java.util.Objects;
 
 /**
@@ -53,6 +44,8 @@ public class CreateTaskActivity extends AppCompatActivity {
     private Button dateConditions;
     private Spinner repeatConditions;
     private Spinner weatherConditions;
+    private DatePickerDialog datePickerDialog;
+    private Calendar date;
 
     /**
      * Constructing the activity
@@ -83,6 +76,21 @@ public class CreateTaskActivity extends AppCompatActivity {
         dateConditions = findViewById(R.id.dueDate);
         repeatConditions = findViewById(R.id.repeatSpinner);
         weatherConditions = findViewById(R.id.weatherSpinner);
+
+        date = Calendar.getInstance();
+        Button dueDateButton = findViewById(R.id.dueDate);
+        int year = date.get(Calendar.YEAR);
+        int month = date.get(Calendar.MONTH);
+        int day = date.get(Calendar.DAY_OF_MONTH);
+        datePickerDialog = new DatePickerDialog(CreateTaskActivity.this, new DatePickerDialog.OnDateSetListener() {
+            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                date.set(Calendar.YEAR, year);
+                date.set(Calendar.MONTH, month);
+                date.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+                dueDateSelected = date.getTimeInMillis();
+                dueDateButton.setText("Due: " + DateFormatUtils.getDateFormatted(dueDateSelected));
+            }
+        }, year, month, day);
 
         if (edit) { // configures the UI to EDIT mode
             loadEditConfiguration((Task) Objects.requireNonNull(getIntent().getSerializableExtra(getString(R.string.task_extra))));
@@ -116,12 +124,24 @@ public class CreateTaskActivity extends AppCompatActivity {
             weatherConditions.setVisibility(View.INVISIBLE);
             Button dueDateButton = findViewById(R.id.dueDate);
             dueDateButton.setText("Due: " + DateFormatUtils.getDateFormatted(t.getDateDue()));
+            date.setTimeInMillis(t.getDateDue());
+           datePickerDialog.updateDate(date.get(Calendar.YEAR), date.get(Calendar.MONTH), date.get(Calendar.DAY_OF_MONTH));
         } else if (weatherFalse && dateFalse) {
             conditionsToggle.check(R.id.repeatTypeButton);
             dateConditions.setVisibility(View.INVISIBLE);
             repeatConditions.setVisibility(View.VISIBLE);
             weatherConditions.setVisibility(View.INVISIBLE);
-            repeatSpinner.setSelection(Arrays.asList(R.array.repeat_choice_array).indexOf(t.getRepeated()));
+            switch (t.getRepeated()) {
+                case "repeat-weekly":
+                    repeatSpinner.setSelection(1);
+                    break;
+                case "repeat-monthly":
+                    repeatSpinner.setSelection(2);
+                    break;
+                default:
+                    repeatSpinner.setSelection(0);
+                    break;
+            }
         } else if (dateFalse && repeatedFalse) {
             conditionsToggle.check(R.id.weatherTypeButton);
             dateConditions.setVisibility(View.INVISIBLE);
@@ -333,24 +353,13 @@ public class CreateTaskActivity extends AppCompatActivity {
         return errors;
     }
 
+    /**
+     * Used to open the Date Picker Dialog
+     *
+     * @param view
+     */
     public void openCalendar(View view) {
-        Button dueDateButton = findViewById(R.id.dueDate);
-        Calendar date = Calendar.getInstance();
-        int year = date.get(Calendar.YEAR);
-        int month = date.get(Calendar.MONTH);
-        int day = date.get(Calendar.DAY_OF_MONTH);
-        new DatePickerDialog(CreateTaskActivity.this, new DatePickerDialog.OnDateSetListener() {
-            public void onDateSet(DatePicker datePicker, int year, int month, int day) {
-                String date = (day < 10 ? ("0" + day) : day )+ "-" + (month+1< 10 ? ("0" + (month+1)) : month+1)+"-"+year;
-                long dateTimestamp = -1;
-                try {
-                    dateTimestamp= new SimpleDateFormat("dd-mm-yyyy").parse(date).getTime();
-                } catch (ParseException e) {
-                    e.printStackTrace();
-                }
-                dueDateSelected = dateTimestamp;
-                dueDateButton.setText("Due: " + date);
-            }
-        },year,month,day).show();
+        datePickerDialog.getDatePicker().setMinDate(System.currentTimeMillis() - 1000);
+        datePickerDialog.show();
     }
 }
