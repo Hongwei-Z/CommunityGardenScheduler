@@ -42,7 +42,7 @@ public class CreateTaskActivityTest {
 
     @Test
     public void testSuccessfulCreate() {
-        activity.uploadTask(title, description, 3, location, testWeatherCondition, "repeat-none");
+        activity.uploadTask(title, description, 3, location, testWeatherCondition, "repeat-none", System.currentTimeMillis());
         Task testTask = new Task(title, description, 3, "", location, System.currentTimeMillis(), "repeat-none");
         testTask.setWeatherTrigger(testWeatherCondition);
         Mockito.verify(db).uploadTask(testTask);
@@ -50,7 +50,7 @@ public class CreateTaskActivityTest {
 
     @Test
     public void testUnsuccessfulCreate() {
-        activity.uploadTask(title, "", 3, location, testWeatherCondition, "repeat-none");
+        activity.uploadTask(title, "", 3, location, testWeatherCondition,"repeat-none", System.currentTimeMillis());
     }
 
     @Test
@@ -58,7 +58,6 @@ public class CreateTaskActivityTest {
         Assert.assertEquals(errors, activity.verifyTask(
                 title,
                 description,
-                priority,
                 location));
     }
 
@@ -68,7 +67,6 @@ public class CreateTaskActivityTest {
         Assert.assertEquals(errors, activity.verifyTask(
                 "",
                 description,
-                priority,
                 location));
     }
 
@@ -78,17 +76,6 @@ public class CreateTaskActivityTest {
         Assert.assertEquals(errors, activity.verifyTask(
                 title,
                 "",
-                priority,
-                location));
-    }
-
-    @Test
-    public void testMissingPriority() {
-        errors.add(CreateTaskError.MISSING_PRIORITY);
-        Assert.assertEquals(errors, activity.verifyTask(
-                title,
-                description,
-                -1,
                 location));
     }
 
@@ -98,7 +85,6 @@ public class CreateTaskActivityTest {
         Assert.assertEquals(errors, activity.verifyTask(
                 title,
                 description,
-                priority,
                 ""));
     }
 
@@ -106,7 +92,7 @@ public class CreateTaskActivityTest {
     public void testMultipleErrors(){
         errors.add(CreateTaskError.MISSING_LOCATION);
         errors.add(CreateTaskError.MISSING_TITLE);
-        Assert.assertTrue(activity.verifyTask("", description, priority, "").containsAll(errors));
+        Assert.assertTrue(activity.verifyTask("", description, "").containsAll(errors));
     }
 
 

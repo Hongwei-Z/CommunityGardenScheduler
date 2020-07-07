@@ -1,6 +1,9 @@
 package com.CSCI3130.gardenapp.create_task;
 
+import android.widget.DatePicker;
+
 import androidx.test.espresso.Espresso;
+import androidx.test.espresso.contrib.PickerActions;
 import androidx.test.filters.LargeTest;
 import androidx.test.rule.ActivityTestRule;
 import com.CSCI3130.gardenapp.R;
@@ -9,7 +12,11 @@ import com.CSCI3130.gardenapp.util.data.TaskGenerator;
 import com.CSCI3130.gardenapp.util.data.WeatherCondition;
 import com.CSCI3130.gardenapp.util.data.TaskGenerator;
 import com.CSCI3130.gardenapp.util.db.TaskTestDatabase;
+
+import org.hamcrest.Matchers;
 import org.junit.*;
+
+import static org.hamcrest.Matchers.not;
 import static org.hamcrest.core.Is.is;
 import static org.hamcrest.core.AllOf.allOf;
 import static org.hamcrest.core.IsInstanceOf.instanceOf;
@@ -100,21 +107,8 @@ public class CreateTaskActivityUITest {
     }
 
     @Test
-    public void testMissingPriority() {
-        Task task = TaskGenerator.generateTask(true);
-        onView(withId(R.id.editTitle)).perform(typeText(task.getName()), closeSoftKeyboard());
-        onView(withId(R.id.editDescription)).perform(typeText(task.getDescription()), closeSoftKeyboard());
-        onView(withId(R.id.editLocation)).perform(typeText(task.getLocation()), closeSoftKeyboard());
-        onView(withId(R.id.buttonConfirmAdd)).perform(click());
-
-        onView(withId(R.id.textErrorText)).check(matches(withText("Missing Priority")));
-        testDB.ensureNoDatabaseActivity();
-    }
-
-    @Test
     public void testAllError() {
         onView(withId(R.id.buttonConfirmAdd)).perform(click());
-        onView(withId(R.id.textErrorText)).check(matches(withText("Missing Priority")));
         onView(withId(R.id.editLocation)).check(matches(hasErrorText("Missing Location")));
         onView(withId(R.id.editDescription)).check(matches(hasErrorText("Missing Description")));
         onView(withId(R.id.editTitle)).check(matches(hasErrorText("Missing Title")));
@@ -124,6 +118,7 @@ public class CreateTaskActivityUITest {
     @Test
     public void testWeatherSelected() {
         Task task = TaskGenerator.generateTask(false, WeatherCondition.HOT);
+        onView(withId(R.id.weatherTypeButton)).perform(click());
         onView(withId(R.id.editTitle)).perform(typeText(task.getName()), closeSoftKeyboard());
         onView(withId(R.id.editDescription)).perform(typeText(task.getDescription()), closeSoftKeyboard());
         onView(withId(R.id.editLocation)).perform(typeText(task.getLocation()), closeSoftKeyboard());
@@ -134,4 +129,57 @@ public class CreateTaskActivityUITest {
         onView(withId(com.google.android.material.R.id.snackbar_text)).check(matches(withText("Success!")));
         testDB.checkForTask(task);
     }
+
+    @Test
+    public void testRepeatedSelected() {
+        Task task = TaskGenerator.generateTask(false,"repeat-weekly" );
+        onView(withId(R.id.repeatTypeButton)).perform(click());
+        onView(withId(R.id.editTitle)).perform(typeText(task.getName()), closeSoftKeyboard());
+        onView(withId(R.id.editDescription)).perform(typeText(task.getDescription()), closeSoftKeyboard());
+        onView(withId(R.id.editLocation)).perform(typeText(task.getLocation()), closeSoftKeyboard());
+        clickCorrectPriority(task.getPriority());
+        onView(withId(R.id.weatherSpinner)).perform(click());
+        onData(allOf(is(instanceOf(String.class)), is("Hot"))).perform(click());
+        onView(withId(R.id.buttonConfirmAdd)).perform(click());
+        onView(withId(com.google.android.material.R.id.snackbar_text)).check(matches(withText("Success!")));
+        testDB.checkForTask(task);
+    }
+
+    @Test
+    public void testDueDate() {
+        Task task = TaskGenerator.generateTask(false, 1598350371000L);
+        onView(withId(R.id.dateTypeButton)).perform(click());
+        onView(withId(R.id.editTitle)).perform(typeText(task.getName()), closeSoftKeyboard());
+        onView(withId(R.id.editDescription)).perform(typeText(task.getDescription()), closeSoftKeyboard());
+        onView(withId(R.id.editLocation)).perform(typeText(task.getLocation()), closeSoftKeyboard());
+        clickCorrectPriority(task.getPriority());
+        onView(withId(R.id.dueDate)).perform(click());
+        onView(withClassName(Matchers.equalTo(DatePicker.class.getName()))).perform(PickerActions.setDate(2020, 8, 25));
+        onView(withText("OK")).perform(click());
+        onView(withId(R.id.buttonConfirmAdd)).perform(click());
+        testDB.checkForTask(task);
+    }
+
+    @Test
+    public void testConditionToggle() {
+        onView(withId(R.id.dueDate)).check(matches(isDisplayed()));
+        onView(withId(R.id.weatherSpinner)).check(matches(not(isDisplayed())));
+        onView(withId(R.id.repeatSpinner)).check(matches(not(isDisplayed())));
+
+        onView(withId(R.id.repeatTypeButton)).perform(click());
+        onView(withId(R.id.repeatSpinner)).check(matches(isDisplayed()));
+        onView(withId(R.id.dueDate)).check(matches(not(isDisplayed())));
+        onView(withId(R.id.weatherSpinner)).check(matches(not(isDisplayed())));
+
+        onView(withId(R.id.weatherTypeButton)).perform(click());
+        onView(withId(R.id.weatherSpinner)).check(matches(isDisplayed()));
+        onView(withId(R.id.dueDate)).check(matches(not(isDisplayed())));
+        onView(withId(R.id.repeatSpinner)).check(matches(not(isDisplayed())));
+
+        onView(withId(R.id.dateTypeButton)).perform(click());
+        onView(withId(R.id.dueDate)).check(matches(isDisplayed()));
+        onView(withId(R.id.weatherSpinner)).check(matches(not(isDisplayed())));
+        onView(withId(R.id.repeatSpinner)).check(matches(not(isDisplayed())));
+    }
+
 }
