@@ -3,7 +3,10 @@ package com.CSCI3130.gardenapp;
 import androidx.test.rule.ActivityTestRule;
 
 import com.CSCI3130.gardenapp.util.db.DatabaseAuth;
-import org.junit.*;
+
+import org.junit.Before;
+import org.junit.Rule;
+import org.junit.Test;
 
 import static androidx.test.espresso.Espresso.closeSoftKeyboard;
 import static androidx.test.espresso.Espresso.onView;
@@ -35,7 +38,7 @@ public class SignUpEspressoTests {
 
     //test for empty first name error
     @Test
-    public void empty_fname_test(){
+    public void empty_fname_test() {
         onView(withId(R.id.firstNameTxt_signup))
                 .perform(typeText(blank));
         closeSoftKeyboard();
@@ -59,7 +62,7 @@ public class SignUpEspressoTests {
 
     //test for empty last name error
     @Test
-    public void empty_lname_test(){
+    public void empty_lname_test() {
         onView(withId(R.id.firstNameTxt_signup))
                 .perform(typeText(valid_name));
         closeSoftKeyboard();
@@ -83,7 +86,7 @@ public class SignUpEspressoTests {
 
     //test for empty email address error
     @Test
-    public void empty_email_test(){
+    public void empty_email_test() {
         onView(withId(R.id.firstNameTxt_signup))
                 .perform(typeText(valid_name));
         closeSoftKeyboard();
@@ -107,7 +110,7 @@ public class SignUpEspressoTests {
 
     //test for invalid email address error
     @Test
-    public void invalid_email_test(){
+    public void invalid_email_test() {
         onView(withId(R.id.firstNameTxt_signup))
                 .perform(typeText(valid_name));
         closeSoftKeyboard();
@@ -131,7 +134,7 @@ public class SignUpEspressoTests {
 
     //test for empty password error
     @Test
-    public void empty_pass_test(){
+    public void empty_pass_test() {
         onView(withId(R.id.firstNameTxt_signup))
                 .perform(typeText(valid_name));
         closeSoftKeyboard();
@@ -155,7 +158,7 @@ public class SignUpEspressoTests {
 
     //test for invalid password error
     @Test
-    public void invalid_pass_test(){
+    public void invalid_pass_test() {
         onView(withId(R.id.firstNameTxt_signup))
                 .perform(typeText(valid_name));
         closeSoftKeyboard();
@@ -179,7 +182,7 @@ public class SignUpEspressoTests {
 
     //test for empty password confirmation error
     @Test
-    public void empty_pass_conf_test(){
+    public void empty_pass_conf_test() {
         onView(withId(R.id.firstNameTxt_signup))
                 .perform(typeText(valid_name));
         closeSoftKeyboard();
@@ -203,7 +206,7 @@ public class SignUpEspressoTests {
 
     //test for password mismatch error
     @Test
-    public void pass_mismatch_test(){
+    public void pass_mismatch_test() {
         onView(withId(R.id.firstNameTxt_signup))
                 .perform(typeText(valid_name));
         closeSoftKeyboard();

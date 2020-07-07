@@ -77,7 +77,7 @@ public class MyTaskListEspressoTests {
             onView(withRecyclerView(R.id.recycleview_tasks).atPosition(1)).check(doesNotExist());
             onView(withRecyclerView(R.id.recycleview_tasks).atPosition(0)).check(matches(hasDescendant(withText("My Task"))));
             onView(withRecyclerView(R.id.recycleview_tasks).atPosition(0))
-                    .check(matches(hasDescendant(withText("Due: "+ DateFormatUtils.getDateFormatted(currentDate)))));
+                    .check(matches(hasDescendant(withText("Due: " + DateFormatUtils.getDateFormatted(currentDate)))));
             onView(withRecyclerView(R.id.recycleview_tasks).atPosition(0))
                     .check(matches(hasDescendant(withId(R.id.task_user_profile))));
             onView(withRecyclerView(R.id.recycleview_tasks).atPosition(0)).perform(click());

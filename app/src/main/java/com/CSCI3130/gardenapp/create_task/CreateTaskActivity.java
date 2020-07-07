@@ -1,26 +1,28 @@
 package com.CSCI3130.gardenapp.create_task;
 
+import android.app.DatePickerDialog;
 import android.content.Intent;
-import android.widget.ArrayAdapter;
 import android.graphics.Color;
-import android.widget.Button;
-import android.widget.Spinner;
-import android.widget.TextView;
-import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.*;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.DatePicker;
+import android.widget.EditText;
+import android.widget.Spinner;
+import android.widget.TextView;
+
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.CSCI3130.gardenapp.R;
 import com.CSCI3130.gardenapp.task_view_list.TaskViewList;
-import com.CSCI3130.gardenapp.util.data.CurrentWeather;
 import com.CSCI3130.gardenapp.util.DateFormatUtils;
+import com.CSCI3130.gardenapp.util.data.CurrentWeather;
 import com.CSCI3130.gardenapp.util.data.Task;
 import com.CSCI3130.gardenapp.util.data.WeatherCondition;
 import com.CSCI3130.gardenapp.util.db.TaskDatabase;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.button.MaterialButtonToggleGroup;
-import android.app.DatePickerDialog;
-import android.widget.DatePicker;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -40,7 +42,7 @@ public class CreateTaskActivity extends AppCompatActivity {
     private long dueDateSelected = System.currentTimeMillis();
     private boolean edit;
     private Spinner repeatSpinner;
-    private MaterialButtonToggleGroup conditionsToggle ;
+    private MaterialButtonToggleGroup conditionsToggle;
     private Button dateConditions;
     private Spinner repeatConditions;
     private Spinner weatherConditions;
@@ -117,7 +119,7 @@ public class CreateTaskActivity extends AppCompatActivity {
         boolean weatherFalse = t.getWeatherTrigger().equals(WeatherCondition.NONE);
         boolean dateFalse = t.getDateDue() == -1;
 
-        if (repeatedFalse && weatherFalse){
+        if (repeatedFalse && weatherFalse) {
             conditionsToggle.check(R.id.dateTypeButton);
             dateConditions.setVisibility(View.VISIBLE);
             repeatConditions.setVisibility(View.INVISIBLE);
@@ -125,7 +127,7 @@ public class CreateTaskActivity extends AppCompatActivity {
             Button dueDateButton = findViewById(R.id.dueDate);
             dueDateButton.setText("Due: " + DateFormatUtils.getDateFormatted(t.getDateDue()));
             date.setTimeInMillis(t.getDateDue());
-           datePickerDialog.updateDate(date.get(Calendar.YEAR), date.get(Calendar.MONTH), date.get(Calendar.DAY_OF_MONTH));
+            datePickerDialog.updateDate(date.get(Calendar.YEAR), date.get(Calendar.MONTH), date.get(Calendar.DAY_OF_MONTH));
         } else if (weatherFalse && dateFalse) {
             conditionsToggle.check(R.id.repeatTypeButton);
             dateConditions.setVisibility(View.INVISIBLE);
@@ -215,7 +217,7 @@ public class CreateTaskActivity extends AppCompatActivity {
         priority4.setBackgroundColor(Color.TRANSPARENT);
         MaterialButton priority5 = findViewById(R.id.buttonPriority5);
         priority5.setBackgroundColor(Color.TRANSPARENT);
-        switch (selected){
+        switch (selected) {
             case 1:
                 priority1.setBackgroundColor(getColor(R.color.colorPriority1));
                 break;

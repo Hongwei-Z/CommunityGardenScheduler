@@ -147,7 +147,7 @@ public class TaskDatabase {
                         if (trigger != WeatherCondition.NONE) {
                             //if this task's weather trigger does not match those of the current weather conditions, throw it down to the bottom of the queue
                             ArrayList<WeatherCondition> currList = CurrentWeather.currentWeatherList;
-                            if (CurrentWeather.currentWeatherList.contains(trigger)) {
+                            if (currList.contains(trigger)) {
                                 allTasks.remove(curr);
                                 allTasks.add(0, curr);
                             } else {

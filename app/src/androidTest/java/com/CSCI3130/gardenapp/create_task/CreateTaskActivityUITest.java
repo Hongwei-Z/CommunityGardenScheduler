@@ -2,31 +2,37 @@ package com.CSCI3130.gardenapp.create_task;
 
 import android.widget.DatePicker;
 
-import androidx.test.espresso.Espresso;
 import androidx.test.espresso.contrib.PickerActions;
 import androidx.test.filters.LargeTest;
 import androidx.test.rule.ActivityTestRule;
+
 import com.CSCI3130.gardenapp.R;
 import com.CSCI3130.gardenapp.util.data.Task;
 import com.CSCI3130.gardenapp.util.data.TaskGenerator;
 import com.CSCI3130.gardenapp.util.data.WeatherCondition;
-import com.CSCI3130.gardenapp.util.data.TaskGenerator;
 import com.CSCI3130.gardenapp.util.db.TaskTestDatabase;
 
 import org.hamcrest.Matchers;
-import org.junit.*;
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Rule;
+import org.junit.Test;
 
-import static org.hamcrest.Matchers.not;
-import static org.hamcrest.core.Is.is;
-import static org.hamcrest.core.AllOf.allOf;
-import static org.hamcrest.core.IsInstanceOf.instanceOf;
 import static androidx.test.espresso.Espresso.onData;
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.click;
 import static androidx.test.espresso.action.ViewActions.closeSoftKeyboard;
 import static androidx.test.espresso.action.ViewActions.typeText;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
-import static androidx.test.espresso.matcher.ViewMatchers.*;
+import static androidx.test.espresso.matcher.ViewMatchers.hasErrorText;
+import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
+import static androidx.test.espresso.matcher.ViewMatchers.withClassName;
+import static androidx.test.espresso.matcher.ViewMatchers.withId;
+import static androidx.test.espresso.matcher.ViewMatchers.withText;
+import static org.hamcrest.Matchers.not;
+import static org.hamcrest.core.AllOf.allOf;
+import static org.hamcrest.core.Is.is;
+import static org.hamcrest.core.IsInstanceOf.instanceOf;
 
 
 @LargeTest
@@ -37,7 +43,7 @@ public class CreateTaskActivityUITest {
     private CreateTaskActivity activity;
 
     @Before
-    public void setUp(){
+    public void setUp() {
         activityScenarioRule.launchActivity(null);
         testDB = new TaskTestDatabase();
         activity = activityScenarioRule.getActivity();
@@ -57,7 +63,7 @@ public class CreateTaskActivityUITest {
 
     @Test
     public void testCorrectInputs() {
-        Task task = TaskGenerator.generateTask(false, System.currentTimeMillis()+10000);
+        Task task = TaskGenerator.generateTask(false, System.currentTimeMillis() + 10000);
         //neat inputs
         onView(withId(R.id.editTitle)).perform(typeText(task.getName()), closeSoftKeyboard());
         onView(withId(R.id.editDescription)).perform(typeText(task.getDescription()), closeSoftKeyboard());
