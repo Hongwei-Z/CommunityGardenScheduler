@@ -76,12 +76,12 @@
             android:layout_marginLeft="20dp"
             android:clickable="true"
             app:singleSelection="true"
-            app:checkedButton="@id/priorityButton1"
+            app:checkedButton="@id/buttonPriority1"
             android:backgroundTint="@color/colorPriority1"
             >
 
         <com.google.android.material.button.MaterialButton
-                android:id="@+id/priorityButton1"
+                android:id="@+id/buttonPriority1"
             android:text="1"
                 android:onClick="onPriorityCheck"
             app:strokeColor="@color/colorPriority1"
@@ -192,34 +192,34 @@
             android:textColor="@android:color/darker_gray"
             app:layout_constraintTop_toBottomOf="@+id/editDescription"
             app:layout_constraintStart_toStartOf="@+id/priorityButtons"
-            app:layout_constraintEnd_toStartOf="@+id/textErrorText"
-            android:layout_marginEnd="8dp"
+        android:layout_marginEnd="8dp"
             android:layout_marginTop="16dp"/>
 
     <Spinner
+        android:visibility="invisible"
+        android:id="@+id/repeatSpinner"
+        android:layout_width="0dp"
+        android:layout_height="38dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/taskTypesToggleGroup"
+        />
+
+    <Spinner
+        android:visibility="invisible"
         android:id="@+id/weatherSpinner"
         android:layout_width="0dp"
         android:layout_height="38dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="20dp"
         android:layout_marginEnd="16dp"
         android:spinnerMode="dropdown"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/taskTypesToggleGroup" />
-    <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:id="@+id/textErrorText"
-            app:layout_constraintStart_toEndOf="@+id/textPriorityTitle"
-            app:layout_constraintEnd_toEndOf="@+id/priorityButtons"
-            app:layout_constraintBottom_toBottomOf="@+id/textPriorityTitle"
-            app:layout_constraintTop_toTopOf="@+id/textPriorityTitle"
-            tools:text="Error Text"
-            android:textSize="18sp"
-            android:fontFamily="@font/redhatdisplay"
-            android:textAppearance="@style/InputHint"
-            android:textColor="#F44336"/>
 
     <com.google.android.material.button.MaterialButtonToggleGroup
             android:layout_height="wrap_content"
@@ -240,6 +240,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Date"
+                android:onClick="ontoggleCondition"
                 />
 
         <com.google.android.material.button.MaterialButton
@@ -249,6 +250,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Weather"
+            android:onClick="ontoggleCondition"
                 />
 
         <com.google.android.material.button.MaterialButton
@@ -258,6 +260,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Repeat"
+            android:onClick="ontoggleCondition"
                 />
     </com.google.android.material.button.MaterialButtonToggleGroup>
 

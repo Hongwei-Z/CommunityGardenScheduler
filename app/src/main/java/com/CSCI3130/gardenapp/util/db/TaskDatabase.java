@@ -149,11 +149,9 @@ public class TaskDatabase {
                             ArrayList<WeatherCondition> currList = CurrentWeather.currentWeatherList;
                             if (CurrentWeather.currentWeatherList.contains(trigger)) {
                                 allTasks.remove(curr);
-                                curr.setPriority(1);
                                 allTasks.add(0, curr);
                             } else {
                                 allTasks.remove(curr);
-                                curr.setPriority(5);
                                 allTasks.add(allTasks.size(), curr);
                             }
                         }

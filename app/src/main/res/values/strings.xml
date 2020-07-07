@@ -7,7 +7,7 @@
     <string name="Complete">Complete</string>
     <string name="CompleteMessage">Task Completed</string>
     <string-array name="repeat_choice_array">
-        <item>Do not repeat</item>
+        <item>Do not Repeat</item>
         <item>Repeat every 2 days</item>
         <item>Repeat every week</item>
         <item>Repeat every month</item>

@@ -6,10 +6,10 @@ package com.CSCI3130.gardenapp.util.data;
  * @author Arjav Gupta
  */
 public enum WeatherCondition {
-    NONE,
     RAIN,
     DRY,
     COLD,
     HOT,
-    WINDY
+    WINDY,
+    NONE,
 }
