@@ -20,6 +20,7 @@ public class Task implements Serializable {
     private String repeated;
     private boolean open;
     private String taskID;
+    private int notificationID;
     private WeatherCondition weatherTrigger;
 
     /**

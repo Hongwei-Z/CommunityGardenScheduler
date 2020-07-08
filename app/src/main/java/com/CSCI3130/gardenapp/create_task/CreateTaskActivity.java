@@ -1,7 +1,6 @@
 package com.CSCI3130.gardenapp.create_task;
 
 import android.content.Intent;
-import android.util.Log;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
@@ -10,7 +9,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.*;
-import androidx.appcompat.app.AppCompatActivity;
 import com.CSCI3130.gardenapp.R;
 import com.CSCI3130.gardenapp.task_view_list.TaskViewList;
 import com.CSCI3130.gardenapp.util.data.CurrentWeather;
@@ -30,7 +28,6 @@ import java.util.Objects;
 public class CreateTaskActivity extends AppCompatActivity {
     TaskDatabase db;
     Spinner weatherSpinner;
-    ArrayList<CharSequence> weatherConditions = CurrentWeather.possibleWeatherConditions;
     ArrayAdapter<CharSequence> adapter;
     private int current_priority;
     private boolean edit;
@@ -165,9 +162,6 @@ public class CreateTaskActivity extends AppCompatActivity {
 
         //get repeat condition of task
         switch (repeatSpinner.getSelectedItemPosition()) {
-            case 0:
-                repeated = "repeat-none";
-                break;
             case 1:
                 repeated = "repeat-2day";
                 break;

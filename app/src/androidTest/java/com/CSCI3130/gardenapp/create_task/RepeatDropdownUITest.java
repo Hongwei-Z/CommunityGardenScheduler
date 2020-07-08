@@ -37,6 +37,7 @@ public class RepeatDropdownUITest {
     public ActivityTestRule<CreateTaskActivity> activityScenarioRule = new ActivityTestRule<CreateTaskActivity>(CreateTaskActivity.class, true, false);
     public TaskTestDatabase testDB;
     private CreateTaskActivity activity;
+
     @Before
     public void setUp(){
         activityScenarioRule.launchActivity(null);
