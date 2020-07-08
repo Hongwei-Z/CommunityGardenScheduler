@@ -108,8 +108,8 @@ public class FilterPopUp extends Activity {
      * @param view - view of button pressed
      */
     public void selectCalendar(final View view){
-        Button startBtn = (Button) findViewById(R.id.startDateButton);
-        Button endBtn = (Button) findViewById(R.id.endDateButton);
+        Button startBtn = findViewById(R.id.startDateButton);
+        Button endBtn = findViewById(R.id.endDateButton);
         Calendar date = Calendar.getInstance();
         int year = date.get(Calendar.YEAR);
         int month = date.get(Calendar.MONTH);
