@@ -33,22 +33,17 @@ public class TaskDetailEspressoTests {
 
     @Before
     public void before() {
-        task = TaskGenerator.generateTask(false);
+        task = TaskGenerator.generateTask(false, System.currentTimeMillis());
         Context targetContext = InstrumentationRegistry.getInstrumentation().getTargetContext();
         Intent i = new Intent(targetContext, TaskDetailInfo.class);
         i.putExtra(targetContext.getString(R.string.task_extra), task);
         rule.launchActivity(i);
     }
 
-    // check if there is a complete button
-    @Test
-    public void clickButton() {
-        onView(withId(R.id.buttonComplete)).check(matches(isDisplayed()));
-    }
 
     // check if there is a edit button
     @Test
-    public void clickEdit() {
+    public void checkEdit() {
         onView(withId(R.id.buttonEdit)).check(matches(isDisplayed()));
     }
 
@@ -61,11 +56,10 @@ public class TaskDetailEspressoTests {
         onView(withId(R.id.taskDuedate)).check(matches(withText("Due on: " + DateFormatUtils.getDateFormatted(task.getDateDue()))));
     }
 
-    // test toast message shown when click on complete button
+    // checks if complete button exists
     @Test
-    public void ShowComplete() {
+    public void checkComplete() {
         onView(allOf(withText(R.string.Complete), instanceOf(Button.class)))
-                .check(matches(isDisplayed()))
-                .perform(click());
+                .check(matches(isDisplayed()));
     }
 }
