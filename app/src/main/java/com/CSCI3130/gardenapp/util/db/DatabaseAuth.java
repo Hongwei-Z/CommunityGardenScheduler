@@ -1,8 +1,8 @@
 package com.CSCI3130.gardenapp.util.db;
 
-import com.CSCI3130.gardenapp.util.data.User;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
+        import com.CSCI3130.gardenapp.util.data.User;
+        import com.google.firebase.auth.FirebaseAuth;
+        import com.google.firebase.auth.FirebaseUser;
 
 /**
  * Global utility class for common authentication methods

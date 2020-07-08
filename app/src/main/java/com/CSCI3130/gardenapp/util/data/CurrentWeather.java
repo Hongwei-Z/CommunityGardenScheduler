@@ -29,7 +29,7 @@ public class CurrentWeather {
     public static double humidity;
     public static double windSpeed;
     public static ArrayList<WeatherCondition> currentWeatherList = new ArrayList<WeatherCondition>();
-    public static ArrayList<CharSequence> possibleWeatherConditions = new ArrayList<>(Arrays.asList("None", "Rain", "Dry", "Cold", "Hot", "Windy"));
+    public static ArrayList<CharSequence> spinnerWeatherConditions = new ArrayList<>(Arrays.asList("Rain", "Dry", "Cold", "Hot", "Windy"));
     private static RequestQueue mQueue;
 
 

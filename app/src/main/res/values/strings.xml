@@ -32,7 +32,6 @@
     <string name="channel_name">DueDate Notification</string>
     <string name="channel_description">Notifications for Duedate Notifications</string>
     <string-array name="repeat_choice_array">
-        <item>Do not repeat</item>
         <item>Repeat every 2 days</item>
         <item>Repeat every week</item>
         <item>Repeat every month</item>

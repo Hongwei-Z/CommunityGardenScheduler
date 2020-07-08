@@ -66,12 +66,16 @@ public class TaskDetailInfo extends AppCompatActivity {
         editButton = findViewById(R.id.buttonEdit);
         registerButton = findViewById(R.id.buttonRegister);
 
-
-
         taskTitle.setText(task.getName());
         description.setText(task.getDescription());
         location.setText(task.getLocation());
-        dueDate.setText("Due on: " + DateFormatUtils.getDateFormatted(task.getDateDue()));
+        if (task.getDateDue() == -1) {
+            dueDate.setText("");
+            dueDate.setVisibility(View.INVISIBLE);
+        }
+        else {
+            dueDate.setText("Due on: " + DateFormatUtils.getDateFormatted(task.getDateDue()));
+        }
         if (task.getRepeated() == null) {//if no repeat set (Legacy tasks)
             repeatCon.setText("");
             repeatCon.setVisibility(View.INVISIBLE);

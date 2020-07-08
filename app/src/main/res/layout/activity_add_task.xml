@@ -8,44 +8,42 @@
     tools:context=".create_task.CreateTaskActivity">
 
     <TextView
-            android:layout_width="228dp"
-            android:layout_height="wrap_content"
-            android:gravity="center_horizontal|center_vertical"
-            app:fontFamily="@font/redhatdisplay_bold"
-            android:id="@+id/textTitle"
-            android:textSize="36sp"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginTop="32dp"
-            android:text="@string/title"
-            android:textColor="#4CAF50"
-            android:fontFamily="@font/redhatdisplay_black"
-            android:textAppearance="@style/title"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginEnd="24dp"
-            android:layout_marginStart="24dp"
-            app:layout_constraintBottom_toTopOf="@+id/editTitle"
-            android:layout_marginBottom="32dp"
-            />
+        android:id="@+id/textTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginBottom="32dp"
+        android:fontFamily="@font/redhatdisplay_black"
+        android:gravity="center_horizontal|center_vertical"
+        android:text="@string/title"
+        android:textAppearance="@style/title"
+        android:textColor="#4CAF50"
+        android:textSize="36sp"
+        app:fontFamily="@font/redhatdisplay_bold"
+        app:layout_constraintBottom_toTopOf="@+id/editTitle"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:inputType="textPersonName"
-            android:ems="10"
-            android:id="@+id/editTitle"
-            app:layout_constraintStart_toStartOf="parent"
-            android:hint="@string/title_hint"
-            android:textColor="#FFFFFF"
-            android:typeface="normal"
-            android:textAppearance="@style/InputHint"
-            app:layout_constraintTop_toBottomOf="@+id/textTitle"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginStart="16dp"
-            android:layout_marginEnd="16dp"
-            app:layout_constraintBottom_toTopOf="@+id/editDescription"
-            android:layout_marginTop="16dp"
-            app:layout_constraintHorizontal_bias="0.0"/>
+        android:id="@+id/editTitle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:ems="10"
+        android:hint="@string/title_hint"
+        android:inputType="textPersonName"
+        android:textAppearance="@style/InputHint"
+        android:textColor="#FFFFFF"
+        android:typeface="normal"
+        app:layout_constraintBottom_toTopOf="@+id/editDescription"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textTitle" />
 
     <EditText
         android:id="@+id/editDescription"
@@ -64,139 +62,106 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editTitle" />
 
+    <com.google.android.material.button.MaterialButtonToggleGroup
+        android:id="@+id/priorityButtons"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginRight="20dp"
+        android:backgroundTint="@color/colorPriority1"
+        android:clickable="true"
+        android:onClick="onPriorityCheck"
+        app:checkedButton="@id/buttonPriority1"
+        app:layout_constraintEnd_toEndOf="@+id/editDescription"
+        app:layout_constraintStart_toStartOf="@+id/editDescription"
+        app:layout_constraintTop_toBottomOf="@+id/textPriorityTitle"
+        app:singleSelection="true">
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/buttonPriority1"
+            style="@style/priorityButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:onClick="onPriorityCheck"
+            android:text="1"
+            android:textColor="#FFFFFF"
+            app:rippleColor="@android:color/white"
+            app:strokeColor="@color/colorPriority1" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/buttonPriority2"
+            style="@style/priorityButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:onClick="onPriorityCheck"
+            android:text="2"
+            android:textColor="#FFFFFF"
+            app:rippleColor="@android:color/white"
+            app:strokeColor="@color/colorPriority2" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/buttonPriority3"
+            style="@style/priorityButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@color/colorPriority3"
+            android:onClick="onPriorityCheck"
+            android:text="3"
+            android:textColor="#FFFFFF"
+            app:rippleColor="@android:color/white"
+            app:strokeColor="@color/colorPriority3" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/buttonPriority4"
+            style="@style/priorityButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@color/colorPriority4"
+            android:onClick="onPriorityCheck"
+            android:text="4"
+            android:textColor="#FFFFFF"
+            app:rippleColor="@android:color/white"
+            app:strokeColor="@color/colorPriority4" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/buttonPriority5"
+            style="@style/priorityButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@color/colorPriority5"
+            android:onClick="onPriorityCheck"
+            android:text="5"
+            android:textColor="#FFFFFF"
+            app:rippleColor="@android:color/white"
+            app:strokeColor="@color/colorPriority5" />
+    </com.google.android.material.button.MaterialButtonToggleGroup>
+
+
     <EditText
         android:id="@+id/editLocation"
         style="@style/InputHint"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
+        android:layout_height="48dp"
         android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
         android:ems="10"
         android:hint="@string/location_hint"
         android:inputType="textPostalAddress"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/buttonPriority3" />
-
-    <TextView
-        android:id="@+id/textPriorityTitle"
-        android:layout_width="174dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:text="@string/textPriorityTitle"
-        android:textAppearance="@style/InputHint"
-        android:textColor="@android:color/darker_gray"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editDescription" />
-
-    <TextView
-        android:id="@+id/textWeatherTitle"
-        android:layout_width="174dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:text="Weather Trigger"
-        android:textAppearance="@style/InputHint"
-        android:textColor="@android:color/darker_gray"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editLocation" />
-
-    <TextView
-        android:id="@+id/textErrorText"
-        android:layout_width="174dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        android:fontFamily="@font/redhatdisplay"
-        android:textAppearance="@style/InputHint"
-        android:textColor="#F44336"
-        android:textSize="18sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editDescription"
-        tools:text="Error Text" />
-
-    <Button
-        android:id="@+id/buttonPriority1"
-        style="@style/priority"
-        android:layout_width="66dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="8dp"
-        android:background="@color/colorPriority1"
-        android:onClick="onPriorityCheck"
-        android:text="1"
-        android:textColor="#FFFFFF"
-        app:layout_constraintEnd_toStartOf="@+id/buttonPriority2"
-        app:layout_constraintTop_toBottomOf="@+id/textPriorityTitle" />
-
-    <Button
-        android:id="@+id/buttonPriority2"
-        style="@style/priority"
-        android:layout_width="66dp"
-        android:layout_height="48dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="8dp"
-        android:background="@color/colorPriority2"
-        android:onClick="onPriorityCheck"
-        android:text="2"
-        android:textColor="#FFFFFF"
-        app:layout_constraintEnd_toStartOf="@+id/buttonPriority3"
-        app:layout_constraintTop_toBottomOf="@+id/textPriorityTitle" />
-
-    <Button
-        android:id="@+id/buttonPriority3"
-        style="@style/priority"
-        android:layout_width="66dp"
-        android:layout_height="48dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        android:background="@color/colorPriority3"
-        android:onClick="onPriorityCheck"
-        android:text="3"
-        android:textColor="#FFFFFF"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textPriorityTitle" />
-
-    <Button
-        android:id="@+id/buttonPriority4"
-        style="@style/priority"
-        android:layout_width="66dp"
-        android:layout_height="48dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="16dp"
-        android:background="@color/colorPriority4"
-        android:onClick="onPriorityCheck"
-        android:text="4"
-        android:textColor="#FFFFFF"
-        app:layout_constraintStart_toEndOf="@+id/buttonPriority3"
-        app:layout_constraintTop_toBottomOf="@+id/textErrorText" />
-
-    <Button
-        android:id="@+id/buttonPriority5"
-        style="@style/priority"
-        android:layout_width="66dp"
-        android:layout_height="48dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="16dp"
-        android:background="@color/colorPriority5"
-        android:onClick="onPriorityCheck"
-        android:text="5"
-        android:textColor="#FFFFFF"
-        app:layout_constraintStart_toEndOf="@+id/buttonPriority4"
-        app:layout_constraintTop_toBottomOf="@+id/textErrorText" />
+        app:layout_constraintEnd_toEndOf="@+id/editDescription"
+        app:layout_constraintStart_toStartOf="@+id/editDescription"
+        app:layout_constraintTop_toBottomOf="@+id/priorityButtons" />
 
     <Button
         android:id="@+id/buttonConfirmAdd"
         style="@style/title"
-        android:layout_width="373dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="32dp"
+        android:layout_width="0dp"
+        android:layout_height="63dp"
+        android:layout_marginBottom="8dp"
         android:background="#4CAF50"
         android:onClick="onConfirm"
         android:text="@string/confirm_add_task"
@@ -204,30 +169,108 @@
         android:textColor="#FFFFFF"
         android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintEnd_toEndOf="@+id/editLocation"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="@+id/editLocation"
+        app:layout_constraintTop_toBottomOf="@+id/dueDate" />
+
+    <TextView
+        android:id="@+id/textPriorityTitle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="8dp"
+        android:text="@string/textPriorityTitle"
+        android:textAppearance="@style/InputHint"
+        android:textColor="@android:color/darker_gray"
+        app:layout_constraintStart_toStartOf="@+id/priorityButtons"
+        app:layout_constraintTop_toBottomOf="@+id/editDescription" />
+
     <Spinner
         android:id="@+id/repeatSpinner"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:layout_marginBottom="24dp"
-        app:layout_constraintBottom_toTopOf="@+id/buttonConfirmAdd"
-        app:layout_constraintTop_toBottomOf="@id/weatherSpinner"
-        app:layout_constraintEnd_toEndOf="@+id/editDescription"
-        app:layout_constraintStart_toStartOf="@+id/editDescription"
-        />
+        android:layout_height="38dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="16dp"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/taskTypesToggleGroup" />
 
     <Spinner
         android:id="@+id/weatherSpinner"
         android:layout_width="0dp"
         android:layout_height="38dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="20dp"
         android:layout_marginEnd="16dp"
         android:spinnerMode="dropdown"
+        android:visibility="invisible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textWeatherTitle" />
+        app:layout_constraintTop_toBottomOf="@+id/taskTypesToggleGroup" />
+
+    <com.google.android.material.button.MaterialButtonToggleGroup
+        android:id="@+id/taskTypesToggleGroup"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="8dp"
+        app:checkedButton="@id/dateTypeButton"
+        app:layout_constraintEnd_toEndOf="@+id/priorityButtons"
+        app:layout_constraintStart_toStartOf="@+id/priorityButtons"
+        app:layout_constraintTop_toBottomOf="@id/editLocation"
+        app:singleSelection="true">
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/dateTypeButton"
+            style="?attr/materialButtonOutlinedStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:onClick="onToggleCondition"
+            android:text="Date" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/weatherTypeButton"
+            style="?attr/materialButtonOutlinedStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:onClick="onToggleCondition"
+            android:text="Weather" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/repeatTypeButton"
+            style="?attr/materialButtonOutlinedStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:onClick="onToggleCondition"
+            android:text="Repeat" />
+    </com.google.android.material.button.MaterialButtonToggleGroup>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/dueDate"
+        style="@style/Widget.AppCompat.Button.Colored"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginRight="20dp"
+        android:onClick="openCalendar"
+        android:text="Condition Information"
+        android:textAlignment="viewStart"
+        android:textAllCaps="false"
+        android:textAppearance="@style/InputHint"
+        android:textColor="@android:color/darker_gray"
+        app:backgroundTint="@android:color/transparent"
+        app:layout_constraintEnd_toEndOf="@+id/editLocation"
+        app:layout_constraintStart_toStartOf="@+id/editLocation"
+        app:layout_constraintTop_toBottomOf="@+id/taskTypesToggleGroup"
+        app:strokeColor="@android:color/secondary_text_light"
+        app:strokeWidth="2dp" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
