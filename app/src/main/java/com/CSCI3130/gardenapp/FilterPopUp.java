@@ -10,6 +10,7 @@ import android.widget.DatePicker;
 import android.widget.Toast;
 
 import com.CSCI3130.gardenapp.task_view_list.TaskViewList;
+import com.CSCI3130.gardenapp.util.DateFormatUtils;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -31,7 +32,7 @@ public class FilterPopUp extends Activity {
         dateBetween = new ArrayList<>(2);
 
         //to avoid null pointer exception
-        dateBetween.add(Long.MIN_VALUE);
+        dateBetween.add(0l);
         dateBetween.add(Long.MAX_VALUE);
 
         super.onCreate(savedInstanceState);
@@ -68,6 +69,7 @@ public class FilterPopUp extends Activity {
         //reset sorting
         sortOrder = SortOrder.NONE;
         sortCat = SortCategory.NONE;
+        priority = -1;
         setButtonConditionFromId(true, R.id.sortAscendingBtn);
         setButtonConditionFromId(true, R.id.sortDescendingBtn);
         setButtonConditionFromId(true, R.id.sortDueDateBtn);
@@ -93,21 +95,26 @@ public class FilterPopUp extends Activity {
         Intent i = new Intent(FilterPopUp.this, TaskViewList.class);
         i.putExtra("sort_category", sortCat);
         i.putExtra("sort_order", sortOrder);
-        i.putExtra("start", dateBetween.get(0));
-        i.putExtra("end", dateBetween.get(1));
+        i.putExtra("startDate", dateBetween.get(0));
+        i.putExtra("endDate", dateBetween.get(1));
         i.putExtra("priority", priority);
         startActivity(i);
     }
 
     //selectCalendar, used to call the DatePicker, select dates
+
+    /**
+     * Method opens calendar popup
+     * @param view - view of button pressed
+     */
     public void selectCalendar(final View view){
-        final Button startDate = findViewById(R.id.startDateButton);
-        final Button endDate = findViewById(R.id.endDateButton);
+        Button startBtn = (Button) findViewById(R.id.startDateButton);
+        Button endBtn = (Button) findViewById(R.id.endDateButton);
         Calendar date = Calendar.getInstance();
         int year = date.get(Calendar.YEAR);
         int month = date.get(Calendar.MONTH);
         int day = date.get(Calendar.DAY_OF_MONTH);
-        new DatePickerDialog(FilterPopUp.this, new DatePickerDialog.OnDateSetListener() {
+        DatePickerDialog dp = new DatePickerDialog(FilterPopUp.this, new DatePickerDialog.OnDateSetListener() {
             public void onDateSet(DatePicker datePicker, int year, int month, int day) {
                 date.set(Calendar.YEAR, year);
                 date.set(Calendar.MONTH, month);
@@ -115,16 +122,26 @@ public class FilterPopUp extends Activity {
 
                 switch (view.getId()) {
                     case R.id.startDateButton:
-                        startDate.setText(year + ", " + (month + 1) + ", " + day);
+                        startBtn.setText(DateFormatUtils.getDateFormatted(date.getTimeInMillis()));
                         dateBetween.set(0, date.getTimeInMillis());
                         break;
                     case R.id.endDateButton:
-                        endDate.setText(year + ", " + (month + 1) + ", " + day);
+                        endBtn.setText(DateFormatUtils.getDateFormatted(date.getTimeInMillis()));
                         dateBetween.set(1, date.getTimeInMillis());
                         break;
                 }
             }
-        }, year, month + 1, day).show();
+        }, year, month, day);
+        switch (view.getId()) {
+            case R.id.startDateButton:
+                dp.getDatePicker().setMaxDate(dateBetween.get(1));
+                break;
+            case R.id.endDateButton:
+                dp.getDatePicker().setMinDate(dateBetween.get(0));
+                break;
+        }
+        dp.show();
+
     }
 
     /***
