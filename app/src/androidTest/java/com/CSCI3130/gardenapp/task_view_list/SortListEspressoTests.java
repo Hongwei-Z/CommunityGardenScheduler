@@ -75,7 +75,7 @@ public class SortListEspressoTests {
             testDB = new TaskTestDatabase();
             activity = activityScenarioRule.getActivity();
             activity.db = testDB;
-            testDB.getDbRead().addValueEventListener(testDB.getTaskData(activity.recyclerView, "allTasks", activityScenarioRule.getActivity().getSortCategory(), activityScenarioRule.getActivity().getSortOrder()));
+            testDB.getDbRead().addValueEventListener(testDB.getTaskData(activity.recyclerView, "allTasks", activityScenarioRule.getActivity().getSortCategory(), activityScenarioRule.getActivity().getSortOrder(), -1, Long.MIN_VALUE, Long.MAX_VALUE));
 
             Task task1 = new Task("First task", "This task is due first", 1, "Arjav", "Location", currentDate + TimeUnit.DAYS.toMillis(2), "repeat-none");
             Task task2 = new Task("Second task", "This task is due second", 3, "Arjav", "Location", currentDate + TimeUnit.DAYS.toMillis(4), "repeat-none");
@@ -112,7 +112,7 @@ public class SortListEspressoTests {
             testDB = new TaskTestDatabase();
             activity = activityScenarioRule.getActivity();
             activity.db = testDB;
-            testDB.getDbRead().addValueEventListener(testDB.getTaskData(activity.recyclerView, "allTasks", activityScenarioRule.getActivity().getSortCategory(), activityScenarioRule.getActivity().getSortOrder()));
+            testDB.getDbRead().addValueEventListener(testDB.getTaskData(activity.recyclerView, "allTasks", activityScenarioRule.getActivity().getSortCategory(), activityScenarioRule.getActivity().getSortOrder(), -1, Long.MIN_VALUE, Long.MAX_VALUE));
 
             Task task1 = new Task("First task", "This task is due first", 3, "Arjav", "Location", currentDate + TimeUnit.DAYS.toMillis(2), "repeat-none");
             Task task2 = new Task("Second task", "This task is due second", 3, "Arjav", "Location", currentDate + TimeUnit.DAYS.toMillis(4), "repeat-none");
@@ -148,7 +148,7 @@ public class SortListEspressoTests {
             testDB = new TaskTestDatabase();
             activity = activityScenarioRule.getActivity();
             activity.db = testDB;
-            testDB.getDbRead().addValueEventListener(testDB.getTaskData(activity.recyclerView, "allTasks", activityScenarioRule.getActivity().getSortCategory(), activityScenarioRule.getActivity().getSortOrder()));
+            testDB.getDbRead().addValueEventListener(testDB.getTaskData(activity.recyclerView, "allTasks", activityScenarioRule.getActivity().getSortCategory(), activityScenarioRule.getActivity().getSortOrder(), -1, Long.MIN_VALUE, Long.MAX_VALUE));
 
             Task task1 = new Task("First task", "This task has the first priority", 1, "Arjav", "Location", currentDate, "repeat-none");
             Task task2 = new Task("Second task", "This task has the second priority", 3, "Arjav", "Location", currentDate, "repeat-none");
@@ -184,7 +184,7 @@ public class SortListEspressoTests {
             testDB = new TaskTestDatabase();
             activity = activityScenarioRule.getActivity();
             activity.db = testDB;
-            testDB.getDbRead().addValueEventListener(testDB.getTaskData(activity.recyclerView, "allTasks", activityScenarioRule.getActivity().getSortCategory(), activityScenarioRule.getActivity().getSortOrder()));
+            testDB.getDbRead().addValueEventListener(testDB.getTaskData(activity.recyclerView, "allTasks", activityScenarioRule.getActivity().getSortCategory(), activityScenarioRule.getActivity().getSortOrder(), -1, Long.MIN_VALUE, Long.MAX_VALUE));
 
             Task task1 = new Task("First task", "This task has the first priority", 1, "Arjav", "Location", currentDate, "repeat-none");
             Task task2 = new Task("Second task", "This task has the second priority", 3, "Arjav", "Location", currentDate, "repeat-none");
@@ -220,7 +220,7 @@ public class SortListEspressoTests {
             testDB = new TaskTestDatabase();
             activity = activityScenarioRule.getActivity();
             activity.db = testDB;
-            testDB.getDbRead().addValueEventListener(testDB.getTaskData(activity.recyclerView, "allTasks", activityScenarioRule.getActivity().getSortCategory(), activityScenarioRule.getActivity().getSortOrder()));
+            testDB.getDbRead().addValueEventListener(testDB.getTaskData(activity.recyclerView, "allTasks", activityScenarioRule.getActivity().getSortCategory(), activityScenarioRule.getActivity().getSortOrder(), -1, Long.MIN_VALUE, Long.MAX_VALUE));
 
             Task task1 = new Task("A task", "First task alphabetically", 3, "Arjav", "Location", currentDate, "repeat-none");
             Task task2 = new Task("M task", "Second task alphabetically", 3, "Arjav", "Location", currentDate, "repeat-none");
@@ -256,7 +256,7 @@ public class SortListEspressoTests {
             testDB = new TaskTestDatabase();
             activity = activityScenarioRule.getActivity();
             activity.db = testDB;
-            testDB.getDbRead().addValueEventListener(testDB.getTaskData(activity.recyclerView, "allTasks", activityScenarioRule.getActivity().getSortCategory(), activityScenarioRule.getActivity().getSortOrder()));
+            testDB.getDbRead().addValueEventListener(testDB.getTaskData(activity.recyclerView, "allTasks", activityScenarioRule.getActivity().getSortCategory(), activityScenarioRule.getActivity().getSortOrder(), -1, Long.MIN_VALUE, Long.MAX_VALUE));
 
             Task task1 = new Task("A task", "First task alphabetically", 3, "Arjav", "Location", currentDate, "repeat-none");
             Task task2 = new Task("M task", "Second task alphabetically", 3, "Arjav", "Location", currentDate, "repeat-none");

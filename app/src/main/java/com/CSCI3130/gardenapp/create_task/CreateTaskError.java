@@ -2,7 +2,6 @@ package com.CSCI3130.gardenapp.create_task;
 
 /**
  * Errors when creating a task
- *
  * @author Liam Hebert
  * @see CreateTaskActivity
  */

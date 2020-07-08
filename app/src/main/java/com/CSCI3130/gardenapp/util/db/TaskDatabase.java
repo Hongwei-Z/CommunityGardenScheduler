@@ -189,9 +189,12 @@ public class TaskDatabase {
      * @param recyclerView
      * @param sortCategory - sort category
      * @param sortOrder - sort order
+     * @param priority - priority for filtering
+     * @param startDate - start date for filtering
+     * @param endDate - end date for filtering
      * @return ValueEventListener
      */
-    public ValueEventListener getTaskData(RecyclerView recyclerView, String activeTaskListContext, SortCategory sortCategory, SortOrder sortOrder) {
+    public ValueEventListener getTaskData(RecyclerView recyclerView, String activeTaskListContext, SortCategory sortCategory, SortOrder sortOrder, int priority, long startDate, long endDate) {
         ArrayList<Task> allTasks = new ArrayList<>();
         return new ValueEventListener() {
             @Override
@@ -202,41 +205,49 @@ public class TaskDatabase {
                     allTasks.add(task);
                 }
 
-                switch (sortCategory){
-                    case DUEDATE:
-                        Comparator<Task> comparator = Comparator.comparingLong(Task::getDateDue);
-                        allTasks.sort(comparator);
-                        //sort in descending order if applicable
-                        if (sortOrder == SortOrder.DESCENDING){
-                            Collections.reverse(allTasks);
+                //if there's a sort category and order, sort accordingly
+                if (sortCategory != SortCategory.NONE && sortOrder != SortOrder.NONE){
+                    switch (sortCategory){
+                        case DUEDATE:
+                            Comparator<Task> comparator = Comparator.comparingLong(Task::getDateDue);
+                            allTasks.sort(comparator);
+                            break;
+                        case PRIORITY:
+                            Comparator<Task> comparator1 = Comparator.comparingLong(Task::getPriority);
+                            allTasks.sort(comparator1);
+                            break;
+                        case AZ:
+                            Comparator<Task> comparator2 = Comparator.comparing(Task::getName);
+                            allTasks.sort(comparator2);
+                            break;
+                        default:
+                            break;
+                    }
+                    //sort in descending order, if applicable
+                    if (sortOrder == SortOrder.DESCENDING){
+                        Collections.reverse(allTasks);
+                    }
+                }
+
+                //filter tasks
+                ArrayList<Task> newTasks = new ArrayList<>();
+                for (Task task : allTasks) {
+                    if (task.getDateDue() >= startDate && task.getDateDue() <= endDate) {
+                        if (priority != -1) {
+                            if (priority == task.getPriority()) {
+                                newTasks.add(task);
+                            }
+                        } else {
+                            newTasks.add(task);
                         }
-                        break;
-                    case PRIORITY:
-                        Comparator<Task> comparator1 = Comparator.comparingLong(Task::getPriority);
-                        allTasks.sort(comparator1);
-                        //sort in descending order if applicable
-                        if (sortOrder == SortOrder.DESCENDING){
-                            Collections.reverse(allTasks);
-                        }
-                        break;
-                    case AZ:
-                        Comparator<Task> comparator2 = Comparator.comparing(Task::getName);
-                        allTasks.sort(comparator2);
-                        //sort in descending order if applicable
-                        if (sortOrder == SortOrder.DESCENDING){
-                            Collections.reverse(allTasks);
-                        }
-                        break;
-                    default:
-                        break;
+                    }
                 }
 
 
-
-                TaskAdapter taskAdapter = new TaskAdapter(allTasks, activeTaskListContext);
+                TaskAdapter taskAdapter = new TaskAdapter(newTasks, activeTaskListContext);
                 recyclerView.setAdapter(taskAdapter);
                 taskAdapter.setOnItemClickListener(position -> {
-                    openTaskDetails(position, allTasks); //position refers to index of task in recyclerview tasklist
+                    openTaskDetails(position, newTasks); //position refers to index of task in recyclerview tasklist
                 });
             }
 

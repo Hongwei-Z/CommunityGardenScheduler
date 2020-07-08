@@ -34,8 +34,13 @@ public class TaskViewList extends AppCompatActivity {
     private RecyclerView.LayoutManager layoutManager;
     Dialog myDialog;
     public static String activeTaskListContext;
+
+    //sorting and filtering values
     SortCategory sortCat;
     SortOrder sortOrder;
+    int priorityFilter;
+    long startDate;
+    long endDate;
 
     /**
      * Get the activity context
@@ -102,6 +107,11 @@ public class TaskViewList extends AppCompatActivity {
         layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
 
+        //get filter values
+        priorityFilter = getIntent().getIntExtra("priority", -1);
+        startDate = getIntent().getLongExtra("startDate", 0l);
+        endDate = getIntent().getLongExtra("endDate", Long.MAX_VALUE);
+
         //account for sorting
         if (getIntent().getSerializableExtra("sort_category") != null) {
             sortCat = (SortCategory) getIntent().getSerializableExtra("sort_category");
@@ -115,15 +125,8 @@ public class TaskViewList extends AppCompatActivity {
             sortOrder = SortOrder.NONE;
         }
 
-        if (sortCat != SortCategory.NONE && sortOrder != SortOrder.NONE){
-            db.getDbRead().addValueEventListener(
-                    db.getTaskData(recyclerView, activeTaskListContext, sortCat, sortOrder));
-        } else {
-            db.getDbRead().addValueEventListener(
-                    db.getTaskData(recyclerView, activeTaskListContext));
-        }
-
-
+        db.getDbRead().addValueEventListener(
+                db.getTaskData(recyclerView, activeTaskListContext, sortCat, sortOrder, priorityFilter, startDate, endDate));
 
     }
 
@@ -170,6 +173,45 @@ public class TaskViewList extends AppCompatActivity {
      * @param sortOrder - SortOrder enum value
      */
     public void setSortOrder(SortOrder sortOrder) { this.sortOrder = sortOrder; }
+
+
+    /**
+     * Gets priority value for filtering
+     * @return int - priority value
+     */
+    public int getPriorityFilter() { return priorityFilter; }
+
+    /**
+     * Sets priority value for filtering
+     * @param priorityFilter
+     */
+    public void setPriorityFilter(int priorityFilter) { this.priorityFilter = priorityFilter; }
+
+
+    /**
+     * Gets start date for filtering
+     * @return - long start date value
+     */
+    public long getStartDate() { return startDate; }
+
+    /**
+     * Sets start date for filtering
+     * @param startDate - long start date value
+     */
+    public void setStartDate(long startDate) { this.startDate = startDate; }
+
+
+    /**
+     * Gets end date for filtering
+     * @return - long end date value
+     */
+    public long getEndDate() { return endDate; }
+
+    /**
+     * Sets end date for filtering
+     * @param endDate - long end date value
+     */
+    public void setEndDate(long endDate) { this.endDate = endDate; }
 
 }
 
