@@ -42,6 +42,7 @@ public class MyTaskListEspressoTests {
         activity = activityScenarioRule.getActivity();
         activity.db = testDB;
         testDB.getDbRead().addValueEventListener(testDB.getTaskData(activity.recyclerView, activeTaskListContext));
+
     }
 
     @After
@@ -80,9 +81,6 @@ public class MyTaskListEspressoTests {
                     .check(matches(hasDescendant(withText("Due: " + DateFormatUtils.getDateFormatted(currentDate)))));
             onView(withRecyclerView(R.id.recycleview_tasks).atPosition(0))
                     .check(matches(hasDescendant(withId(R.id.task_user_profile))));
-            onView(withRecyclerView(R.id.recycleview_tasks).atPosition(0)).perform(click());
-            onView(withRecyclerView(R.id.recycleview_tasks).atPosition(0)).check(doesNotExist());
-            Espresso.pressBack();
         } catch (InterruptedException e) {
             System.out.println(e.toString());
         }
