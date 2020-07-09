@@ -57,7 +57,6 @@ public class OpenTaskListEspressoTests {
         long currentDate = System.currentTimeMillis();
         //upload non-open task to test database
         Task task = new Task("Not Open Task", "This is a Test", 2, "Some User ID", "Location", currentDate, "repeat-none");
-        task.setOpen(false);
         testDB.uploadTask(task);
         //check if task appears in filtered recyclerview, fail if it is there
         try {
@@ -69,7 +68,6 @@ public class OpenTaskListEspressoTests {
 
         //upload open task to database
         task = new Task("Open Task", "This is a Test", 2, "", "Location", currentDate, "repeat-none");
-        task.setOpen(true);
         testDB.uploadTask(task);
         //check if task appears in filtered recyclerview, fail if it is NOT there
         try {

@@ -124,67 +124,6 @@ public class TaskDatabase {
 
     /**
      * Returns the event listener for the database to retrieve tasks
-     *
-     * @param recyclerView
-     * @param activeTaskListContext to determine the ordering and sorting of the tasks
-     * @return ValueEventListener
-     */
-    public ValueEventListener getTaskData(RecyclerView recyclerView, String activeTaskListContext) {
-        ArrayList<Task> allTasks = new ArrayList<>();
-        return new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                allTasks.clear();
-                for (DataSnapshot dataSnapshotTask : dataSnapshot.getChildren()) {
-                    Task task = dataSnapshotTask.getValue(Task.class);
-                    allTasks.add(task);
-                }
-
-                if (activeTaskListContext.equals("taskHistory")) {
-                    Comparator<Task> comparator = Comparator.comparingLong(Task::getDateCompleted);
-                    allTasks.sort(comparator);
-                    Collections.reverse(allTasks);
-                } else {
-                    Comparator<Task> comparator = Comparator.comparingLong(Task::getDateDue);
-                    allTasks.sort(comparator);
-
-                    //move weather tasks to the end of the queue based on whether they match with the current weather
-                    for (int i = 0; i < allTasks.size(); i++) {
-                        Task curr = allTasks.get(i);
-                        //current task has a weather trigger
-                        WeatherCondition trigger = curr.getWeatherTrigger();
-                        if (trigger != WeatherCondition.NONE) {
-                            //if this task's weather trigger does not match those of the current weather conditions, throw it down to the bottom of the queue
-                            ArrayList<WeatherCondition> currList = CurrentWeather.currentWeatherList;
-                            if (currList.contains(trigger)) {
-                                allTasks.remove(curr);
-                                allTasks.add(0, curr);
-                            } else {
-                                allTasks.remove(curr);
-                                allTasks.add(allTasks.size(), curr);
-                            }
-                        }
-                    }
-
-                }
-
-                TaskAdapter taskAdapter = new TaskAdapter(allTasks, activeTaskListContext);
-                recyclerView.setAdapter(taskAdapter);
-                taskAdapter.setOnItemClickListener(position -> {
-                    openTaskDetails(position, allTasks); //position refers to index of task in recyclerview tasklist
-                });
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-                System.out.println(databaseError.toString());
-            }
-        };
-    }
-
-
-    /**
-     * Returns the event listener for the database to retrieve tasks
      * Specific method overload for sorting by category with order
      * @param recyclerView
      * @param sortCategory - sort category
@@ -204,45 +143,14 @@ public class TaskDatabase {
                     Task task = dataSnapshotTask.getValue(Task.class);
                     allTasks.add(task);
                 }
-
-                //if there's a sort category and order, sort accordingly
-                if (sortCategory != SortCategory.NONE && sortOrder != SortOrder.NONE){
-                    switch (sortCategory){
-                        case DUEDATE:
-                            Comparator<Task> comparator = Comparator.comparingLong(Task::getDateDue);
-                            allTasks.sort(comparator);
-                            break;
-                        case PRIORITY:
-                            Comparator<Task> comparator1 = Comparator.comparingLong(Task::getPriority);
-                            allTasks.sort(comparator1);
-                            break;
-                        case AZ:
-                            Comparator<Task> comparator2 = Comparator.comparing(Task::getName);
-                            allTasks.sort(comparator2);
-                            break;
-                        default:
-                            break;
-                    }
-                    //sort in descending order, if applicable
-                    if (sortOrder == SortOrder.DESCENDING){
-                        Collections.reverse(allTasks);
-                    }
-                }
-
-                //filter tasks
                 ArrayList<Task> newTasks = new ArrayList<>();
-                for (Task task : allTasks) {
-                    if (task.getDateDue() >= startDate && task.getDateDue() <= endDate) {
-                        if (priority != -1) {
-                            if (priority == task.getPriority()) {
-                                newTasks.add(task);
-                            }
-                        } else {
-                            newTasks.add(task);
-                        }
-                    }
-                }
 
+                //Filter tasks based on user settings
+                filterTasksOnSetting(allTasks, newTasks, priority, startDate, endDate);
+                //sort them on user settings
+                sortTasks(newTasks, sortCategory, sortOrder, activeTaskListContext);
+                //filter based on current weather
+                filterWeather(newTasks);
 
                 TaskAdapter taskAdapter = new TaskAdapter(newTasks, activeTaskListContext);
                 recyclerView.setAdapter(taskAdapter);
@@ -256,6 +164,72 @@ public class TaskDatabase {
                 System.out.println(databaseError.toString());
             }
         };
+    }
+
+    public ValueEventListener getTaskData(RecyclerView recyclerView, String activeTaskListContext) {
+        return getTaskData(recyclerView, activeTaskListContext, SortCategory.NONE, SortOrder.NONE, -1, 0, Long.MAX_VALUE);
+    }
+
+    private void filterWeather(ArrayList<Task> tasks) {
+        //move weather tasks to the end of the queue based on whether they match with the current weather
+        ArrayList<Task> result = new ArrayList<>(tasks);
+        for (Task curr : result) {
+            //current task has a weather trigger
+            WeatherCondition trigger = curr.getWeatherTrigger();
+            if (trigger != WeatherCondition.NONE) {
+                //if this task's weather trigger does not match those of the current weather conditions, throw it down to the bottom of the queue
+                ArrayList<WeatherCondition> currList = CurrentWeather.currentWeatherList;
+                if (currList.contains(trigger)) {
+                    tasks.remove(curr);
+                    tasks.add(0, curr);
+                } else {
+                    tasks.remove(curr);
+                    tasks.add(tasks.size(), curr);
+                }
+            }
+        }
+    }
+
+    private void sortTasks(ArrayList<Task> tasks, SortCategory category, SortOrder order, String activeTaskListContext) {
+        //if there's a sort category and order, sort accordingly
+        if (category != SortCategory.NONE && order != SortOrder.NONE){
+            Comparator<Task> comparator;
+            switch (category){
+                case PRIORITY:
+                    comparator = Comparator.comparingLong(Task::getPriority);
+                    break;
+                case AZ:
+                    comparator = Comparator.comparing(Task::getName);
+                    break;
+                default:
+                    if (activeTaskListContext.equals("taskHistory"))
+                        comparator = Comparator.comparingLong(Task::getDateCompleted);
+                    else
+                        comparator = Comparator.comparingLong(Task::getDateDue);
+                    break;
+            }
+            tasks.sort(comparator);
+            //sort in descending order, if applicable
+            if (order == SortOrder.DESCENDING){
+                Collections.reverse(tasks); //since sorting is already done in descending order
+            }
+        }
+    }
+
+    private void filterTasksOnSetting(ArrayList<Task> currentTasks, ArrayList<Task> newTasks, int priority, long startDate, long endDate){
+        //filter tasks
+        for (Task task : currentTasks) {
+
+            if ((task.getDateDue() >= startDate && task.getDateDue() <= endDate) || task.getWeatherTrigger() != WeatherCondition.NONE) {
+                if (priority != -1) {
+                    if (priority == task.getPriority()) {
+                        newTasks.add(task);
+                    }
+                } else {
+                    newTasks.add(task);
+                }
+            }
+        }
     }
 
     /**
