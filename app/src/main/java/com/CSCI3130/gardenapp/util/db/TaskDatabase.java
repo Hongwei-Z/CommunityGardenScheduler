@@ -142,7 +142,6 @@ public class TaskDatabase {
                 for (DataSnapshot dataSnapshotTask : dataSnapshot.getChildren()) {
                     Task task = dataSnapshotTask.getValue(Task.class);
                     allTasks.add(task);
-                    System.out.println(task.getName());
                 }
                 ArrayList<Task> newTasks = new ArrayList<>();
 
