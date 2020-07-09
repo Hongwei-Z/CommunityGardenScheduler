@@ -16,6 +16,7 @@ import com.CSCI3130.gardenapp.R;
 import com.CSCI3130.gardenapp.SortCategory;
 import com.CSCI3130.gardenapp.SortOrder;
 import com.CSCI3130.gardenapp.create_task.CreateTaskActivity;
+import com.CSCI3130.gardenapp.util.data.Task;
 import com.CSCI3130.gardenapp.util.db.TaskDatabase;
 import com.google.android.material.snackbar.Snackbar;
 
@@ -82,6 +83,7 @@ public class TaskViewList extends AppCompatActivity {
         }
         TextView toolbarTitle = findViewById(R.id.page_name);
         lastContext = activeTaskListContext;
+        SortOrder sortOrderDefault = SortOrder.ASCENDING;
 
         switch (activeTaskListContext) {
             case "myTasks":
@@ -91,6 +93,7 @@ public class TaskViewList extends AppCompatActivity {
                 toolbarTitle.setText("Open Tasks");
                 break;
             case "taskHistory":
+                sortOrderDefault = SortOrder.DESCENDING;
                 toolbarTitle.setText("Task History");
                 break;
             default:
@@ -119,10 +122,16 @@ public class TaskViewList extends AppCompatActivity {
             sortCat = SortCategory.NONE;
         }
 
+
         if (getIntent().getSerializableExtra("sort_order") != null) {
-            sortOrder = (SortOrder) getIntent().getSerializableExtra("sort_order");
+            SortOrder sortValue = (SortOrder) getIntent().getSerializableExtra("sort_order");
+            if (sortValue != SortOrder.NONE)
+                sortOrder = sortValue;
+            else {
+                sortOrder = sortOrderDefault;
+            }
         } else {
-            sortOrder = SortOrder.NONE;
+            sortOrder = sortOrderDefault;
         }
 
         db.getDbRead().addValueEventListener(
