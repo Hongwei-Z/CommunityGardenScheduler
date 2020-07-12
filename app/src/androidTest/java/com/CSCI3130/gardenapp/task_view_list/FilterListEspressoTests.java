@@ -38,7 +38,7 @@ public class FilterListEspressoTests {
     @Before
     public void setUp(){
         Intent intent = new Intent();
-        String activeTaskListContext = "allTasks";
+        ActiveTaskListContext activeTaskListContext = ActiveTaskListContext.ALL_TASKS;
         intent.putExtra("activeTaskListContext", activeTaskListContext);
         activityScenarioRule.launchActivity(intent);
         testDB = new TaskTestDatabase();
@@ -87,7 +87,7 @@ public class FilterListEspressoTests {
             testDB = new TaskTestDatabase();
             activity = activityScenarioRule.getActivity();
             activity.db = testDB;
-            testDB.getDbRead().addValueEventListener(testDB.getTaskData(activity.recyclerView, "allTasks",
+            testDB.getDbRead().addValueEventListener(testDB.getTaskData(activity.recyclerView, ActiveTaskListContext.ALL_TASKS,
                     activityScenarioRule.getActivity().getSortCategory(),
                     activityScenarioRule.getActivity().getSortOrder(),
                     activityScenarioRule.getActivity().getPriorityFilter(),
@@ -130,7 +130,7 @@ public class FilterListEspressoTests {
             testDB = new TaskTestDatabase();
             activity = activityScenarioRule.getActivity();
             activity.db = testDB;
-            testDB.getDbRead().addValueEventListener(testDB.getTaskData(activity.recyclerView, "allTasks",
+            testDB.getDbRead().addValueEventListener(testDB.getTaskData(activity.recyclerView, ActiveTaskListContext.ALL_TASKS,
                     activityScenarioRule.getActivity().getSortCategory(),
                     activityScenarioRule.getActivity().getSortOrder(),
                     activityScenarioRule.getActivity().getPriorityFilter(),
@@ -181,7 +181,7 @@ public class FilterListEspressoTests {
             testDB = new TaskTestDatabase();
             activity = activityScenarioRule.getActivity();
             activity.db = testDB;
-            testDB.getDbRead().addValueEventListener(testDB.getTaskData(activity.recyclerView, "allTasks",
+            testDB.getDbRead().addValueEventListener(testDB.getTaskData(activity.recyclerView, ActiveTaskListContext.ALL_TASKS,
                     activityScenarioRule.getActivity().getSortCategory(),
                     activityScenarioRule.getActivity().getSortOrder(),
                     activityScenarioRule.getActivity().getPriorityFilter(),
@@ -232,7 +232,7 @@ public class FilterListEspressoTests {
             testDB = new TaskTestDatabase();
             activity = activityScenarioRule.getActivity();
             activity.db = testDB;
-            testDB.getDbRead().addValueEventListener(testDB.getTaskData(activity.recyclerView, "allTasks",
+            testDB.getDbRead().addValueEventListener(testDB.getTaskData(activity.recyclerView, ActiveTaskListContext.ALL_TASKS,
                     activityScenarioRule.getActivity().getSortCategory(),
                     activityScenarioRule.getActivity().getSortOrder(),
                     activityScenarioRule.getActivity().getPriorityFilter(),

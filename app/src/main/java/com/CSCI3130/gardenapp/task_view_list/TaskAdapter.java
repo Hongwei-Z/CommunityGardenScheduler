@@ -21,10 +21,10 @@ import java.util.ArrayList;
  */
 public class TaskAdapter extends RecyclerView.Adapter<TaskViewHolder> {
     private final ArrayList<Task> taskList;
-    private final String activeTaskListContext;
+    private final ActiveTaskListContext activeTaskListContext;
     private OnItemClickListener mListener;
 
-    public TaskAdapter(ArrayList<Task> tasks, String activeTaskListContext) {
+    public TaskAdapter(ArrayList<Task> tasks, ActiveTaskListContext activeTaskListContext) {
         this.activeTaskListContext = activeTaskListContext;
         taskList = tasks;
     }
@@ -62,11 +62,11 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskViewHolder> {
     public void onBindViewHolder(TaskViewHolder holder, int position) {
         Task task = taskList.get(position);
         holder.setName(task.getName());
-        long date = activeTaskListContext.equals("taskHistory")
+        long date = activeTaskListContext.equals(ActiveTaskListContext.TASK_HISTORY)
                 ? task.getDateCompleted()
                 : task.getDateDue();
         if (date != -1) {
-            holder.setDate((activeTaskListContext.equals("taskHistory")
+            holder.setDate((activeTaskListContext.equals(ActiveTaskListContext.TASK_HISTORY)
                     ? "Completed: "
                     : "Due: ")
                     + DateFormatUtils.getDateFormatted(date));
