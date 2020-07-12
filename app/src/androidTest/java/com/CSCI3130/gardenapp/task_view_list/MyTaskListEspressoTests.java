@@ -34,7 +34,7 @@ public class MyTaskListEspressoTests {
     @Before
     public void setUp() {
         Intent intent = new Intent();
-        String activeTaskListContext = "myTasks";
+        ActiveTaskListContext activeTaskListContext = ActiveTaskListContext.MY_TASKS;
         intent.putExtra("activeTaskListContext", activeTaskListContext);
         activityScenarioRule.launchActivity(intent);
         testDB = new TaskTestDatabase();

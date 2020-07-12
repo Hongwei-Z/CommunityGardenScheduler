@@ -31,10 +31,10 @@ public class TaskViewList extends AppCompatActivity {
     private static Context mContext;
     protected RecyclerView recyclerView;
     TaskDatabase db;
-    private String lastContext = "allTasks"; //default to all tasks
+    private ActiveTaskListContext lastContext = ActiveTaskListContext.ALL_TASKS; //default to all tasks
     private RecyclerView.LayoutManager layoutManager;
     Dialog myDialog;
-    public static String activeTaskListContext;
+    public static ActiveTaskListContext activeTaskListContext;
 
     //sorting and filtering values
     SortCategory sortCat;
@@ -77,7 +77,7 @@ public class TaskViewList extends AppCompatActivity {
             Snackbar.make(findViewById(R.id.task_view_list), "Success!", Snackbar.LENGTH_SHORT).show();
         }
 
-        String activeTaskListContext = getIntent().getStringExtra("activeTaskListContext");
+        ActiveTaskListContext activeTaskListContext = (ActiveTaskListContext) getIntent().getSerializableExtra("activeTaskListContext");
         if (activeTaskListContext == null) {
             activeTaskListContext = lastContext;
         }
@@ -86,13 +86,13 @@ public class TaskViewList extends AppCompatActivity {
         SortOrder sortOrderDefault = SortOrder.ASCENDING;
 
         switch (activeTaskListContext) {
-            case "myTasks":
+            case MY_TASKS:
                 toolbarTitle.setText("My Tasks");
                 break;
-            case "openTasks":
+            case OPEN_TASKS:
                 toolbarTitle.setText("Open Tasks");
                 break;
-            case "taskHistory":
+            case TASK_HISTORY:
                 sortOrderDefault = SortOrder.DESCENDING;
                 toolbarTitle.setText("Task History");
                 break;

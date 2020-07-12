@@ -10,6 +10,7 @@ import com.CSCI3130.gardenapp.R;
 import com.CSCI3130.gardenapp.SortCategory;
 import com.CSCI3130.gardenapp.SortOrder;
 import com.CSCI3130.gardenapp.TaskDetailInfo;
+import com.CSCI3130.gardenapp.task_view_list.ActiveTaskListContext;
 import com.CSCI3130.gardenapp.task_view_list.TaskAdapter;
 import com.CSCI3130.gardenapp.task_view_list.TaskViewList;
 import com.CSCI3130.gardenapp.util.data.CurrentWeather;
@@ -97,16 +98,16 @@ public class TaskDatabase {
      *
      * @param activeTaskListContext query activeTaskListContext for tasklist
      */
-    public void setDbRead(String activeTaskListContext) {
+    public void setDbRead(ActiveTaskListContext activeTaskListContext) {
         // if allTasks do nothing, no need for query
         switch (activeTaskListContext) {
-            case "myTasks":
+            case MY_TASKS:
                 this.dbRead = dbRead.orderByChild("user").equalTo(FirebaseAuth.getInstance().getUid()); // returns tasks assigned to current user
                 break;
-            case "openTasks":
+            case OPEN_TASKS:
                 this.dbRead = dbRead.orderByChild("user").equalTo(""); //returns tasks with no user assigned
                 break;
-            case "taskHistory":
+            case TASK_HISTORY:
                 this.dbRead = dbRead.orderByChild("dateCompleted").startAt(0).endAt(System.currentTimeMillis());
                 break;
         }
@@ -124,6 +125,7 @@ public class TaskDatabase {
 
     /**
      * Returns the event listener for the database to retrieve tasks
+     *
      * Specific method overload for sorting by category with order
      * @param recyclerView
      * @param sortCategory - sort category
@@ -133,7 +135,7 @@ public class TaskDatabase {
      * @param endDate - end date for filtering
      * @return ValueEventListener
      */
-    public ValueEventListener getTaskData(RecyclerView recyclerView, String activeTaskListContext, SortCategory sortCategory, SortOrder sortOrder, int priority, long startDate, long endDate) {
+    public ValueEventListener getTaskData(RecyclerView recyclerView, ActiveTaskListContext activeTaskListContext, SortCategory sortCategory, SortOrder sortOrder, int priority, long startDate, long endDate) {
         ArrayList<Task> allTasks = new ArrayList<>();
         return new ValueEventListener() {
             @Override
@@ -166,7 +168,7 @@ public class TaskDatabase {
         };
     }
 
-    public ValueEventListener getTaskData(RecyclerView recyclerView, String activeTaskListContext) {
+    public ValueEventListener getTaskData(RecyclerView recyclerView, ActiveTaskListContext activeTaskListContext) {
         return getTaskData(recyclerView, activeTaskListContext, SortCategory.NONE, SortOrder.NONE, -1, 0, Long.MAX_VALUE);
     }
 
@@ -190,7 +192,7 @@ public class TaskDatabase {
         }
     }
 
-    private void sortTasks(ArrayList<Task> tasks, SortCategory category, SortOrder order, String activeTaskListContext) {
+    private void sortTasks(ArrayList<Task> tasks, SortCategory category, SortOrder order, ActiveTaskListContext activeTaskListContext) {
         //if there's a sort category and order, sort accordingly
         if (category != SortCategory.NONE && order != SortOrder.NONE){
             Comparator<Task> comparator;
@@ -202,7 +204,7 @@ public class TaskDatabase {
                     comparator = Comparator.comparing(Task::getName);
                     break;
                 default:
-                    if (activeTaskListContext.equals("taskHistory"))
+                    if (activeTaskListContext.equals(ActiveTaskListContext.TASK_HISTORY))
                         comparator = Comparator.comparingLong(Task::getDateCompleted);
                     else
                         comparator = Comparator.comparingLong(Task::getDateDue);

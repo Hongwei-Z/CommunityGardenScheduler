@@ -32,7 +32,7 @@ public class TaskHistoryEspressoTests {
     @Before
     public void setUp() {
         Intent intent = new Intent();
-        String activeTaskListContext = "taskHistory";
+        ActiveTaskListContext activeTaskListContext = ActiveTaskListContext.TASK_HISTORY;
         intent.putExtra("activeTaskListContext", activeTaskListContext);
         activityScenarioRule.launchActivity(intent);
         testDB = new TaskTestDatabase();
