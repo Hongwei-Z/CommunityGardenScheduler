@@ -9,6 +9,7 @@ import androidx.test.espresso.matcher.ViewMatchers;
 
 import com.CSCI3130.gardenapp.R;
 import com.CSCI3130.gardenapp.util.DateFormatUtils;
+import com.CSCI3130.gardenapp.util.TaskRepeatCondition;
 import com.CSCI3130.gardenapp.util.data.CurrentWeather;
 import com.CSCI3130.gardenapp.util.data.Task;
 import com.CSCI3130.gardenapp.util.data.WeatherCondition;
@@ -93,7 +94,7 @@ public class TaskListEspressoTests {
 
     @Test
     public void recyclerViewItemContainsExpectedText() {
-        Task task = new Task("Test Task", "This is a Test", 2, "Beth", "Location", currentDate, "repeat-none");
+        Task task = new Task("Test Task", "This is a Test", 2, "Beth", "Location", currentDate, TaskRepeatCondition.REPEAT_NONE);
         testDB.uploadTask(task);
         try {
             Thread.sleep(1000);
@@ -105,7 +106,7 @@ public class TaskListEspressoTests {
             System.out.println(e.toString());
         }
 
-        task = new Task("Test Task 2", "This is a Test", 2, "Beth", "Location", currentDate, "repeat-none");
+        task = new Task("Test Task 2", "This is a Test", 2, "Beth", "Location", currentDate, TaskRepeatCondition.REPEAT_NONE);
         testDB.uploadTask(task);
         try {
             Thread.sleep(5000);
@@ -139,9 +140,9 @@ public class TaskListEspressoTests {
         CurrentWeather.currentWeatherList = new ArrayList<>();
         CurrentWeather.currentWeatherList.add(WeatherCondition.DRY);
 
-        Task task = new Task("Test Task", "This is a Test", 2, "Beth", "Location", currentDate, "repeat-none");
-        Task task2 = new Task("Test Task 2", "This is a Test", 2, "Beth", "Location", currentDate, "repeat-none");
-        Task taskDry = new Task("Water plants now", "It is dry outside", 5, "Arjav", "Location", WeatherCondition.DRY, currentDate, "repeat-none");
+        Task task = new Task("Test Task", "This is a Test", 2, "Beth", "Location", currentDate, TaskRepeatCondition.REPEAT_NONE);
+        Task task2 = new Task("Test Task 2", "This is a Test", 2, "Beth", "Location", currentDate, TaskRepeatCondition.REPEAT_NONE);
+        Task taskDry = new Task("Water plants now", "It is dry outside", 5, "Arjav", "Location", WeatherCondition.DRY, currentDate, TaskRepeatCondition.REPEAT_NONE);
 
         testDB.uploadTask(task);
         testDB.uploadTask(task2);
@@ -174,9 +175,9 @@ public class TaskListEspressoTests {
         CurrentWeather.currentWeatherList = new ArrayList<WeatherCondition>();
         CurrentWeather.currentWeatherList.add(WeatherCondition.RAIN);
 
-        Task task = new Task("Test Task", "This is a Test", 2, "Beth", "Location", currentDate, "repeat-none");
-        Task task2 = new Task("Test Task 2", "This is a Test", 2, "Beth", "Location", currentDate, "repeat-none");
-        Task taskDry = new Task("Water plants now", "It is dry outside", 5, "Arjav", "Location", WeatherCondition.DRY, currentDate, "repeat-none");
+        Task task = new Task("Test Task", "This is a Test", 2, "Beth", "Location", currentDate, TaskRepeatCondition.REPEAT_NONE);
+        Task task2 = new Task("Test Task 2", "This is a Test", 2, "Beth", "Location", currentDate, TaskRepeatCondition.REPEAT_NONE);
+        Task taskDry = new Task("Water plants now", "It is dry outside", 5, "Arjav", "Location", WeatherCondition.DRY, currentDate, TaskRepeatCondition.REPEAT_NONE);
 
         testDB.uploadTask(task);
         testDB.uploadTask(task2);
@@ -208,7 +209,7 @@ public class TaskListEspressoTests {
     public void scrollToItemBelowFold() {
         for (int i = 1; i <= 20; i++) {
             String taskName = "Task " + i;
-            Task task = new Task(taskName, "This is a Test", 2, "Beth", "Location", currentDate, "repeat-none");
+            Task task = new Task(taskName, "This is a Test", 2, "Beth", "Location", currentDate, TaskRepeatCondition.REPEAT_NONE);
             testDB.uploadTask(task);
         }
         try {

@@ -1,5 +1,6 @@
 package com.CSCI3130.gardenapp.util.data;
 
+import com.CSCI3130.gardenapp.util.TaskRepeatCondition;
 import com.CSCI3130.gardenapp.util.db.DatabaseAuth;
 
 public class TaskGenerator {
@@ -19,7 +20,7 @@ public class TaskGenerator {
                 "Location-" + count,
                 trigger,
                 -1,
-                "repeat-none");
+                TaskRepeatCondition.REPEAT_NONE);
     }
 
     public static Task generateTask(boolean currentUser, long dueDate) {
@@ -37,10 +38,10 @@ public class TaskGenerator {
                 "Location-" + count,
                 WeatherCondition.NONE,
                 dueDate,
-                "repeat-none");
+                TaskRepeatCondition.REPEAT_NONE);
     }
 
-    public static Task generateTask(boolean currentUser, String repeat) {
+    public static Task generateTask(boolean currentUser, TaskRepeatCondition repeat) {
         count++;
         String userID;
         if(currentUser) {

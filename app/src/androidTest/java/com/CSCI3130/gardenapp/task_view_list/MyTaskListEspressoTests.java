@@ -8,6 +8,7 @@ import androidx.test.rule.ActivityTestRule;
 
 import com.CSCI3130.gardenapp.R;
 import com.CSCI3130.gardenapp.util.DateFormatUtils;
+import com.CSCI3130.gardenapp.util.TaskRepeatCondition;
 import com.CSCI3130.gardenapp.util.data.Task;
 import com.CSCI3130.gardenapp.util.db.TaskTestDatabase;
 import com.google.firebase.auth.FirebaseAuth;
@@ -63,7 +64,7 @@ public class MyTaskListEspressoTests {
     @Test
     public void recyclerViewItemContainsExpectedText() {
         long currentDate = System.currentTimeMillis();
-        Task task = new Task("My Task", "This is a Test", 2, "not current UUID", "Location", currentDate, "repeat-none");
+        Task task = new Task("My Task", "This is a Test", 2, "not current UUID", "Location", currentDate, TaskRepeatCondition.REPEAT_NONE);
         testDB.uploadTask(task);
         try {
             Thread.sleep(3000);
@@ -71,7 +72,7 @@ public class MyTaskListEspressoTests {
         } catch (InterruptedException e) {
             System.out.println(e.toString());
         }
-        task = new Task("My Task", "This is a Test", 2, FirebaseAuth.getInstance().getUid(), "Location", currentDate, "repeat-none");
+        task = new Task("My Task", "This is a Test", 2, FirebaseAuth.getInstance().getUid(), "Location", currentDate, TaskRepeatCondition.REPEAT_NONE);
         testDB.uploadTask(task);
         try {
             Thread.sleep(1000);

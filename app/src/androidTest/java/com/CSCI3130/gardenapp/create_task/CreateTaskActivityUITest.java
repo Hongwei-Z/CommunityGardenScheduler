@@ -7,6 +7,7 @@ import androidx.test.filters.LargeTest;
 import androidx.test.rule.ActivityTestRule;
 
 import com.CSCI3130.gardenapp.R;
+import com.CSCI3130.gardenapp.util.TaskRepeatCondition;
 import com.CSCI3130.gardenapp.util.data.Task;
 import com.CSCI3130.gardenapp.util.data.TaskGenerator;
 import com.CSCI3130.gardenapp.util.data.WeatherCondition;
@@ -138,7 +139,7 @@ public class CreateTaskActivityUITest {
 
     @Test
     public void testRepeatedSelected() {
-        Task task = TaskGenerator.generateTask(false, "repeat-weekly");
+        Task task = TaskGenerator.generateTask(false, TaskRepeatCondition.REPEAT_WEEKLY);
         onView(withId(R.id.repeatTypeButton)).perform(click());
         onView(withId(R.id.editTitle)).perform(typeText(task.getName()), closeSoftKeyboard());
         onView(withId(R.id.editDescription)).perform(typeText(task.getDescription()), closeSoftKeyboard());

@@ -8,6 +8,7 @@ import androidx.test.rule.ActivityTestRule;
 
 import com.CSCI3130.gardenapp.R;
 import com.CSCI3130.gardenapp.util.DateFormatUtils;
+import com.CSCI3130.gardenapp.util.TaskRepeatCondition;
 import com.CSCI3130.gardenapp.util.data.Task;
 import com.CSCI3130.gardenapp.util.db.TaskTestDatabase;
 
@@ -59,8 +60,8 @@ public class TaskHistoryEspressoTests {
 
     @Test
     public void taskHistoryContainsExpectedTasks() {
-        Task task = new Task("Task1", "This is a Test", 2, "", "Location", System.currentTimeMillis(), "repeat-none");
-        Task task2 = new Task("Task2", "This is a Test", 2, "", "Location", System.currentTimeMillis(), "repeat-none");
+        Task task = new Task("Task1", "This is a Test", 2, "", "Location", System.currentTimeMillis(), TaskRepeatCondition.REPEAT_NONE);
+        Task task2 = new Task("Task2", "This is a Test", 2, "", "Location", System.currentTimeMillis(), TaskRepeatCondition.REPEAT_NONE);
         long timePast = System.currentTimeMillis() - 1000;
         long timeFurtherPast = System.currentTimeMillis() - 100000;
         long timeFuture = System.currentTimeMillis() + 100000;
@@ -94,7 +95,7 @@ public class TaskHistoryEspressoTests {
 
     @Test
     public void incompleteTasksNotShownInHistory() {
-        Task task = new Task("Task1", "This is a Test", 2, "", "Location", System.currentTimeMillis(), "repeat-none");
+        Task task = new Task("Task1", "This is a Test", 2, "", "Location", System.currentTimeMillis(), TaskRepeatCondition.REPEAT_NONE);
         testDB.uploadTask(task);
         try {
             Thread.sleep(1000);
