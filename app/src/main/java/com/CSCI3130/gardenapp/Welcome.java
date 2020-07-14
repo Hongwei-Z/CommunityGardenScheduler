@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.ImageView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -26,10 +27,13 @@ import com.google.firebase.auth.FirebaseUser;
 public class Welcome extends AppCompatActivity {
 
     //UI element declarations
-    TextView weatherCityTxt, weatherDescTxt, weatherTempTxt, weatherHumidTxt, weatherWindTxt;
+    TextView weatherCityTxt, weatherDescTxt, weatherTempTxt, weatherHumidTxt, weatherWindTxt, welcome_title;
     //firebase authentication object and state listener
     FirebaseAuth mFirebaseAuth;
     //weather variables
+
+    //ImageView display weather symbol
+    ImageView weatherImg;
 
     /**
      * onCreate method for initial activity setup
@@ -52,6 +56,8 @@ public class Welcome extends AppCompatActivity {
         weatherTempTxt = findViewById(R.id.weatherTempTxt);
         weatherHumidTxt = findViewById(R.id.weatherHumidTxt);
         weatherWindTxt = findViewById(R.id.weatherWindTxt);
+        welcome_title = findViewById(R.id.welcome_title);
+        weatherImg = findViewById(R.id.weatherimg);
     }
 
     /**
@@ -63,6 +69,25 @@ public class Welcome extends AppCompatActivity {
         weatherCityTxt.setText("Current weather in " + CurrentWeather.city + ":");
         weatherHumidTxt.setText("Humidity: " + CurrentWeather.humidity + "%");
         weatherWindTxt.setText("Wind Speed: " + CurrentWeather.windSpeed + " m/s");
+        welcome_title.setText("Welcome " + mFirebaseAuth.getCurrentUser().getDisplayName()+ " !");
+
+        //Pick a weather symbol by current weather condition
+        String weatherDesc = CurrentWeather.description;
+        if (weatherDesc.contains("clear")){
+            weatherImg.setImageResource(R.drawable.clear);
+        }
+        else if (weatherDesc.contains("cloud")){
+            weatherImg.setImageResource(R.drawable.cloudy);
+        }
+        else if (weatherDesc.contains("rain")){
+            weatherImg.setImageResource(R.drawable.rain);
+        }
+        else if (weatherDesc.contains("snow")){
+            weatherImg.setImageResource(R.drawable.snow);
+        }
+        else if (weatherDesc.contains("wind")){
+            weatherImg.setImageResource(R.drawable.windy);
+        }
     }
 
     /**

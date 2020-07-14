@@ -178,9 +178,9 @@ public class FilterPopUp extends Activity {
     public void setButtonConditionFromId(boolean condition, int id){
         Button btn = (Button) findViewById(id);
         if (condition)
-            btn.setBackgroundResource(R.color.positiveButton);
+            btn.setBackgroundResource(R.drawable.negative_button_shape);
         else
-            btn.setBackgroundResource(R.color.negativeButton);
+            btn.setBackgroundResource(R.drawable.positive_button_shape);
         btn.setEnabled(condition);
     }
 

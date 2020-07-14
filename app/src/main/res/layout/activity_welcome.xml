@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -8,173 +7,158 @@
 
     <TextView
         android:id="@+id/welcome_title"
-        android:layout_width="378dp"
-        android:layout_height="0dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_centerVertical="true"
         android:layout_marginTop="72dp"
         android:fontFamily="@font/redhatdisplay"
         android:gravity="center"
-        android:text="Welcome!"
+        android:text="@string/welcome"
         android:textSize="30sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.515"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <Button
-        android:id="@+id/createTasktBtn_welcome"
-        android:layout_width="125dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:background="#5E5E5E"
-        android:fontFamily="@font/redhatdisplay"
-        android:onClick="createTaskOpen_onclick"
-        android:text="Create Task"
-        android:textAllCaps="false"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/signOutBtn_welcome2" />
+        android:textStyle="bold" />
 
     <Button
         android:id="@+id/signOutBtn_welcome2"
-        android:layout_width="125dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:background="#5E5E5E"
-        android:fontFamily="@font/redhatdisplay"
+        android:layout_width="320dp"
+        android:layout_height="70dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="80dp"
+        android:layout_centerInParent="true"
+        android:background="@drawable/negative_button_shape"
+        android:fontFamily="@font/redhatdisplay_bold"
+        android:textSize="30sp"
+        android:textColor="#FFFFFF"
+        android:textAllCaps="true"
         android:onClick="signOut_onclick"
-        android:text="Sign Out"
-        android:textAllCaps="false"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/taskHistoryBtn" />
+        android:text="@string/sign_out"/>
 
     <Button
         android:id="@+id/allTaskListBtn"
-        android:layout_width="125dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="48dp"
-        android:background="#5E5E5E"
+        android:layout_width="150dp"
+        android:layout_height="70dp"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="45dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="240dp"
+        android:background="@drawable/positive_button_shape"
         android:fontFamily="@font/redhatdisplay"
+        android:textSize="23sp"
+        android:textColor="#000000"
         android:onClick="allTaskListOpen_onclick"
-        android:text="All Tasks"
-        android:textAllCaps="false"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/weatherWindTxt" />
+        android:text="@string/all_tasks"
+        android:textAllCaps="false" />
 
     <Button
         android:id="@+id/myTasksBtn"
-        android:layout_width="125dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:background="#5E5E5E"
+        android:layout_width="150dp"
+        android:layout_height="70dp"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="45dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="240dp"
+        android:background="@drawable/positive_button_shape"
         android:fontFamily="@font/redhatdisplay"
+        android:textSize="23sp"
+        android:textColor="#000000"
         android:onClick="myTaskListOpen_onclick"
-        android:text="My Tasks"
-        android:textAllCaps="false"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/openTasksBtn" />
+        android:text="@string/my_tasks"
+        android:textAllCaps="false" />
 
     <Button
         android:id="@+id/openTasksBtn"
-        android:layout_width="125dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:background="#5E5E5E"
+        android:layout_width="150dp"
+        android:layout_height="70dp"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="45dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="160dp"
+        android:background="@drawable/positive_button_shape"
         android:fontFamily="@font/redhatdisplay"
+        android:textSize="16sp"
+        android:textColor="#000000"
+        android:textStyle="bold"
         android:onClick="openTaskListOpen_onclick"
-        android:text="Open Tasks"
-        android:textAllCaps="false"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/allTaskListBtn" />
+        android:text="@string/open_tasks"
+        android:textAllCaps="false" />
 
     <Button
         android:id="@+id/taskHistoryBtn"
-        android:layout_width="125dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:background="#5E5E5E"
+        android:layout_width="150dp"
+        android:layout_height="70dp"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="45dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="160dp"
+        android:background="@drawable/positive_button_shape"
         android:fontFamily="@font/redhatdisplay"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:textColor="#000000"
         android:onClick="taskHistoryListOpen_onclick"
-        android:text="Task History"
-        android:textAllCaps="false"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/myTasksBtn" />
+        android:text="@string/task_history"
+        android:textAllCaps="false" />
 
     <TextView
         android:id="@+id/weatherCityTxt"
-        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="32dp"
-        android:layout_marginEnd="8dp"
+        android:layout_width="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="150dp"
+        android:textSize="23sp"
+        android:textStyle="bold"
         android:fontFamily="@font/redhatdisplay"
-        android:text="Current weather in "
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/welcome_title" />
+        android:text="@string/current_weather_in" />
 
     <TextView
         android:id="@+id/weatherDescTxt"
-        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
+        android:layout_width="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="185dp"
+        android:textSize="20sp"
+        android:textStyle="bold"
         android:fontFamily="@font/redhatdisplay"
-        android:text="Description"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/weatherCityTxt" />
+        android:text="@string/description"/>
 
     <TextView
         android:id="@+id/weatherTempTxt"
-        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
+        android:layout_width="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="210dp"
+        android:textSize="20sp"
+        android:textStyle="bold"
         android:fontFamily="@font/redhatdisplay"
-        android:text="Temperature: "
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/weatherDescTxt" />
+        android:text="@string/temperature" />
 
     <TextView
         android:id="@+id/weatherHumidTxt"
-        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
+        android:layout_width="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="235dp"
+        android:textSize="20sp"
+        android:textStyle="bold"
         android:fontFamily="@font/redhatdisplay"
-        android:text="Humidity:"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/weatherTempTxt" />
+        android:text="@string/humidity" />
 
     <TextView
         android:id="@+id/weatherWindTxt"
-        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
+        android:layout_width="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="260dp"
+        android:textSize="20sp"
+        android:textStyle="bold"
         android:fontFamily="@font/redhatdisplay"
-        android:text="Wind Speed: "
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/weatherHumidTxt" />
+        android:text="@string/wind_speed" />
 
+    <ImageView
+        android:id="@+id/weatherimg"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="40dp" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</RelativeLayout>

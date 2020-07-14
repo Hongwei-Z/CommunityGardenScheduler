@@ -53,7 +53,7 @@
     <Button
         android:id="@+id/signInBtn_signin"
         android:layout_width="320dp"
-        android:layout_height="55dp"
+        android:layout_height="65dp"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="160dp"
@@ -67,7 +67,7 @@
     <Button
         android:id="@+id/signUpBtn_signin"
         android:layout_width="320dp"
-        android:layout_height="55dp"
+        android:layout_height="65dp"
         android:layout_alignParentBottom="true"
         android:layout_centerInParent="true"
         android:layout_marginBottom="80dp"
