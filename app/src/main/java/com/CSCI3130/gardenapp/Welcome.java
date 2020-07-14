@@ -73,20 +73,32 @@ public class Welcome extends AppCompatActivity {
 
         //Pick a weather symbol by current weather condition
         String weatherDesc = CurrentWeather.description;
-        if (weatherDesc.contains("clear")){
-            weatherImg.setImageResource(R.drawable.clear);
+        if (weatherDesc.equals("clear sky")){
+            weatherImg.setImageResource(R.drawable.clear_sky);
         }
-        else if (weatherDesc.contains("cloud")){
-            weatherImg.setImageResource(R.drawable.cloudy);
+        else if (weatherDesc.equals("few clouds")){
+            weatherImg.setImageResource(R.drawable.few_clouds);
+        }
+        else if (weatherDesc.equals("scattered clouds")){
+            weatherImg.setImageResource(R.drawable.scattered_clouds);
+        }
+        else if (weatherDesc.equals("broken clouds")){
+            weatherImg.setImageResource(R.drawable.broken_clouds);
+        }
+        else if (weatherDesc.equals("shower rain")){
+            weatherImg.setImageResource(R.drawable.shower_rain);
         }
         else if (weatherDesc.contains("rain")){
             weatherImg.setImageResource(R.drawable.rain);
         }
+        else if (weatherDesc.contains("thunderstorm")){
+            weatherImg.setImageResource(R.drawable.thunderstorm);
+        }
         else if (weatherDesc.contains("snow")){
             weatherImg.setImageResource(R.drawable.snow);
         }
-        else if (weatherDesc.contains("wind")){
-            weatherImg.setImageResource(R.drawable.windy);
+        else if (weatherDesc.equals("mist")){
+            weatherImg.setImageResource(R.drawable.mist);
         }
     }
 
