@@ -11,6 +11,7 @@ import com.CSCI3130.gardenapp.util.data.Task;
 import com.CSCI3130.gardenapp.util.data.WeatherCondition;
 
 import java.util.ArrayList;
+import java.util.concurrent.TimeUnit;
 
 /**
  * TaskAdapter.java - a class used to manage the list of tasks displayed to the user and the
@@ -105,7 +106,7 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskViewHolder> {
          * when deadline is more than 3 days, hidden symbol
          */
 
-        long diff_date = (date - nowdate)/1000/60/60/24;
+        long diff_date = TimeUnit.MILLISECONDS.toDays(date - nowdate);
         if (diff_date <= 1 && diff_date >0) {
             holder.setDuesymbol(R.drawable.red);
         } else if (diff_date > 1 && diff_date <=3 ){
