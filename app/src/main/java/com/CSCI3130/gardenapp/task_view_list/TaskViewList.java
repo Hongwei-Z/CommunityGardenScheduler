@@ -5,7 +5,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -17,7 +16,6 @@ import com.CSCI3130.gardenapp.R;
 import com.CSCI3130.gardenapp.SortCategory;
 import com.CSCI3130.gardenapp.SortOrder;
 import com.CSCI3130.gardenapp.create_task.CreateTaskActivity;
-import com.CSCI3130.gardenapp.util.data.Task;
 import com.CSCI3130.gardenapp.util.db.TaskDatabase;
 import com.google.android.material.snackbar.Snackbar;
 
