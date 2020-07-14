@@ -6,9 +6,7 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ImageView;
-
 import androidx.appcompat.app.AppCompatActivity;
-
 import com.CSCI3130.gardenapp.create_task.CreateTaskActivity;
 import com.CSCI3130.gardenapp.notification.NotificationGuardian;
 import com.CSCI3130.gardenapp.task_view_list.ActiveTaskListContext;

@@ -8,9 +8,7 @@ import android.content.BroadcastReceiver;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
-import android.widget.Toast;
 import com.CSCI3130.gardenapp.R;
-
 import java.util.concurrent.TimeUnit;
 
 /**

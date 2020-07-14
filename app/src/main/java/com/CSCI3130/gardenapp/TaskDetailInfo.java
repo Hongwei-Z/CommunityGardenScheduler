@@ -13,10 +13,7 @@ import com.CSCI3130.gardenapp.util.data.Task;
 import com.CSCI3130.gardenapp.util.data.User;
 import com.CSCI3130.gardenapp.util.db.DatabaseAuth;
 import com.CSCI3130.gardenapp.util.db.TaskDatabase;
-import com.google.firebase.auth.FirebaseAuth;
-
 import java.util.concurrent.TimeUnit;
-
 
 public class TaskDetailInfo extends AppCompatActivity {
 

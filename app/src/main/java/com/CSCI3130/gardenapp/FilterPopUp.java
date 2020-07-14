@@ -8,10 +8,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.Toast;
-
 import com.CSCI3130.gardenapp.task_view_list.TaskViewList;
 import com.CSCI3130.gardenapp.util.DateFormatUtils;
-
 import java.util.ArrayList;
 import java.util.Calendar;
 

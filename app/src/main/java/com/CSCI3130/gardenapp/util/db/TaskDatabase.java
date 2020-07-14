@@ -2,10 +2,8 @@ package com.CSCI3130.gardenapp.util.db;
 
 import android.content.Context;
 import android.content.Intent;
-
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.CSCI3130.gardenapp.R;
 import com.CSCI3130.gardenapp.SortCategory;
 import com.CSCI3130.gardenapp.SortOrder;
@@ -23,7 +21,6 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
