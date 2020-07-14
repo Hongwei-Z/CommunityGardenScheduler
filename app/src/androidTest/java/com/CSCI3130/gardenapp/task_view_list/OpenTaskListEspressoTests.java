@@ -32,7 +32,7 @@ public class OpenTaskListEspressoTests {
     @Before
     public void setUp() {
         Intent intent = new Intent();
-        String activeTaskListContext = "openTasks";
+        ActiveTaskListContext activeTaskListContext = ActiveTaskListContext.OPEN_TASKS;
         intent.putExtra("activeTaskListContext", activeTaskListContext);
         activityScenarioRule.launchActivity(intent);
         testDB = new TaskTestDatabase();
@@ -57,7 +57,6 @@ public class OpenTaskListEspressoTests {
         long currentDate = System.currentTimeMillis();
         //upload non-open task to test database
         Task task = new Task("Not Open Task", "This is a Test", 2, "Some User ID", "Location", currentDate, "repeat-none");
-        task.setOpen(false);
         testDB.uploadTask(task);
         //check if task appears in filtered recyclerview, fail if it is there
         try {
@@ -69,7 +68,6 @@ public class OpenTaskListEspressoTests {
 
         //upload open task to database
         task = new Task("Open Task", "This is a Test", 2, "", "Location", currentDate, "repeat-none");
-        task.setOpen(true);
         testDB.uploadTask(task);
         //check if task appears in filtered recyclerview, fail if it is NOT there
         try {
@@ -77,7 +75,7 @@ public class OpenTaskListEspressoTests {
             onView(withRecyclerView(R.id.recycleview_tasks).atPosition(1)).check(doesNotExist());
             onView(withRecyclerView(R.id.recycleview_tasks).atPosition(0)).check(matches(hasDescendant(withText("Open Task"))));
             onView(withRecyclerView(R.id.recycleview_tasks).atPosition(0))
-                    .check(matches(hasDescendant(withText("Due: "+ DateFormatUtils.getDateFormatted(currentDate)))));
+                    .check(matches(hasDescendant(withText("Due: " + DateFormatUtils.getDateFormatted(currentDate)))));
             onView(withRecyclerView(R.id.recycleview_tasks).atPosition(0))
                     .check(matches(hasDescendant(withId(R.id.task_user_profile))));
             onView(withRecyclerView(R.id.recycleview_tasks).atPosition(0)).perform(click());

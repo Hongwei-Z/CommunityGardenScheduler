@@ -9,6 +9,7 @@ import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 import com.CSCI3130.gardenapp.R;
 import com.CSCI3130.gardenapp.TaskDetailInfo;
+import com.CSCI3130.gardenapp.task_view_list.ActiveTaskListContext;
 import com.CSCI3130.gardenapp.util.data.CurrentWeather;
 import com.CSCI3130.gardenapp.util.data.Task;
 import com.CSCI3130.gardenapp.util.data.WeatherCondition;
@@ -31,7 +32,7 @@ public class NotificationJob extends JobService {
     private static int count = 0;
     protected static TaskDatabase db = new TaskDatabase();
     static {
-        db.setDbRead("myTasks");
+        db.setDbRead(ActiveTaskListContext.MY_TASKS);
     }
 
     private NotificationManagerCompat notificationManager;

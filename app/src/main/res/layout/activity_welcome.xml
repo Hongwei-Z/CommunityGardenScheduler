@@ -22,7 +22,7 @@
 
     <Button
         android:id="@+id/createTasktBtn_welcome"
-        android:layout_width="wrap_content"
+        android:layout_width="125dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:background="#5E5E5E"
@@ -37,7 +37,7 @@
 
     <Button
         android:id="@+id/signOutBtn_welcome2"
-        android:layout_width="wrap_content"
+        android:layout_width="125dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:background="#5E5E5E"
@@ -52,7 +52,7 @@
 
     <Button
         android:id="@+id/allTaskListBtn"
-        android:layout_width="wrap_content"
+        android:layout_width="125dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="48dp"
         android:background="#5E5E5E"
@@ -67,7 +67,7 @@
 
     <Button
         android:id="@+id/myTasksBtn"
-        android:layout_width="wrap_content"
+        android:layout_width="125dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:background="#5E5E5E"
@@ -82,7 +82,7 @@
 
     <Button
         android:id="@+id/openTasksBtn"
-        android:layout_width="wrap_content"
+        android:layout_width="125dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:background="#5E5E5E"
@@ -97,7 +97,7 @@
 
     <Button
         android:id="@+id/taskHistoryBtn"
-        android:layout_width="wrap_content"
+        android:layout_width="125dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:background="#5E5E5E"

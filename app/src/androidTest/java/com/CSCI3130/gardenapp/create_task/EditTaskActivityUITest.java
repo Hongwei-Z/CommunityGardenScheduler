@@ -7,16 +7,19 @@ import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.GradientDrawable;
 import android.view.View;
 import android.widget.Button;
+
 import androidx.core.content.res.ResourcesCompat;
 import androidx.test.espresso.matcher.BoundedMatcher;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.platform.app.InstrumentationRegistry;
 import androidx.test.rule.ActivityTestRule;
+
 import com.CSCI3130.gardenapp.R;
 import com.CSCI3130.gardenapp.util.data.Task;
 import com.CSCI3130.gardenapp.util.data.TaskGenerator;
 import com.CSCI3130.gardenapp.util.data.WeatherCondition;
 import com.CSCI3130.gardenapp.util.db.TaskTestDatabase;
+
 import org.hamcrest.Description;
 import org.hamcrest.Matcher;
 import org.junit.After;
@@ -26,9 +29,14 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import static androidx.test.espresso.Espresso.onView;
-import static androidx.test.espresso.action.ViewActions.*;
+import static androidx.test.espresso.action.ViewActions.clearText;
+import static androidx.test.espresso.action.ViewActions.click;
+import static androidx.test.espresso.action.ViewActions.closeSoftKeyboard;
+import static androidx.test.espresso.action.ViewActions.typeText;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
-import static androidx.test.espresso.matcher.ViewMatchers.*;
+import static androidx.test.espresso.matcher.ViewMatchers.withId;
+import static androidx.test.espresso.matcher.ViewMatchers.withSpinnerText;
+import static androidx.test.espresso.matcher.ViewMatchers.withText;
 
 @RunWith(AndroidJUnit4.class)
 public class EditTaskActivityUITest {
@@ -39,7 +47,7 @@ public class EditTaskActivityUITest {
     private Task testTask;
 
     @Before
-    public void setUp(){
+    public void setUp() {
         testTask = TaskGenerator.generateTask(true, WeatherCondition.HOT);
         testDB = new TaskTestDatabase();
         testDB.uploadTask(testTask);
@@ -68,7 +76,6 @@ public class EditTaskActivityUITest {
         onView(withId(R.id.editLocation)).check(matches(withText(testTask.getLocation())));
         onView(withId(R.id.buttonConfirmAdd)).check(matches(withText(R.string.confirm_edit_task)));
         onView(withId(R.id.weatherSpinner)).check(matches(withSpinnerText("Hot")));
-        checkPrioritySelected(testTask.getPriority());
     }
 
     @Test
@@ -94,7 +101,7 @@ public class EditTaskActivityUITest {
 
     // https://stackoverflow.com/questions/28742495/testing-background-color-espresso-android
     private static Matcher<View> matchesBackgroundColor(final int expectedColorID) {
-        return new BoundedMatcher<View, View>( Button.class) {
+        return new BoundedMatcher<View, View>(Button.class) {
             int actualColor;
             int expectedColor;
             String message;
@@ -110,11 +117,9 @@ public class EditTaskActivityUITest {
 
                 try {
                     actualColor = ((ColorDrawable) item.getBackground()).getColor();
-                }
-                catch (Exception e) {
+                } catch (Exception e) {
                     actualColor = ((GradientDrawable) item.getBackground()).getColor().getDefaultColor();
-                }
-                finally {
+                } finally {
                     if (actualColor == expectedColor) {
                         System.out.println("Success...: Expected Color " + String.format("#%06X", (0xFFFFFF & expectedColor))
                                 + " Actual Color " + String.format("#%06X", (0xFFFFFF & actualColor)));
@@ -122,11 +127,13 @@ public class EditTaskActivityUITest {
                 }
                 return actualColor == expectedColor;
             }
+
             @Override
             public void describeTo(final Description description) {
-                if (actualColor != 0) { message = "Background color did not match: Expected "
-                        +  String.format("#%06X", (0xFFFFFF & expectedColor))
-                        + " was " + String.format("#%06X", (0xFFFFFF & actualColor));
+                if (actualColor != 0) {
+                    message = "Background color did not match: Expected "
+                            + String.format("#%06X", (0xFFFFFF & expectedColor))
+                            + " was " + String.format("#%06X", (0xFFFFFF & actualColor));
                 }
                 description.appendText(message);
             }

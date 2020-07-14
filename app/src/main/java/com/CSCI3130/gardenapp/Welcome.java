@@ -5,13 +5,15 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import androidx.appcompat.app.AppCompatActivity;
+
 import com.CSCI3130.gardenapp.create_task.CreateTaskActivity;
 import com.CSCI3130.gardenapp.notification.NotificationGuardian;
+import com.CSCI3130.gardenapp.task_view_list.ActiveTaskListContext;
 import com.CSCI3130.gardenapp.task_view_list.TaskViewList;
 import com.CSCI3130.gardenapp.util.data.CurrentWeather;
 import com.CSCI3130.gardenapp.util.db.DatabaseAuth;
-import com.android.volley.RequestQueue;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
@@ -70,7 +72,7 @@ public class Welcome extends AppCompatActivity {
      */
     public void allTaskListOpen_onclick(View v) {
         Intent i = new Intent(Welcome.this, TaskViewList.class);
-        i.putExtra("activeTaskListContext", "allTasks");
+        i.putExtra("activeTaskListContext", ActiveTaskListContext.ALL_TASKS);
         startActivity(i);
     }
 
@@ -81,7 +83,7 @@ public class Welcome extends AppCompatActivity {
      */
     public void openTaskListOpen_onclick(View v) {
         Intent i = new Intent(Welcome.this, TaskViewList.class);
-        i.putExtra("activeTaskListContext", "openTasks");
+        i.putExtra("activeTaskListContext", ActiveTaskListContext.OPEN_TASKS);
         startActivity(i);
     }
 
@@ -92,7 +94,7 @@ public class Welcome extends AppCompatActivity {
      */
     public void myTaskListOpen_onclick(View v) {
         Intent i = new Intent(Welcome.this, TaskViewList.class);
-        i.putExtra("activeTaskListContext", "myTasks");
+        i.putExtra("activeTaskListContext", ActiveTaskListContext.MY_TASKS);
         startActivity(i);
     }
 
@@ -103,7 +105,7 @@ public class Welcome extends AppCompatActivity {
      */
     public void taskHistoryListOpen_onclick(View v) {
         Intent i = new Intent(Welcome.this, TaskViewList.class);
-        i.putExtra("activeTaskListContext", "taskHistory");
+        i.putExtra("activeTaskListContext", ActiveTaskListContext.TASK_HISTORY);
         startActivity(i);
     }
 

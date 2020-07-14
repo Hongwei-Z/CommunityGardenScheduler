@@ -56,8 +56,7 @@ public class RecyclerViewMatcher {
                         if (holder == null)
                             return false;
                         childView = holder.itemView;
-                    }
-                    else {
+                    } else {
                         return false;
                     }
                 }

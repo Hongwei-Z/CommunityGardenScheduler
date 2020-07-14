@@ -16,6 +16,7 @@ import com.CSCI3130.gardenapp.R;
 import com.CSCI3130.gardenapp.SortCategory;
 import com.CSCI3130.gardenapp.SortOrder;
 import com.CSCI3130.gardenapp.create_task.CreateTaskActivity;
+import com.CSCI3130.gardenapp.util.data.Task;
 import com.CSCI3130.gardenapp.util.db.TaskDatabase;
 import com.google.android.material.snackbar.Snackbar;
 
@@ -30,10 +31,10 @@ public class TaskViewList extends AppCompatActivity {
     private static Context mContext;
     protected RecyclerView recyclerView;
     TaskDatabase db;
-    private String lastContext = "allTasks"; //default to all tasks
+    private ActiveTaskListContext lastContext = ActiveTaskListContext.ALL_TASKS; //default to all tasks
     private RecyclerView.LayoutManager layoutManager;
     Dialog myDialog;
-    public static String activeTaskListContext;
+    public static ActiveTaskListContext activeTaskListContext;
 
     //sorting and filtering values
     SortCategory sortCat;
@@ -76,21 +77,23 @@ public class TaskViewList extends AppCompatActivity {
             Snackbar.make(findViewById(R.id.task_view_list), "Success!", Snackbar.LENGTH_SHORT).show();
         }
 
-        String activeTaskListContext = getIntent().getStringExtra("activeTaskListContext");
+        ActiveTaskListContext activeTaskListContext = (ActiveTaskListContext) getIntent().getSerializableExtra("activeTaskListContext");
         if (activeTaskListContext == null) {
             activeTaskListContext = lastContext;
         }
         TextView toolbarTitle = findViewById(R.id.page_name);
         lastContext = activeTaskListContext;
+        SortOrder sortOrderDefault = SortOrder.ASCENDING;
 
         switch (activeTaskListContext) {
-            case "myTasks":
+            case MY_TASKS:
                 toolbarTitle.setText("My Tasks");
                 break;
-            case "openTasks":
+            case OPEN_TASKS:
                 toolbarTitle.setText("Open Tasks");
                 break;
-            case "taskHistory":
+            case TASK_HISTORY:
+                sortOrderDefault = SortOrder.DESCENDING;
                 toolbarTitle.setText("Task History");
                 break;
             default:
@@ -104,7 +107,7 @@ public class TaskViewList extends AppCompatActivity {
         recyclerView = findViewById(R.id.recycleview_tasks);
         recyclerView.setHasFixedSize(true);
 
-        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
+        layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
 
         //get filter values
@@ -119,10 +122,16 @@ public class TaskViewList extends AppCompatActivity {
             sortCat = SortCategory.NONE;
         }
 
+
         if (getIntent().getSerializableExtra("sort_order") != null) {
-            sortOrder = (SortOrder) getIntent().getSerializableExtra("sort_order");
+            SortOrder sortValue = (SortOrder) getIntent().getSerializableExtra("sort_order");
+            if (sortValue != SortOrder.NONE)
+                sortOrder = sortValue;
+            else {
+                sortOrder = sortOrderDefault;
+            }
         } else {
-            sortOrder = SortOrder.NONE;
+            sortOrder = sortOrderDefault;
         }
 
         db.getDbRead().addValueEventListener(

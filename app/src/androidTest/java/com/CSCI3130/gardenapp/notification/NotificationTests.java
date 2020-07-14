@@ -14,10 +14,7 @@ import com.CSCI3130.gardenapp.util.data.Task;
 import com.CSCI3130.gardenapp.util.data.TaskGenerator;
 import com.CSCI3130.gardenapp.util.data.WeatherCondition;
 import com.CSCI3130.gardenapp.util.db.TaskTestDatabase;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Rule;
-import org.junit.Test;
+import org.junit.*;
 import org.junit.runner.RunWith;
 
 import java.util.ArrayList;
@@ -51,17 +48,19 @@ public class NotificationTests {
         CurrentWeather.currentWeatherList.add(WeatherCondition.HOT);
     }
 
+
     @Test
     /*
      * Testing that a due date alert fires appropriately
      */
     public void testValidDueDateAlert() throws UiObjectNotFoundException {
+        task.setDateDue(System.currentTimeMillis());
         NotificationJob.db.uploadTask(task);
         mDevice.openNotification();
         mDevice.wait(Until.hasObject(By.text(task.getName() + rule.getActivity().getString(R.string.duedate_title))), 30000);
         UiObject notification = mDevice.findObject(new UiSelector().text(task.getName() + rule.getActivity().getString(R.string.duedate_title)));
         notification.clickAndWaitForNewWindow();
-        checkProperLoad(task);
+        checkProperLoad(task, false);
     }
 
     @Test
@@ -76,15 +75,16 @@ public class NotificationTests {
         UiObject notification = mDevice.findObject(new UiSelector().text(task.getName() + rule.getActivity().getString(R.string.weather_title)));
         mDevice.findObject(new UiSelector().text("It is currently " + task.getWeatherTrigger().name() + "."));
         notification.clickAndWaitForNewWindow();
-        checkProperLoad(task);
+        checkProperLoad(task, true);
     }
 
-    public void checkProperLoad(Task task) {
+    public void checkProperLoad(Task task, boolean weather) {
         onView(withId(R.id.taskTitle)).check(matches(withText(task.getName())));
         onView(withId(R.id.taskDescription)).check(matches(withText(task.getDescription())));
         onView(withId(R.id.taskLocation)).check(matches(withText(task.getLocation())));
         onView(withId(R.id.taskPriority)).check(matches(withText(""+task.getPriority())));
-        onView(withId(R.id.taskDuedate)).check(matches(withText("Due on: " + DateFormatUtils.getDateFormatted(task.getDateDue()))));
+        if (!weather)
+            onView(withId(R.id.taskDuedate)).check(matches(withText("Due on: " + DateFormatUtils.getDateFormatted(task.getDateDue()))));
     }
 
 }

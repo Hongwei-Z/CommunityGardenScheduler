@@ -18,9 +18,7 @@ public class Task implements Serializable {
     private long dateCompleted = -1;
     private String location;
     private String repeated;
-    private boolean open;
     private String taskID;
-    private int notificationID;
     private WeatherCondition weatherTrigger;
 
     /**
@@ -42,8 +40,6 @@ public class Task implements Serializable {
         this.dateDue = dateDue;
         this.location = location;
         this.repeated = repeated;
-        this.open = false;
-
         //sets weather trigger to "none" by default - can be set explicitly using set method
         this.weatherTrigger = WeatherCondition.NONE;
     }
@@ -66,7 +62,6 @@ public class Task implements Serializable {
         this.priority = priority;
         this.user = user;
         this.location = location;
-        this.open = false;
         this.dateDue = dateDue;
         this.weatherTrigger = weatherTrigger;
         this.repeated = repeated;
@@ -91,24 +86,6 @@ public class Task implements Serializable {
      */
     public void setLocation(String location) {
         this.location = location;
-    }
-
-    /**
-     * gets whether the value is open or not
-     *
-     * @return open status of the task
-     */
-    public boolean getOpen() {
-        return open;
-    }
-
-    /**
-     * sets whether or not the task is open or not
-     *
-     * @param open true = open, false = taken
-     */
-    public void setOpen(boolean open) {
-        this.open = open;
     }
 
     /**
@@ -302,7 +279,6 @@ public class Task implements Serializable {
                 ", dateDue=" + dateDue +
                 ", dateCompleted=" + dateCompleted +
                 ", location='" + location + '\'' +
-                ", open=" + open +
                 ", weatherTrigger=" + weatherTrigger +
                 '}';
     }

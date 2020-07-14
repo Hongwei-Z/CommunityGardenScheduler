@@ -1,24 +1,33 @@
 package com.CSCI3130.gardenapp.create_task;
 
+import android.app.DatePickerDialog;
 import android.content.Intent;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.Spinner;
-import android.widget.TextView;
-import androidx.appcompat.app.AppCompatActivity;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.*;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Spinner;
+import android.widget.TextView;
+
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.CSCI3130.gardenapp.R;
 import com.CSCI3130.gardenapp.task_view_list.TaskViewList;
+import com.CSCI3130.gardenapp.util.DateFormatUtils;
 import com.CSCI3130.gardenapp.util.data.CurrentWeather;
 import com.CSCI3130.gardenapp.util.data.Task;
 import com.CSCI3130.gardenapp.util.data.WeatherCondition;
 import com.CSCI3130.gardenapp.util.db.TaskDatabase;
+import com.google.android.material.button.MaterialButton;
+import com.google.android.material.button.MaterialButtonToggleGroup;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.Objects;
+import java.util.concurrent.TimeUnit;
 
 /**
  * This is the Create task screen where the user can create a task and upload to the database
@@ -27,11 +36,15 @@ import java.util.Objects;
  */
 public class CreateTaskActivity extends AppCompatActivity {
     TaskDatabase db;
-    Spinner weatherSpinner;
-    ArrayAdapter<CharSequence> adapter;
+    private Spinner weatherSpinner, repeatSpinner;
+    ArrayAdapter<CharSequence> repeatAdapter, weatherAdapter;
     private int current_priority;
+    private long dueDateSelected = System.currentTimeMillis();
     private boolean edit;
-    private Spinner repeatSpinner;
+    private MaterialButtonToggleGroup conditionsToggle;
+    private Button dateConditions;
+    private DatePickerDialog datePickerDialog;
+    private Calendar date;
 
     /**
      * Constructing the activity
@@ -43,22 +56,40 @@ public class CreateTaskActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_task);
         edit = getIntent().getBooleanExtra(getString(R.string.editSetting_extra), false);
-        repeatSpinner = (Spinner) findViewById(R.id.repeatSpinner);
-        ArrayAdapter<CharSequence> repeatAdapter = ArrayAdapter.createFromResource(this, R.array.repeat_choice_array, android.R.layout.simple_spinner_dropdown_item);
+        db = new TaskDatabase();
+
+        MaterialButton priority1 = findViewById(R.id.buttonPriority1);
+        priority1.setBackgroundColor(getColor(R.color.colorPriority1));
+        current_priority = 1;
+
+        //set up repeat spinner
+        repeatSpinner = findViewById(R.id.repeatSpinner);
+        repeatAdapter = ArrayAdapter.createFromResource(this, R.array.repeat_choice_array, android.R.layout.simple_spinner_dropdown_item);
         repeatAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         repeatSpinner.setAdapter(repeatAdapter);
-        db = new TaskDatabase();
-        current_priority = -1;
 
         //set up weather spinner
         weatherSpinner = findViewById(R.id.weatherSpinner);
-        adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, CurrentWeather.possibleWeatherConditions);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        weatherSpinner.setAdapter(adapter);
+        weatherAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, CurrentWeather.spinnerWeatherConditions);
+        weatherAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        weatherSpinner.setAdapter(weatherAdapter);
+
+        conditionsToggle = findViewById(R.id.taskTypesToggleGroup);
+        dateConditions = findViewById(R.id.dueDate);
+        dateConditions.setText("Due: " + DateFormatUtils.getDateFormatted(System.currentTimeMillis()));
+
+        date = Calendar.getInstance();
+        datePickerDialog = new DatePickerDialog(CreateTaskActivity.this, (view, year, month, dayOfMonth) -> {
+            date.set(Calendar.YEAR, year);
+            date.set(Calendar.MONTH, month);
+            date.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+            dueDateSelected = date.getTimeInMillis();
+            dateConditions.setText("Due: " + DateFormatUtils.getDateFormatted(dueDateSelected));
+        }, date.get(Calendar.YEAR), date.get(Calendar.MONTH), date.get(Calendar.DAY_OF_MONTH));
+
         if (edit) { // configures the UI to EDIT mode
             loadEditConfiguration((Task) Objects.requireNonNull(getIntent().getSerializableExtra(getString(R.string.task_extra))));
         }
-        db = new TaskDatabase();
     }
 
     private void loadEditConfiguration(Task t) {
@@ -75,8 +106,74 @@ public class CreateTaskActivity extends AppCompatActivity {
         editTitle.setText(t.getName());
         editDescription.setText(t.getDescription());
         editLocation.setText(t.getLocation());
-        weatherSpinner.setSelection(Arrays.asList(WeatherCondition.values()).indexOf(t.getWeatherTrigger()));
         current_priority = t.getPriority();
+
+        //determine the task condition
+        boolean dateConditionTask = t.getDateDue() != -1;
+        boolean repeatConditionTask = !t.getRepeated().equals("repeat-none");
+        boolean weatherConditionTask = !t.getWeatherTrigger().equals(WeatherCondition.NONE);
+        if (repeatConditionTask) {
+            setToggleVisibility("repeat");
+            switch (t.getRepeated()) {
+                case "repeat-weekly":
+                    repeatSpinner.setSelection(1);
+                    break;
+                case "repeat-monthly":
+                    repeatSpinner.setSelection(2);
+                    break;
+                default:
+                    repeatSpinner.setSelection(0);
+                    break;
+            }
+        } else if (weatherConditionTask) {
+            setToggleVisibility("weather");
+            weatherSpinner.setSelection(Arrays.asList(WeatherCondition.values()).indexOf(t.getWeatherTrigger()));
+        } else if (dateConditionTask) {
+            setToggleVisibility("date");
+            Button dueDateButton = findViewById(R.id.dueDate);
+            dueDateButton.setText("Due: " + DateFormatUtils.getDateFormatted(t.getDateDue()));
+            date.setTimeInMillis(t.getDateDue());
+            datePickerDialog.updateDate(date.get(Calendar.YEAR), date.get(Calendar.MONTH), date.get(Calendar.DAY_OF_MONTH));
+        }
+    }
+
+    /**
+     * Display task condition selectors based on toggled button
+     *
+     * @param view contains the id of what pressed the button
+     */
+    public void onToggleCondition(View view) {
+        int id = view.getId();
+        switch (id) {
+            case R.id.dateTypeButton:
+                setToggleVisibility("date");
+                break;
+            case R.id.repeatTypeButton:
+                setToggleVisibility("repeat");
+                break;
+            case R.id.weatherTypeButton:
+                setToggleVisibility("weather");
+                break;
+        }
+    }
+
+    private void setToggleVisibility(String condition) {
+        if (condition.equals("date")) {
+            conditionsToggle.check(R.id.dateTypeButton);
+            dateConditions.setVisibility(View.VISIBLE);
+            repeatSpinner.setVisibility(View.INVISIBLE);
+            weatherSpinner.setVisibility(View.INVISIBLE);
+        } else if (condition.equals("repeat")) {
+            conditionsToggle.check(R.id.repeatTypeButton);
+            dateConditions.setVisibility(View.INVISIBLE);
+            repeatSpinner.setVisibility(View.VISIBLE);
+            weatherSpinner.setVisibility(View.INVISIBLE);
+        } else if (condition.equals("weather")) {
+            conditionsToggle.check(R.id.weatherTypeButton);
+            dateConditions.setVisibility(View.INVISIBLE);
+            repeatSpinner.setVisibility(View.INVISIBLE);
+            weatherSpinner.setVisibility(View.VISIBLE);
+        }
     }
 
     /**
@@ -85,7 +182,6 @@ public class CreateTaskActivity extends AppCompatActivity {
      * @param view contains the id of what pressed the button
      */
     public void onPriorityCheck(View view) {
-        clearPriorityError();
         int id = view.getId();
         switch (id) {
             case R.id.buttonPriority1:
@@ -107,22 +203,17 @@ public class CreateTaskActivity extends AppCompatActivity {
         greyUnselectedButtons(current_priority);
     }
 
-    private void clearPriorityError() {
-        TextView errorText = findViewById(R.id.textErrorText);
-        errorText.setText("");
-    }
-
     private void greyUnselectedButtons(int selected) {
-        Button priority1 = findViewById(R.id.buttonPriority1);
-        priority1.setBackgroundColor(getColor(R.color.colorUnselected));
-        Button priority2 = findViewById(R.id.buttonPriority2);
-        priority2.setBackgroundColor(getColor(R.color.colorUnselected));
-        Button priority3 = findViewById(R.id.buttonPriority3);
-        priority3.setBackgroundColor(getColor(R.color.colorUnselected));
-        Button priority4 = findViewById(R.id.buttonPriority4);
-        priority4.setBackgroundColor(getColor(R.color.colorUnselected));
-        Button priority5 = findViewById(R.id.buttonPriority5);
-        priority5.setBackgroundColor(getColor(R.color.colorUnselected));
+        MaterialButton priority1 = findViewById(R.id.buttonPriority1);
+        priority1.setBackgroundColor(Color.TRANSPARENT);
+        MaterialButton priority2 = findViewById(R.id.buttonPriority2);
+        priority2.setBackgroundColor(Color.TRANSPARENT);
+        MaterialButton priority3 = findViewById(R.id.buttonPriority3);
+        priority3.setBackgroundColor(Color.TRANSPARENT);
+        MaterialButton priority4 = findViewById(R.id.buttonPriority4);
+        priority4.setBackgroundColor(Color.TRANSPARENT);
+        MaterialButton priority5 = findViewById(R.id.buttonPriority5);
+        priority5.setBackgroundColor(Color.TRANSPARENT);
         switch (selected) {
             case 1:
                 priority1.setBackgroundColor(getColor(R.color.colorPriority1));
@@ -140,8 +231,6 @@ public class CreateTaskActivity extends AppCompatActivity {
                 priority5.setBackgroundColor(getColor(R.color.colorPriority5));
                 break;
         }
-
-
     }
 
     /**
@@ -150,40 +239,47 @@ public class CreateTaskActivity extends AppCompatActivity {
      * @param view Required for android
      */
     public void onConfirm(View view) {
-        clearPriorityError();
         EditText editTitle = findViewById(R.id.editTitle);
         EditText editDescription = findViewById(R.id.editDescription);
         EditText editLocation = findViewById(R.id.editLocation);
         String title = editTitle.getText().toString();
         String description = editDescription.getText().toString();
         String location = editLocation.getText().toString();
-        WeatherCondition weatherCondition = WeatherCondition.values()[weatherSpinner.getSelectedItemPosition()];
-        String repeated;
+        //initialize repeat conditions
+        WeatherCondition weatherCondition = WeatherCondition.NONE;
+        String repeated = "repeat-none";
+        long dateDue = -1;
 
-        //get repeat condition of task
-        switch (repeatSpinner.getSelectedItemPosition()) {
-            case 1:
-                repeated = "repeat-2day";
+        switch (conditionsToggle.getCheckedButtonId()) {
+            case R.id.dateTypeButton:
+                dateDue = dueDateSelected;
                 break;
-            case 2:
-                repeated = "repeat-weekly";
+            case R.id.repeatTypeButton:
+                //get repeat condition of task
+                switch (repeatSpinner.getSelectedItemPosition()) {
+                    case 1:
+                        repeated = "repeat-weekly";
+                        break;
+                    case 2:
+                        repeated = "repeat-monthly";
+                        break;
+                    default:
+                        repeated = "repeat-2day";
+                        break;
+                }
                 break;
-            case 3:
-                repeated = "repeat-monthly";
-                break;
-            default:
-                repeated = "repeat-none";
+            case R.id.weatherTypeButton:
+                weatherCondition = WeatherCondition.values()[weatherSpinner.getSelectedItemPosition()];
                 break;
         }
+
         ArrayList<CreateTaskError> errors = verifyTask(
                 title,
                 description,
-                current_priority,
                 location);
         if (errors.size() == 0) {
-
             // package into a task object
-            uploadTask(title, description, current_priority, location, weatherCondition, repeated);
+            uploadTask(title, description, current_priority, location, weatherCondition, repeated, dateDue);
             Intent i = new Intent(this, TaskViewList.class);
             i.putExtra("result", true);
             startActivity(i);
@@ -200,10 +296,6 @@ public class CreateTaskActivity extends AppCompatActivity {
                 case MISSING_LOCATION:
                     editLocation.setError("Missing Location");
                     break;
-                case MISSING_PRIORITY:
-                    TextView errorText = findViewById(R.id.textErrorText);
-                    errorText.setText("Missing Priority");
-                    break;
             }
         }
     }
@@ -217,8 +309,9 @@ public class CreateTaskActivity extends AppCompatActivity {
      * @param location       The location where the task should be performed
      * @param weatherTrigger The weather trigger of the task
      * @param repeated       The repeat condition of the task
+     * @param dateDue        The date that the task is due
      */
-    protected void uploadTask(String title, String description, int priority, String location, WeatherCondition weatherTrigger, String repeated) {
+    protected void uploadTask(String title, String description, int priority, String location, WeatherCondition weatherTrigger, String repeated, long dateDue) {
         if (edit) {
             Task task = (Task) getIntent().getSerializableExtra("t");
             task.setName(title);
@@ -227,9 +320,35 @@ public class CreateTaskActivity extends AppCompatActivity {
             task.setWeatherTrigger(weatherTrigger);
             task.setPriority(priority);
             task.setRepeated(repeated);
+            switch (repeated) {
+                case "repeat-2day":
+                    task.setDateDue(System.currentTimeMillis()+TimeUnit.DAYS.toMillis(2));
+                    break;
+                case "repeat-weekly":
+                    task.setDateDue(System.currentTimeMillis()+TimeUnit.DAYS.toMillis(7));
+                    break;
+                case "repeat-monthly":
+                    task.setDateDue(System.currentTimeMillis()+TimeUnit.DAYS.toMillis(30));
+                    break;
+                default:
+                    task.setDateDue(dateDue);
+            }
             db.updateTask(task);
         } else {
-            Task task = new Task(title, description, priority, "", location, weatherTrigger, System.currentTimeMillis(), repeated);
+            Task task;
+            switch (repeated) {
+                case "repeat-2day":
+                    task = new Task(title, description, priority, "", location, weatherTrigger, System.currentTimeMillis()+TimeUnit.DAYS.toMillis(2), repeated);
+                    break;
+                case "repeat-weekly":
+                    task = new Task(title, description, priority, "", location, weatherTrigger, System.currentTimeMillis()+TimeUnit.DAYS.toMillis(7), repeated);
+                    break;
+                case "repeat-monthly":
+                    task = new Task(title, description, priority, "", location, weatherTrigger, System.currentTimeMillis()+TimeUnit.DAYS.toMillis(30), repeated);
+                    break;
+                default:
+                    task = new Task(title, description, priority, "", location, weatherTrigger, dateDue, repeated);
+            }
             db.uploadTask(task);
         }
     }
@@ -237,12 +356,11 @@ public class CreateTaskActivity extends AppCompatActivity {
     /**
      * @param title       Name of the task
      * @param description Description of the task
-     * @param priority    Int value of the priority
      * @param location    String of the location
      * @return List of errors using Enums in CreateTaskError
      * @see CreateTaskError
      */
-    public ArrayList<CreateTaskError> verifyTask(String title, String description, int priority, String location) {
+    public ArrayList<CreateTaskError> verifyTask(String title, String description, String location) {
         ArrayList<CreateTaskError> errors = new ArrayList<>();
         if (title.equals("")) {
             errors.add(CreateTaskError.MISSING_TITLE);
@@ -250,13 +368,19 @@ public class CreateTaskActivity extends AppCompatActivity {
         if (description.equals("")) {
             errors.add(CreateTaskError.MISSING_DESCRIPTION);
         }
-        if (priority < 1 || priority > 5) {
-            errors.add(CreateTaskError.MISSING_PRIORITY);
-        }
         if (location.equals("")) {
             errors.add(CreateTaskError.MISSING_LOCATION);
         }
         return errors;
     }
 
+    /**
+     * Used to open the Date Picker Dialog
+     *
+     * @param view contains the id of what pressed the button
+     */
+    public void openCalendar(View view) {
+        datePickerDialog.getDatePicker().setMinDate(System.currentTimeMillis() - 1000);
+        datePickerDialog.show();
+    }
 }
