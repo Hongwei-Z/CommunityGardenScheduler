@@ -51,6 +51,10 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.activity_maps, container, false);
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(getActivity());
+        SupportMapFragment mapFragment = (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.map);
+        if (mapFragment != null) {
+            mapFragment.getMapAsync(MapFragment.this);
+        }
         //To Do: only if add task, not edit or details
         fetchLocation();
         return v;

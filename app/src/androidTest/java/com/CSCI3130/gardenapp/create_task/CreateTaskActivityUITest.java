@@ -18,6 +18,7 @@ import com.CSCI3130.gardenapp.util.data.WeatherCondition;
 import com.CSCI3130.gardenapp.util.db.TaskTestDatabase;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.tasks.OnSuccessListener;
 
 import org.hamcrest.Matchers;
@@ -52,7 +53,7 @@ public class CreateTaskActivityUITest {
     public ActivityTestRule<CreateTaskActivity> activityScenarioRule = new ActivityTestRule<CreateTaskActivity>(CreateTaskActivity.class, true, false);
     public TaskTestDatabase testDB;
     private CreateTaskActivity activity;
-    Location currentLocation;
+    LatLng selectedLocation = new LatLng(44.6454, -63.5766);
 
     @Before
     public void setUp() {
@@ -60,6 +61,16 @@ public class CreateTaskActivityUITest {
         testDB = new TaskTestDatabase();
         activity = activityScenarioRule.getActivity();
         activity.db = testDB;
+        FusedLocationProviderClient fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(activity);
+        com.google.android.gms.tasks.Task<Location> task = fusedLocationProviderClient.getLastLocation();
+        task.addOnSuccessListener(new OnSuccessListener<Location>() {
+            @Override
+            public void onSuccess(Location location) {
+                if (location != null) {
+                    selectedLocation = new LatLng(location.getLatitude(), location.getLongitude());
+                }
+            }
+        });
     }
 
     @After
@@ -185,26 +196,8 @@ public class CreateTaskActivityUITest {
         //check map is displayed
         onView(withId(R.id.map)).check(matches(isDisplayed()));
         onView(withId(R.id.mapLayout)).check(matches(isDisplayed()));
-
-        //get current location if possible
-        FusedLocationProviderClient fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(activity);
-        com.google.android.gms.tasks.Task<Location> task = fusedLocationProviderClient.getLastLocation();
-        task.addOnSuccessListener(new OnSuccessListener<Location>() {
-            @Override
-            public void onSuccess(Location location) {
-                if (location != null) {
-                    currentLocation = location;
-                }
-            }
-        });
-        Thread.sleep(3000);
         DecimalFormat df = new DecimalFormat("#.#####");
-        String locationText;
-        if (currentLocation != null ) {
-            locationText ="Location " + df.format(currentLocation.getLatitude()) + " : " + df.format(currentLocation.getLongitude());
-        } else {
-            locationText = "Location " + df.format(44.6454) + " : " +df.format(-63.5766);
-        }
+        String locationText ="Location " + df.format(selectedLocation.latitude) + " : " + df.format(selectedLocation.longitude);
 
         // if successfully got location, check that is displayed, else check default
         onView(withId(R.id.locationText)).check(matches(withText(locationText)));
