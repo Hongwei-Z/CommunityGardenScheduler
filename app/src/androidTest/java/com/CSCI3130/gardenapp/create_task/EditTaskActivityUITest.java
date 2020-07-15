@@ -73,7 +73,7 @@ public class EditTaskActivityUITest {
         onView(withId(R.id.textTitle)).check(matches(withText(R.string.textEditTitle)));
         onView(withId(R.id.editTitle)).check(matches(withText(testTask.getName())));
         onView(withId(R.id.editDescription)).check(matches(withText(testTask.getDescription())));
-        onView(withId(R.id.editLocation)).check(matches(withText(testTask.getLocation())));
+        onView(withId(R.id.locationText)).check(matches(withText("Location: "+ testTask.getLocation())));
         onView(withId(R.id.buttonConfirmAdd)).check(matches(withText(R.string.confirm_edit_task)));
         onView(withId(R.id.weatherSpinner)).check(matches(withSpinnerText("Hot")));
     }

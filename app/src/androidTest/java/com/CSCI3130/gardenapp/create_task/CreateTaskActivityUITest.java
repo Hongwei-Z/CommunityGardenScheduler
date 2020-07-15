@@ -54,6 +54,7 @@ public class CreateTaskActivityUITest {
     public TaskTestDatabase testDB;
     private CreateTaskActivity activity;
     LatLng selectedLocation = new LatLng(44.6454, -63.5766);
+    DecimalFormat df = new DecimalFormat("#.#####");
 
     @Before
     public void setUp() {
@@ -85,12 +86,13 @@ public class CreateTaskActivityUITest {
     }
 
     @Test
-    public void testCorrectInputs() {
+    public void testCorrectInputs() throws InterruptedException {
         Task task = TaskGenerator.generateTask(false, System.currentTimeMillis() + 10000);
         //neat inputs
         onView(withId(R.id.editTitle)).perform(typeText(task.getName()), closeSoftKeyboard());
         onView(withId(R.id.editDescription)).perform(typeText(task.getDescription()), closeSoftKeyboard());
         clickCorrectPriority(task.getPriority());
+        task.setLocation(df.format(selectedLocation.latitude) + ", " + df.format(selectedLocation.longitude));
         onView(withId(R.id.buttonConfirmAdd)).perform(click());
         onView(withId(com.google.android.material.R.id.snackbar_text)).check(matches(withText("Success!")));
         testDB.checkForTask(task);
@@ -136,6 +138,7 @@ public class CreateTaskActivityUITest {
         clickCorrectPriority(task.getPriority());
         onView(withId(R.id.weatherSpinner)).perform(click());
         onData(allOf(is(instanceOf(String.class)), is("Hot"))).perform(click());
+        task.setLocation(df.format(selectedLocation.latitude) + ", " + df.format(selectedLocation.longitude));
         onView(withId(R.id.buttonConfirmAdd)).perform(click());
         onView(withId(com.google.android.material.R.id.snackbar_text)).check(matches(withText("Success!")));
         testDB.checkForTask(task);
@@ -150,6 +153,7 @@ public class CreateTaskActivityUITest {
         clickCorrectPriority(task.getPriority());
         onView(withId(R.id.repeatSpinner)).perform(click());
         onData(allOf(is(instanceOf(String.class)), is("Repeat every week"))).perform(click());
+        task.setLocation(df.format(selectedLocation.latitude) + ", " + df.format(selectedLocation.longitude));
         onView(withId(R.id.buttonConfirmAdd)).perform(click());
         onView(withId(com.google.android.material.R.id.snackbar_text)).check(matches(withText("Success!")));
         testDB.checkForTask(task);
@@ -165,6 +169,7 @@ public class CreateTaskActivityUITest {
         onView(withId(R.id.dueDate)).perform(click());
         onView(withClassName(Matchers.equalTo(DatePicker.class.getName()))).perform(PickerActions.setDate(2020, 8, 25));
         onView(withText("OK")).perform(click());
+        task.setLocation(df.format(selectedLocation.latitude) + ", " + df.format(selectedLocation.longitude));
         onView(withId(R.id.buttonConfirmAdd)).perform(click());
         testDB.checkForTask(task);
     }
@@ -193,11 +198,11 @@ public class CreateTaskActivityUITest {
 
     @Test
     public void testLocationMap() throws InterruptedException, UiObjectNotFoundException {
+        Thread.sleep(2000);
         //check map is displayed
         onView(withId(R.id.map)).check(matches(isDisplayed()));
         onView(withId(R.id.mapLayout)).check(matches(isDisplayed()));
-        DecimalFormat df = new DecimalFormat("#.#####");
-        String locationText ="Location " + df.format(selectedLocation.latitude) + " : " + df.format(selectedLocation.longitude);
+        String locationText ="Location " + df.format(selectedLocation.latitude) + ", " + df.format(selectedLocation.longitude);
 
         // if successfully got location, check that is displayed, else check default
         onView(withId(R.id.locationText)).check(matches(withText(locationText)));

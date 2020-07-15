@@ -1,6 +1,7 @@
 package com.CSCI3130.gardenapp.util.data;
 
 import com.CSCI3130.gardenapp.util.db.DatabaseAuth;
+import com.google.android.gms.maps.model.LatLng;
 
 public class TaskGenerator {
     private static int count = 0;
@@ -16,13 +17,13 @@ public class TaskGenerator {
                 "Task-" + count,
                 "This is a Description-" + count,
                 1 + (count%5), userID,
-                "Location-" + count,
+                "44.6454, -63.5766",
                 trigger,
                 -1,
                 "repeat-none");
     }
 
-    public static Task generateTask(boolean currentUser, long dueDate) {
+    public static Task generateTask(boolean currentUser, long dueDate ) {
         count++;
         String userID;
         if(currentUser) {
@@ -34,7 +35,7 @@ public class TaskGenerator {
                 "Task-" + count,
                 "This is a Description-" + count,
                 1 + (count%5), userID,
-                "Location-" + count,
+                "44.6454, -63.5766",
                 WeatherCondition.NONE,
                 dueDate,
                 "repeat-none");
@@ -52,7 +53,7 @@ public class TaskGenerator {
                 "Task-" + count,
                 "This is a Description-" + count,
                 1 + (count%5), userID,
-                "Location-" + count,
+                "44.6454, -63.5766",
                 WeatherCondition.NONE,
                 -1,
                 repeat);
