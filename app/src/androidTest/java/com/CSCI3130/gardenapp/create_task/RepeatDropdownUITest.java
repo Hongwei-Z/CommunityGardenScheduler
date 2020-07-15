@@ -1,10 +1,8 @@
 package com.CSCI3130.gardenapp.create_task;
 
 import androidx.test.rule.ActivityTestRule;
-
 import com.CSCI3130.gardenapp.R;
 import com.CSCI3130.gardenapp.util.db.TaskTestDatabase;
-
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Rule;

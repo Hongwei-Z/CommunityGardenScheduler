@@ -27,11 +27,11 @@
         </receiver>
 
         <activity android:name=".Welcome"/>
-        <activity android:name=".task_view_list.TaskViewList"/>
+        <activity android:name=".task_view.task_view_list.TaskViewList"/>
         <activity
-                android:name=".SignUp"
-                android:parentActivityName=".SignIn"/>
-        <activity android:name=".SignIn">
+                android:name=".sign_in.SignUp"
+                android:parentActivityName=".sign_in.SignIn"/>
+        <activity android:name=".sign_in.SignIn">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
@@ -43,12 +43,13 @@
                 android:parentActivityName=".Welcome">
         </activity>
         <activity
-                android:name=".FilterPopUp"
+                android:name=".task_view.filter_sorting.FilterPopUp"
                 android:theme="@android:style/Theme.Material.Dialog.NoActionBar"
-                android:parentActivityName=".task_view_list.TaskViewList" >
+                android:parentActivityName=".task_view.task_view_list.TaskViewList">
         </activity>
-        <activity android:name=".TaskDetailInfo"
-                  android:parentActivityName=".task_view_list.TaskViewList"/>
+        <activity
+                android:name=".task_view.TaskDetailInfo"
+                android:parentActivityName=".task_view.task_view_list.TaskViewList"/>
     </application>
 
 </manifest>
