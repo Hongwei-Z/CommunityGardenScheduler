@@ -81,11 +81,14 @@ public class Welcome extends AppCompatActivity {
         else if (weatherDesc.equals("few clouds")){
             weatherImg.setImageResource(R.drawable.few_clouds);
         }
-        else if (weatherDesc.equals("scattered clouds") || weatherDesc.contains("clouds")){
+        else if (weatherDesc.equals("scattered clouds")){
             weatherImg.setImageResource(R.drawable.scattered_clouds);
         }
         else if (weatherDesc.equals("broken clouds")){
             weatherImg.setImageResource(R.drawable.broken_clouds);
+        }
+        else if (weatherDesc.contains("clouds")){
+            weatherImg.setImageResource(R.drawable.scattered_clouds);
         }
         else if (weatherDesc.equals("shower rain")){
             weatherImg.setImageResource(R.drawable.shower_rain);
