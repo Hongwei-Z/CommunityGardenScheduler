@@ -68,16 +68,20 @@ public class Welcome extends AppCompatActivity {
         weatherHumidTxt.setText("Humidity: " + CurrentWeather.humidity + "%");
         weatherWindTxt.setText("Wind Speed: " + CurrentWeather.windSpeed + " m/s");
         welcome_title.setText("Welcome " + mFirebaseAuth.getCurrentUser().getDisplayName()+ " !");
+        setWeatherSymbol(CurrentWeather.description);
+    }
 
-        //Pick a weather symbol by current weather condition
-        String weatherDesc = CurrentWeather.description;
+    /***
+     * Display weather symbol based on current weather condition
+     */
+    public void setWeatherSymbol(String weatherDesc){
         if (weatherDesc.equals("clear sky")){
             weatherImg.setImageResource(R.drawable.clear_sky);
         }
         else if (weatherDesc.equals("few clouds")){
             weatherImg.setImageResource(R.drawable.few_clouds);
         }
-        else if (weatherDesc.equals("scattered clouds")){
+        else if (weatherDesc.equals("scattered clouds") || weatherDesc.contains("clouds")){
             weatherImg.setImageResource(R.drawable.scattered_clouds);
         }
         else if (weatherDesc.equals("broken clouds")){
