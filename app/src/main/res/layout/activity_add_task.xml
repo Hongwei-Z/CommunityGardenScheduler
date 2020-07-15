@@ -13,7 +13,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
         android:layout_marginEnd="24dp"
-        android:layout_marginBottom="32dp"
+        android:layout_marginBottom="24dp"
         android:fontFamily="@font/redhatdisplay_black"
         android:gravity="center_horizontal|center_vertical"
         android:text="@string/title"
@@ -48,7 +48,8 @@
     <EditText
         android:id="@+id/editDescription"
         android:layout_width="0dp"
-        android:layout_height="137dp"
+        android:layout_height="wrap_content"
+        android:lines="2"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
@@ -143,11 +144,12 @@
     </com.google.android.material.button.MaterialButtonToggleGroup>
 
 
+
     <EditText
         android:id="@+id/editLocation"
         style="@style/InputHint"
         android:layout_width="0dp"
-        android:layout_height="48dp"
+        android:layout_height="0dp"
         android:layout_marginTop="16dp"
         android:ems="10"
         android:hint="@string/location_hint"
@@ -160,7 +162,7 @@
         android:id="@+id/buttonConfirmAdd"
         style="@style/title"
         android:layout_width="0dp"
-        android:layout_height="63dp"
+        android:layout_height="50dp"
         android:layout_marginBottom="8dp"
         android:background="#4CAF50"
         android:onClick="onConfirm"
@@ -178,7 +180,7 @@
         android:id="@+id/textPriorityTitle"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="10dp"
         android:layout_marginEnd="8dp"
         android:text="@string/textPriorityTitle"
         android:textAppearance="@style/InputHint"
@@ -220,7 +222,7 @@
         app:checkedButton="@id/dateTypeButton"
         app:layout_constraintEnd_toEndOf="@+id/priorityButtons"
         app:layout_constraintStart_toStartOf="@+id/priorityButtons"
-        app:layout_constraintTop_toBottomOf="@id/editLocation"
+        app:layout_constraintTop_toBottomOf="@id/mapLayout"
         app:singleSelection="true">
 
         <com.google.android.material.button.MaterialButton
@@ -272,5 +274,27 @@
         app:strokeColor="@android:color/secondary_text_light"
         app:strokeWidth="2dp" />
 
+    <TextView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:ems="10"
+        android:textSize="18sp"
+        android:id="@+id/locationText"
+        android:text="Location"
+        android:inputType="textPostalAddress"
+        app:layout_constraintEnd_toEndOf="@+id/editDescription"
+        app:layout_constraintStart_toStartOf="@+id/priorityButtons"
+        app:layout_constraintTop_toBottomOf="@+id/priorityButtons"
+        />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <RelativeLayout
+        android:layout_width="0dp"
+        android:layout_height="170dp"
+        android:id="@+id/mapLayout"
+        app:layout_constraintEnd_toEndOf="@+id/locationText"
+        app:layout_constraintStart_toStartOf="@+id/locationText"
+        app:layout_constraintTop_toBottomOf="@+id/locationText"
+    />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>

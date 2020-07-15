@@ -12,7 +12,10 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
+import com.CSCI3130.gardenapp.MapFragment;
 import com.CSCI3130.gardenapp.R;
 import com.CSCI3130.gardenapp.task_view_list.TaskViewList;
 import com.CSCI3130.gardenapp.util.DateFormatUtils;
@@ -57,6 +60,13 @@ public class CreateTaskActivity extends AppCompatActivity {
         setContentView(R.layout.activity_add_task);
         edit = getIntent().getBooleanExtra(getString(R.string.editSetting_extra), false);
         db = new TaskDatabase();
+
+        // add map fragment to the page
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        MapFragment mapFragment = new MapFragment();
+        fragmentTransaction.add(R.id.mapLayout, mapFragment);
+        fragmentTransaction.commit();
 
         MaterialButton priority1 = findViewById(R.id.buttonPriority1);
         priority1.setBackgroundColor(getColor(R.color.colorPriority1));
