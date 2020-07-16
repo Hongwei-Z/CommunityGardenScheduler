@@ -10,7 +10,9 @@ import android.widget.Toast;
 import com.CSCI3130.gardenapp.R;
 import com.CSCI3130.gardenapp.task_view.task_view_list.TaskViewList;
 import com.CSCI3130.gardenapp.util.DateFormatUtils;
+import com.CSCI3130.gardenapp.util.data.Task;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Calendar;
 
@@ -30,20 +32,29 @@ public class FilterPopUp extends Activity {
     SortOrder sortOrder = SortOrder.NONE;
 
     protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.filter);
         dateBetween = new ArrayList<>(2);
+
+        //to avoid null pointer exception
+        dateBetween.add(0L);
+        dateBetween.add(Long.MAX_VALUE);
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
         priorityButtons = new ArrayList<>();
         priorityButtons.add(findViewById(R.id.filterPriorityButton1));
         priorityButtons.add(findViewById(R.id.filterPriorityButton2));
         priorityButtons.add(findViewById(R.id.filterPriorityButton3));
         priorityButtons.add(findViewById(R.id.filterPriorityButton4));
-        priorityButtons.add(findViewById(R.id.filterPriorityButton4));
+        priorityButtons.add(findViewById(R.id.filterPriorityButton5));
+        dateBetween = new ArrayList<>(2);
 
         //to avoid null pointer exception
         dateBetween.add(0L);
         dateBetween.add(Long.MAX_VALUE);
-
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.filter);
     }
 
     //clearMethod, click the Clear button, perform the clear function
@@ -135,7 +146,6 @@ public class FilterPopUp extends Activity {
                 break;
         }
         dp.show();
-
     }
 
     /***
@@ -173,12 +183,11 @@ public class FilterPopUp extends Activity {
     public void setButtonConditionFromId(boolean condition, int id) {
         Button btn = findViewById(id);
         if (condition)
-            btn.setBackgroundResource(R.color.positiveButton);
+            btn.setBackgroundResource(R.drawable.negative_button_shape);
         else
-            btn.setBackgroundResource(R.color.negativeButton);
+            btn.setBackgroundResource(R.drawable.positive_button_shape);
         btn.setEnabled(condition);
     }
-
 
     /**
      * Method sets current sort category and changes UI button conditions accordingly
@@ -236,7 +245,7 @@ public class FilterPopUp extends Activity {
 
     private void highlightButton(int priority) {
         resetScaling();
-        Button target = priorityButtons.get(priority);
+        Button target = priorityButtons.get(priority - 1); //for 0 indexing
         target.setScaleY((float) 1.2);
         target.setScaleX((float) 1.2);
     }

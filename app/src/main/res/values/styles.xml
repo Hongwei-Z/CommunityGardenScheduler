@@ -47,7 +47,5 @@
         <item name="android:fontFamily">
             @font/redhatdisplay_black
         </item>
-
     </style>
-
 </resources>

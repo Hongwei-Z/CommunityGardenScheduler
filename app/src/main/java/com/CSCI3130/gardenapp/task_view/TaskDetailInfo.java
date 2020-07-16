@@ -17,7 +17,6 @@ import com.CSCI3130.gardenapp.util.data.User;
 
 import java.util.concurrent.TimeUnit;
 
-
 public class TaskDetailInfo extends AppCompatActivity {
 
     private Button registerButton,

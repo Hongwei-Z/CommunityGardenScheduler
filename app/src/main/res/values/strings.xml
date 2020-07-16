@@ -40,5 +40,21 @@
     </string-array>
     <string name="weather_title">&#160;has a weather trigger for today!</string>
     <string name="duedate_title">&#160;is due today!</string>
+    <string name="sort_by">Sort By</string>
+    <string name="due_date">Due Date</string>
+    <string name="a_z">A ~ Z</string>
+    <string name="descending">Descending</string>
+    <string name="ascending">Ascending</string>
+    <string name="all_tasks">All Tasks</string>
+    <string name="sign_out">Sign Out</string>
+    <string name="welcome">Welcome!</string>
+    <string name="my_tasks">My Tasks</string>
+    <string name="open_tasks">Open Tasks</string>
+    <string name="task_history">Task History</string>
+    <string name="current_weather_in">Current weather in</string>
+    <string name="description">Description</string>
+    <string name="temperature">Temperature:</string>
+    <string name="humidity">Humidity:</string>
+    <string name="wind_speed">Wind Speed:</string>
 
 </resources>
