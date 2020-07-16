@@ -213,7 +213,7 @@ public class TaskListEspressoTests {
             onView(withRecyclerView(R.id.recycleview_tasks).atPosition(19))
                     .check(matches(hasDescendant(withText("Task 20"))));
             onView(withRecyclerView(R.id.recycleview_tasks).atPosition(19)).perform(click());
-            intended(hasComponent(hasShortClassName("task_view.TaskDetailInfo")));
+            intended(hasComponent(hasShortClassName(".task_view.TaskDetailInfo")));
         } catch (InterruptedException e) {
             System.out.println(e.toString());
         }
