@@ -3,6 +3,7 @@ package com.CSCI3130.gardenapp.create_task;
 import com.CSCI3130.gardenapp.db.TaskDatabase;
 import com.CSCI3130.gardenapp.util.data.Task;
 import com.CSCI3130.gardenapp.util.data.WeatherCondition;
+import com.CSCI3130.gardenapp.util.TaskRepeatCondition;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
