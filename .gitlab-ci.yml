@@ -57,3 +57,15 @@ unit_tests:
       - app/build/reports/tests/
   tags:
     - dalfcs_docker_autoscale
+
+android_tests:
+  stage: test
+  script:
+    - ./gradlew connectedAndroidTest
+  artifacts:
+    when: always
+    expire_in: 4 days
+    paths:
+      - app/build/reports/tests/
+  tags:
+    - dalfcs_docker_autoscale
