@@ -113,7 +113,7 @@ public class TaskListEspressoTests {
             onView(withRecyclerView(R.id.recycleview_tasks).atPosition(1))
                     .check(matches(hasDescendant(withText("Due: " + DateFormatUtils.getDateFormatted(currentDate)))));
             onView(withRecyclerView(R.id.recycleview_tasks).atPosition(1)).perform(click());
-            intended(allOf(hasComponent(hasShortClassName(".TaskDetailInfo")), hasExtra(activity.getString(R.string.task_extra), task)));
+            intended(allOf(hasComponent(hasShortClassName(".task_view.TaskDetailInfo")), hasExtra(activity.getString(R.string.task_extra), task)));
             Espresso.pressBack();
         } catch (InterruptedException e) {
             System.out.println(e.toString());
@@ -213,7 +213,7 @@ public class TaskListEspressoTests {
             onView(withRecyclerView(R.id.recycleview_tasks).atPosition(19))
                     .check(matches(hasDescendant(withText("Task 20"))));
             onView(withRecyclerView(R.id.recycleview_tasks).atPosition(19)).perform(click());
-            intended(hasComponent(hasShortClassName(".TaskDetailInfo")));
+            intended(hasComponent(hasShortClassName("task_view.TaskDetailInfo")));
         } catch (InterruptedException e) {
             System.out.println(e.toString());
         }
