@@ -8,7 +8,7 @@
             app:font="@font/redhatdisplay_regular"
             android:fontStyle="normal"
             android:fontWeight="400"
-            android:font="@font/redhatdisplay_regular" />
+            android:font="@font/redhatdisplay_regular"/>
 
     <font
             app:fontStyle="italic"
@@ -16,7 +16,7 @@
             app:font="@font/redhatdisplay_italic"
             android:fontStyle="italic"
             android:fontWeight="400"
-            android:font="@font/redhatdisplay_italic" />
+            android:font="@font/redhatdisplay_italic"/>
 
     <font
             app:fontStyle="normal"
@@ -24,7 +24,7 @@
             app:font="@font/redhatdisplay_bold"
             android:fontStyle="normal"
             android:fontWeight="700"
-            android:font="@font/redhatdisplay_bold" />
+            android:font="@font/redhatdisplay_bold"/>
 
     <font
             app:fontStyle="italic"
@@ -32,5 +32,5 @@
             app:font="@font/redhatdisplay_bolditalic"
             android:fontStyle="italic"
             android:fontWeight="700"
-            android:font="@font/redhatdisplay_bolditalic" />
+            android:font="@font/redhatdisplay_bolditalic"/>
 </font-family>

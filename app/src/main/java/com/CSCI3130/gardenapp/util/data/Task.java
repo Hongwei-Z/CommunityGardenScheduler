@@ -55,7 +55,7 @@ public class Task implements Serializable {
      * @param location       location where the task should be performed
      * @param weatherTrigger weather condition for task
      * @param dateDue        due date of the task
-     * @param repeated    repeat condition of task
+     * @param repeated       repeat condition of task
      */
     public Task(String name, String description, int priority, String user, String location, WeatherCondition weatherTrigger, long dateDue, TaskRepeatCondition repeated) {
         this.name = name;
@@ -229,7 +229,7 @@ public class Task implements Serializable {
      * Sets the unique task ID for this task to point to where it is stored in the database
      *
      * @param taskID of the Task to be stored
-     * @see com.CSCI3130.gardenapp.util.db.TaskDatabase
+     * @see com.CSCI3130.gardenapp.db.TaskDatabase
      */
     public void setTaskID(String taskID) {
         this.taskID = taskID;
@@ -237,6 +237,7 @@ public class Task implements Serializable {
 
     /**
      * Gets the repeat condition of the task
+     *
      * @return
      */
     public TaskRepeatCondition getRepeated() {
@@ -245,6 +246,7 @@ public class Task implements Serializable {
 
     /**
      * Sets repeat condition of task
+     *
      * @param repeated
      */
     public void setRepeated(TaskRepeatCondition repeated) {
