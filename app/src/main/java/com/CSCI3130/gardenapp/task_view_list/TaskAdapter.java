@@ -99,7 +99,7 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskViewHolder> {
             }
         }
 
-        /**
+        /*
          * using due date - current date
          * when deadline is more than 0 seconds, equal and less than 1 day, it will show red exclamation point
          * when deadline is larger than 1 day but equal and less than 3 days, it will show yellow exclamation point
@@ -107,9 +107,9 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskViewHolder> {
          */
 
         long diff_date = TimeUnit.MILLISECONDS.toDays(date - nowdate);
-        if (diff_date <= 1 && diff_date >0) {
+        if (diff_date == 1) {
             holder.setDuesymbol(R.drawable.red);
-        } else if (diff_date > 1 && diff_date <=3 ){
+        } else if (diff_date == 2 || diff_date ==3 ){
             holder.setDuesymbol(R.drawable.yellow);
         } else {
             holder.setHideDuesymbol();
