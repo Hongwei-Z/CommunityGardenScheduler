@@ -27,8 +27,6 @@ import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 
-import java.text.DecimalFormat;
-
 import static androidx.test.espresso.Espresso.onData;
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.click;
@@ -53,8 +51,7 @@ public class CreateTaskActivityUITest {
     public ActivityTestRule<CreateTaskActivity> activityScenarioRule = new ActivityTestRule<CreateTaskActivity>(CreateTaskActivity.class, true, false);
     public TaskTestDatabase testDB;
     private CreateTaskActivity activity;
-    LatLng selectedLocation = new LatLng(44.6454, -63.5766);
-    DecimalFormat df = new DecimalFormat("#.#####");
+    LatLng selectedLocation = new LatLng(44.64541, -63.57661);
 
     @Before
     public void setUp() {
@@ -92,7 +89,7 @@ public class CreateTaskActivityUITest {
         onView(withId(R.id.editTitle)).perform(typeText(task.getName()), closeSoftKeyboard());
         onView(withId(R.id.editDescription)).perform(typeText(task.getDescription()), closeSoftKeyboard());
         clickCorrectPriority(task.getPriority());
-        task.setLocation(df.format(selectedLocation.latitude) + ", " + df.format(selectedLocation.longitude));
+        task.setLocation(String.format("%.5f", selectedLocation.latitude) + ", " + String.format("%.5f", selectedLocation.longitude));
         onView(withId(R.id.buttonConfirmAdd)).perform(click());
         onView(withId(com.google.android.material.R.id.snackbar_text)).check(matches(withText("Success!")));
         testDB.checkForTask(task);
@@ -138,7 +135,7 @@ public class CreateTaskActivityUITest {
         clickCorrectPriority(task.getPriority());
         onView(withId(R.id.weatherSpinner)).perform(click());
         onData(allOf(is(instanceOf(String.class)), is("Hot"))).perform(click());
-        task.setLocation(df.format(selectedLocation.latitude) + ", " + df.format(selectedLocation.longitude));
+        task.setLocation(String.format("%.5f", selectedLocation.latitude) + ", " + String.format("%.5f", selectedLocation.longitude));
         onView(withId(R.id.buttonConfirmAdd)).perform(click());
         onView(withId(com.google.android.material.R.id.snackbar_text)).check(matches(withText("Success!")));
         testDB.checkForTask(task);
@@ -153,7 +150,7 @@ public class CreateTaskActivityUITest {
         clickCorrectPriority(task.getPriority());
         onView(withId(R.id.repeatSpinner)).perform(click());
         onData(allOf(is(instanceOf(String.class)), is("Repeat every week"))).perform(click());
-        task.setLocation(df.format(selectedLocation.latitude) + ", " + df.format(selectedLocation.longitude));
+        task.setLocation(String.format("%.5f", selectedLocation.latitude) + ", " + String.format("%.5f", selectedLocation.longitude));
         onView(withId(R.id.buttonConfirmAdd)).perform(click());
         onView(withId(com.google.android.material.R.id.snackbar_text)).check(matches(withText("Success!")));
         testDB.checkForTask(task);
@@ -169,7 +166,7 @@ public class CreateTaskActivityUITest {
         onView(withId(R.id.dueDate)).perform(click());
         onView(withClassName(Matchers.equalTo(DatePicker.class.getName()))).perform(PickerActions.setDate(2020, 8, 25));
         onView(withText("OK")).perform(click());
-        task.setLocation(df.format(selectedLocation.latitude) + ", " + df.format(selectedLocation.longitude));
+        task.setLocation(String.format("%.5f", selectedLocation.latitude) + ", " + String.format("%.5f", selectedLocation.longitude));
         onView(withId(R.id.buttonConfirmAdd)).perform(click());
         testDB.checkForTask(task);
     }
@@ -202,7 +199,7 @@ public class CreateTaskActivityUITest {
         //check map is displayed
         onView(withId(R.id.map)).check(matches(isDisplayed()));
         onView(withId(R.id.mapLayout)).check(matches(isDisplayed()));
-        String locationText ="Location " + df.format(selectedLocation.latitude) + ", " + df.format(selectedLocation.longitude);
+        String locationText ="Location " + String.format("%.5f", selectedLocation.latitude) + ", " + String.format("%.5f", selectedLocation.longitude);
 
         // if successfully got location, check that is displayed, else check default
         onView(withId(R.id.locationText)).check(matches(withText(locationText)));

@@ -143,21 +143,6 @@
             app:strokeColor="@color/colorPriority5" />
     </com.google.android.material.button.MaterialButtonToggleGroup>
 
-
-
-    <EditText
-        android:id="@+id/editLocation"
-        style="@style/InputHint"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginTop="16dp"
-        android:ems="10"
-        android:hint="@string/location_hint"
-        android:inputType="textPostalAddress"
-        app:layout_constraintEnd_toEndOf="@+id/editDescription"
-        app:layout_constraintStart_toStartOf="@+id/editDescription"
-        app:layout_constraintTop_toBottomOf="@+id/priorityButtons" />
-
     <Button
         android:id="@+id/buttonConfirmAdd"
         style="@style/title"
@@ -171,9 +156,9 @@
         android:textColor="#FFFFFF"
         android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/editLocation"
+        app:layout_constraintEnd_toEndOf="@+id/locationText"
         app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="@+id/editLocation"
+        app:layout_constraintStart_toStartOf="@+id/locationText"
         app:layout_constraintTop_toBottomOf="@+id/dueDate" />
 
     <TextView
@@ -268,8 +253,8 @@
         android:textAppearance="@style/InputHint"
         android:textColor="@android:color/darker_gray"
         app:backgroundTint="@android:color/transparent"
-        app:layout_constraintEnd_toEndOf="@+id/editLocation"
-        app:layout_constraintStart_toStartOf="@+id/editLocation"
+        app:layout_constraintEnd_toEndOf="@+id/taskTypesToggleGroup"
+        app:layout_constraintStart_toStartOf="@+id/taskTypesToggleGroup"
         app:layout_constraintTop_toBottomOf="@+id/taskTypesToggleGroup"
         app:strokeColor="@android:color/secondary_text_light"
         app:strokeWidth="2dp" />

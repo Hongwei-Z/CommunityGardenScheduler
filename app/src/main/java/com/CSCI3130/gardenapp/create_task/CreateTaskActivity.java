@@ -61,13 +61,6 @@ public class CreateTaskActivity extends AppCompatActivity {
         edit = getIntent().getBooleanExtra(getString(R.string.editSetting_extra), false);
         db = new TaskDatabase();
 
-        // add map fragment to the page
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        MapFragment mapFragment = new MapFragment();
-        fragmentTransaction.add(R.id.mapLayout, mapFragment);
-        fragmentTransaction.commit();
-
         MaterialButton priority1 = findViewById(R.id.buttonPriority1);
         priority1.setBackgroundColor(getColor(R.color.colorPriority1));
         current_priority = 1;
@@ -97,9 +90,20 @@ public class CreateTaskActivity extends AppCompatActivity {
             dateConditions.setText("Due: " + DateFormatUtils.getDateFormatted(dueDateSelected));
         }, date.get(Calendar.YEAR), date.get(Calendar.MONTH), date.get(Calendar.DAY_OF_MONTH));
 
+
+        // add map fragment to the page
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        MapFragment mapFragment = new MapFragment();
+        Bundle bundle = new Bundle();
+        bundle.putBoolean("fetch", !edit);
         if (edit) { // configures the UI to EDIT mode
-            loadEditConfiguration((Task) Objects.requireNonNull(getIntent().getSerializableExtra(getString(R.string.task_extra))));
+            Task task = (Task) Objects.requireNonNull(getIntent().getSerializableExtra(getString(R.string.task_extra)));
+            loadEditConfiguration(task);
+            bundle.putString("selectedLocation", task.getLocation());
         }
+        mapFragment.setArguments(bundle);
+        fragmentTransaction.add(R.id.mapLayout, mapFragment).commit();
     }
 
     private void loadEditConfiguration(Task t) {
@@ -108,14 +112,12 @@ public class CreateTaskActivity extends AppCompatActivity {
 
         EditText editTitle = findViewById(R.id.editTitle);
         EditText editDescription = findViewById(R.id.editDescription);
-        EditText editLocation = findViewById(R.id.editLocation);
         Button buttonConfirmAdd = findViewById(R.id.buttonConfirmAdd);
         buttonConfirmAdd.setText(getText(R.string.confirm_edit_task));
 
         greyUnselectedButtons(t.getPriority());
         editTitle.setText(t.getName());
         editDescription.setText(t.getDescription());
-        editLocation.setText(t.getLocation());
         current_priority = t.getPriority();
 
         //determine the task condition
@@ -251,10 +253,10 @@ public class CreateTaskActivity extends AppCompatActivity {
     public void onConfirm(View view) {
         EditText editTitle = findViewById(R.id.editTitle);
         EditText editDescription = findViewById(R.id.editDescription);
-        EditText editLocation = findViewById(R.id.editLocation);
+        TextView mapLocation = findViewById(R.id.locationText);
         String title = editTitle.getText().toString();
         String description = editDescription.getText().toString();
-        String location = editLocation.getText().toString();
+        String location = mapLocation.getText().toString().substring("Location ".length());
         //initialize repeat conditions
         WeatherCondition weatherCondition = WeatherCondition.NONE;
         String repeated = "repeat-none";
@@ -302,9 +304,6 @@ public class CreateTaskActivity extends AppCompatActivity {
                     break;
                 case MISSING_DESCRIPTION:
                     editDescription.setError("Missing Description");
-                    break;
-                case MISSING_LOCATION:
-                    editLocation.setError("Missing Location");
                     break;
             }
         }
@@ -377,9 +376,6 @@ public class CreateTaskActivity extends AppCompatActivity {
         }
         if (description.equals("")) {
             errors.add(CreateTaskError.MISSING_DESCRIPTION);
-        }
-        if (location.equals("")) {
-            errors.add(CreateTaskError.MISSING_LOCATION);
         }
         return errors;
     }

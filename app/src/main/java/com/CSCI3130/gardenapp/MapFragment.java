@@ -14,6 +14,7 @@ import androidx.annotation.Nullable;
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
 
+import com.CSCI3130.gardenapp.create_task.CreateTaskActivity;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -25,8 +26,6 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 
-import java.text.DecimalFormat;
-
 /**
  *  This is a Google Map fragment to be added into the CreateTaskActivity
  *
@@ -34,7 +33,7 @@ import java.text.DecimalFormat;
  */
 public class MapFragment extends Fragment implements OnMapReadyCallback {
     Location currentLocation;
-    LatLng selectedLocation;
+    LatLng selectedLocation = new LatLng(44.64541, -63.57661); //default to Halifax
     FusedLocationProviderClient fusedLocationProviderClient;
     private static final int REQUEST_CODE = 101;
 
@@ -51,12 +50,21 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.activity_maps, container, false);
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(getActivity());
-        SupportMapFragment mapFragment = (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.map);
-        if (mapFragment != null) {
-            mapFragment.getMapAsync(MapFragment.this);
+        Bundle bundle = getArguments();
+        boolean fetch = bundle.getBoolean("fetch");
+        // only fetch location when adding a new task
+        if (fetch) {
+            fetchLocation();
+        } else {
+            String location = bundle.getString("selectedLocation");
+            double lat = Double.parseDouble((location.split(",")[0]));
+            double lng = Double.parseDouble((location.split(" ")[1]));
+            selectedLocation = new LatLng(lat, lng);
+            SupportMapFragment mapFragment = (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.map);
+            if (mapFragment != null) {
+                mapFragment.getMapAsync(MapFragment.this);
+            }
         }
-        //To Do: only if add task, not edit or details
-        fetchLocation();
         return v;
     }
 
@@ -100,11 +108,8 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
-        // set selected to default Halifax if no current location found
         if (currentLocation != null){
             selectedLocation = new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude());
-        } else {
-            selectedLocation = new LatLng(44.6454, -63.5766);
         }
 
         // set up map
@@ -126,15 +131,14 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
 
     private void addMapMarker(GoogleMap googleMap){
         TextView locationText = getActivity().findViewById(R.id.locationText);
-        DecimalFormat df = new DecimalFormat("#.#####");
-        String lat = df.format(selectedLocation.latitude);
-        String lng = df.format(selectedLocation.longitude);
+        String lat = String.format("%.5f", selectedLocation.latitude);
+        String lng = String.format("%.5f", selectedLocation.longitude);
         MarkerOptions markerOptions = new MarkerOptions();
         markerOptions.position(selectedLocation);
-        markerOptions.title("Location " + lat + " : " + lng);
+        markerOptions.title("Location " + lat + ", " + lng);
         googleMap.clear();
         googleMap.animateCamera(CameraUpdateFactory.newLatLng(selectedLocation));
         googleMap.addMarker(markerOptions);
-        locationText.setText("Location " + lat + " : " + lng);
+        locationText.setText("Location " + lat + ", " + lng);
     }
 }
