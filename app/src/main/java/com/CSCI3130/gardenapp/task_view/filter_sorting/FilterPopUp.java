@@ -34,6 +34,11 @@ public class FilterPopUp extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.filter);
+        dateBetween = new ArrayList<>(2);
+
+        //to avoid null pointer exception
+        dateBetween.add(0L);
+        dateBetween.add(Long.MAX_VALUE);
     }
 
     @Override
