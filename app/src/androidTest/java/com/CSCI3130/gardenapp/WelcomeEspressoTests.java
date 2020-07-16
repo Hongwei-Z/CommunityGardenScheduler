@@ -3,20 +3,18 @@ package com.CSCI3130.gardenapp;
 import androidx.test.ext.junit.rules.ActivityScenarioRule;
 import com.CSCI3130.gardenapp.util.data.CurrentWeather;
 import com.google.firebase.auth.FirebaseAuth;
-import org.junit.Rule;
-import org.junit.Test;
+import org.junit.*;
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
-import static androidx.test.espresso.matcher.ViewMatchers.isClickable;
-import static androidx.test.espresso.matcher.ViewMatchers.withId;
-import static androidx.test.espresso.matcher.ViewMatchers.withText;
+import static androidx.test.espresso.matcher.ViewMatchers.*;
 
 public class WelcomeEspressoTests {
     @Rule
-    public ActivityScenarioRule<Welcome> activityScenarioRule = new ActivityScenarioRule<>(Welcome.class);
+    public ActivityScenarioRule<Welcome> activityScenarioRule
+            = new ActivityScenarioRule<>(Welcome.class);
 
     @Test
-    public void testButtonClickable(){
+    public void testButtonClickable() {
         onView(withId(R.id.allTaskListBtn)).check(matches(isClickable()));
         onView(withId(R.id.myTasksBtn)).check(matches(isClickable()));
         onView(withId(R.id.openTasksBtn)).check(matches(isClickable()));
@@ -25,7 +23,7 @@ public class WelcomeEspressoTests {
     }
 
     @Test
-    public void testWeatherDisplay(){
+    public void testWeatherDisplay() {
         onView(withId(R.id.weatherCityTxt)).check(matches(withText("Current weather in " + CurrentWeather.city + ":")));
         onView(withId(R.id.weatherDescTxt)).check(matches(withText(CurrentWeather.description)));
         onView(withId(R.id.weatherTempTxt)).check(matches(withText("Temperature: " + CurrentWeather.temperature + " °C")));

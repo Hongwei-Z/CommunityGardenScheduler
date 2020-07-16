@@ -5,9 +5,7 @@ import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
-import android.widget.DatePicker;
-import android.widget.Toast;
+import android.widget.*;
 import com.CSCI3130.gardenapp.task_view_list.TaskViewList;
 import com.CSCI3130.gardenapp.util.DateFormatUtils;
 import java.util.ArrayList;
@@ -38,7 +36,7 @@ public class FilterPopUp extends Activity {
     }
 
     //clearMethod, click the Clear button, perform the clear function
-    public void clearMethod(View view){
+    public void clearMethod(View view) {
         Button startDate = findViewById(R.id.startDateButton);
         Button endDate = findViewById(R.id.endDateButton);
         Button apply = findViewById(R.id.applyButton);
@@ -80,12 +78,12 @@ public class FilterPopUp extends Activity {
      * Haven't connected to the database,
      * the button is temporarily displayed strings to indicate that the button is functional
      */
-    public void applyMethod(View view){
-        if (sortCat != SortCategory.NONE && sortOrder == SortOrder.NONE){
+    public void applyMethod(View view) {
+        if (sortCat != SortCategory.NONE && sortOrder == SortOrder.NONE) {
             Toast.makeText(this, "Please select a sorting order or clear.", Toast.LENGTH_SHORT).show();
             return;
         }
-        if (sortOrder != SortOrder.NONE && sortCat == SortCategory.NONE){
+        if (sortOrder != SortOrder.NONE && sortCat == SortCategory.NONE) {
             Toast.makeText(this, "Please select a sorting category or clear.", Toast.LENGTH_SHORT).show();
             return;
         }
@@ -105,7 +103,7 @@ public class FilterPopUp extends Activity {
      * Method opens calendar popup
      * @param view - view of button pressed
      */
-    public void selectCalendar(final View view){
+    public void selectCalendar(final View view) {
         Button startBtn = findViewById(R.id.startDateButton);
         Button endBtn = findViewById(R.id.endDateButton);
         Calendar date = Calendar.getInstance();
@@ -139,7 +137,6 @@ public class FilterPopUp extends Activity {
                 break;
         }
         dp.show();
-
     }
 
     /***
@@ -173,7 +170,7 @@ public class FilterPopUp extends Activity {
      * @param condition - true = enabled, false = disabled
      * @param id - resource id of button
      */
-    public void setButtonConditionFromId(boolean condition, int id){
+    public void setButtonConditionFromId(boolean condition, int id) {
         Button btn = (Button) findViewById(id);
         if (condition)
             btn.setBackgroundResource(R.drawable.negative_button_shape);
@@ -182,14 +179,13 @@ public class FilterPopUp extends Activity {
         btn.setEnabled(condition);
     }
 
-
     /**
      * Method sets current sort category and changes UI button conditions accordingly
      * @param view - view param of button which has been clicked
      */
-    public void sortCategorySelect(View view){
+    public void sortCategorySelect(View view) {
         int id = view.getId();
-        switch (id){
+        switch (id) {
             case R.id.sortPriorityBtn:
                 sortCat = SortCategory.PRIORITY;
                 setButtonConditionFromId(true, R.id.sortDueDateBtn);
@@ -217,9 +213,9 @@ public class FilterPopUp extends Activity {
      * Method sets current sort order and changes UI button conditions accordingly
      * @param view - view param of button which has been clicked
      */
-    public void sortOrderSelect(View view){
+    public void sortOrderSelect(View view) {
         int id = view.getId();
-        switch (id){
+        switch (id) {
             case R.id.sortAscendingBtn:
                 sortOrder = SortOrder.ASCENDING;
                 setButtonConditionFromId(false, R.id.sortAscendingBtn);
@@ -239,7 +235,7 @@ public class FilterPopUp extends Activity {
      * Make the selected button 1.2 times larger
      * @param priority is the priority number
      */
-    public void highlightButton(int priority){
+    public void highlightButton(int priority) {
         Button p1 = findViewById(R.id.filterPriorityButton1);
         Button p2 = findViewById(R.id.filterPriorityButton2);
         Button p3 = findViewById(R.id.filterPriorityButton3);
