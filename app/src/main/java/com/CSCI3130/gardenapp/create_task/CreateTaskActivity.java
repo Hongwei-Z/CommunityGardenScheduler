@@ -5,24 +5,18 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.Spinner;
-import android.widget.TextView;
-
+import android.widget.*;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
-
 import com.CSCI3130.gardenapp.MapFragment;
 import com.CSCI3130.gardenapp.R;
-import com.CSCI3130.gardenapp.task_view_list.TaskViewList;
+import com.CSCI3130.gardenapp.db.TaskDatabase;
+import com.CSCI3130.gardenapp.task_view.task_view_list.TaskViewList;
 import com.CSCI3130.gardenapp.util.DateFormatUtils;
 import com.CSCI3130.gardenapp.util.data.CurrentWeather;
 import com.CSCI3130.gardenapp.util.data.Task;
 import com.CSCI3130.gardenapp.util.data.WeatherCondition;
-import com.CSCI3130.gardenapp.util.db.TaskDatabase;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.button.MaterialButtonToggleGroup;
 
@@ -39,8 +33,8 @@ import java.util.concurrent.TimeUnit;
  */
 public class CreateTaskActivity extends AppCompatActivity {
     TaskDatabase db;
-    private Spinner weatherSpinner, repeatSpinner;
     ArrayAdapter<CharSequence> repeatAdapter, weatherAdapter;
+    private Spinner weatherSpinner, repeatSpinner;
     private int current_priority;
     private long dueDateSelected = System.currentTimeMillis();
     private boolean edit;
@@ -89,7 +83,6 @@ public class CreateTaskActivity extends AppCompatActivity {
             dueDateSelected = date.getTimeInMillis();
             dateConditions.setText("Due: " + DateFormatUtils.getDateFormatted(dueDateSelected));
         }, date.get(Calendar.YEAR), date.get(Calendar.MONTH), date.get(Calendar.DAY_OF_MONTH));
-
 
         // add map fragment to the page
         FragmentManager fragmentManager = getSupportFragmentManager();
@@ -170,21 +163,25 @@ public class CreateTaskActivity extends AppCompatActivity {
     }
 
     private void setToggleVisibility(String condition) {
-        if (condition.equals("date")) {
-            conditionsToggle.check(R.id.dateTypeButton);
-            dateConditions.setVisibility(View.VISIBLE);
-            repeatSpinner.setVisibility(View.INVISIBLE);
-            weatherSpinner.setVisibility(View.INVISIBLE);
-        } else if (condition.equals("repeat")) {
-            conditionsToggle.check(R.id.repeatTypeButton);
-            dateConditions.setVisibility(View.INVISIBLE);
-            repeatSpinner.setVisibility(View.VISIBLE);
-            weatherSpinner.setVisibility(View.INVISIBLE);
-        } else if (condition.equals("weather")) {
-            conditionsToggle.check(R.id.weatherTypeButton);
-            dateConditions.setVisibility(View.INVISIBLE);
-            repeatSpinner.setVisibility(View.INVISIBLE);
-            weatherSpinner.setVisibility(View.VISIBLE);
+        switch (condition) {
+            case "date":
+                conditionsToggle.check(R.id.dateTypeButton);
+                dateConditions.setVisibility(View.VISIBLE);
+                repeatSpinner.setVisibility(View.INVISIBLE);
+                weatherSpinner.setVisibility(View.INVISIBLE);
+                break;
+            case "repeat":
+                conditionsToggle.check(R.id.repeatTypeButton);
+                dateConditions.setVisibility(View.INVISIBLE);
+                repeatSpinner.setVisibility(View.VISIBLE);
+                weatherSpinner.setVisibility(View.INVISIBLE);
+                break;
+            case "weather":
+                conditionsToggle.check(R.id.weatherTypeButton);
+                dateConditions.setVisibility(View.INVISIBLE);
+                repeatSpinner.setVisibility(View.INVISIBLE);
+                weatherSpinner.setVisibility(View.VISIBLE);
+                break;
         }
     }
 
@@ -331,13 +328,13 @@ public class CreateTaskActivity extends AppCompatActivity {
             task.setRepeated(repeated);
             switch (repeated) {
                 case "repeat-2day":
-                    task.setDateDue(System.currentTimeMillis()+TimeUnit.DAYS.toMillis(2));
+                    task.setDateDue(System.currentTimeMillis() + TimeUnit.DAYS.toMillis(2));
                     break;
                 case "repeat-weekly":
-                    task.setDateDue(System.currentTimeMillis()+TimeUnit.DAYS.toMillis(7));
+                    task.setDateDue(System.currentTimeMillis() + TimeUnit.DAYS.toMillis(7));
                     break;
                 case "repeat-monthly":
-                    task.setDateDue(System.currentTimeMillis()+TimeUnit.DAYS.toMillis(30));
+                    task.setDateDue(System.currentTimeMillis() + TimeUnit.DAYS.toMillis(30));
                     break;
                 default:
                     task.setDateDue(dateDue);
@@ -347,13 +344,13 @@ public class CreateTaskActivity extends AppCompatActivity {
             Task task;
             switch (repeated) {
                 case "repeat-2day":
-                    task = new Task(title, description, priority, "", location, weatherTrigger, System.currentTimeMillis()+TimeUnit.DAYS.toMillis(2), repeated);
+                    task = new Task(title, description, priority, "", location, weatherTrigger, System.currentTimeMillis() + TimeUnit.DAYS.toMillis(2), repeated);
                     break;
                 case "repeat-weekly":
-                    task = new Task(title, description, priority, "", location, weatherTrigger, System.currentTimeMillis()+TimeUnit.DAYS.toMillis(7), repeated);
+                    task = new Task(title, description, priority, "", location, weatherTrigger, System.currentTimeMillis() + TimeUnit.DAYS.toMillis(7), repeated);
                     break;
                 case "repeat-monthly":
-                    task = new Task(title, description, priority, "", location, weatherTrigger, System.currentTimeMillis()+TimeUnit.DAYS.toMillis(30), repeated);
+                    task = new Task(title, description, priority, "", location, weatherTrigger, System.currentTimeMillis() + TimeUnit.DAYS.toMillis(30), repeated);
                     break;
                 default:
                     task = new Task(title, description, priority, "", location, weatherTrigger, dateDue, repeated);
@@ -388,5 +385,11 @@ public class CreateTaskActivity extends AppCompatActivity {
     public void openCalendar(View view) {
         datePickerDialog.getDatePicker().setMinDate(System.currentTimeMillis() - 1000);
         datePickerDialog.show();
+    }
+
+    @Override
+    public void onBackPressed() {
+        Intent i = new Intent(this, TaskViewList.class);
+        startActivity(i);
     }
 }

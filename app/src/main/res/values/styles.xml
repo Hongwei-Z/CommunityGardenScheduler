@@ -9,7 +9,7 @@
     </style>
 
     <style name="InputHint">
-        <item name = "android:textSize">
+        <item name="android:textSize">
             18sp
         </item>
 
@@ -23,25 +23,25 @@
     </style>
 
     <style name="title">
-        <item name = "android:textSize">
+        <item name="android:textSize">
             36sp
         </item>
 
-        <item name = "android:textColor">
+        <item name="android:textColor">
             #4CAF50
         </item>
 
-        <item name = "android:fontFamily">
+        <item name="android:fontFamily">
             @font/redhatdisplay_black
         </item>
     </style>
 
     <style name="priorityButton" parent="Widget.MaterialComponents.Button.OutlinedButton">
         <item name="colorPrimary">@color/colorPriority5</item>
-        <item name = "android:textSize">
+        <item name="android:textSize">
             24sp
         </item>
-        <item name = "android:textColor">
+        <item name="android:textColor">
             #FFFFFF
         </item>
         <item name="android:fontFamily">

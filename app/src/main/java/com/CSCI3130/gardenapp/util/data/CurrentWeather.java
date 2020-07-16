@@ -1,12 +1,9 @@
 package com.CSCI3130.gardenapp.util.data;
 
-import android.app.Activity;
 import android.content.Context;
 import com.CSCI3130.gardenapp.Welcome;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import org.json.JSONArray;
@@ -33,7 +30,7 @@ public class CurrentWeather {
     private static RequestQueue mQueue;
 
 
-    public static void setQueue(Context context){
+    public static void setQueue(Context context) {
         if (context != null)
             mQueue = Volley.newRequestQueue(context);
     }
