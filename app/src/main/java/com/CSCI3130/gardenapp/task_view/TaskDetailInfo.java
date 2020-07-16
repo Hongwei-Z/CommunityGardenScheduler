@@ -14,8 +14,7 @@ import com.CSCI3130.gardenapp.task_view.task_view_list.TaskViewList;
 import com.CSCI3130.gardenapp.util.DateFormatUtils;
 import com.CSCI3130.gardenapp.util.data.Task;
 import com.CSCI3130.gardenapp.util.data.User;
-import com.CSCI3130.gardenapp.util.db.DatabaseAuth;
-import com.CSCI3130.gardenapp.util.db.TaskDatabase;
+
 import java.util.concurrent.TimeUnit;
 
 public class TaskDetailInfo extends AppCompatActivity {

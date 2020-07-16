@@ -5,10 +5,14 @@ import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.*;
+import android.widget.Button;
+import android.widget.Toast;
 import com.CSCI3130.gardenapp.R;
 import com.CSCI3130.gardenapp.task_view.task_view_list.TaskViewList;
 import com.CSCI3130.gardenapp.util.DateFormatUtils;
+import com.CSCI3130.gardenapp.util.data.Task;
+
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Calendar;
 
@@ -28,20 +32,24 @@ public class FilterPopUp extends Activity {
     SortOrder sortOrder = SortOrder.NONE;
 
     protected void onCreate(Bundle savedInstanceState) {
-        dateBetween = new ArrayList<>(2);
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.filter);
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
         priorityButtons = new ArrayList<>();
         priorityButtons.add(findViewById(R.id.filterPriorityButton1));
         priorityButtons.add(findViewById(R.id.filterPriorityButton2));
         priorityButtons.add(findViewById(R.id.filterPriorityButton3));
         priorityButtons.add(findViewById(R.id.filterPriorityButton4));
-        priorityButtons.add(findViewById(R.id.filterPriorityButton4));
+        priorityButtons.add(findViewById(R.id.filterPriorityButton5));
+        dateBetween = new ArrayList<>(2);
 
         //to avoid null pointer exception
         dateBetween.add(0L);
         dateBetween.add(Long.MAX_VALUE);
-
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.filter);
     }
 
     //clearMethod, click the Clear button, perform the clear function
@@ -232,7 +240,7 @@ public class FilterPopUp extends Activity {
 
     private void highlightButton(int priority) {
         resetScaling();
-        Button target = priorityButtons.get(priority);
+        Button target = priorityButtons.get(priority - 1); //for 0 indexing
         target.setScaleY((float) 1.2);
         target.setScaleX((float) 1.2);
     }
