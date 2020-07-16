@@ -8,7 +8,6 @@
         android:layout_height="match_parent"
         android:layout_gravity="center"
         tools:context=".task_view.TaskDetailInfo"
-        android:background="@color/cardview_dark_background"
         android:orientation="vertical">
 
 
@@ -18,7 +17,6 @@
             android:layout_height="52dp"
             android:layout_marginStart="24dp"
             android:layout_marginTop="8dp"
-            android:background="@color/cardview_light_background"
             android:onClick="onComplete"
             android:text="@string/Complete"
             android:textColor="@android:color/background_dark"
@@ -32,7 +30,6 @@
             android:layout_width="0dp"
             android:layout_height="52dp"
             android:layout_marginTop="8dp"
-            android:background="@color/cardview_light_background"
             android:text="Register"
             android:onClick="onEdit"
             android:textColor="@android:color/background_dark"
@@ -46,7 +43,6 @@
             android:id="@+id/buttonEdit"
             android:layout_width="0dp"
             android:layout_height="52dp"
-            android:background="@color/cardview_light_background"
             android:text="Edit"
             android:textColor="@android:color/background_dark"
             android:textSize="24sp"
@@ -81,7 +77,6 @@
             android:layout_marginTop="470dp"
             android:text="Repeat Condition"
             android:textColor="#FFFFFF"
-            android:textColorHighlight="@color/cardview_light_background"
             android:textSize="29sp"
             android:textStyle="italic"
             app:layout_constraintTop_toTopOf="parent"
@@ -96,7 +91,6 @@
             android:layout_marginRight="150dp"
             android:text="Location"
             android:textColor="#FFFFFF"
-            android:textColorHighlight="@color/cardview_light_background"
             android:textSize="29sp"
             android:textStyle="italic"
             app:layout_constraintTop_toTopOf="parent"
@@ -121,14 +115,11 @@
             android:layout_height="40dp"
             android:layout_marginLeft="23dp"
             android:layout_marginTop="145dp"
-            android:layout_marginRight="1350dp"
-            android:text="Due Tuesday, June 2nd"
-            android:textColor="@color/cardview_light_background"
-            android:textColorHighlight="@color/cardview_light_background"
             android:textSize="18sp"
             android:textStyle="italic"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent"/>
+            app:layout_constraintStart_toStartOf="parent"
+            tools:text="@string/duedate_title"/>
 
     <TextView
             android:id="@+id/taskColor"
@@ -137,7 +128,6 @@
             android:layout_marginLeft="323dp"
             android:layout_marginTop="100dp"
             android:background="#DC0000"
-            android:textColor="@color/cardview_light_background"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"/>
 
@@ -148,7 +138,6 @@
             android:layout_marginLeft="343dp"
             android:layout_marginTop="105dp"
             android:text="1"
-            android:textColor="@color/cardview_light_background"
             android:textSize="40sp"
             android:textStyle="bold"
             app:layout_constraintTop_toTopOf="parent"
