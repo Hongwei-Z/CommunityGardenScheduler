@@ -13,22 +13,14 @@ import java.util.concurrent.TimeUnit;
 
 /**
  * Notification Scheduler that initializes on SYSTEM_BOOT or Welcome page.
+ *
  * @author Liam Hebert
  */
 public class NotificationGuardian extends BroadcastReceiver {
 
     /**
-     * Broadcast Receiver entry point, launches the scheduling loop
-     * @param context Broadcast context
-     * @param intent Broadcast intent
-     */
-    @Override
-    public void onReceive(Context context, Intent intent){
-        startScheduling(context);
-    }
-
-    /**
      * Entry point for notification scheduling, initialize the notification channel
+     *
      * @param context Android Context for activity, ideally application context
      */
     public static void startScheduling(Context context) {
@@ -45,6 +37,7 @@ public class NotificationGuardian extends BroadcastReceiver {
 
     /**
      * Schedule a new notification check, triggering the notification class
+     *
      * @param context Android Context for building the job
      */
     public static void scheduleNotificationJob(Context context) {
@@ -55,6 +48,17 @@ public class NotificationGuardian extends BroadcastReceiver {
 
         JobScheduler jobScheduler = context.getSystemService(JobScheduler.class);
         jobScheduler.schedule(builder.build());
+    }
+
+    /**
+     * Broadcast Receiver entry point, launches the scheduling loop
+     *
+     * @param context Broadcast context
+     * @param intent  Broadcast intent
+     */
+    @Override
+    public void onReceive(Context context, Intent intent) {
+        startScheduling(context);
     }
 
 }

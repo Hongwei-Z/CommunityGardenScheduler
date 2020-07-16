@@ -1,8 +1,8 @@
 package com.CSCI3130.gardenapp.create_task;
 
-import com.CSCI3130.gardenapp.util.data.WeatherCondition;
+import com.CSCI3130.gardenapp.db.TaskDatabase;
 import com.CSCI3130.gardenapp.util.data.Task;
-import com.CSCI3130.gardenapp.util.db.TaskDatabase;
+import com.CSCI3130.gardenapp.util.data.WeatherCondition;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -19,7 +19,6 @@ public class CreateTaskActivityTest {
     String description = "This is a description!";
     String location = "Carrot Test";
     WeatherCondition testWeatherCondition = WeatherCondition.NONE;
-    int priority = 3;
     ArrayList<CreateTaskError> errors;
 
     TaskDatabase db;
@@ -50,7 +49,7 @@ public class CreateTaskActivityTest {
 
     @Test
     public void testUnsuccessfulCreate() {
-        activity.uploadTask(title, "", 3, location, testWeatherCondition,"repeat-none", System.currentTimeMillis());
+        activity.uploadTask(title, "", 3, location, testWeatherCondition, "repeat-none", System.currentTimeMillis());
     }
 
     @Test
@@ -62,7 +61,7 @@ public class CreateTaskActivityTest {
     }
 
     @Test
-    public void testMissingTitle(){
+    public void testMissingTitle() {
         errors.add(CreateTaskError.MISSING_TITLE);
         Assert.assertEquals(errors, activity.verifyTask(
                 "",
@@ -71,7 +70,7 @@ public class CreateTaskActivityTest {
     }
 
     @Test
-    public void testMissingDescription(){
+    public void testMissingDescription() {
         errors.add(CreateTaskError.MISSING_DESCRIPTION);
         Assert.assertEquals(errors, activity.verifyTask(
                 title,
@@ -89,7 +88,7 @@ public class CreateTaskActivityTest {
     }
 
     @Test
-    public void testMultipleErrors(){
+    public void testMultipleErrors() {
         errors.add(CreateTaskError.MISSING_LOCATION);
         errors.add(CreateTaskError.MISSING_TITLE);
         Assert.assertTrue(activity.verifyTask("", description, "").containsAll(errors));

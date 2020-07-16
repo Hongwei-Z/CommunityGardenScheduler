@@ -5,13 +5,14 @@ import com.CSCI3130.gardenapp.util.data.Task;
 import com.CSCI3130.gardenapp.util.data.TaskGenerator;
 import com.CSCI3130.gardenapp.util.data.WeatherCondition;
 import com.CSCI3130.gardenapp.util.db.TaskTestDatabase;
-import org.junit.Test;
 import org.junit.Assert;
 import org.junit.Before;
+import org.junit.Test;
 
 public class NotificationUnitTests {
     Task task;
     NotificationJob job;
+
     @Before
     public void before() {
         NotificationJob.db = new TaskTestDatabase();
@@ -46,6 +47,7 @@ public class NotificationUnitTests {
      * Testing the duedate validation function for valid result
      */
     public void testValidDuedateAlert() {
+        task.setDateDue(System.currentTimeMillis());
         Assert.assertTrue(job.checkValidDueDateAlert(task));
     }
 

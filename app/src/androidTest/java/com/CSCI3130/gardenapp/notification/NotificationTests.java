@@ -1,35 +1,24 @@
 package com.CSCI3130.gardenapp.notification;
 
 import androidx.test.espresso.intent.rule.IntentsTestRule;
-import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.platform.app.InstrumentationRegistry;
-import androidx.test.rule.ActivityTestRule;
 import androidx.test.uiautomator.*;
 import com.CSCI3130.gardenapp.R;
 import com.CSCI3130.gardenapp.Welcome;
-import com.CSCI3130.gardenapp.notification.NotificationJob;
 import com.CSCI3130.gardenapp.util.DateFormatUtils;
 import com.CSCI3130.gardenapp.util.data.CurrentWeather;
 import com.CSCI3130.gardenapp.util.data.Task;
 import com.CSCI3130.gardenapp.util.data.TaskGenerator;
 import com.CSCI3130.gardenapp.util.data.WeatherCondition;
 import com.CSCI3130.gardenapp.util.db.TaskTestDatabase;
-import org.junit.*;
-import org.junit.runner.RunWith;
-
-import java.util.ArrayList;
-import java.util.concurrent.TimeUnit;
+import org.junit.Before;
+import org.junit.Rule;
+import org.junit.Test;
 
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
-import static androidx.test.espresso.intent.Intents.intended;
-import static androidx.test.espresso.intent.matcher.ComponentNameMatchers.hasShortClassName;
-import static androidx.test.espresso.intent.matcher.IntentMatchers.hasComponent;
-import static androidx.test.espresso.intent.matcher.IntentMatchers.hasExtra;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
-import static org.hamcrest.core.AllOf.allOf;
-import static org.junit.Assert.assertTrue;
 
 public class NotificationTests {
     @Rule
@@ -82,7 +71,7 @@ public class NotificationTests {
         onView(withId(R.id.taskTitle)).check(matches(withText(task.getName())));
         onView(withId(R.id.taskDescription)).check(matches(withText(task.getDescription())));
         onView(withId(R.id.taskLocation)).check(matches(withText(task.getLocation())));
-        onView(withId(R.id.taskPriority)).check(matches(withText(""+task.getPriority())));
+        onView(withId(R.id.taskPriority)).check(matches(withText("" + task.getPriority())));
         if (!weather)
             onView(withId(R.id.taskDuedate)).check(matches(withText("Due on: " + DateFormatUtils.getDateFormatted(task.getDateDue()))));
     }
