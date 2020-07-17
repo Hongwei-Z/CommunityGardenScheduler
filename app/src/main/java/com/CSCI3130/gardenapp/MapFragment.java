@@ -105,6 +105,12 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         }
     }
 
+    /**
+     * Set map position and marker to be current or selected location depending on edit vs details vs add
+     * Set map type and controls and add click listener to move the map marker
+     *
+     * @param googleMap map to modify
+     */
     @Override
     public void onMapReady(GoogleMap googleMap) {
         if (currentLocation != null){
