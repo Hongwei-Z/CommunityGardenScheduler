@@ -7,19 +7,16 @@ import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.GradientDrawable;
 import android.view.View;
 import android.widget.Button;
-
 import androidx.core.content.res.ResourcesCompat;
 import androidx.test.espresso.matcher.BoundedMatcher;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.platform.app.InstrumentationRegistry;
 import androidx.test.rule.ActivityTestRule;
-
 import com.CSCI3130.gardenapp.R;
 import com.CSCI3130.gardenapp.util.data.Task;
 import com.CSCI3130.gardenapp.util.data.TaskGenerator;
 import com.CSCI3130.gardenapp.util.data.WeatherCondition;
 import com.CSCI3130.gardenapp.util.db.TaskTestDatabase;
-
 import org.hamcrest.Description;
 import org.hamcrest.Matcher;
 import org.junit.After;
@@ -29,14 +26,9 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import static androidx.test.espresso.Espresso.onView;
-import static androidx.test.espresso.action.ViewActions.clearText;
-import static androidx.test.espresso.action.ViewActions.click;
-import static androidx.test.espresso.action.ViewActions.closeSoftKeyboard;
-import static androidx.test.espresso.action.ViewActions.typeText;
+import static androidx.test.espresso.action.ViewActions.*;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
-import static androidx.test.espresso.matcher.ViewMatchers.withId;
-import static androidx.test.espresso.matcher.ViewMatchers.withSpinnerText;
-import static androidx.test.espresso.matcher.ViewMatchers.withText;
+import static androidx.test.espresso.matcher.ViewMatchers.*;
 
 @RunWith(AndroidJUnit4.class)
 public class EditTaskActivityUITest {
@@ -45,6 +37,47 @@ public class EditTaskActivityUITest {
     public TaskTestDatabase testDB;
     private CreateTaskActivity activity;
     private Task testTask;
+
+    // https://stackoverflow.com/questions/28742495/testing-background-color-espresso-android
+    private static Matcher<View> matchesBackgroundColor(final int expectedColorID) {
+        return new BoundedMatcher<View, View>(Button.class) {
+            int actualColor;
+            int expectedColor;
+            String message;
+
+            @Override
+            protected boolean matchesSafely(View item) {
+                if (item.getBackground() == null) {
+                    message = item.getId() + " does not have a background";
+                    return false;
+                }
+                Resources resources = item.getContext().getResources();
+                expectedColor = ResourcesCompat.getColor(resources, expectedColorID, null);
+
+                try {
+                    actualColor = ((ColorDrawable) item.getBackground()).getColor();
+                } catch (Exception e) {
+                    actualColor = ((GradientDrawable) item.getBackground()).getColor().getDefaultColor();
+                } finally {
+                    if (actualColor == expectedColor) {
+                        System.out.println("Success...: Expected Color " + String.format("#%06X", (0xFFFFFF & expectedColor))
+                                + " Actual Color " + String.format("#%06X", (0xFFFFFF & actualColor)));
+                    }
+                }
+                return actualColor == expectedColor;
+            }
+
+            @Override
+            public void describeTo(final Description description) {
+                if (actualColor != 0) {
+                    message = "Background color did not match: Expected "
+                            + String.format("#%06X", (0xFFFFFF & expectedColor))
+                            + " was " + String.format("#%06X", (0xFFFFFF & actualColor));
+                }
+                description.appendText(message);
+            }
+        };
+    }
 
     @Before
     public void setUp() {
@@ -97,47 +130,6 @@ public class EditTaskActivityUITest {
                 onView(withId(ids[i])).check(matches(matchesBackgroundColor(colors[i])));
             }
         }
-    }
-
-    // https://stackoverflow.com/questions/28742495/testing-background-color-espresso-android
-    private static Matcher<View> matchesBackgroundColor(final int expectedColorID) {
-        return new BoundedMatcher<View, View>(Button.class) {
-            int actualColor;
-            int expectedColor;
-            String message;
-
-            @Override
-            protected boolean matchesSafely(View item) {
-                if (item.getBackground() == null) {
-                    message = item.getId() + " does not have a background";
-                    return false;
-                }
-                Resources resources = item.getContext().getResources();
-                expectedColor = ResourcesCompat.getColor(resources, expectedColorID, null);
-
-                try {
-                    actualColor = ((ColorDrawable) item.getBackground()).getColor();
-                } catch (Exception e) {
-                    actualColor = ((GradientDrawable) item.getBackground()).getColor().getDefaultColor();
-                } finally {
-                    if (actualColor == expectedColor) {
-                        System.out.println("Success...: Expected Color " + String.format("#%06X", (0xFFFFFF & expectedColor))
-                                + " Actual Color " + String.format("#%06X", (0xFFFFFF & actualColor)));
-                    }
-                }
-                return actualColor == expectedColor;
-            }
-
-            @Override
-            public void describeTo(final Description description) {
-                if (actualColor != 0) {
-                    message = "Background color did not match: Expected "
-                            + String.format("#%06X", (0xFFFFFF & expectedColor))
-                            + " was " + String.format("#%06X", (0xFFFFFF & actualColor));
-                }
-                description.appendText(message);
-            }
-        };
     }
 }
 

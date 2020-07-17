@@ -6,11 +6,11 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/task_view_list"
-        tools:context=".task_view_list.TaskViewList">
+        tools:context=".task_view.task_view_list.TaskViewList">
 
     <include
-        android:id="@+id/toolbar"
-        layout="@layout/toolbar" />
+            android:id="@+id/toolbar"
+            layout="@layout/toolbar"/>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/add_task_button"
@@ -21,7 +21,7 @@
             android:layout_marginTop="24dp"
             android:layout_marginEnd="24dp"
             android:layout_marginBottom="24dp"
-            tools:context=".task_view_list.TaskViewList"
+            tools:context=".task_view.task_view_list.TaskViewList"
 
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
