@@ -11,6 +11,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.util.PatternsCompat;
 
@@ -27,7 +28,6 @@ import com.google.android.gms.safetynet.SafetyNet;
 import com.google.android.gms.safetynet.SafetyNetApi;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
@@ -65,30 +65,6 @@ public class SignIn extends AppCompatActivity {
 
     //boolean flag for successful captcha
     public static boolean captcha_pass;
-
-    /**
-     * Gets site key for reCAPTCHA
-     * @return - Returns site key
-     */
-    public static String getSiteKey() { return SITE_KEY; }
-
-    /**
-     * Sets site key for reCAPTCHA - mostly for testing purposes
-     * @param siteKey - site key as string
-     */
-    public static void setSiteKey(String siteKey) { SITE_KEY = siteKey; }
-
-    /**
-     * Gets site secret key for reCAPTCHA
-     * @return - site secret key as string
-     */
-    public static String getSiteSecretKey() { return SITE_SECRET_KEY; }
-
-    /**
-     * Sets site secret key for reCAPTCHA
-     * @param siteSecretKey - site secret key as string
-     */
-    public static void setSiteSecretKey(String siteSecretKey) { SITE_SECRET_KEY = siteSecretKey; }
 
     /**
      * onCreate method for initial activity setup
