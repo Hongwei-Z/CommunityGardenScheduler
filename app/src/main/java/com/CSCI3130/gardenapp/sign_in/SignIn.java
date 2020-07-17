@@ -187,7 +187,6 @@ public class SignIn extends AppCompatActivity {
                     public void onResponse(String response) {
                         try {
                             JSONObject obj = new JSONObject(response);
-                            Toast.makeText(SignIn.this, obj.getString("success"), Toast.LENGTH_LONG).show();
                             if (obj.getString("success").equals("true")){
                                 captcha_pass = true;
                                 captchaCheck.setChecked(true);
