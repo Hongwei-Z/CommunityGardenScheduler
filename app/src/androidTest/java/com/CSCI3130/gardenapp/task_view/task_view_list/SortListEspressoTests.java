@@ -64,6 +64,8 @@ public class SortListEspressoTests {
         onView(withId(R.id.sortDueDateBtn)).perform(click());
         onView(withId(R.id.sortAscendingBtn)).perform(click());
         onView(withId(R.id.applyButton)).perform(click());
+        activity = activityScenarioRule.getActivity();
+        activity.db = testDB;
 
         try {
             Thread.sleep(2000);
@@ -105,6 +107,8 @@ public class SortListEspressoTests {
         onView(withId(R.id.sortDueDateBtn)).perform(click());
         onView(withId(R.id.sortDescendingBtn)).perform(click());
         onView(withId(R.id.applyButton)).perform(click());
+        activity = activityScenarioRule.getActivity();
+        activity.db = testDB;
 
         try {
             testDB.getDbRead().addValueEventListener(
@@ -145,6 +149,8 @@ public class SortListEspressoTests {
         onView(withId(R.id.sortPriorityBtn)).perform(click());
         onView(withId(R.id.sortAscendingBtn)).perform(click());
         onView(withId(R.id.applyButton)).perform(click());
+        activity = activityScenarioRule.getActivity();
+        activity.db = testDB;
 
         try {
             testDB.getDbRead().addValueEventListener(
@@ -184,6 +190,8 @@ public class SortListEspressoTests {
         onView(withId(R.id.sortPriorityBtn)).perform(click());
         onView(withId(R.id.sortDescendingBtn)).perform(click());
         onView(withId(R.id.applyButton)).perform(click());
+        activity = activityScenarioRule.getActivity();
+        activity.db = testDB;
 
         try {
             testDB.getDbRead().addValueEventListener(
@@ -224,6 +232,8 @@ public class SortListEspressoTests {
         onView(withId(R.id.sortAZBtn)).perform(click());
         onView(withId(R.id.sortAscendingBtn)).perform(click());
         onView(withId(R.id.applyButton)).perform(click());
+        activity = activityScenarioRule.getActivity();
+        activity.db = testDB;
 
         try {
             testDB.getDbRead().addValueEventListener(
@@ -264,6 +274,8 @@ public class SortListEspressoTests {
         onView(withId(R.id.sortAZBtn)).perform(click());
         onView(withId(R.id.sortDescendingBtn)).perform(click());
         onView(withId(R.id.applyButton)).perform(click());
+        activity = activityScenarioRule.getActivity();
+        activity.db = testDB;
 
         try {
             testDB.getDbRead().addValueEventListener(

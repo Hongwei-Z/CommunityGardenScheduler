@@ -24,7 +24,7 @@ public class TaskGenerator {
                 TaskRepeatCondition.REPEAT_NONE);
     }
 
-    public static Task generateTask(boolean currentUser, long dueDate) {
+    public static Task generateTask(boolean currentUser, long dueDate ) {
         count++;
         String userID;
         if (currentUser) {
@@ -36,7 +36,7 @@ public class TaskGenerator {
                 "Task-" + count,
                 "This is a Description-" + count,
                 1 + (count % 5), userID,
-                "Location-" + count,
+                "44.64541, -63.57661",
                 WeatherCondition.NONE,
                 dueDate,
                 TaskRepeatCondition.REPEAT_NONE);
@@ -54,7 +54,7 @@ public class TaskGenerator {
                 "Task-" + count,
                 "This is a Description-" + count,
                 1 + (count % 5), userID,
-                "Location-" + count,
+                "44.64541, -63.57661",
                 WeatherCondition.NONE,
                 -1,
                 repeat);

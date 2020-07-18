@@ -42,6 +42,7 @@ public class FilterListEspressoTests {
         intent.putExtra("activeTaskListContext", activeTaskListContext);
         activityScenarioRule.launchActivity(intent);
         testDB = new TaskTestDatabase();
+        testDB.setDbRead(activeTaskListContext);
         activity = activityScenarioRule.getActivity();
         activity.db = testDB;
         testDB.getDbRead().addValueEventListener(testDB.getTaskData(activity.recyclerView, activeTaskListContext));
@@ -77,7 +78,8 @@ public class FilterListEspressoTests {
         onView(withClassName(Matchers.equalTo(DatePicker.class.getName()))).perform(PickerActions.setDate(2020, 8, 9));
         onView(withText("OK")).perform(click());
         onView(withId(R.id.applyButton)).perform(click());
-
+        activity = activityScenarioRule.getActivity();
+        activity.db = testDB;
         try {
             testDB.getDbRead().addValueEventListener(testDB.getTaskData(activity.recyclerView, ActiveTaskListContext.ALL_TASKS,
                     activityScenarioRule.getActivity().getSortingConfigModel(),
@@ -113,7 +115,8 @@ public class FilterListEspressoTests {
         onView(withId(R.id.filterButton)).perform(click());
         onView(withId(R.id.filterPriorityButton3)).perform(click());
         onView(withId(R.id.applyButton)).perform(click());
-
+        activity = activityScenarioRule.getActivity();
+        activity.db = testDB;
         try {
             testDB.getDbRead().addValueEventListener(testDB.getTaskData(activity.recyclerView, ActiveTaskListContext.ALL_TASKS,
                     activityScenarioRule.getActivity().getSortingConfigModel(),
@@ -158,6 +161,8 @@ public class FilterListEspressoTests {
         onView(withText("OK")).perform(click());
         onView(withId(R.id.filterPriorityButton3)).perform(click());
         onView(withId(R.id.applyButton)).perform(click());
+        activity = activityScenarioRule.getActivity();
+        activity.db = testDB;
 
         try {
             testDB.getDbRead().addValueEventListener(testDB.getTaskData(activity.recyclerView, ActiveTaskListContext.ALL_TASKS,
@@ -203,11 +208,10 @@ public class FilterListEspressoTests {
         onView(withId(R.id.sortAZBtn)).perform(click());
         onView(withId(R.id.sortDescendingBtn)).perform(click());
         onView(withId(R.id.applyButton)).perform(click());
+        activity = activityScenarioRule.getActivity();
+        activity.db = testDB;
 
         try {
-            testDB = new TaskTestDatabase();
-            activity = activityScenarioRule.getActivity();
-            activity.db = testDB;
             testDB.getDbRead().addValueEventListener(testDB.getTaskData(activity.recyclerView, ActiveTaskListContext.ALL_TASKS,
                     activityScenarioRule.getActivity().getSortingConfigModel(),
                     activityScenarioRule.getActivity().getFilterConfigModel()));

@@ -1,6 +1,5 @@
 package com.CSCI3130.gardenapp.task_view.filter_sorting;
 
-import androidx.test.espresso.matcher.ViewMatchers;
 import androidx.test.ext.junit.rules.ActivityScenarioRule;
 import com.CSCI3130.gardenapp.R;
 import org.junit.Rule;
@@ -14,11 +13,12 @@ import static androidx.test.espresso.matcher.ViewMatchers.*;
 public class FilterEspressoTest {
 
     @Rule
-    public ActivityScenarioRule<FilterPopUp> activityActivityScenarioRule = new ActivityScenarioRule<>(FilterPopUp.class);
+    public ActivityScenarioRule<FilterPopUp> activityActivityScenarioRule
+            = new ActivityScenarioRule<>(FilterPopUp.class);
 
     @Test
     public void testFilterTextDisplay() {
-        onView(ViewMatchers.withId(R.id.filterTextView)).check(matches(withText("Filters")));
+        onView(withId(R.id.filterTextView)).check(matches(withText("Filters")));
         onView(withId(R.id.dueBetweenTextView)).check(matches(withText("Due Between")));
         onView(withId(R.id.priorityTextView)).check(matches(withText("Priority")));
         onView(withId(R.id.filterTextView)).check(matches(withText("Filters")));
