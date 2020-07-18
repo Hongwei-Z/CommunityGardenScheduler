@@ -135,14 +135,14 @@ public class TaskDetailInfo extends AppCompatActivity {
     public void onComplete(View v) {
         task.setDateCompleted(System.currentTimeMillis());
         db.updateTask(task);
-        if (!(task.getRepeated() == TaskRepeatCondition.REPEAT_NONE)) {//if task is repeated
+        if (!task.getRepeated().equals(TaskRepeatCondition.REPEAT_NONE)) {//if task is repeated
             Task repeatedTask;
             switch (task.getRepeated()) {//get type of repeat and set new task
                 case REPEAT_WEEKLY:
-                    repeatedTask = new Task(task.getName(), task.getDescription(), task.getPriority(), "", task.getLocation(), System.currentTimeMillis()+TimeUnit.DAYS.toMillis(7), task.getRepeated());
+                    repeatedTask = new Task(task.getName(), task.getDescription(), task.getPriority(), "", task.getLocation(), System.currentTimeMillis() + TimeUnit.DAYS.toMillis(7), task.getRepeated());
                     break;
                 case REPEAT_MONTHLY:
-                    repeatedTask = new Task(task.getName(), task.getDescription(), task.getPriority(), "", task.getLocation(), System.currentTimeMillis()+TimeUnit.DAYS.toMillis(30), task.getRepeated());
+                    repeatedTask = new Task(task.getName(), task.getDescription(), task.getPriority(), "", task.getLocation(), System.currentTimeMillis() + TimeUnit.DAYS.toMillis(30), task.getRepeated());
                     break;
                 default:
                     repeatedTask = new Task(task.getName(), task.getDescription(), task.getPriority(), "", task.getLocation(), System.currentTimeMillis() + TimeUnit.DAYS.toMillis(2), task.getRepeated());
