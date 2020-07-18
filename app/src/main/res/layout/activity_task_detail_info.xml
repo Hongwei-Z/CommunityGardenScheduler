@@ -57,7 +57,7 @@
     <TextView
             android:id="@+id/taskDescription"
             android:layout_width="366dp"
-            android:layout_height="236dp"
+            android:layout_height="100dp"
             android:layout_marginLeft="23dp"
             android:layout_marginTop="181dp"
             android:background="#00FFFFFF"
@@ -70,30 +70,37 @@
             style="@style/InputHint"/>
 
     <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:ems="10"
+            android:textSize="18sp"
+            android:id="@+id/taskLocation"
+            android:text="Location"
+            app:layout_constraintEnd_toEndOf="@+id/taskDescription"
+            app:layout_constraintStart_toStartOf="@+id/repeatCondition"
+            app:layout_constraintTop_toBottomOf="@+id/taskDescription"
+            />
+
+    <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="160dp"
+            android:id="@+id/mapLayout"
+            app:layout_constraintEnd_toEndOf="@+id/taskLocation"
+            app:layout_constraintStart_toStartOf="@+id/taskLocation"
+            app:layout_constraintTop_toBottomOf="@+id/taskLocation"
+            />
+
+    <TextView
             android:id="@+id/repeatCondition"
             android:layout_width="280dp"
             android:layout_height="50dp"
             android:layout_marginLeft="23dp"
-            android:layout_marginTop="470dp"
             android:text="Repeat Condition"
             android:textColor="#FFFFFF"
             android:textSize="29sp"
             android:textStyle="italic"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent"/>
-
-    <TextView
-            android:id="@+id/taskLocation"
-            android:layout_width="280dp"
-            android:layout_height="50dp"
-            android:layout_marginLeft="23dp"
-            android:layout_marginTop="430dp"
-            android:layout_marginRight="150dp"
-            android:text="Location"
-            android:textColor="#FFFFFF"
-            android:textSize="29sp"
-            android:textStyle="italic"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/mapLayout"
             app:layout_constraintStart_toStartOf="parent"/>
 
     <TextView

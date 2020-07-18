@@ -35,6 +35,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
     LatLng selectedLocation = new LatLng(44.64541, -63.57661); //default to Halifax
     FusedLocationProviderClient fusedLocationProviderClient;
     private static final int REQUEST_CODE = 101;
+    private String pageType;
 
     /**
      * Constuct the View and attempt to fetch the users current location
@@ -50,9 +51,9 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         View v = inflater.inflate(R.layout.activity_maps, container, false);
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(getActivity());
         Bundle bundle = getArguments();
-        boolean fetch = bundle.getBoolean("fetch");
+        pageType = bundle.getString("pageType");
         // only fetch location when adding a new task
-        if (fetch) {
+        if (pageType.equals("create")) {
             fetchLocation();
         } else {
             String location = bundle.getString("selectedLocation");
@@ -124,18 +125,20 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         addMapMarker(googleMap);
         googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(selectedLocation, 18));
 
-        // add new marker on click
-        googleMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
-            @Override
-            public void onMapClick(LatLng latLng) {
-                selectedLocation = latLng;
-                addMapMarker(googleMap);
-            }
-        });
+        if (!pageType.equals("details")) {
+            // add new marker on click
+            googleMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
+                @Override
+                public void onMapClick(LatLng latLng) {
+                    selectedLocation = latLng;
+                    addMapMarker(googleMap);
+                }
+            });
+        }
     }
 
     private void addMapMarker(GoogleMap googleMap){
-        TextView locationText = getActivity().findViewById(R.id.locationText);
+        TextView locationText = getActivity().findViewById(R.id.taskLocation);
         String lat = String.format("%.5f", selectedLocation.latitude);
         String lng = String.format("%.5f", selectedLocation.longitude);
         MarkerOptions markerOptions = new MarkerOptions();

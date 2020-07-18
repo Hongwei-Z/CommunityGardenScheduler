@@ -89,7 +89,7 @@ public class CreateTaskActivity extends AppCompatActivity {
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         MapFragment mapFragment = new MapFragment();
         Bundle bundle = new Bundle();
-        bundle.putBoolean("fetch", !edit);
+        bundle.putString("pageType", edit ? "edit" : "create");
         if (edit) { // configures the UI to EDIT mode
             Task task = (Task) Objects.requireNonNull(getIntent().getSerializableExtra(getString(R.string.task_extra)));
             loadEditConfiguration(task);
@@ -250,7 +250,7 @@ public class CreateTaskActivity extends AppCompatActivity {
     public void onConfirm(View view) {
         EditText editTitle = findViewById(R.id.editTitle);
         EditText editDescription = findViewById(R.id.editDescription);
-        TextView mapLocation = findViewById(R.id.locationText);
+        TextView mapLocation = findViewById(R.id.taskLocation);
         String title = editTitle.getText().toString();
         String description = editDescription.getText().toString();
         String location = mapLocation.getText().toString().substring("Location ".length());

@@ -50,14 +50,13 @@ public class TaskDetailEspressoTests {
     }
 
     @Test
-    public void checkProperLoad() throws UiObjectNotFoundException {
+    public void checkProperLoad() throws UiObjectNotFoundException, InterruptedException {
         onView(withId(R.id.taskTitle)).check(matches(withText(task.getName())));
         onView(withId(R.id.taskDescription)).check(matches(withText(task.getDescription())));
-        onView(withId(R.id.taskLocation)).check(matches(withText("Location: " + task.getLocation())));
+        onView(withId(R.id.taskLocation)).check(matches(withText("Location " + task.getLocation())));
         UiDevice device = UiDevice.getInstance(getInstrumentation());
-        UiObject marker = device.findObject(new UiSelector().descriptionContains("marker title"));
+        UiObject marker = device.findObject(new UiSelector().descriptionContains("Location " + task.getLocation()));
         marker.click();
-        marker.getText().matches(task.getLocation());
         onView(withId(R.id.taskPriority)).check(matches(withText("" + task.getPriority())));
         onView(withId(R.id.taskDuedate)).check(matches(withText("Due on: " + DateFormatUtils.getDateFormatted(task.getDateDue()))));
     }

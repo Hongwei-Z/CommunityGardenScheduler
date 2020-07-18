@@ -195,7 +195,7 @@ public class CreateTaskActivityUITest {
         String locationText ="Location " + String.format("%.5f", selectedLocation.latitude) + ", " + String.format("%.5f", selectedLocation.longitude);
 
         // if successfully got location, check that is displayed, else check default
-        onView(withId(R.id.locationText)).check(matches(withText(locationText)));
+        onView(withId(R.id.taskLocation)).check(matches(withText(locationText)));
         Thread.sleep(3000);
 
         // drag map to new location and click to add new marker
@@ -205,6 +205,6 @@ public class CreateTaskActivityUITest {
         map.click();
 
         //ensure location has changed from previous value
-        onView(withId(R.id.locationText)).check(matches(not(withText(locationText))));
+        onView(withId(R.id.taskLocation)).check(matches(not(withText(locationText))));
     }
 }

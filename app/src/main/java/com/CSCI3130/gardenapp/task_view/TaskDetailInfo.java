@@ -6,6 +6,10 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
+
+import com.CSCI3130.gardenapp.MapFragment;
 import com.CSCI3130.gardenapp.R;
 import com.CSCI3130.gardenapp.create_task.CreateTaskActivity;
 import com.CSCI3130.gardenapp.db.DatabaseAuth;
@@ -15,6 +19,7 @@ import com.CSCI3130.gardenapp.util.DateFormatUtils;
 import com.CSCI3130.gardenapp.util.data.Task;
 import com.CSCI3130.gardenapp.util.data.User;
 
+import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 
 public class TaskDetailInfo extends AppCompatActivity {
@@ -53,13 +58,22 @@ public class TaskDetailInfo extends AppCompatActivity {
 
         task = (Task) getIntent().getSerializableExtra(getString(R.string.task_extra));
 
+        // add map fragment to the page
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        MapFragment mapFragment = new MapFragment();
+        Bundle bundle = new Bundle();
+        bundle.putString("pageType", "details");
+        bundle.putString("selectedLocation", task.getLocation());
+        mapFragment.setArguments(bundle);
+        fragmentTransaction.add(R.id.mapLayout, mapFragment).commit();
+
         taskTitle = findViewById(R.id.taskTitle);
 
         priority = findViewById(R.id.taskPriority);
         priorityColor = findViewById(R.id.taskColor);
         description = findViewById(R.id.taskDescription);
         dueDate = findViewById(R.id.taskDuedate);
-        location = findViewById(R.id.taskLocation);
         repeatCon = findViewById(R.id.repeatCondition);
         completeButton = findViewById(R.id.buttonComplete);
         editButton = findViewById(R.id.buttonEdit);
@@ -67,7 +81,6 @@ public class TaskDetailInfo extends AppCompatActivity {
 
         taskTitle.setText(task.getName());
         description.setText(task.getDescription());
-        location.setText(task.getLocation());
         if (task.getDateDue() == -1) {
             dueDate.setText("");
             dueDate.setVisibility(View.INVISIBLE);
