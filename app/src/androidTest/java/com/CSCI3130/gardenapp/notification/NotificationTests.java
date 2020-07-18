@@ -70,7 +70,7 @@ public class NotificationTests {
     public void checkProperLoad(Task task, boolean weather) {
         onView(withId(R.id.taskTitle)).check(matches(withText(task.getName())));
         onView(withId(R.id.taskDescription)).check(matches(withText(task.getDescription())));
-        onView(withId(R.id.taskLocation)).check(matches(withText(task.getLocation())));
+        onView(withId(R.id.taskLocation)).check(matches(withText("Location: " + task.getLocation())));
         onView(withId(R.id.taskPriority)).check(matches(withText("" + task.getPriority())));
         if (!weather)
             onView(withId(R.id.taskDuedate)).check(matches(withText("Due on: " + DateFormatUtils.getDateFormatted(task.getDateDue()))));
