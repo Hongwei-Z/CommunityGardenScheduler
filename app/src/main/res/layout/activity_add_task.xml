@@ -13,7 +13,8 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
             android:layout_marginEnd="24dp"
-            android:layout_marginBottom="32dp"
+            android:layout_marginBottom="16dp"
+            android:layout_marginTop="10dp"
             android:fontFamily="@font/redhatdisplay_black"
             android:gravity="center_horizontal|center_vertical"
             android:text="@string/title"
@@ -24,14 +25,14 @@
             app:layout_constraintBottom_toTopOf="@+id/editTitle"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"/>
+            app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
             android:id="@+id/editTitle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="10dp"
             android:layout_marginEnd="16dp"
             android:ems="10"
             android:hint="@string/title_hint"
@@ -43,12 +44,13 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textTitle"/>
+            app:layout_constraintTop_toBottomOf="@+id/textTitle" />
 
     <EditText
             android:id="@+id/editDescription"
             android:layout_width="0dp"
-            android:layout_height="137dp"
+            android:layout_height="wrap_content"
+            android:lines="2"
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
@@ -60,7 +62,7 @@
             android:textColor="#FFFFFF"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/editTitle"/>
+            app:layout_constraintTop_toBottomOf="@+id/editTitle" />
 
     <com.google.android.material.button.MaterialButtonToggleGroup
             android:id="@+id/priorityButtons"
@@ -142,25 +144,11 @@
                 app:strokeColor="@color/colorPriority5"/>
     </com.google.android.material.button.MaterialButtonToggleGroup>
 
-
-    <EditText
-            android:id="@+id/editLocation"
-            style="@style/InputHint"
-            android:layout_width="0dp"
-            android:layout_height="48dp"
-            android:layout_marginTop="16dp"
-            android:ems="10"
-            android:hint="@string/location_hint"
-            android:inputType="textPostalAddress"
-            app:layout_constraintEnd_toEndOf="@+id/editDescription"
-            app:layout_constraintStart_toStartOf="@+id/editDescription"
-            app:layout_constraintTop_toBottomOf="@+id/priorityButtons"/>
-
     <Button
             android:id="@+id/buttonConfirmAdd"
             style="@style/title"
             android:layout_width="0dp"
-            android:layout_height="63dp"
+            android:layout_height="50dp"
             android:layout_marginBottom="8dp"
             android:background="#4CAF50"
             android:onClick="onConfirm"
@@ -169,41 +157,41 @@
             android:textColor="#FFFFFF"
             android:textSize="24sp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="@+id/editLocation"
+            app:layout_constraintEnd_toEndOf="@+id/locationText"
             app:layout_constraintHorizontal_bias="1.0"
-            app:layout_constraintStart_toStartOf="@+id/editLocation"
-            app:layout_constraintTop_toBottomOf="@+id/dueDate"/>
+            app:layout_constraintStart_toStartOf="@+id/locationText"
+            app:layout_constraintTop_toBottomOf="@+id/dueDate" />
 
     <TextView
             android:id="@+id/textPriorityTitle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="10dp"
             android:layout_marginEnd="8dp"
             android:text="@string/textPriorityTitle"
             android:textAppearance="@style/InputHint"
             android:textColor="@android:color/darker_gray"
             app:layout_constraintStart_toStartOf="@+id/priorityButtons"
-            app:layout_constraintTop_toBottomOf="@+id/editDescription"/>
+            app:layout_constraintTop_toBottomOf="@+id/editDescription" />
 
     <Spinner
             android:id="@+id/repeatSpinner"
             android:layout_width="0dp"
             android:layout_height="38dp"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
             android:visibility="invisible"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/taskTypesToggleGroup"/>
+            app:layout_constraintTop_toBottomOf="@+id/taskTypesToggleGroup" />
 
     <Spinner
             android:id="@+id/weatherSpinner"
             android:layout_width="0dp"
             android:layout_height="38dp"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
             android:spinnerMode="dropdown"
             android:visibility="invisible"
@@ -220,7 +208,7 @@
             app:checkedButton="@id/dateTypeButton"
             app:layout_constraintEnd_toEndOf="@+id/priorityButtons"
             app:layout_constraintStart_toStartOf="@+id/priorityButtons"
-            app:layout_constraintTop_toBottomOf="@id/editLocation"
+            app:layout_constraintTop_toBottomOf="@id/mapLayout"
             app:singleSelection="true">
 
         <com.google.android.material.button.MaterialButton
@@ -257,7 +245,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="10dp"
             android:layout_marginRight="20dp"
             android:onClick="openCalendar"
             android:text="Condition Information"
@@ -266,11 +254,33 @@
             android:textAppearance="@style/InputHint"
             android:textColor="@android:color/darker_gray"
             app:backgroundTint="@android:color/transparent"
-            app:layout_constraintEnd_toEndOf="@+id/editLocation"
-            app:layout_constraintStart_toStartOf="@+id/editLocation"
+            app:layout_constraintEnd_toEndOf="@+id/taskTypesToggleGroup"
+            app:layout_constraintStart_toStartOf="@+id/taskTypesToggleGroup"
             app:layout_constraintTop_toBottomOf="@+id/taskTypesToggleGroup"
             app:strokeColor="@android:color/secondary_text_light"
             app:strokeWidth="2dp"/>
 
+    <TextView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:ems="10"
+        android:textSize="18sp"
+        android:id="@+id/locationText"
+        android:text="Location"
+        android:inputType="textPostalAddress"
+        app:layout_constraintEnd_toEndOf="@+id/editDescription"
+        app:layout_constraintStart_toStartOf="@+id/priorityButtons"
+        app:layout_constraintTop_toBottomOf="@+id/priorityButtons"
+        />
+
+    <RelativeLayout
+        android:layout_width="0dp"
+        android:layout_height="160dp"
+        android:id="@+id/mapLayout"
+        app:layout_constraintEnd_toEndOf="@+id/locationText"
+        app:layout_constraintStart_toStartOf="@+id/locationText"
+        app:layout_constraintTop_toBottomOf="@+id/locationText"
+    />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

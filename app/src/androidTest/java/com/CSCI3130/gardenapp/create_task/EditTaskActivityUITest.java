@@ -82,13 +82,13 @@ public class EditTaskActivityUITest {
     @Before
     public void setUp() {
         testTask = TaskGenerator.generateTask(true, WeatherCondition.HOT);
+        testTask.setLocation("-30.00000, 40.00000");
         testDB = new TaskTestDatabase();
         testDB.uploadTask(testTask);
         Context targetContext = InstrumentationRegistry.getInstrumentation().getTargetContext();
         Intent i = new Intent(targetContext, CreateTaskActivity.class);
         i.putExtra(targetContext.getString(R.string.editSetting_extra), true);
         i.putExtra(targetContext.getString(R.string.task_extra), testTask);
-
 
         activityScenarioRule.launchActivity(i);
         activity = activityScenarioRule.getActivity();
@@ -106,7 +106,7 @@ public class EditTaskActivityUITest {
         onView(withId(R.id.textTitle)).check(matches(withText(R.string.textEditTitle)));
         onView(withId(R.id.editTitle)).check(matches(withText(testTask.getName())));
         onView(withId(R.id.editDescription)).check(matches(withText(testTask.getDescription())));
-        onView(withId(R.id.editLocation)).check(matches(withText(testTask.getLocation())));
+        onView(withId(R.id.locationText)).check(matches(withText("Location " + testTask.getLocation())));
         onView(withId(R.id.buttonConfirmAdd)).check(matches(withText(R.string.confirm_edit_task)));
         onView(withId(R.id.weatherSpinner)).check(matches(withSpinnerText("Hot")));
     }

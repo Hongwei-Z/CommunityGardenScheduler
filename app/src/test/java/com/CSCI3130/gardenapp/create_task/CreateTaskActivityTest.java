@@ -79,19 +79,10 @@ public class CreateTaskActivityTest {
     }
 
     @Test
-    public void testMissingLocation() {
-        errors.add(CreateTaskError.MISSING_LOCATION);
-        Assert.assertEquals(errors, activity.verifyTask(
-                title,
-                description,
-                ""));
-    }
-
-    @Test
-    public void testMultipleErrors() {
-        errors.add(CreateTaskError.MISSING_LOCATION);
-        errors.add(CreateTaskError.MISSING_TITLE);
-        Assert.assertTrue(activity.verifyTask("", description, "").containsAll(errors));
+    public void testMultipleErrors(){
+         errors.add(CreateTaskError.MISSING_TITLE);
+        errors.add(CreateTaskError.MISSING_DESCRIPTION);
+        Assert.assertTrue(activity.verifyTask("", "", location).containsAll(errors));
     }
 
 
