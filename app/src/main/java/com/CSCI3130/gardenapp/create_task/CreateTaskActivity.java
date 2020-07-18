@@ -105,7 +105,7 @@ public class CreateTaskActivity extends AppCompatActivity {
 
         //determine the task condition
         boolean dateConditionTask = t.getDateDue() != -1;
-        boolean repeatConditionTask = !t.getRepeated().equals("repeat-none");
+        boolean repeatConditionTask = !t.getRepeated().equals(TaskRepeatCondition.REPEAT_NONE);
         boolean weatherConditionTask = !t.getWeatherTrigger().equals(WeatherCondition.NONE);
         if (repeatConditionTask) {
             setToggleVisibility("repeat");

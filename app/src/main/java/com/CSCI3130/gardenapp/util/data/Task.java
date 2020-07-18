@@ -67,6 +67,7 @@ public class Task implements Serializable {
         this.weatherTrigger = weatherTrigger;
         this.repeated = repeated;
     }
+    
 
     public Task() {
     }
