@@ -41,7 +41,6 @@ import java.util.Map;
 
 /**
  * Activity class which allows a user to sign into the app
- *
  * @author Arjav Gupta
  */
 public class SignIn extends AppCompatActivity {
