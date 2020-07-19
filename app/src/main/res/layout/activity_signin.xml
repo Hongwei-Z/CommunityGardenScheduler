@@ -78,4 +78,30 @@
             android:textColor="#FFFFFF"
             android:textSize="30sp"/>
 
+    <CheckBox
+        android:id="@+id/captchaCheckBox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/passwordTxt_signin"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="136dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="131dp"
+        android:buttonTint="#FFFFFF"
+        android:checked="false"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:onClick="Captcha_onClick"
+        android:text="I am not a robot" />
+
+    <TextView
+        android:id="@+id/captchaErrorText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/captchaCheckBox"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="23dp" />
+
 </RelativeLayout>
