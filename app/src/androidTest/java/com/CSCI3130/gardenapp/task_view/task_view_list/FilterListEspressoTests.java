@@ -9,6 +9,7 @@ import com.CSCI3130.gardenapp.task_view.ActiveTaskListContext;
 import com.CSCI3130.gardenapp.util.data.CurrentWeather;
 import com.CSCI3130.gardenapp.util.data.Task;
 import com.CSCI3130.gardenapp.util.db.TaskTestDatabase;
+import com.CSCI3130.gardenapp.util.TaskRepeatCondition;
 import org.hamcrest.Matchers;
 import org.junit.After;
 import org.junit.Before;
@@ -83,10 +84,10 @@ public class FilterListEspressoTests {
             testDB.getDbRead().addValueEventListener(testDB.getTaskData(activity.recyclerView, ActiveTaskListContext.ALL_TASKS,
                     activityScenarioRule.getActivity().getSortingConfigModel(),
                     activityScenarioRule.getActivity().getFilterConfigModel()));
-            Task task1 = new Task("Task in range 1/3", "This task is within the date range", 3, "Arjav", "Location", 1596891601000L, "repeat-none");
-            Task task2 = new Task("Task in range 2/3", "This task is within the date range", 3, "Arjav", "Location", 1596891601000L, "repeat-none");
-            Task task3 = new Task("Task in range 3/3", "This task is within teh date range", 3, "Arjav", "Location", 1596891601000L, "repeat-none");
-            Task task4 = new Task("Task out of range 1/1", "This task is not within the date range", 3, "Arjav", "Location", 1580562001000L, "repeat-none");
+            Task task1 = new Task("Task in range 1/3", "This task is within the date range", 3, "Arjav", "Location", 1596891601000L, TaskRepeatCondition.REPEAT_NONE);
+            Task task2 = new Task("Task in range 2/3", "This task is within the date range", 3, "Arjav", "Location", 1596891601000L, TaskRepeatCondition.REPEAT_NONE);
+            Task task3 = new Task("Task in range 3/3", "This task is within teh date range", 3, "Arjav", "Location", 1596891601000L, TaskRepeatCondition.REPEAT_NONE);
+            Task task4 = new Task("Task out of range 1/1", "This task is not within the date range", 3, "Arjav", "Location", 1580562001000L, TaskRepeatCondition.REPEAT_NONE);
 
             testDB.uploadTask(task1);
             testDB.uploadTask(task2);
@@ -121,11 +122,11 @@ public class FilterListEspressoTests {
                     activityScenarioRule.getActivity().getSortingConfigModel(),
                     activityScenarioRule.getActivity().getFilterConfigModel()));
 
-            Task task1 = new Task("Task in range 1/3", "This task has the correct priority", 3, "Arjav", "Location", 1580562001000L, "repeat-none");
-            Task task2 = new Task("Task in range 2/3", "This task has the correct priority", 3, "Arjav", "Location", 1580562001000L, "repeat-none");
-            Task task3 = new Task("Task in range 3/3", "This task has the correct priority", 3, "Arjav", "Location", 1580562001000L, "repeat-none");
-            Task task4 = new Task("Task out of range 1/2", "This task does not have the correct priority", 5, "Arjav", "Location", 1580562001000L, "repeat-none");
-            Task task5 = new Task("Task out of range 2/2", "This task does not have the correct priority", 1, "Arjav", "Location", 1580562001000L, "repeat-none");
+            Task task1 = new Task("Task in range 1/3", "This task has the correct priority", 3, "Arjav", "Location", 1580562001000L, TaskRepeatCondition.REPEAT_NONE);
+            Task task2 = new Task("Task in range 2/3", "This task has the correct priority", 3, "Arjav", "Location", 1580562001000L, TaskRepeatCondition.REPEAT_NONE);
+            Task task3 = new Task("Task in range 3/3", "This task has the correct priority", 3, "Arjav", "Location", 1580562001000L, TaskRepeatCondition.REPEAT_NONE);
+            Task task4 = new Task("Task out of range 1/2", "This task does not have the correct priority", 5, "Arjav", "Location", 1580562001000L, TaskRepeatCondition.REPEAT_NONE);
+            Task task5 = new Task("Task out of range 2/2", "This task does not have the correct priority", 1, "Arjav", "Location", 1580562001000L, TaskRepeatCondition.REPEAT_NONE);
 
             testDB.uploadTask(task1);
             testDB.uploadTask(task2);
@@ -168,11 +169,11 @@ public class FilterListEspressoTests {
                     activityScenarioRule.getActivity().getSortingConfigModel(),
                     activityScenarioRule.getActivity().getFilterConfigModel()));
 
-            Task task1 = new Task("Task out of range 1/3", "This task has the correct priority", 3, "Arjav", "Location", 1580562001000L, "repeat-none");
-            Task task2 = new Task("Task in range 1/2", "This task has the correct priority", 3, "Arjav", "Location", 1596891601000L, "repeat-none");
-            Task task3 = new Task("Task in range 2/2", "This task has the correct priority", 3, "Arjav", "Location", 1596891601000L, "repeat-none");
-            Task task4 = new Task("Task out of range 2/3", "This task does not have the correct priority", 5, "Arjav", "Location", 1580562001000L, "repeat-none");
-            Task task5 = new Task("Task out of range 2/3", "This task does not have the correct priority", 1, "Arjav", "Location", 1580562001000L, "repeat-none");
+            Task task1 = new Task("Task out of range 1/3", "This task has the correct priority", 3, "Arjav", "Location", 1580562001000L, TaskRepeatCondition.REPEAT_NONE);
+            Task task2 = new Task("Task in range 1/2", "This task has the correct priority", 3, "Arjav", "Location", 1596891601000L, TaskRepeatCondition.REPEAT_NONE);
+            Task task3 = new Task("Task in range 2/2", "This task has the correct priority", 3, "Arjav", "Location", 1596891601000L, TaskRepeatCondition.REPEAT_NONE);
+            Task task4 = new Task("Task out of range 2/3", "This task does not have the correct priority", 5, "Arjav", "Location", 1580562001000L, TaskRepeatCondition.REPEAT_NONE);
+            Task task5 = new Task("Task out of range 2/3", "This task does not have the correct priority", 1, "Arjav", "Location", 1580562001000L, TaskRepeatCondition.REPEAT_NONE);
 
             testDB.uploadTask(task1);
             testDB.uploadTask(task2);
@@ -215,11 +216,11 @@ public class FilterListEspressoTests {
                     activityScenarioRule.getActivity().getSortingConfigModel(),
                     activityScenarioRule.getActivity().getFilterConfigModel()));
 
-            Task task1 = new Task("Task out of range 1/3", "This task has the correct priority", 3, "Arjav", "Location", 1580562001000L, "repeat-none");
-            Task task2 = new Task("A Task in range 1/2", "This task has the correct priority", 3, "Arjav", "Location", 1596891601000L, "repeat-none");
-            Task task3 = new Task("Z Task in range 2/2", "This task has the correct priority", 3, "Arjav", "Location", 1596891601000L, "repeat-none");
-            Task task4 = new Task("Task out of range 2/3", "This task does not have the correct priority", 5, "Arjav", "Location", 1580562001000L, "repeat-none");
-            Task task5 = new Task("Task out of range 2/3", "This task does not have the correct priority", 1, "Arjav", "Location", 1580562001000L, "repeat-none");
+            Task task1 = new Task("Task out of range 1/3", "This task has the correct priority", 3, "Arjav", "Location", 1580562001000L, TaskRepeatCondition.REPEAT_NONE);
+            Task task2 = new Task("A Task in range 1/2", "This task has the correct priority", 3, "Arjav", "Location", 1596891601000L, TaskRepeatCondition.REPEAT_NONE);
+            Task task3 = new Task("Z Task in range 2/2", "This task has the correct priority", 3, "Arjav", "Location", 1596891601000L, TaskRepeatCondition.REPEAT_NONE);
+            Task task4 = new Task("Task out of range 2/3", "This task does not have the correct priority", 5, "Arjav", "Location", 1580562001000L, TaskRepeatCondition.REPEAT_NONE);
+            Task task5 = new Task("Task out of range 2/3", "This task does not have the correct priority", 1, "Arjav", "Location", 1580562001000L, TaskRepeatCondition.REPEAT_NONE);
 
             testDB.uploadTask(task1);
             testDB.uploadTask(task2);

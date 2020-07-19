@@ -17,6 +17,7 @@ import com.CSCI3130.gardenapp.util.DateFormatUtils;
 import com.CSCI3130.gardenapp.util.data.CurrentWeather;
 import com.CSCI3130.gardenapp.util.data.Task;
 import com.CSCI3130.gardenapp.util.data.WeatherCondition;
+import com.CSCI3130.gardenapp.util.TaskRepeatCondition;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.button.MaterialButtonToggleGroup;
 
@@ -115,15 +116,15 @@ public class CreateTaskActivity extends AppCompatActivity {
 
         //determine the task condition
         boolean dateConditionTask = t.getDateDue() != -1;
-        boolean repeatConditionTask = !t.getRepeated().equals("repeat-none");
+        boolean repeatConditionTask = !t.getRepeated().equals(TaskRepeatCondition.REPEAT_NONE);
         boolean weatherConditionTask = !t.getWeatherTrigger().equals(WeatherCondition.NONE);
         if (repeatConditionTask) {
             setToggleVisibility("repeat");
             switch (t.getRepeated()) {
-                case "repeat-weekly":
+                case REPEAT_WEEKLY:
                     repeatSpinner.setSelection(1);
                     break;
-                case "repeat-monthly":
+                case REPEAT_MONTHLY:
                     repeatSpinner.setSelection(2);
                     break;
                 default:
@@ -256,7 +257,7 @@ public class CreateTaskActivity extends AppCompatActivity {
         String location = mapLocation.getText().toString().substring("Location ".length());
         //initialize repeat conditions
         WeatherCondition weatherCondition = WeatherCondition.NONE;
-        String repeated = "repeat-none";
+        TaskRepeatCondition repeated = TaskRepeatCondition.REPEAT_NONE;
         long dateDue = -1;
 
         switch (conditionsToggle.getCheckedButtonId()) {
@@ -267,13 +268,13 @@ public class CreateTaskActivity extends AppCompatActivity {
                 //get repeat condition of task
                 switch (repeatSpinner.getSelectedItemPosition()) {
                     case 1:
-                        repeated = "repeat-weekly";
+                        repeated = TaskRepeatCondition.REPEAT_WEEKLY;
                         break;
                     case 2:
-                        repeated = "repeat-monthly";
+                        repeated = TaskRepeatCondition.REPEAT_MONTHLY;
                         break;
                     default:
-                        repeated = "repeat-2day";
+                        repeated = TaskRepeatCondition.REPEAT_2DAY;
                         break;
                 }
                 break;
@@ -317,7 +318,7 @@ public class CreateTaskActivity extends AppCompatActivity {
      * @param repeated       The repeat condition of the task
      * @param dateDue        The date that the task is due
      */
-    protected void uploadTask(String title, String description, int priority, String location, WeatherCondition weatherTrigger, String repeated, long dateDue) {
+    protected void uploadTask(String title, String description, int priority, String location, WeatherCondition weatherTrigger, TaskRepeatCondition repeated, long dateDue) {
         if (edit) {
             Task task = (Task) getIntent().getSerializableExtra("t");
             task.setName(title);
@@ -327,13 +328,13 @@ public class CreateTaskActivity extends AppCompatActivity {
             task.setPriority(priority);
             task.setRepeated(repeated);
             switch (repeated) {
-                case "repeat-2day":
+                case REPEAT_2DAY:
                     task.setDateDue(System.currentTimeMillis() + TimeUnit.DAYS.toMillis(2));
                     break;
-                case "repeat-weekly":
+                case REPEAT_WEEKLY:
                     task.setDateDue(System.currentTimeMillis() + TimeUnit.DAYS.toMillis(7));
                     break;
-                case "repeat-monthly":
+                case REPEAT_MONTHLY:
                     task.setDateDue(System.currentTimeMillis() + TimeUnit.DAYS.toMillis(30));
                     break;
                 default:
@@ -343,13 +344,13 @@ public class CreateTaskActivity extends AppCompatActivity {
         } else {
             Task task;
             switch (repeated) {
-                case "repeat-2day":
+                case REPEAT_2DAY:
                     task = new Task(title, description, priority, "", location, weatherTrigger, System.currentTimeMillis() + TimeUnit.DAYS.toMillis(2), repeated);
                     break;
-                case "repeat-weekly":
+                case REPEAT_WEEKLY:
                     task = new Task(title, description, priority, "", location, weatherTrigger, System.currentTimeMillis() + TimeUnit.DAYS.toMillis(7), repeated);
                     break;
-                case "repeat-monthly":
+                case REPEAT_MONTHLY:
                     task = new Task(title, description, priority, "", location, weatherTrigger, System.currentTimeMillis() + TimeUnit.DAYS.toMillis(30), repeated);
                     break;
                 default:

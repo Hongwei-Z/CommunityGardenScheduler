@@ -14,7 +14,7 @@ import com.CSCI3130.gardenapp.task_view.task_view_list.TaskViewList;
 import com.CSCI3130.gardenapp.util.DateFormatUtils;
 import com.CSCI3130.gardenapp.util.data.Task;
 import com.CSCI3130.gardenapp.util.data.User;
-
+import com.CSCI3130.gardenapp.util.TaskRepeatCondition;
 import java.util.concurrent.TimeUnit;
 
 public class TaskDetailInfo extends AppCompatActivity {
@@ -101,15 +101,15 @@ public class TaskDetailInfo extends AppCompatActivity {
      * @param repeat
      * @return
      */
-    public String processRepeatCondition(String repeat) {
+    public String processRepeatCondition(TaskRepeatCondition repeat) {
         switch (repeat) {
-            case "repeat-none":
+            case REPEAT_NONE:
                 return "Do not repeat";
-            case "repeat-2day":
+            case REPEAT_2DAY:
                 return "Repeat every 2 days";
-            case "repeat-weekly":
+            case REPEAT_WEEKLY:
                 return "Repeat every week";
-            case "repeat-monthly":
+            case REPEAT_MONTHLY:
                 return "Repeat every month";
             default:
                 return "Do not repeat";
@@ -135,13 +135,13 @@ public class TaskDetailInfo extends AppCompatActivity {
     public void onComplete(View v) {
         task.setDateCompleted(System.currentTimeMillis());
         db.updateTask(task);
-        if (!task.getRepeated().equals("repeat-none")) {//if task is repeated
+        if (!task.getRepeated().equals(TaskRepeatCondition.REPEAT_NONE)) {//if task is repeated
             Task repeatedTask;
             switch (task.getRepeated()) {//get type of repeat and set new task
-                case "repeat-weekly":
+                case REPEAT_WEEKLY:
                     repeatedTask = new Task(task.getName(), task.getDescription(), task.getPriority(), "", task.getLocation(), System.currentTimeMillis() + TimeUnit.DAYS.toMillis(7), task.getRepeated());
                     break;
-                case "repeat-monthly":
+                case REPEAT_MONTHLY:
                     repeatedTask = new Task(task.getName(), task.getDescription(), task.getPriority(), "", task.getLocation(), System.currentTimeMillis() + TimeUnit.DAYS.toMillis(30), task.getRepeated());
                     break;
                 default:
