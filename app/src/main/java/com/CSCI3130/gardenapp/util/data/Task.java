@@ -2,6 +2,7 @@ package com.CSCI3130.gardenapp.util.data;
 
 import java.io.Serializable;
 import java.util.Objects;
+import com.CSCI3130.gardenapp.util.TaskRepeatCondition;
 
 /**
  * Task.java - a class used to create Task objects to be added to the database and displayed in
@@ -17,7 +18,7 @@ public class Task implements Serializable {
     private long dateDue = -1;
     private long dateCompleted = -1;
     private String location;
-    private String repeated;
+    private TaskRepeatCondition repeated;
     private String taskID;
     private WeatherCondition weatherTrigger;
 
@@ -32,7 +33,7 @@ public class Task implements Serializable {
      * @param dateDue     due date of the task
      * @param repeated    repeat condition of task
      */
-    public Task(String name, String description, int priority, String user, String location, long dateDue, String repeated) {
+    public Task(String name, String description, int priority, String user, String location, long dateDue, TaskRepeatCondition repeated) {
         this.name = name;
         this.description = description;
         this.priority = priority;
@@ -56,7 +57,7 @@ public class Task implements Serializable {
      * @param dateDue        due date of the task
      * @param repeated       repeat condition of task
      */
-    public Task(String name, String description, int priority, String user, String location, WeatherCondition weatherTrigger, long dateDue, String repeated) {
+    public Task(String name, String description, int priority, String user, String location, WeatherCondition weatherTrigger, long dateDue, TaskRepeatCondition repeated) {
         this.name = name;
         this.description = description;
         this.priority = priority;
@@ -66,6 +67,7 @@ public class Task implements Serializable {
         this.weatherTrigger = weatherTrigger;
         this.repeated = repeated;
     }
+    
 
     public Task() {
     }
@@ -239,7 +241,7 @@ public class Task implements Serializable {
      *
      * @return
      */
-    public String getRepeated() {
+    public TaskRepeatCondition getRepeated() {
         return this.repeated;
     }
 
@@ -248,7 +250,7 @@ public class Task implements Serializable {
      *
      * @param repeated
      */
-    public void setRepeated(String repeated) {
+    public void setRepeated(TaskRepeatCondition repeated) {
         this.repeated = repeated;
     }
 

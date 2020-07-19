@@ -6,6 +6,7 @@ import androidx.test.rule.ActivityTestRule;
 import com.CSCI3130.gardenapp.R;
 import com.CSCI3130.gardenapp.task_view.ActiveTaskListContext;
 import com.CSCI3130.gardenapp.util.DateFormatUtils;
+import com.CSCI3130.gardenapp.util.TaskRepeatCondition;
 import com.CSCI3130.gardenapp.util.data.Task;
 import com.CSCI3130.gardenapp.util.db.TaskTestDatabase;
 import org.junit.After;
@@ -52,7 +53,7 @@ public class OpenTaskListEspressoTests {
     public void testOpenFilter() {
         long currentDate = System.currentTimeMillis();
         //upload non-open task to test database
-        Task task = new Task("Not Open Task", "This is a Test", 2, "Some User ID", "Location", currentDate, "repeat-none");
+        Task task = new Task("Not Open Task", "This is a Test", 2, "Some User ID", "Location", currentDate, TaskRepeatCondition.REPEAT_NONE);
         testDB.uploadTask(task);
         //check if task appears in filtered recyclerview, fail if it is there
         try {
@@ -63,7 +64,7 @@ public class OpenTaskListEspressoTests {
         }
 
         //upload open task to database
-        task = new Task("Open Task", "This is a Test", 2, "", "Location", currentDate, "repeat-none");
+        task = new Task("Open Task", "This is a Test", 2, "", "Location", currentDate, TaskRepeatCondition.REPEAT_NONE);
         testDB.uploadTask(task);
         //check if task appears in filtered recyclerview, fail if it is NOT there
         try {

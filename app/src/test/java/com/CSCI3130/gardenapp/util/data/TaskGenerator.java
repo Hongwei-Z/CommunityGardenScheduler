@@ -1,6 +1,7 @@
 package com.CSCI3130.gardenapp.util.data;
 
 import com.CSCI3130.gardenapp.db.DatabaseAuth;
+import com.CSCI3130.gardenapp.util.TaskRepeatCondition;
 
 public class TaskGenerator {
     private static int count = 0;
@@ -20,7 +21,7 @@ public class TaskGenerator {
                 "Location-" + count,
                 trigger,
                 System.currentTimeMillis(),
-                "repeat-none");
+                TaskRepeatCondition.REPEAT_NONE);
     }
 
     public static Task generateTask(boolean currentUser) {

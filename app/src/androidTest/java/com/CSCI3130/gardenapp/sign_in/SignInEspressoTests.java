@@ -11,6 +11,10 @@ import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.click;
 import static androidx.test.espresso.action.ViewActions.typeText;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
+import static androidx.test.espresso.matcher.ViewMatchers.hasErrorText;
+import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
+import static androidx.test.espresso.matcher.ViewMatchers.withId;
+import static androidx.test.espresso.matcher.ViewMatchers.withText;
 import static androidx.test.espresso.matcher.ViewMatchers.*;
 
 public class SignInEspressoTests {
@@ -104,7 +108,7 @@ public class SignInEspressoTests {
 
     //test sign in with valid credentials
     @Test
-    public void valid_test() {
+    public void valid_test() throws InterruptedException {
         onView(withId(R.id.emailTxt_signin))
                 .perform(typeText("test@test.ca"));
         closeSoftKeyboard();
@@ -114,10 +118,26 @@ public class SignInEspressoTests {
         onView(withId(R.id.signInBtn_signin))
                 .perform(click());
         onView(withId(R.id.emailTxt_signin))
-                .check(matches(hasErrorText((String) null)));
+                .check(matches(hasErrorText((String)null)));
         onView(withId(R.id.passwordTxt_signin))
-                .check(matches(hasErrorText((String) null)));
+                .check(matches(hasErrorText((String)null)));
+
     }
 
+    //test sign in with valid credentials, but without passing reCAPTCHA
+    @Test
+    public void test_valid_cred_no_captcha() {
 
+        onView(withId(R.id.emailTxt_signin))
+                .perform(typeText("beth@email.com"));
+        closeSoftKeyboard();
+        onView(withId(R.id.passwordTxt_signin))
+                .perform(typeText("password"));
+        closeSoftKeyboard();
+        onView(withId(R.id.signInBtn_signin))
+                .perform(click());
+        onView(withId(R.id.captchaErrorText))
+                .check(matches(withText("Please verify your identity with reCAPTCHA")));
+
+    }
 }

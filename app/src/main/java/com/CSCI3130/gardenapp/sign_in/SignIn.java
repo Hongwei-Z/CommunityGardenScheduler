@@ -1,21 +1,46 @@
 package com.CSCI3130.gardenapp.sign_in;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.util.PatternsCompat;
 import com.CSCI3130.gardenapp.R;
 import com.CSCI3130.gardenapp.Welcome;
+
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+import com.google.android.gms.common.api.ApiException;
+import com.google.android.gms.common.api.CommonStatusCodes;
+import com.google.android.gms.safetynet.SafetyNet;
+import com.google.android.gms.safetynet.SafetyNetApi;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * Activity class which allows a user to sign into the app
- *
  * @author Arjav Gupta
  */
 public class SignIn extends AppCompatActivity {
@@ -23,10 +48,24 @@ public class SignIn extends AppCompatActivity {
     //UI element declarations
     EditText emailTxt, passwordTxt;
     Button logInBtn, signUpBtn;
+    CheckBox captchaCheck;
+    TextView captchaErrorTxt;
 
     //firebase authentication object
     FirebaseAuth mFirebaseAuth;
     boolean successful;
+
+    //keys for reCAPTCHA
+    public static String SITE_KEY = "6LcTB7EZAAAAAM5RIdncPhmVfXJHVktYSbiWuAua";
+    public static String SITE_SECRET_KEY = "6LcTB7EZAAAAAEZ0LPGXBxvhjKxYxXeEvBDadCX_";
+
+    String userResponseToken;
+
+    //request queue for reCAPTCHA
+    RequestQueue mQueue;
+
+    //boolean flag for successful captcha
+    public static boolean captcha_pass;
 
     /**
      * onCreate method for initial activity setup
@@ -44,12 +83,19 @@ public class SignIn extends AppCompatActivity {
         passwordTxt = findViewById(R.id.passwordTxt_signin);
         logInBtn = findViewById(R.id.signInBtn_signin);
         signUpBtn = findViewById(R.id.signUpBtn_signin);
+        captchaCheck = findViewById(R.id.captchaCheckBox);
+        captchaErrorTxt = findViewById(R.id.captchaErrorText);
 
         //get instance for firebase authentication
         mFirebaseAuth = FirebaseAuth.getInstance();
 
         //sets up authorization listener
         mFirebaseAuth.addAuthStateListener(checkLoginState());
+
+        //set up volley request queue
+        mQueue = Volley.newRequestQueue(this);
+
+        captcha_pass = false;
     }
 
     /**
@@ -63,11 +109,51 @@ public class SignIn extends AppCompatActivity {
                 successful = true;
                 Toast.makeText(SignIn.this, "You are logged in", Toast.LENGTH_SHORT).show();
                 Intent i = new Intent(SignIn.this, Welcome.class);
+                captcha_pass = true;
                 startActivity(i);
             }
         };
     }
 
+    /**
+     * onClick function for captcha check box
+     */
+    public void Captcha_onClick(View v){
+        if (!captcha_pass) {
+            captchaCheck.setChecked(false);
+
+            SafetyNet.getClient(this).verifyWithRecaptcha(SITE_KEY)
+                    .addOnSuccessListener(this,
+                            new OnSuccessListener<SafetyNetApi.RecaptchaTokenResponse>() {
+                                @Override
+                                public void onSuccess(SafetyNetApi.RecaptchaTokenResponse response) {
+                                    // Indicates communication with reCAPTCHA service was successful
+                                    userResponseToken = response.getTokenResult();
+                                    if (!userResponseToken.isEmpty()) {
+                                        // Validate the user response token using reCAPTCHA siteverify API.
+                                        sendRecaptchaRequest();
+                                    }
+                                }
+                            })
+                    .addOnFailureListener(this, new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            if (e instanceof ApiException) {
+                                // An error occurred when communicating with reCAPTCHA
+                                ApiException apiException = (ApiException) e;
+                                int statusCode = apiException.getStatusCode();
+                                Log.d(SignIn.class.getSimpleName(), "Error: " + CommonStatusCodes
+                                        .getStatusCodeString(statusCode));
+                            } else {
+                                // Different unknown error occurred
+                                Log.d(SignIn.class.getSimpleName(), "Error: " + e.getMessage());
+                            }
+                        }
+                    });
+        } else {
+            captchaCheck.setChecked(true);
+        }
+    }
     /**
      * onClick function for log in button (wrapper)
      */
@@ -77,7 +163,56 @@ public class SignIn extends AppCompatActivity {
         String pass = passwordTxt.getText().toString();
 
         //attempt to log in
-        LogInFirebase(email, pass);
+        //if inputs are valid, try to sign in
+        if (validInputs(email, pass, captcha_pass)) {
+            LogInFirebase(email, pass);
+            //otherwise display appropriate errors
+        } else {
+            errorDisplays(email, pass);
+        }
+
+    }
+
+    /**
+     * Method sends reCaptcha server-side request after verification is successful
+     */
+    public void sendRecaptchaRequest()  {
+
+        String url = "https://www.google.com/recaptcha/api/siteverify";
+
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        try {
+                            JSONObject obj = new JSONObject(response);
+                            if (obj.getString("success").equals("true")){
+                                captcha_pass = true;
+                                captchaCheck.setChecked(true);
+                                captchaErrorTxt.setText("");
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Toast.makeText(SignIn.this, error.getMessage(), Toast.LENGTH_LONG).show();
+                    }
+                }) {
+
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> params = new HashMap<>();
+                params.put("secret", SITE_SECRET_KEY);
+                params.put("response", userResponseToken);
+                return params;
+            }
+        };
+        mQueue.add(stringRequest);
+
     }
 
     /**
@@ -98,7 +233,7 @@ public class SignIn extends AppCompatActivity {
      * @param pass  - password from user
      * @return boolean - true/false for whether given inputs are valid
      */
-    public boolean validInputs(String email, String pass) {
+    public boolean validInputs(String email, String pass, boolean captcha_pass) {
 
         //email must not be empty and must have valid pattern
         if (email.isEmpty()) {
@@ -110,6 +245,10 @@ public class SignIn extends AppCompatActivity {
 
         //check that password isn't empty
         if (pass.isEmpty()) {
+            return false;
+        }
+
+        if (!captcha_pass){
             return false;
         }
         //check that password is at least 6 characters long
@@ -146,6 +285,12 @@ public class SignIn extends AppCompatActivity {
                 passwordTxt.requestFocus();
             }
         }
+
+        //captcha must be passed in order to log in
+        if (captcha_pass == false){
+            captchaErrorTxt.setText("Please verify your identity with reCAPTCHA");
+            captchaErrorTxt.setTextColor(Color.RED);
+        }
     }
 
     /**
@@ -156,21 +301,14 @@ public class SignIn extends AppCompatActivity {
      */
     public void LogInFirebase(String email, String pass) {
 
-        //if inputs are valid, try to sign in
-        if (validInputs(email, pass)) {
+        //run sign in method for firebase
+        mFirebaseAuth.signInWithEmailAndPassword(email, pass).addOnCompleteListener(SignIn.this, task -> {
 
-            //run signin method for firebase
-            mFirebaseAuth.signInWithEmailAndPassword(email, pass).addOnCompleteListener(SignIn.this, task -> {
-
-                //if login is not successful, return error
-                if (!task.isSuccessful()) {
-                    Toast.makeText(SignIn.this, "Sign In Error. Please Try Again.", Toast.LENGTH_SHORT).show();
-                }
-            });
-
-        } else {
-            errorDisplays(email, pass);
-        }
+            //if login is not successful, return error
+            if (!task.isSuccessful()) {
+                Toast.makeText(SignIn.this, "Sign In Error. Please Try Again.", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     @Override

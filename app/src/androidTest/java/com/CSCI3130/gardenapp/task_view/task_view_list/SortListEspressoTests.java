@@ -7,6 +7,7 @@ import com.CSCI3130.gardenapp.task_view.ActiveTaskListContext;
 import com.CSCI3130.gardenapp.util.data.CurrentWeather;
 import com.CSCI3130.gardenapp.util.data.Task;
 import com.CSCI3130.gardenapp.util.db.TaskTestDatabase;
+import com.CSCI3130.gardenapp.util.TaskRepeatCondition;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Rule;
@@ -77,9 +78,9 @@ public class SortListEspressoTests {
                     )
             );
 
-            Task task1 = new Task("First task", "This task is due first", 1, "Arjav", "Location", currentDate + TimeUnit.DAYS.toMillis(2), "repeat-none");
-            Task task2 = new Task("Second task", "This task is due second", 3, "Arjav", "Location", currentDate + TimeUnit.DAYS.toMillis(4), "repeat-none");
-            Task task3 = new Task("Third task", "This task is due third", 5, "Arjav", "Location", currentDate + TimeUnit.DAYS.toMillis(8), "repeat-none");
+            Task task1 = new Task("First task", "This task is due first", 1, "Arjav", "Location", currentDate + TimeUnit.DAYS.toMillis(2), TaskRepeatCondition.REPEAT_NONE);
+            Task task2 = new Task("Second task", "This task is due second", 3, "Arjav", "Location", currentDate + TimeUnit.DAYS.toMillis(4), TaskRepeatCondition.REPEAT_NONE);
+            Task task3 = new Task("Third task", "This task is due third", 5, "Arjav", "Location", currentDate + TimeUnit.DAYS.toMillis(8), TaskRepeatCondition.REPEAT_NONE);
 
             testDB.uploadTask(task2);
             testDB.uploadTask(task3);
@@ -119,9 +120,9 @@ public class SortListEspressoTests {
                     )
             );
 
-            Task task1 = new Task("First task", "This task is due first", 3, "Arjav", "Location", currentDate + TimeUnit.DAYS.toMillis(2), "repeat-none");
-            Task task2 = new Task("Second task", "This task is due second", 3, "Arjav", "Location", currentDate + TimeUnit.DAYS.toMillis(4), "repeat-none");
-            Task task3 = new Task("Third task", "This task is due third", 3, "Arjav", "Location", currentDate + TimeUnit.DAYS.toMillis(8), "repeat-none");
+            Task task1 = new Task("First task", "This task is due first", 3, "Arjav", "Location", currentDate + TimeUnit.DAYS.toMillis(2), TaskRepeatCondition.REPEAT_NONE);
+            Task task2 = new Task("Second task", "This task is due second", 3, "Arjav", "Location", currentDate + TimeUnit.DAYS.toMillis(4), TaskRepeatCondition.REPEAT_NONE);
+            Task task3 = new Task("Third task", "This task is due third", 3, "Arjav", "Location", currentDate + TimeUnit.DAYS.toMillis(8), TaskRepeatCondition.REPEAT_NONE);
 
             testDB.uploadTask(task2);
             testDB.uploadTask(task3);
@@ -160,9 +161,9 @@ public class SortListEspressoTests {
                             activityScenarioRule.getActivity().getFilterConfigModel()
                     )
             );
-            Task task1 = new Task("First task", "This task has the first priority", 1, "Arjav", "Location", currentDate, "repeat-none");
-            Task task2 = new Task("Second task", "This task has the second priority", 3, "Arjav", "Location", currentDate, "repeat-none");
-            Task task3 = new Task("Third task", "This task has the third priority", 5, "Arjav", "Location", currentDate, "repeat-none");
+            Task task1 = new Task("First task", "This task has the first priority", 1, "Arjav", "Location", currentDate, TaskRepeatCondition.REPEAT_NONE);
+            Task task2 = new Task("Second task", "This task has the second priority", 3, "Arjav", "Location", currentDate, TaskRepeatCondition.REPEAT_NONE);
+            Task task3 = new Task("Third task", "This task has the third priority", 5, "Arjav", "Location", currentDate, TaskRepeatCondition.REPEAT_NONE);
 
             testDB.uploadTask(task2);
             testDB.uploadTask(task3);
@@ -202,9 +203,9 @@ public class SortListEspressoTests {
                     )
             );
 
-            Task task1 = new Task("First task", "This task has the first priority", 1, "Arjav", "Location", currentDate, "repeat-none");
-            Task task2 = new Task("Second task", "This task has the second priority", 3, "Arjav", "Location", currentDate, "repeat-none");
-            Task task3 = new Task("Third task", "This task has the third priority", 5, "Arjav", "Location", currentDate, "repeat-none");
+            Task task1 = new Task("First task", "This task has the first priority", 1, "Arjav", "Location", currentDate, TaskRepeatCondition.REPEAT_NONE);
+            Task task2 = new Task("Second task", "This task has the second priority", 3, "Arjav", "Location", currentDate, TaskRepeatCondition.REPEAT_NONE);
+            Task task3 = new Task("Third task", "This task has the third priority", 5, "Arjav", "Location", currentDate, TaskRepeatCondition.REPEAT_NONE);
 
             testDB.uploadTask(task2);
             testDB.uploadTask(task3);
@@ -244,9 +245,9 @@ public class SortListEspressoTests {
                     )
             );
 
-            Task task1 = new Task("A task", "First task alphabetically", 3, "Arjav", "Location", currentDate, "repeat-none");
-            Task task2 = new Task("M task", "Second task alphabetically", 3, "Arjav", "Location", currentDate, "repeat-none");
-            Task task3 = new Task("Z task", "Third task alphabetically", 3, "Arjav", "Location", currentDate, "repeat-none");
+            Task task1 = new Task("A task", "First task alphabetically", 3, "Arjav", "Location", currentDate, TaskRepeatCondition.REPEAT_NONE);
+            Task task2 = new Task("M task", "Second task alphabetically", 3, "Arjav", "Location", currentDate, TaskRepeatCondition.REPEAT_NONE);
+            Task task3 = new Task("Z task", "Third task alphabetically", 3, "Arjav", "Location", currentDate, TaskRepeatCondition.REPEAT_NONE);
 
             testDB.uploadTask(task2);
             testDB.uploadTask(task3);
@@ -286,9 +287,9 @@ public class SortListEspressoTests {
                     )
             );
 
-            Task task1 = new Task("A task", "First task alphabetically", 3, "Arjav", "Location", currentDate, "repeat-none");
-            Task task2 = new Task("M task", "Second task alphabetically", 3, "Arjav", "Location", currentDate, "repeat-none");
-            Task task3 = new Task("Z task", "Third task alphabetically", 3, "Arjav", "Location", currentDate, "repeat-none");
+            Task task1 = new Task("A task", "First task alphabetically", 3, "Arjav", "Location", currentDate, TaskRepeatCondition.REPEAT_NONE);
+            Task task2 = new Task("M task", "Second task alphabetically", 3, "Arjav", "Location", currentDate, TaskRepeatCondition.REPEAT_NONE);
+            Task task3 = new Task("Z task", "Third task alphabetically", 3, "Arjav", "Location", currentDate, TaskRepeatCondition.REPEAT_NONE);
 
             testDB.uploadTask(task2);
             testDB.uploadTask(task3);
