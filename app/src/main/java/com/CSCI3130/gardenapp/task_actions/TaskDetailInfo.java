@@ -95,16 +95,20 @@ public class TaskDetailInfo extends AppCompatActivity {
         int color = R.color.colorPriority + task.getPriority();
         priorityColor.setBackgroundResource(color);
 
-        if (!task.getUser().equals("")) {//if task is assigned to a user
+        if (task.getDateCompleted() != -1){
             registerButton.setVisibility(View.GONE);
-        }
-
-        if (!task.getUser().equals(user.getId())) {
             completeButton.setVisibility(View.GONE);
-        }
-
-        if (!task.getUser().equals(user.getId()) && !task.getUser().equals("")) {//if task is not assigned to current user, and task is not open
             editButton.setVisibility(View.GONE);
+        } else {
+            if (!task.getUser().equals("")) {//if task is assigned to a user
+                registerButton.setVisibility(View.GONE);
+            }
+            if (!task.getUser().equals(user.getId())) {
+                completeButton.setVisibility(View.GONE);
+            }
+            if (!task.getUser().equals(user.getId()) && !task.getUser().equals("")) {//if task is not assigned to current user, and task is not open
+                editButton.setVisibility(View.GONE);
+            }
         }
     }
 
