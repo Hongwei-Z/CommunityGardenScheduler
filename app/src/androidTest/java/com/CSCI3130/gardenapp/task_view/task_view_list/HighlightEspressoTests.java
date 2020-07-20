@@ -74,9 +74,6 @@ public class HighlightEspressoTests {
         long TestDate = 1594873362654L;
         long diff_date = TimeUnit.MILLISECONDS.toDays(currentDate - TestDate);
 
-        onView(withRecyclerView(R.id.recycleview_tasks).atPosition(0))
-                .check(matches(hasDescendant(withId(R.id.task_due_symbol))));
-
         if (diff_date == 1) {
             Log.i("K", "due in one day");
             System.out.print("due in one day");
@@ -97,8 +94,6 @@ public class HighlightEspressoTests {
         long diff_date = TimeUnit.MILLISECONDS.toDays(currentDate - TestDate);
 
         if (diff_date == 1) {
-            onView(withRecyclerView(R.id.recycleview_tasks).atPosition(0))
-                    .check(matches(hasDescendant(withId(R.id.task_due_symbol))));
             Log.i("K", "due in one day");
             System.out.print("due in one day");
         } else if (diff_date == 2 || diff_date == 3) {
