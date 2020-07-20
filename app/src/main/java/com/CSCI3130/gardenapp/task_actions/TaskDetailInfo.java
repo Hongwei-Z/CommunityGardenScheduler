@@ -1,4 +1,4 @@
-package com.CSCI3130.gardenapp.task_view;
+package com.CSCI3130.gardenapp.task_actions;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -6,8 +6,10 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
+
 import com.CSCI3130.gardenapp.R;
-import com.CSCI3130.gardenapp.create_task.CreateTaskActivity;
 import com.CSCI3130.gardenapp.db.DatabaseAuth;
 import com.CSCI3130.gardenapp.db.TaskDatabase;
 import com.CSCI3130.gardenapp.task_view.task_view_list.TaskViewList;
@@ -15,6 +17,8 @@ import com.CSCI3130.gardenapp.util.DateFormatUtils;
 import com.CSCI3130.gardenapp.util.data.Task;
 import com.CSCI3130.gardenapp.util.data.User;
 import com.CSCI3130.gardenapp.util.TaskRepeatCondition;
+import com.CSCI3130.gardenapp.util.data.WeatherCondition;
+
 import java.util.concurrent.TimeUnit;
 
 public class TaskDetailInfo extends AppCompatActivity {
@@ -63,13 +67,22 @@ public class TaskDetailInfo extends AppCompatActivity {
 
         task = (Task) getIntent().getSerializableExtra(getString(R.string.task_extra));
 
+        // add map fragment to the page
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        MapFragment mapFragment = new MapFragment();
+        Bundle bundle = new Bundle();
+        bundle.putString("pageType", "details");
+        bundle.putString("selectedLocation", task.getLocation());
+        mapFragment.setArguments(bundle);
+        fragmentTransaction.add(R.id.mapLayout, mapFragment).commit();
+
         taskTitle = findViewById(R.id.taskTitle);
 
         priority = findViewById(R.id.taskPriority);
         priorityColor = findViewById(R.id.taskColor);
         description = findViewById(R.id.taskDescription);
         dueDate = findViewById(R.id.taskDuedate);
-        location = findViewById(R.id.taskLocation);
         repeatCon = findViewById(R.id.repeatCondition);
         completeButton = findViewById(R.id.buttonComplete);
         editButton = findViewById(R.id.buttonEdit);
@@ -78,7 +91,6 @@ public class TaskDetailInfo extends AppCompatActivity {
 
         taskTitle.setText(task.getName());
         description.setText(task.getDescription());
-        location.setText(task.getLocation());
         if (task.getDateDue() == -1) {
             dueDate.setText("");
             dueDate.setVisibility(View.INVISIBLE);
@@ -96,13 +108,22 @@ public class TaskDetailInfo extends AppCompatActivity {
         int color = R.color.colorPriority + task.getPriority();
         priorityColor.setBackgroundResource(color);
 
-        if (!task.getUser().equals("")) {//if task is assigned to a user
+        if (task.getDateCompleted() != -1){
             registerButton.setVisibility(View.GONE);
-        }
-
-        if (!task.getUser().equals(user.getId()) && !task.getUser().equals("")) {//if task is not assigned to current user, and task is not open
             completeButton.setVisibility(View.GONE);
+            unregisterButton.setVisibility(View.GONE);
             editButton.setVisibility(View.GONE);
+        } else {
+            if (!task.getUser().equals("")) {//if task is assigned to a user
+                registerButton.setVisibility(View.GONE);
+            }
+            if (!task.getUser().equals(user.getId())) {
+                completeButton.setVisibility(View.GONE);
+                unregisterButton.setVisibility(View.GONE);
+            }
+            if (!task.getUser().equals(user.getId()) && !task.getUser().equals("")) {//if task is not assigned to current user, and task is not open
+                editButton.setVisibility(View.GONE);
+            }
         }
     }
 
@@ -158,6 +179,10 @@ public class TaskDetailInfo extends AppCompatActivity {
                 default:
                     repeatedTask = new Task(task.getName(), task.getDescription(), task.getPriority(), "", task.getLocation(), System.currentTimeMillis() + TimeUnit.DAYS.toMillis(2), task.getRepeated());
             }
+            db.uploadTask(repeatedTask);
+        } else if (!task.getWeatherTrigger().equals(WeatherCondition.NONE)) {//if task has a weather trigger
+            Task repeatedTask;
+            repeatedTask = new Task(task.getName(), task.getDescription(), task.getPriority(), "", task.getLocation(), task.getWeatherTrigger(), -1, task.getRepeated());
             db.uploadTask(repeatedTask);
         }
         Intent returnIntent = new Intent(this, TaskViewList.class);

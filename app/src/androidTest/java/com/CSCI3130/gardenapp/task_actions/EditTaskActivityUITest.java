@@ -1,4 +1,4 @@
-package com.CSCI3130.gardenapp.create_task;
+package com.CSCI3130.gardenapp.task_actions;
 
 import android.content.Context;
 import android.content.Intent;
@@ -12,6 +12,11 @@ import androidx.test.espresso.matcher.BoundedMatcher;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.platform.app.InstrumentationRegistry;
 import androidx.test.rule.ActivityTestRule;
+import androidx.test.uiautomator.UiDevice;
+import androidx.test.uiautomator.UiObject;
+import androidx.test.uiautomator.UiObjectNotFoundException;
+import androidx.test.uiautomator.UiSelector;
+
 import com.CSCI3130.gardenapp.R;
 import com.CSCI3130.gardenapp.util.data.Task;
 import com.CSCI3130.gardenapp.util.data.TaskGenerator;
@@ -29,6 +34,8 @@ import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.*;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
 import static androidx.test.espresso.matcher.ViewMatchers.*;
+import static androidx.test.platform.app.InstrumentationRegistry.getInstrumentation;
+import static org.junit.Assert.assertEquals;
 
 @RunWith(AndroidJUnit4.class)
 public class EditTaskActivityUITest {
@@ -102,11 +109,15 @@ public class EditTaskActivityUITest {
     }
 
     @Test
-    public void testCorrectLoad() {
+    public void testCorrectLoad() throws UiObjectNotFoundException {
         onView(withId(R.id.textTitle)).check(matches(withText(R.string.textEditTitle)));
         onView(withId(R.id.editTitle)).check(matches(withText(testTask.getName())));
         onView(withId(R.id.editDescription)).check(matches(withText(testTask.getDescription())));
-        onView(withId(R.id.locationText)).check(matches(withText("Location " + testTask.getLocation())));
+        String location = String.format("%.5f", MapFragment.selectedLocation.latitude) + ", " + String.format("%.5f", MapFragment.selectedLocation.longitude);
+        assertEquals(testTask.getLocation(), location);
+        UiDevice device = UiDevice.getInstance(getInstrumentation());
+        UiObject marker = device.findObject(new UiSelector().descriptionContains("Location " + testTask.getLocation()));
+        marker.click();
         onView(withId(R.id.buttonConfirmAdd)).check(matches(withText(R.string.confirm_edit_task)));
         onView(withId(R.id.weatherSpinner)).check(matches(withSpinnerText("Hot")));
     }

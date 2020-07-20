@@ -1,4 +1,4 @@
-package com.CSCI3130.gardenapp.create_task;
+package com.CSCI3130.gardenapp.task_actions;
 
 import android.location.Location;
 import android.widget.DatePicker;
@@ -37,6 +37,8 @@ import static org.hamcrest.Matchers.not;
 import static org.hamcrest.core.AllOf.allOf;
 import static org.hamcrest.core.Is.is;
 import static org.hamcrest.core.IsInstanceOf.instanceOf;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
 
 
 @LargeTest
@@ -193,10 +195,7 @@ public class CreateTaskActivityUITest {
         //check map is displayed
         onView(withId(R.id.map)).check(matches(isDisplayed()));
         onView(withId(R.id.mapLayout)).check(matches(isDisplayed()));
-        String locationText ="Location " + String.format("%.5f", selectedLocation.latitude) + ", " + String.format("%.5f", selectedLocation.longitude);
-
-        // if successfully got location, check that is displayed, else check default
-        onView(withId(R.id.locationText)).check(matches(withText(locationText)));
+        assertEquals(selectedLocation, MapFragment.selectedLocation);
         Thread.sleep(3000);
 
         // drag map to new location and click to add new marker
@@ -204,8 +203,6 @@ public class CreateTaskActivityUITest {
         UiObject map = device.findObject(new UiSelector().descriptionContains("Google Map"));
         map.dragTo(100, 100,  40);
         map.click();
-
-        //ensure location has changed from previous value
-        onView(withId(R.id.locationText)).check(matches(not(withText(locationText))));
+        assertNotEquals(selectedLocation, MapFragment.selectedLocation);
     }
 }

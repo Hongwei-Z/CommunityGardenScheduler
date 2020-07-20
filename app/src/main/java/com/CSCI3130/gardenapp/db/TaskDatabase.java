@@ -6,7 +6,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import com.CSCI3130.gardenapp.R;
 import com.CSCI3130.gardenapp.task_view.ActiveTaskListContext;
-import com.CSCI3130.gardenapp.task_view.TaskDetailInfo;
+import com.CSCI3130.gardenapp.task_actions.TaskDetailInfo;
 import com.CSCI3130.gardenapp.task_view.filter_sorting.FilterConfigModel;
 import com.CSCI3130.gardenapp.task_view.filter_sorting.SortingConfigModel;
 import com.CSCI3130.gardenapp.task_view.task_view_list.TaskAdapter;

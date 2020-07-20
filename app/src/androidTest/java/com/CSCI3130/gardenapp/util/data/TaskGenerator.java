@@ -18,7 +18,7 @@ public class TaskGenerator {
                 "Task-" + count,
                 "This is a Description-" + count,
                 1 + (count % 5), userID,
-                "Location-" + count,
+                "44.64541, -63.57661",
                 trigger,
                 -1,
                 TaskRepeatCondition.REPEAT_NONE);
