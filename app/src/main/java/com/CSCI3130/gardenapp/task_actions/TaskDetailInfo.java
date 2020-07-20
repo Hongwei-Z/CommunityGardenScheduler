@@ -1,4 +1,4 @@
-package com.CSCI3130.gardenapp.task_view;
+package com.CSCI3130.gardenapp.task_actions;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,9 +9,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
-import com.CSCI3130.gardenapp.MapFragment;
 import com.CSCI3130.gardenapp.R;
-import com.CSCI3130.gardenapp.create_task.CreateTaskActivity;
 import com.CSCI3130.gardenapp.db.DatabaseAuth;
 import com.CSCI3130.gardenapp.db.TaskDatabase;
 import com.CSCI3130.gardenapp.task_view.task_view_list.TaskViewList;

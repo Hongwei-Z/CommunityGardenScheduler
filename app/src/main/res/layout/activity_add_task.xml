@@ -5,7 +5,7 @@
                                                    android:id="@+id/addTaskActivity"
                                                    android:layout_width="match_parent"
                                                    android:layout_height="match_parent"
-                                                   tools:context=".create_task.CreateTaskActivity">
+                                                   tools:context=".task_actions.CreateTaskActivity">
 
     <TextView
             android:id="@+id/textTitle"
@@ -150,17 +150,17 @@
             android:layout_width="0dp"
             android:layout_height="50dp"
             android:layout_marginBottom="8dp"
+            android:layout_marginTop="16dp"
             android:background="#4CAF50"
             android:onClick="onConfirm"
             android:text="@string/confirm_add_task"
             android:textAllCaps="false"
             android:textColor="#FFFFFF"
             android:textSize="24sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="@+id/taskLocation"
-            app:layout_constraintHorizontal_bias="1.0"
-            app:layout_constraintStart_toStartOf="@+id/taskLocation"
-            app:layout_constraintTop_toBottomOf="@+id/dueDate" />
+            app:layout_constraintEnd_toEndOf="@+id/dueDate"
+            app:layout_constraintStart_toStartOf="@+id/dueDate"
+            app:layout_constraintTop_toBottomOf="@+id/dueDate"
+    />
 
     <TextView
             android:id="@+id/textPriorityTitle"
@@ -260,26 +260,14 @@
             app:strokeColor="@android:color/secondary_text_light"
             app:strokeWidth="2dp"/>
 
-    <TextView
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:ems="10"
-        android:textSize="18sp"
-        android:id="@+id/taskLocation"
-        android:text="Location"
-        app:layout_constraintEnd_toEndOf="@+id/editDescription"
-        app:layout_constraintStart_toStartOf="@+id/priorityButtons"
-        app:layout_constraintTop_toBottomOf="@+id/priorityButtons"
-        />
-
     <RelativeLayout
-        android:layout_width="0dp"
-        android:layout_height="160dp"
-        android:id="@+id/mapLayout"
-        app:layout_constraintEnd_toEndOf="@+id/taskLocation"
-        app:layout_constraintStart_toStartOf="@+id/taskLocation"
-        app:layout_constraintTop_toBottomOf="@+id/taskLocation"
+            android:layout_width="0dp"
+            android:layout_height="160dp"
+            android:layout_marginTop="10dp"
+            android:id="@+id/mapLayout"
+            app:layout_constraintEnd_toEndOf="@+id/editDescription"
+            app:layout_constraintStart_toStartOf="@+id/priorityButtons"
+            app:layout_constraintTop_toBottomOf="@+id/priorityButtons"
     />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.CSCI3130.gardenapp.R;
 import com.CSCI3130.gardenapp.Welcome;
-import com.CSCI3130.gardenapp.create_task.CreateTaskActivity;
+import com.CSCI3130.gardenapp.task_actions.CreateTaskActivity;
 import com.CSCI3130.gardenapp.db.TaskDatabase;
 import com.CSCI3130.gardenapp.task_view.ActiveTaskListContext;
 import com.CSCI3130.gardenapp.task_view.filter_sorting.FilterConfigModel;

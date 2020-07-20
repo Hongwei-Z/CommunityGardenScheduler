@@ -45,7 +45,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".create_task.CreateTaskActivity"
+            android:name=".task_actions.CreateTaskActivity"
             android:parentActivityName=".Welcome"></activity>
         <activity
                 android:name=".task_view.filter_sorting.FilterPopUp"
@@ -53,7 +53,7 @@
                 android:parentActivityName=".task_view.task_view_list.TaskViewList">
         </activity>
         <activity
-                android:name=".task_view.TaskDetailInfo"
+                android:name=".task_actions.TaskDetailInfo"
                 android:parentActivityName=".task_view.task_view_list.TaskViewList"/>
     </application>
 

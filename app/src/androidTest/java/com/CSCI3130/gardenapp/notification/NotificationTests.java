@@ -19,6 +19,7 @@ import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
+import static androidx.test.platform.app.InstrumentationRegistry.getInstrumentation;
 
 public class NotificationTests {
     @Rule
@@ -67,10 +68,12 @@ public class NotificationTests {
         checkProperLoad(task, true);
     }
 
-    public void checkProperLoad(Task task, boolean weather) {
+    public void checkProperLoad(Task task, boolean weather) throws UiObjectNotFoundException {
         onView(withId(R.id.taskTitle)).check(matches(withText(task.getName())));
         onView(withId(R.id.taskDescription)).check(matches(withText(task.getDescription())));
-        onView(withId(R.id.taskLocation)).check(matches(withText("Location " + task.getLocation())));
+        UiDevice device = UiDevice.getInstance(getInstrumentation());
+        UiObject marker = device.findObject(new UiSelector().descriptionContains("Location " + task.getLocation()));
+        marker.click();
         onView(withId(R.id.taskPriority)).check(matches(withText("" + task.getPriority())));
         if (!weather)
             onView(withId(R.id.taskDuedate)).check(matches(withText("Due on: " + DateFormatUtils.getDateFormatted(task.getDateDue()))));

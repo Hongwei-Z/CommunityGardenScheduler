@@ -1,4 +1,4 @@
-package com.CSCI3130.gardenapp.create_task;
+package com.CSCI3130.gardenapp.task_actions;
 
 import android.app.DatePickerDialog;
 import android.content.Intent;
@@ -9,7 +9,7 @@ import android.widget.*;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
-import com.CSCI3130.gardenapp.MapFragment;
+
 import com.CSCI3130.gardenapp.R;
 import com.CSCI3130.gardenapp.db.TaskDatabase;
 import com.CSCI3130.gardenapp.task_view.task_view_list.TaskViewList;
@@ -18,6 +18,7 @@ import com.CSCI3130.gardenapp.util.data.CurrentWeather;
 import com.CSCI3130.gardenapp.util.data.Task;
 import com.CSCI3130.gardenapp.util.data.WeatherCondition;
 import com.CSCI3130.gardenapp.util.TaskRepeatCondition;
+import com.google.android.gms.maps.model.LatLng;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.button.MaterialButtonToggleGroup;
 
@@ -43,6 +44,7 @@ public class CreateTaskActivity extends AppCompatActivity {
     private Button dateConditions;
     private DatePickerDialog datePickerDialog;
     private Calendar date;
+    MapFragment mapFragment;
 
     /**
      * Constructing the activity
@@ -88,7 +90,7 @@ public class CreateTaskActivity extends AppCompatActivity {
         // add map fragment to the page
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        MapFragment mapFragment = new MapFragment();
+        mapFragment = new MapFragment();
         Bundle bundle = new Bundle();
         bundle.putString("pageType", edit ? "edit" : "create");
         if (edit) { // configures the UI to EDIT mode
@@ -251,10 +253,12 @@ public class CreateTaskActivity extends AppCompatActivity {
     public void onConfirm(View view) {
         EditText editTitle = findViewById(R.id.editTitle);
         EditText editDescription = findViewById(R.id.editDescription);
-        TextView mapLocation = findViewById(R.id.taskLocation);
         String title = editTitle.getText().toString();
         String description = editDescription.getText().toString();
-        String location = mapLocation.getText().toString().substring("Location ".length());
+        LatLng selectedLocation = MapFragment.selectedLocation;
+        String lat = String.format("%.5f", selectedLocation.latitude);
+        String lng = String.format("%.5f", selectedLocation.longitude);
+        String location = (lat + ", " + lng);
         //initialize repeat conditions
         WeatherCondition weatherCondition = WeatherCondition.NONE;
         TaskRepeatCondition repeated = TaskRepeatCondition.REPEAT_NONE;

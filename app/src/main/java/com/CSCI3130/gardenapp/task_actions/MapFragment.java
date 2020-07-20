@@ -1,4 +1,4 @@
-package com.CSCI3130.gardenapp;
+package com.CSCI3130.gardenapp.task_actions;
 
 import android.Manifest;
 import android.content.pm.PackageManager;
@@ -7,13 +7,13 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
 
+import com.CSCI3130.gardenapp.R;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -32,7 +32,7 @@ import com.google.android.gms.tasks.Task;
  */
 public class MapFragment extends Fragment implements OnMapReadyCallback {
     Location currentLocation;
-    LatLng selectedLocation = new LatLng(44.64541, -63.57661); //default to Halifax
+    public static LatLng selectedLocation = new LatLng(44.64541, -63.57661); //default to Halifax
     FusedLocationProviderClient fusedLocationProviderClient;
     private static final int REQUEST_CODE = 101;
     private String pageType;
@@ -138,7 +138,6 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
     }
 
     private void addMapMarker(GoogleMap googleMap){
-        TextView locationText = getActivity().findViewById(R.id.taskLocation);
         String lat = String.format("%.5f", selectedLocation.latitude);
         String lng = String.format("%.5f", selectedLocation.longitude);
         MarkerOptions markerOptions = new MarkerOptions();
@@ -147,6 +146,5 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         googleMap.clear();
         googleMap.animateCamera(CameraUpdateFactory.newLatLng(selectedLocation));
         googleMap.addMarker(markerOptions);
-        locationText.setText("Location " + lat + ", " + lng);
     }
 }
