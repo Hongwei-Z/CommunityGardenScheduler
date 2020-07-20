@@ -17,6 +17,8 @@ import com.CSCI3130.gardenapp.util.DateFormatUtils;
 import com.CSCI3130.gardenapp.util.data.Task;
 import com.CSCI3130.gardenapp.util.data.User;
 import com.CSCI3130.gardenapp.util.TaskRepeatCondition;
+import com.CSCI3130.gardenapp.util.data.WeatherCondition;
+
 import java.util.concurrent.TimeUnit;
 
 public class TaskDetailInfo extends AppCompatActivity {
@@ -164,6 +166,10 @@ public class TaskDetailInfo extends AppCompatActivity {
                 default:
                     repeatedTask = new Task(task.getName(), task.getDescription(), task.getPriority(), "", task.getLocation(), System.currentTimeMillis() + TimeUnit.DAYS.toMillis(2), task.getRepeated());
             }
+            db.uploadTask(repeatedTask);
+        } else if (!task.getWeatherTrigger().equals(WeatherCondition.NONE)) {//if task has a weather trigger
+            Task repeatedTask;
+            repeatedTask = new Task(task.getName(), task.getDescription(), task.getPriority(), "", task.getLocation(), task.getWeatherTrigger(), -1, task.getRepeated());
             db.uploadTask(repeatedTask);
         }
         Intent returnIntent = new Intent(this, TaskViewList.class);
