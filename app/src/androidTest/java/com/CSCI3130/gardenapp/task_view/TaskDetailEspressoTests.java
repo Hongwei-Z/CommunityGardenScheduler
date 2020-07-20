@@ -43,7 +43,7 @@ public class TaskDetailEspressoTests {
     }
 
     @Test
-    public void checkUnregidter() {
+    public void checkUnregister() {
         onView(withId(R.id.buttonUnregister)).check(matches(isDisplayed()));
     }
 
