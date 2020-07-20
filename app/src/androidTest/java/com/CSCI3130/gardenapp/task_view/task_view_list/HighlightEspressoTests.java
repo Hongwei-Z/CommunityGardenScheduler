@@ -8,13 +8,18 @@ import org.junit.Rule;
 import org.junit.Test;
 
 import androidx.test.espresso.matcher.ViewMatchers;
+
+import static androidx.test.espresso.assertion.ViewAssertions.doesNotExist;
+import static androidx.test.espresso.assertion.ViewAssertions.matches;
 import static androidx.test.espresso.matcher.ViewMatchers.hasDescendant;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.espresso.Espresso.onView;
+import static androidx.test.espresso.matcher.ViewMatchers.withText;
+import static com.CSCI3130.gardenapp.task_view.task_view_list.SortListEspressoTests.withRecyclerView;
 import androidx.test.rule.ActivityTestRule;
-
 import com.CSCI3130.gardenapp.R;
 import com.CSCI3130.gardenapp.task_view.ActiveTaskListContext;
+import com.CSCI3130.gardenapp.util.DateFormatUtils;
 import com.CSCI3130.gardenapp.util.TaskRepeatCondition;
 import com.CSCI3130.gardenapp.util.data.Task;
 import com.CSCI3130.gardenapp.util.db.TaskTestDatabase;
@@ -38,10 +43,13 @@ public class HighlightEspressoTests {
     @Test
     public void testShown_One (){
         long currentDate = System.currentTimeMillis();
-        Task task = new Task("Test", "Test", 1, "Test", "Location", currentDate, TaskRepeatCondition.REPEAT_NONE);
+        long TestDate = currentDate + 3 * 86400000;
+        Task task = new Task("Test", "Test", 1, "Test", "Location", TestDate, TaskRepeatCondition.REPEAT_NONE);
         db.uploadTask(task);
-        long TestDate = 1594869824409L;
         long diff_date = TimeUnit.MILLISECONDS.toDays(TestDate - currentDate);
+
+        onView(withRecyclerView(R.id.recycleview_tasks).atPosition(0))
+                .check(matches(hasDescendant(withId(R.id.task_due_symbol))));
 
         if (diff_date == 1) {
             Log.i("K", "due in one day");
@@ -68,6 +76,9 @@ public class HighlightEspressoTests {
         long TestDate = 1594873362654L;
         long diff_date = TimeUnit.MILLISECONDS.toDays(currentDate - TestDate);
 
+        onView(withRecyclerView(R.id.recycleview_tasks).atPosition(0))
+                .check(matches(hasDescendant(withId(R.id.task_due_symbol))));
+
         if (diff_date == 1) {
             Log.i("K", "due in one day");
             System.out.print("due in one day");
@@ -82,12 +93,14 @@ public class HighlightEspressoTests {
     @Test
     public void testShown_Three () {
         long currentDate = System.currentTimeMillis();
-        Task task = new Task("Test", "Test", 2, "Test", "Location", currentDate, TaskRepeatCondition.REPEAT_NONE);
+        Task task = new Task("Test", "Test", 3, "Test", "Location", currentDate, TaskRepeatCondition.REPEAT_NONE);
         db.uploadTask(task);
         long TestDate = 1594873383633L;
         long diff_date = TimeUnit.MILLISECONDS.toDays(currentDate - TestDate);
 
         if (diff_date == 1) {
+            onView(withRecyclerView(R.id.recycleview_tasks).atPosition(0))
+                    .check(matches(hasDescendant(withId(R.id.task_due_symbol))));
             Log.i("K", "due in one day");
             System.out.print("due in one day");
         } else if (diff_date == 2 || diff_date == 3) {
