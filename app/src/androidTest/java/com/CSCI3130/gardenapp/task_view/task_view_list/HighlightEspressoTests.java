@@ -62,6 +62,30 @@ public class HighlightEspressoTests {
     }
 
     @Test
+    public void testShown_yellowone () throws InterruptedException {
+        long currentDate = System.currentTimeMillis();
+        long testDate = currentDate + TimeUnit.DAYS.toMillis(3);
+        Task task = TaskGenerator.generateTask(false, testDate);
+        testDB.uploadTask(task);
+        Thread.sleep(4000);
+
+        onView(withRecyclerView(R.id.recycleview_tasks).atPositionOnView(0, R.id.task_due_symbol))
+                .check(matches(withDrawable(R.drawable.yellow)));
+    }
+
+    @Test
+    public void testShown_yellowtwo () throws InterruptedException {
+        long currentDate = System.currentTimeMillis();
+        long testDate = currentDate + TimeUnit.DAYS.toMillis(2);
+        Task task = TaskGenerator.generateTask(false, testDate);
+        testDB.uploadTask(task);
+        Thread.sleep(4000);
+
+        onView(withRecyclerView(R.id.recycleview_tasks).atPositionOnView(0, R.id.task_due_symbol))
+                .check(matches(withDrawable(R.drawable.yellow)));
+    }
+
+    @Test
     public void recyclerViewCardsContainImage() {
         onView(AllOf.allOf(ViewMatchers.withId(R.id.task_card), hasDescendant(withId(R.id.task_due_symbol))));
     }
