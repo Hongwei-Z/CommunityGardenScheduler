@@ -24,7 +24,7 @@ public class TaskGenerator {
                 TaskRepeatCondition.REPEAT_NONE);
     }
 
-    public static Task generateTask(boolean currentUser, long dueDate ) {
+    public static Task generateTask(boolean currentUser, long dueDate) {
         count++;
         String userID;
         if (currentUser) {

@@ -52,6 +52,11 @@ public class TaskDetailEspressoTests {
     }
 
     @Test
+    public void checkUnregister() {
+        onView(withId(R.id.buttonUnregister)).check(matches(isDisplayed()));
+    }
+
+    @Test
     public void checkProperLoad() throws UiObjectNotFoundException, InterruptedException {
         onView(withId(R.id.taskTitle)).check(matches(withText(task.getName())));
         onView(withId(R.id.taskDescription)).check(matches(withText(task.getDescription())));
