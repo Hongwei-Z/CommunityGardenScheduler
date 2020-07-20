@@ -99,8 +99,11 @@ public class TaskDetailInfo extends AppCompatActivity {
             registerButton.setVisibility(View.GONE);
         }
 
-        if (!task.getUser().equals(user.getId()) && !task.getUser().equals("")) {//if task is not assigned to current user, and task is not open
+        if (!task.getUser().equals(user.getId())) {
             completeButton.setVisibility(View.GONE);
+        }
+
+        if (!task.getUser().equals(user.getId()) && !task.getUser().equals("")) {//if task is not assigned to current user, and task is not open
             editButton.setVisibility(View.GONE);
         }
     }
