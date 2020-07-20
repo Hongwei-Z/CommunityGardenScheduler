@@ -12,6 +12,7 @@ import com.CSCI3130.gardenapp.util.data.Task;
 import com.CSCI3130.gardenapp.util.data.WeatherCondition;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -74,6 +75,25 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskViewHolder> {
                     ? "Completed: "
                     : "Due: ")
                     + DateFormatUtils.getDateFormatted(date));
+
+            /**
+             * using due date - current date
+             * when deadline is more than 0 seconds, equal and less than 1 day, it will show red exclamation point
+             * when deadline is larger than 1 day but equal and less than 3 days, it will show yellow exclamation point
+             * when deadline is more than 3 days, hidden symbol
+             */
+
+            long diff_date = TimeUnit.MILLISECONDS.toDays(date) - TimeUnit.MILLISECONDS.toDays(nowdate);
+            System.out.println(date);
+            System.out.println(nowdate);
+            System.out.println(diff_date);
+            if (diff_date == 1) {
+                holder.setDuesymbol(R.drawable.red);
+            } else if (diff_date == 2 || diff_date == 3){
+                holder.setDuesymbol(R.drawable.yellow);
+            } else {
+                holder.setHideDuesymbol();
+            }
         } else {
             if (task.getWeatherTrigger() != null) {
                 WeatherCondition trig = task.getWeatherTrigger();
@@ -100,21 +120,7 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskViewHolder> {
             }
         }
 
-        /**
-         * using due date - current date
-         * when deadline is more than 0 seconds, equal and less than 1 day, it will show red exclamation point
-         * when deadline is larger than 1 day but equal and less than 3 days, it will show yellow exclamation point
-         * when deadline is more than 3 days, hidden symbol
-         */
 
-        long diff_date = TimeUnit.MILLISECONDS.toDays(date - nowdate);
-        if (diff_date == 1) {
-            holder.setDuesymbol(R.drawable.red);
-        } else if (diff_date ==2 && diff_date ==3 ){
-            holder.setDuesymbol(R.drawable.yellow);
-        } else {
-            holder.setHideDuesymbol();
-        }
         holder.setPriority(task.getPriority());
         holder.setUser(task.getUser());
     }
