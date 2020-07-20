@@ -43,9 +43,18 @@ public class TaskDetailInfo extends AppCompatActivity {
         user = DatabaseAuth.getCurrentUser();
 
         registerButton = findViewById(R.id.buttonRegister);
+        unregisterButton = findViewById(R.id.buttonUnregister);
 
         registerButton.setOnClickListener(view -> {
             task.setUser(user.getId());
+            db.updateTask(task);
+            Intent returnIntent = new Intent(this, TaskViewList.class);
+            returnIntent.putExtra(getString(R.string.task_extra), task);
+            startActivity(returnIntent);
+        });
+
+        unregisterButton.setOnClickListener(view -> {
+            task.setUser("");
             db.updateTask(task);
             Intent returnIntent = new Intent(this, TaskViewList.class);
             returnIntent.putExtra(getString(R.string.task_extra), task);
@@ -65,7 +74,7 @@ public class TaskDetailInfo extends AppCompatActivity {
         completeButton = findViewById(R.id.buttonComplete);
         editButton = findViewById(R.id.buttonEdit);
         registerButton = findViewById(R.id.buttonRegister);
-        unregisterButton = findViewById(R.id.buttonUnregister);
+
 
         taskTitle.setText(task.getName());
         description.setText(task.getDescription());
