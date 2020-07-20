@@ -17,6 +17,7 @@ public class TaskViewHolder extends RecyclerView.ViewHolder {
     private final TextView date;
     private final TextView priority;
     private final ImageView userProfile;
+    private ImageView duesymbol;
 
     /**
      * Constructor for the TaskViewHolder which assigns the OnItemClickListener and View associated to a task
@@ -32,6 +33,7 @@ public class TaskViewHolder extends RecyclerView.ViewHolder {
         date = itemView.findViewById(R.id.task_date);
         priority = itemView.findViewById(R.id.task_priority);
         userProfile = itemView.findViewById(R.id.task_user_profile);
+        duesymbol = itemView.findViewById(R.id.task_due_symbol);
 
         itemView.setOnClickListener(v -> {
             if (listener != null) {
@@ -82,5 +84,14 @@ public class TaskViewHolder extends RecyclerView.ViewHolder {
             this.userProfile.setImageResource(R.drawable.profile_icon);
         }
     }
+    // set due date symbol
+    public void setDuesymbol(int exclamation) {
+        this.duesymbol.setImageResource(exclamation);
+    }
+    // hide due date symbol
+    public void setHideDuesymbol() {
+        this.duesymbol.setVisibility(View.GONE);
+    }
+
 }
 
