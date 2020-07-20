@@ -43,6 +43,11 @@ public class TaskDetailEspressoTests {
     }
 
     @Test
+    public void checkUnregidter() {
+        onView(withId(R.id.buttonUnregister)).check(matches(isDisplayed()));
+    }
+
+    @Test
     public void checkProperLoad() {
         onView(withId(R.id.taskTitle)).check(matches(withText(task.getName())));
         onView(withId(R.id.taskDescription)).check(matches(withText(task.getDescription())));
