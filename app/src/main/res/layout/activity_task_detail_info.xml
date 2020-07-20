@@ -14,20 +14,13 @@
         android:id="@+id/buttonUnregister"
         android:layout_width="0dp"
         android:layout_height="52dp"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="60dp"
-        android:layout_marginEnd="24dp"
-        android:background="@color/cardview_light_background"
-        android:onClick="onEdit"
         android:text="Unregister"
+        android:onClick="onEdit"
         android:textColor="@android:color/background_dark"
         android:textSize="24sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/buttonComplete"
-        app:layout_constraintTop_toTopOf="@+id/buttonComplete" />
-
-
+        app:layout_constraintTop_toBottomOf="@+id/buttonRegister"
+        app:layout_constraintStart_toStartOf="@id/repeatCondition"
+        app:layout_constraintEnd_toEndOf="@id/taskDescription"/>
 
     <Button
         android:id="@+id/buttonComplete"
@@ -70,7 +63,6 @@
             android:onClick="onEdit"
             android:layout_marginEnd="24dp"/>
 
-
     <TextView
             android:id="@+id/taskDescription"
             android:layout_width="366dp"
@@ -80,7 +72,7 @@
             android:background="#00FFFFFF"
             android:text=" Description"
             android:textColor="#FFFFFF"
-            android:textSize="36sp"
+            android:textSize="24sp"
             android:textStyle="italic"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"

@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.CSCI3130.gardenapp.R;
 import com.CSCI3130.gardenapp.task_view.ActiveTaskListContext;
 import com.CSCI3130.gardenapp.util.DateFormatUtils;
+import com.CSCI3130.gardenapp.util.data.CurrentWeather;
 import com.CSCI3130.gardenapp.util.data.Task;
 import com.CSCI3130.gardenapp.util.data.WeatherCondition;
 
@@ -84,10 +85,14 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskViewHolder> {
              */
 
             long diff_date = TimeUnit.MILLISECONDS.toDays(date) - TimeUnit.MILLISECONDS.toDays(nowdate);
-            if (diff_date == 1) {
-                holder.setDuesymbol(R.drawable.red);
-            } else if (diff_date == 2 || diff_date == 3){
-                holder.setDuesymbol(R.drawable.yellow);
+            if (task.getDateCompleted() == -1) {
+                if (diff_date <= 1) {
+                    holder.setDuesymbol(R.drawable.red);
+                } else if (diff_date == 2 || diff_date == 3) {
+                    holder.setDuesymbol(R.drawable.yellow);
+                } else {
+                    holder.setHideDuesymbol();
+                }
             } else {
                 holder.setHideDuesymbol();
             }
@@ -113,6 +118,11 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskViewHolder> {
                     default:
                         holder.setDate("");
                         break;
+                }
+                if (CurrentWeather.currentWeatherList.contains(trig)){
+                    holder.setDuesymbol(R.drawable.red);
+                } else {
+                    holder.setHideDuesymbol();
                 }
             }
         }

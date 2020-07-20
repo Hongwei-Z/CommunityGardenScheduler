@@ -111,6 +111,7 @@ public class TaskDetailInfo extends AppCompatActivity {
         if (task.getDateCompleted() != -1){
             registerButton.setVisibility(View.GONE);
             completeButton.setVisibility(View.GONE);
+            unregisterButton.setVisibility(View.GONE);
             editButton.setVisibility(View.GONE);
         } else {
             if (!task.getUser().equals("")) {//if task is assigned to a user
@@ -118,6 +119,7 @@ public class TaskDetailInfo extends AppCompatActivity {
             }
             if (!task.getUser().equals(user.getId())) {
                 completeButton.setVisibility(View.GONE);
+                unregisterButton.setVisibility(View.GONE);
             }
             if (!task.getUser().equals(user.getId()) && !task.getUser().equals("")) {//if task is not assigned to current user, and task is not open
                 editButton.setVisibility(View.GONE);
