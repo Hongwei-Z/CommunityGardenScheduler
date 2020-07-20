@@ -21,7 +21,8 @@ public class TaskDetailInfo extends AppCompatActivity {
 
     private Button registerButton,
             completeButton,
-            editButton;
+            editButton,
+            unregisterButton;
     private TextView description;
     private TextView dueDate;
     private TextView taskTitle;
@@ -64,6 +65,7 @@ public class TaskDetailInfo extends AppCompatActivity {
         completeButton = findViewById(R.id.buttonComplete);
         editButton = findViewById(R.id.buttonEdit);
         registerButton = findViewById(R.id.buttonRegister);
+        unregisterButton = findViewById(R.id.buttonUnregister);
 
         taskTitle.setText(task.getName());
         description.setText(task.getDescription());

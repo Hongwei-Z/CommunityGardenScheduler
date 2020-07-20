@@ -10,6 +10,24 @@
         tools:context=".task_view.TaskDetailInfo"
         android:orientation="vertical">
 
+    <Button
+        android:id="@+id/buttonUnregister"
+        android:layout_width="0dp"
+        android:layout_height="52dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="60dp"
+        android:layout_marginEnd="24dp"
+        android:background="@color/cardview_light_background"
+        android:onClick="onEdit"
+        android:text="Unregister"
+        android:textColor="@android:color/background_dark"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/buttonComplete"
+        app:layout_constraintTop_toTopOf="@+id/buttonComplete" />
+
+
 
     <Button
             android:id="@+id/buttonComplete"
