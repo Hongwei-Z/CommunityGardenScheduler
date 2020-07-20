@@ -50,7 +50,7 @@ public class HighlightEspressoTests {
     }
 
     @Test
-    public void testShown_One () throws InterruptedException {
+    public void DueTime_RedAlert1DayLeft () throws InterruptedException {
         long currentDate = System.currentTimeMillis();
         long testDate = currentDate + TimeUnit.DAYS.toMillis(1);
         Task task = TaskGenerator.generateTask(false, testDate);
@@ -62,9 +62,9 @@ public class HighlightEspressoTests {
     }
 
     @Test
-    public void testShown_yellowone () throws InterruptedException {
+    public void DueTime_YellowAlert2DaysLeft () throws InterruptedException {
         long currentDate = System.currentTimeMillis();
-        long testDate = currentDate + TimeUnit.DAYS.toMillis(3);
+        long testDate = currentDate + TimeUnit.DAYS.toMillis(2);
         Task task = TaskGenerator.generateTask(false, testDate);
         testDB.uploadTask(task);
         Thread.sleep(4000);
@@ -74,9 +74,9 @@ public class HighlightEspressoTests {
     }
 
     @Test
-    public void testShown_yellowtwo () throws InterruptedException {
+    public void DueTime_YellowAlert3DaysLeft () throws InterruptedException {
         long currentDate = System.currentTimeMillis();
-        long testDate = currentDate + TimeUnit.DAYS.toMillis(2);
+        long testDate = currentDate + TimeUnit.DAYS.toMillis(3);
         Task task = TaskGenerator.generateTask(false, testDate);
         testDB.uploadTask(task);
         Thread.sleep(4000);
@@ -91,7 +91,7 @@ public class HighlightEspressoTests {
     }
 
     @Test
-    public void testShown_Two (){
+    public void testShownLogRecords_RealDataOne (){
         long currentDate = System.currentTimeMillis();
         Task task = new Task("Test", "Test", 2, "Test", "Location", currentDate, TaskRepeatCondition.REPEAT_NONE);
         testDB.uploadTask(task);
@@ -110,7 +110,7 @@ public class HighlightEspressoTests {
         }
     }
     @Test
-    public void testShown_Three () {
+    public void testShownLogRecords_RealDataTwo () {
         long currentDate = System.currentTimeMillis();
         Task task = new Task("Test", "Test", 3, "Test", "Location", currentDate, TaskRepeatCondition.REPEAT_NONE);
         testDB.uploadTask(task);
