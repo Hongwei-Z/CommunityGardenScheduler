@@ -56,22 +56,9 @@ public class HighlightEspressoTests {
         Task task = TaskGenerator.generateTask(false, testDate);
         testDB.uploadTask(task);
         Thread.sleep(4000);
-        long diff_date = TimeUnit.MILLISECONDS.toDays(testDate - currentDate);
 
         onView(withRecyclerView(R.id.recycleview_tasks).atPositionOnView(0, R.id.task_due_symbol))
                 .check(matches(withDrawable(R.drawable.red)));
-
-
-        if (diff_date == 1) {
-            Log.i("K", "due in one day");
-            System.out.print("due in one day");
-        } else if (diff_date == 2 || diff_date ==3 ){
-            Log.i("K", "due in two/three days");
-            System.out.print("due in two/three days");
-        } else {
-            Log.i("K", "Hide symbol");
-            System.out.print("Hide symbol");
-        }
     }
 
     @Test

@@ -84,9 +84,6 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskViewHolder> {
              */
 
             long diff_date = TimeUnit.MILLISECONDS.toDays(date) - TimeUnit.MILLISECONDS.toDays(nowdate);
-            System.out.println(date);
-            System.out.println(nowdate);
-            System.out.println(diff_date);
             if (diff_date == 1) {
                 holder.setDuesymbol(R.drawable.red);
             } else if (diff_date == 2 || diff_date == 3){
