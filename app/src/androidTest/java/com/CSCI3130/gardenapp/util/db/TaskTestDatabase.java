@@ -47,12 +47,12 @@ public class TaskTestDatabase extends TaskDatabase {
         dbRead.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                Assert.assertEquals(1, dataSnapshot.getChildrenCount());
                 for (DataSnapshot child : dataSnapshot.getChildren()) {
                     Task got = child.getValue(Task.class);
                     Assert.assertEquals("\nExpected: " + task.toString() + "\nGot: " + got.toString(), task, got);
                 }
-                flag[0] = true;
+
+                flag[0] = (dataSnapshot.getChildrenCount() == 1);
             }
 
             @Override
@@ -61,7 +61,7 @@ public class TaskTestDatabase extends TaskDatabase {
             }
         });
         try {
-            Thread.sleep(100);
+            Thread.sleep(1000);
         } catch (InterruptedException e) {
             System.out.println(e.toString());
         }

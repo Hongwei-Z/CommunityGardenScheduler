@@ -89,7 +89,7 @@ public class TaskListEspressoTests {
 
     @Test
     public void recyclerViewItemContainsExpectedText() {
-        Task task = new Task("Test Task", "This is a Test", 2, "Beth", "Location", currentDate, TaskRepeatCondition.REPEAT_NONE);
+        Task task = new Task("Test Task", "This is a Test", 2, "Beth", "44.64541, -63.57661", currentDate, TaskRepeatCondition.REPEAT_NONE);
         testDB.uploadTask(task);
         try {
             Thread.sleep(1000);
@@ -101,7 +101,7 @@ public class TaskListEspressoTests {
             System.out.println(e.toString());
         }
 
-        task = new Task("Test Task 2", "This is a Test", 2, "Beth", "Location", currentDate, TaskRepeatCondition.REPEAT_NONE);
+        task = new Task("Test Task 2", "This is a Test", 2, "Beth", "44.64541, -63.57661", currentDate, TaskRepeatCondition.REPEAT_NONE);
         testDB.uploadTask(task);
         try {
             Thread.sleep(5000);
@@ -114,7 +114,7 @@ public class TaskListEspressoTests {
             onView(withRecyclerView(R.id.recycleview_tasks).atPosition(1))
                     .check(matches(hasDescendant(withText("Due: " + DateFormatUtils.getDateFormatted(currentDate)))));
             onView(withRecyclerView(R.id.recycleview_tasks).atPosition(1)).perform(click());
-            intended(allOf(hasComponent(hasShortClassName(".task_view.TaskDetailInfo")), hasExtra(activity.getString(R.string.task_extra), task)));
+            intended(allOf(hasComponent(hasShortClassName(".task_actions.TaskDetailInfo")), hasExtra(activity.getString(R.string.task_extra), task)));
             Espresso.pressBack();
         } catch (InterruptedException e) {
             System.out.println(e.toString());
@@ -135,9 +135,9 @@ public class TaskListEspressoTests {
         CurrentWeather.currentWeatherList = new ArrayList<>();
         CurrentWeather.currentWeatherList.add(WeatherCondition.DRY);
 
-        Task task = new Task("Test Task", "This is a Test", 2, "Beth", "Location", currentDate, TaskRepeatCondition.REPEAT_NONE);
-        Task task2 = new Task("Test Task 2", "This is a Test", 2, "Beth", "Location", currentDate, TaskRepeatCondition.REPEAT_NONE);
-        Task taskDry = new Task("Water plants now", "It is dry outside", 5, "Arjav", "Location", WeatherCondition.DRY, currentDate, TaskRepeatCondition.REPEAT_NONE);
+        Task task = new Task("Test Task", "This is a Test", 2, "Beth", "44.64541, -63.57661", currentDate, TaskRepeatCondition.REPEAT_NONE);
+        Task task2 = new Task("Test Task 2", "This is a Test", 2, "Beth", "44.64541, -63.57661", currentDate, TaskRepeatCondition.REPEAT_NONE);
+        Task taskDry = new Task("Water plants now", "It is dry outside", 5, "Arjav", "44.64541, -63.57661", WeatherCondition.DRY, currentDate, TaskRepeatCondition.REPEAT_NONE);
 
         testDB.uploadTask(task);
         testDB.uploadTask(task2);
@@ -170,9 +170,9 @@ public class TaskListEspressoTests {
         CurrentWeather.currentWeatherList = new ArrayList<WeatherCondition>();
         CurrentWeather.currentWeatherList.add(WeatherCondition.RAIN);
 
-        Task task = new Task("Test Task", "This is a Test", 2, "Beth", "Location", currentDate, TaskRepeatCondition.REPEAT_NONE);
-        Task task2 = new Task("Test Task 2", "This is a Test", 2, "Beth", "Location", currentDate, TaskRepeatCondition.REPEAT_NONE);
-        Task taskDry = new Task("Water plants now", "It is dry outside", 5, "Arjav", "Location", WeatherCondition.DRY, currentDate, TaskRepeatCondition.REPEAT_NONE);
+        Task task = new Task("Test Task", "This is a Test", 2, "Beth", "44.64541, -63.57661", currentDate, TaskRepeatCondition.REPEAT_NONE);
+        Task task2 = new Task("Test Task 2", "This is a Test", 2, "Beth", "44.64541, -63.57661", currentDate, TaskRepeatCondition.REPEAT_NONE);
+        Task taskDry = new Task("Water plants now", "It is dry outside", 5, "Arjav", "44.64541, -63.57661", WeatherCondition.DRY, currentDate, TaskRepeatCondition.REPEAT_NONE);
 
         testDB.uploadTask(task);
         testDB.uploadTask(task2);
@@ -204,7 +204,7 @@ public class TaskListEspressoTests {
     public void scrollToItemBelowFold() {
         for (int i = 1; i <= 20; i++) {
             String taskName = "Task " + i;
-            Task task = new Task(taskName, "This is a Test", 2, "Beth", "Location", currentDate, TaskRepeatCondition.REPEAT_NONE);
+            Task task = new Task(taskName, "This is a Test", 2, "Beth", "44.64541, -63.57661", currentDate, TaskRepeatCondition.REPEAT_NONE);
             testDB.uploadTask(task);
         }
         try {
@@ -214,7 +214,7 @@ public class TaskListEspressoTests {
             onView(withRecyclerView(R.id.recycleview_tasks).atPosition(19))
                     .check(matches(hasDescendant(withText("Task 20"))));
             onView(withRecyclerView(R.id.recycleview_tasks).atPosition(19)).perform(click());
-            intended(hasComponent(hasShortClassName(".task_view.TaskDetailInfo")));
+            intended(hasComponent(hasShortClassName(".task_actions.TaskDetailInfo")));
         } catch (InterruptedException e) {
             System.out.println(e.toString());
         }
@@ -223,7 +223,7 @@ public class TaskListEspressoTests {
     @Test
     public void testAddTaskButton() {
         onView(withId(R.id.add_task_button)).perform(click());
-        intended(hasComponent(hasShortClassName(".create_task.CreateTaskActivity")));
+        intended(hasComponent(hasShortClassName(".task_actions.CreateTaskActivity")));
     }
 }
 
