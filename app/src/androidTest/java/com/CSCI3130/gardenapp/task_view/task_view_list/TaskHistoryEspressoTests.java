@@ -58,8 +58,8 @@ public class TaskHistoryEspressoTests {
 
     @Test
     public void taskHistoryContainsExpectedTasks() {
-        Task task = new Task("Task1", "This is a Test", 2, "", "Location", System.currentTimeMillis(), TaskRepeatCondition.REPEAT_NONE);
-        Task task2 = new Task("Task2", "This is a Test", 2, "", "Location", System.currentTimeMillis(), TaskRepeatCondition.REPEAT_NONE);
+        Task task = new Task("Task1", "This is a Test", 2, "", "44.64541, -63.57661", System.currentTimeMillis(), TaskRepeatCondition.REPEAT_NONE);
+        Task task2 = new Task("Task2", "This is a Test", 2, "", "44.64541, -63.57661", System.currentTimeMillis(), TaskRepeatCondition.REPEAT_NONE);
         long timePast = System.currentTimeMillis() - 1000;
         long timeFurtherPast = System.currentTimeMillis() - 100000;
         long timeFuture = System.currentTimeMillis() + 100000;
@@ -93,7 +93,7 @@ public class TaskHistoryEspressoTests {
 
     @Test
     public void incompleteTasksNotShownInHistory() {
-        Task task = new Task("Task1", "This is a Test", 2, "", "Location", System.currentTimeMillis(), TaskRepeatCondition.REPEAT_NONE);
+        Task task = new Task("Task1", "This is a Test", 2, "", "44.64541, -63.57661", System.currentTimeMillis(), TaskRepeatCondition.REPEAT_NONE);
         testDB.uploadTask(task);
         try {
             Thread.sleep(1000);
