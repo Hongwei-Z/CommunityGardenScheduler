@@ -47,7 +47,6 @@ public class TaskTestDatabase extends TaskDatabase {
         dbRead.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                //Assert.assertEquals(1, dataSnapshot.getChildrenCount());
                 for (DataSnapshot child : dataSnapshot.getChildren()) {
                     Task got = child.getValue(Task.class);
                     Assert.assertEquals("\nExpected: " + task.toString() + "\nGot: " + got.toString(), task, got);
