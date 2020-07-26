@@ -93,8 +93,6 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskViewHolder> {
                 } else {
                     holder.setHideDuesymbol();
                 }
-            } else {
-                holder.setHideDuesymbol();
             }
         } else {
             if (task.getWeatherTrigger() != null) {
@@ -122,12 +120,14 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskViewHolder> {
                 if (CurrentWeather.currentWeatherList.contains(trig)){
                     holder.setDuesymbol(R.drawable.red);
                 } else {
-                    holder.setHideDuesymbol();
+                    holder.setDuesymbol(R.drawable.inactive);
                 }
             }
         }
 
-
+        if (task.getDateCompleted() != -1) {
+            holder.setDuesymbol(R.drawable.completed);
+        }
         holder.setPriority(task.getPriority());
         holder.setUser(task.getUser());
     }

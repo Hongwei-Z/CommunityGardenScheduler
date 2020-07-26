@@ -2,7 +2,6 @@ package com.CSCI3130.gardenapp.task_view.task_view_list;
 
 import android.content.Intent;
 import android.util.Log;
-import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.CSCI3130.gardenapp.util.data.CurrentWeather;
 import com.CSCI3130.gardenapp.util.data.TaskGenerator;
@@ -128,7 +127,7 @@ public class HighlightEspressoTests {
         onView(withRecyclerView(R.id.recycleview_tasks).atPositionOnView(0, R.id.task_due_symbol))
                 .check(matches(withDrawable(R.drawable.completed)));
         onView(withRecyclerView(R.id.recycleview_tasks).atPositionOnView(1, R.id.task_due_symbol))
-                .check(matches(withDrawable(not(R.drawable.completed))));
+                .check(matches(withDrawable(R.drawable.red)));
     }
 
     @Test
