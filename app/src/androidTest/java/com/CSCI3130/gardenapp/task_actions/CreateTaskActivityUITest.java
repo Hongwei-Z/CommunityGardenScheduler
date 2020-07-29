@@ -57,12 +57,9 @@ public class CreateTaskActivityUITest {
         activity.db = testDB;
         FusedLocationProviderClient fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(activity);
         com.google.android.gms.tasks.Task<Location> task = fusedLocationProviderClient.getLastLocation();
-        task.addOnSuccessListener(new OnSuccessListener<Location>() {
-            @Override
-            public void onSuccess(Location location) {
-                if (location != null) {
-                    selectedLocation = new LatLng(location.getLatitude(), location.getLongitude());
-                }
+        task.addOnSuccessListener(location -> {
+            if (location != null) {
+                selectedLocation = new LatLng(location.getLatitude(), location.getLongitude());
             }
         });
     }
@@ -86,6 +83,7 @@ public class CreateTaskActivityUITest {
         onView(withId(R.id.editDescription)).perform(typeText(task.getDescription()), closeSoftKeyboard());
         clickCorrectPriority(task.getPriority());
         task.setLocation(String.format("%.5f", selectedLocation.latitude) + ", " + String.format("%.5f", selectedLocation.longitude));
+        Thread.sleep(2000);
         onView(withId(R.id.buttonConfirmAdd)).perform(click());
         onView(withId(com.google.android.material.R.id.snackbar_text)).check(matches(withText("Success!")));
         testDB.checkForTask(task);
@@ -195,7 +193,7 @@ public class CreateTaskActivityUITest {
         //check map is displayed
         onView(withId(R.id.map)).check(matches(isDisplayed()));
         onView(withId(R.id.mapLayout)).check(matches(isDisplayed()));
-        assertEquals(selectedLocation, MapFragment.selectedLocation);
+        assertEquals(selectedLocation, activity.mapFragment.getSelectedLocation());
         Thread.sleep(3000);
 
         // drag map to new location and click to add new marker
@@ -203,6 +201,6 @@ public class CreateTaskActivityUITest {
         UiObject map = device.findObject(new UiSelector().descriptionContains("Google Map"));
         map.dragTo(100, 100,  40);
         map.click();
-        assertNotEquals(selectedLocation, MapFragment.selectedLocation);
+        assertNotEquals(selectedLocation, activity.mapFragment.getSelectedLocation());
     }
 }

@@ -113,7 +113,7 @@ public class EditTaskActivityUITest {
         onView(withId(R.id.textTitle)).check(matches(withText(R.string.textEditTitle)));
         onView(withId(R.id.editTitle)).check(matches(withText(testTask.getName())));
         onView(withId(R.id.editDescription)).check(matches(withText(testTask.getDescription())));
-        String location = String.format("%.5f", MapFragment.selectedLocation.latitude) + ", " + String.format("%.5f", MapFragment.selectedLocation.longitude);
+        String location = String.format("%.5f", activity.mapFragment.getSelectedLocation().latitude) + ", " + String.format("%.5f", activity.mapFragment.getSelectedLocation().longitude);
         assertEquals(testTask.getLocation(), location);
         UiDevice device = UiDevice.getInstance(getInstrumentation());
         UiObject marker = device.findObject(new UiSelector().descriptionContains("Location " + testTask.getLocation()));

@@ -32,10 +32,14 @@ import com.google.android.gms.tasks.Task;
  */
 public class MapFragment extends Fragment implements OnMapReadyCallback {
     Location currentLocation;
-    public static LatLng selectedLocation = new LatLng(44.64541, -63.57661); //default to Halifax
+    private LatLng selectedLocation = new LatLng(44.64541, -63.57661); //default to Halifax
     FusedLocationProviderClient fusedLocationProviderClient;
     private static final int REQUEST_CODE = 101;
     private String pageType;
+
+    public LatLng getSelectedLocation() {
+        return selectedLocation;
+    }
 
     /**
      * Constuct the View and attempt to fetch the users current location
@@ -127,12 +131,9 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
 
         if (!pageType.equals("details")) {
             // add new marker on click
-            googleMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
-                @Override
-                public void onMapClick(LatLng latLng) {
-                    selectedLocation = latLng;
-                    addMapMarker(googleMap);
-                }
+            googleMap.setOnMapClickListener(latLng -> {
+                selectedLocation = latLng;
+                addMapMarker(googleMap);
             });
         }
     }

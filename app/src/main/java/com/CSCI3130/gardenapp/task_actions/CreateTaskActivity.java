@@ -255,7 +255,7 @@ public class CreateTaskActivity extends AppCompatActivity {
         EditText editDescription = findViewById(R.id.editDescription);
         String title = editTitle.getText().toString();
         String description = editDescription.getText().toString();
-        LatLng selectedLocation = MapFragment.selectedLocation;
+        LatLng selectedLocation = mapFragment.getSelectedLocation();
         String lat = String.format("%.5f", selectedLocation.latitude);
         String lng = String.format("%.5f", selectedLocation.longitude);
         String location = (lat + ", " + lng);
