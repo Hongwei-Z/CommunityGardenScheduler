@@ -35,6 +35,7 @@ public class TaskDetailInfo extends AppCompatActivity {
     private TextView priorityColor;
     private TextView location;
     private TaskDatabase db;
+    MapFragment mapFragment;
 
     private Task task;
     private User user;
@@ -70,7 +71,7 @@ public class TaskDetailInfo extends AppCompatActivity {
         // add map fragment to the page
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        MapFragment mapFragment = new MapFragment();
+        mapFragment = new MapFragment();
         Bundle bundle = new Bundle();
         bundle.putString("pageType", "details");
         bundle.putString("selectedLocation", task.getLocation());

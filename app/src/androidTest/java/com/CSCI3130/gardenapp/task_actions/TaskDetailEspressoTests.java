@@ -34,6 +34,7 @@ public class TaskDetailEspressoTests {
     @Rule
     public IntentsTestRule<TaskDetailInfo> rule = new IntentsTestRule<>(TaskDetailInfo.class, false, false);
     Task task;
+    TaskDetailInfo taskDetailInfo;
 
     @Before
     public void before() {
@@ -42,6 +43,7 @@ public class TaskDetailEspressoTests {
         Intent i = new Intent(targetContext, TaskDetailInfo.class);
         i.putExtra(targetContext.getString(R.string.task_extra), task);
         rule.launchActivity(i);
+        taskDetailInfo = rule.getActivity();
     }
 
 
@@ -57,10 +59,10 @@ public class TaskDetailEspressoTests {
     }
 
     @Test
-    public void checkProperLoad() throws UiObjectNotFoundException, InterruptedException {
+    public void checkProperLoad() throws UiObjectNotFoundException {
         onView(withId(R.id.taskTitle)).check(matches(withText(task.getName())));
         onView(withId(R.id.taskDescription)).check(matches(withText(task.getDescription())));
-        String location = String.format("%.5f", MapFragment.selectedLocation.latitude) + ", " + String.format("%.5f", MapFragment.selectedLocation.longitude);
+        String location = String.format("%.5f", taskDetailInfo.mapFragment.getSelectedLocation().latitude) + ", " + String.format("%.5f", taskDetailInfo.mapFragment.getSelectedLocation().longitude);
         assertEquals(task.getLocation(), location);
         UiDevice device = UiDevice.getInstance(getInstrumentation());
         UiObject marker = device.findObject(new UiSelector().descriptionContains("Location " + task.getLocation()));
